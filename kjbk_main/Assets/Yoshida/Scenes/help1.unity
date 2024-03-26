@@ -6967,7 +6967,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NPC: {fileID: 940183350}
-  NPCscript: {fileID: 940183358}
+  Rescue_NPC: {fileID: 940183358}
+  Radio_Text: {fileID: 0}
 --- !u!135 &1716813274
 SphereCollider:
   m_ObjectHideFlags: 0
