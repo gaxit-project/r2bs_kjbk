@@ -6,20 +6,20 @@ public class Talk_Icon : MonoBehaviour
 {
     [SerializeField] GameObject PlayerIcon;
     [SerializeField] GameObject NPCIcon;
-    public Rescue_NPC NPCscript;
+    public Rescue_NPC Rescue_NPC;
 
     private bool Lock = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (NPCscript.IsItActiveIcon() && !IsItLock())
+        if (Rescue_NPC.IsItActiveIcon() && !IsItLock())
         {
             SetLock(true);
             ActivePlayerIcon();
@@ -43,7 +43,7 @@ public class Talk_Icon : MonoBehaviour
     private void FinishTalk()
     {
         NPCIcon.SetActive(false);
-        NPCscript.SetActiveIcon(false);
+        Rescue_NPC.SetActiveIcon(false);
     }
 
 

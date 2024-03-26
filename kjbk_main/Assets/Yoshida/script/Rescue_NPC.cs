@@ -112,7 +112,8 @@ public class Rescue_NPC : MonoBehaviour
 
     IEnumerator TransParent()
     {
-        for(int i = 0; i < 51; i++) {
+        for (int i = 0; i < 51; i++)
+        {
             mesh.material.color = mesh.material.color - new Color32(0, 0, 0, 5);
             yield return new WaitForSeconds(0.07f);
         }

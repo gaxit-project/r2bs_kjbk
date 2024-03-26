@@ -14,13 +14,13 @@ public class NPC_AI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(entract == false && Severe == false)
+        if (entract == false && Severe == false)
         {
             transform.position = new Vector3(Mathf.Sin(Time.time) * MoveSpeed + 10, 0, 60);
         }
@@ -33,7 +33,7 @@ public class NPC_AI : MonoBehaviour
 
     void OnCollisionStay(UnityEngine.Collision collision)
     {
-        
+
 
         if (collision.gameObject.name == "RescuePoint")
         {
