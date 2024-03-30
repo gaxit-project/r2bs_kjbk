@@ -4,10 +4,11 @@ using UnityEngine.UI;
 
 public class CollapseGauge2 : MonoBehaviour
 {
-    float CountTime = 0;     //時間計測
-    float Collapse = 81;     //倒壊ゲージ
-    float Span = 1;          //Span秒に一回倒壊ゲージを1%減らす
-    public Radio Demoscript; //Radio.csから関数もって来るやつ
+    float CountTime = 0;            //時間計測
+    float Collapse = 81;            //倒壊ゲージ
+    float Span = 1;                 //Span秒に一回倒壊ゲージを1%減らす
+    public Radio Demoscript;        //Radio.csから関数もって来るやつ
+    public CollapseDesign2 Design;  //CollapseDesign2.csから関数もって来るやつ
 
     // Use this for initialization
     void Start()
@@ -25,31 +26,36 @@ public class CollapseGauge2 : MonoBehaviour
             Collapse--;                //倒壊ゲージ-1%
             CountTime = 0;             //秒数カウントリセット
 
-            ////////////////////////////////////////////////////
-            //倒壊ゲージの無線通知
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            //倒壊ゲージの無線通知＋倒壊ゲージのデザイン表示
             if (Collapse == 80)
             {
                 Demoscript.EightGauge();
+                Design.EightHouse();
             }
 
             else if (Collapse == 60)
             {
                 Demoscript.SixGauge();
+                Design.SixHouse();
             }
 
             else if (Collapse == 40)
             {
                 Demoscript.FourGauge();
+                Design.FourHouse();
             }
 
             else if (Collapse == 20)
             {
                 Demoscript.TwoGauge();
+                Design.TwoHouse();
             }
 
             else if (Collapse == 10)
             {
                 Demoscript.OneGauge();
+                Design.OneHouse();
             }
         }
 
