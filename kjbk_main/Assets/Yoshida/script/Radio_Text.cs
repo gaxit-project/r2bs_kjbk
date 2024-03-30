@@ -13,13 +13,13 @@ public class Radio_Text : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(IsItActiveText())
+        if (IsItActiveText())
         {
             Invoke("ActiveRadio", 10f);
             Invoke("StopRadio", 13f);

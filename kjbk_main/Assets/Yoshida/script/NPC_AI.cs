@@ -8,7 +8,7 @@ using UnityEngine.AI;
 public class NPC_AI : MonoBehaviour
 {
     [SerializeField] public bool Severe = false;
-    [SerializeField] bool entract = false;
+    [SerializeField] bool interact = false;
     private float MoveSpeed = 10.0f;
 
     // Start is called before the first frame update
@@ -20,7 +20,7 @@ public class NPC_AI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (entract == false && Severe == false)
+        if (interact == false && Severe == false)
         {
             transform.position = new Vector3(Mathf.Sin(Time.time) * MoveSpeed + 10, 0, 60);
         }
@@ -28,7 +28,7 @@ public class NPC_AI : MonoBehaviour
 
     public void MoveNPC()
     {
-        entract = true;
+        interact = true;
     }
 
     void OnCollisionStay(UnityEngine.Collision collision)
@@ -37,7 +37,7 @@ public class NPC_AI : MonoBehaviour
 
         if (collision.gameObject.name == "RescuePoint")
         {
-            entract = false;
+            interact = false;
         }
     }
 }

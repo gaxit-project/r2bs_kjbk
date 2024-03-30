@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.Security;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -16,15 +17,21 @@ public class Rescue_NPC : MonoBehaviour
     public GameObject Player;   //PlayerのGameObject
     public GameObject Zone;   //救出判定のGameObject
     [SerializeField] TextMeshPro TMP;   //NPCに近づいたときに表示されるtextMesh
+    [SerializeField] public Player_Script Player_Script;   //Player操作スクリプト
     [SerializeField] public NPC_AI NPC_AI;   //NPCのAIスクリプト
+    [SerializeField] public Radio_Text Radio_Text;   //無線制御
 
     MeshRenderer mesh;   //MeshRendere
 
     bool Follow = false;   //NPCの追従 true = 追従 : false = 待機
     bool InGoal = false;   //救出地点に接触 true =　接触 : false = 非接触
+    bool InZone = false;   //救出範囲に接触 true = 接触 : false = 非接触
     bool NPCrun = false;   //NPCの自動操作 true = 自動操作 : false = NPC_AIによる操作
     bool Rescued = false;   //キーボードを一回だけ入力するためのフラグ
-    bool ActiveIcon = false;
+    bool ActiveIcon = false;   //会話アイコンの制御
+    bool FirstContact = false;   //会話回数の判定
+    bool SecondContact = false;   //会話回数の判定
+    bool Lock = false;   //Playerの動きの固定
 
     // Start is called before the first frame update
     void Start()
@@ -37,23 +44,66 @@ public class Rescue_NPC : MonoBehaviour
     {
         Transform target = Player.transform;   //PlayerのTransform
         Vector3 TargetPosition = target.position;
-
-        if (Severe)   //重傷者
+        if (IsItInZone())
         {
-            if (IsItFollow())   //追従時
+            if (Input.GetKeyDown(KeyCode.E) && Severe == true && !IsItInGoal())   //重傷者に近づいたとき
+            {
+                if (!IsItFollow())   //非追従時
+                {
+                    StopNPC();
+                    SetFollow(true);
+                }
+                else   //追従時
+                {
+                    SetFollow(false);
+                    PutVectorNPC(TargetPosition.x, TargetPosition.y, TargetPosition.z);
+                }
+            }
+            if (Input.GetKeyDown(KeyCode.E) && Severe == false)   //軽症者に近づいたとき
+            {
+                if (!IsItFirstContact())
+                {
+                    Debug.Log(SecondContact);
+                    SetFirstContact(true);
+                    SetActiveIcon(true);
+                    StopNPC();
+                    SetNPCrun(true);   //NPCを救出地点まで誘導する
+                    WaitChange(3.5f);
+                    Radio_Text.SetActiveText(true);
+                }
+                else if (IsItFirstContact())
+                {
+                    SetSecondContact(true);
+                    Debug.Log("Second");
+                    StopNPC();
+                    SetNPCrun(true);   //NPCを救出地点まで誘導する
+                    WaitChange(3.5f);
+                    Radio_Text.SetActiveText(true);
+                }
+            }
+
+            if (Severe == false)   //Playerの操作の固定
+            {
+                if (IsItLock())
+                {
+                    Player_Script.PlayerStop();
+                }
+                else if (!IsItLock())
+                {
+                    Player_Script.PlayerMove();
+                }
+            }
+
+            if (IsItFollow() && !IsItInGoal())   //追従時
             {
                 FollowVectorNPC(TargetPosition.x, TargetPosition.y + NpcUp, TargetPosition.z);   //NPCを運搬する時のVector
-                SetText("[R]Put");
-                if (Input.GetKey(KeyCode.R))   //ボタン(E)を押された時の処理
-                {
-                    PutVectorNPC(TargetPosition.x, TargetPosition.y, TargetPosition.z);
-                    SetFollow(false);
-                }
+                SetText("[E]Put");
             }
 
             if (IsItInGoal() && !IsItRescued() && Severe == true)   //救出地点に接触かつ未救出かつ重傷者
             {
                 SetText("");
+                SetFollow(false);
                 RescuedVectorNPC(TargetPosition.x, TargetPosition.y, TargetPosition.z);   //NPCを救出したときのVector
                 SetRescued(true);
                 CountDestroy();   //一定時間後にオブジェクト削除
@@ -89,7 +139,7 @@ public class Rescue_NPC : MonoBehaviour
         transform.position = new Vector3(x, y, z);
     }
 
-    public void StopMoveNPC()   //NPC_AIの停止
+    public void StopNPC()   //NPC_AIの停止
     {
         NPC_AI.MoveNPC();
         SetText("");
@@ -141,6 +191,22 @@ public class Rescue_NPC : MonoBehaviour
     {
         return ActiveIcon;
     }
+    public bool IsItInZone()
+    {
+        return InZone;
+    }
+    public bool IsItFirstContact()
+    {
+        return FirstContact;
+    }
+    public bool IsItSecondContact()
+    {
+        return SecondContact;
+    }
+    public bool IsItLock()
+    {
+        return Lock;
+    }
 
     //boolSet
     public void SetFollow(bool b)
@@ -162,5 +228,21 @@ public class Rescue_NPC : MonoBehaviour
     public void SetActiveIcon(bool b)
     {
         ActiveIcon = b;
+    }
+    public void SetInZone(bool b)
+    {
+        InZone = b;
+    }
+    public void SetFirstContact(bool b)
+    {
+        FirstContact = b;
+    }
+    public void SetSecondContact(bool b)
+    {
+        SecondContact = b;
+    }
+    public void SetLock(bool b)
+    {
+        Lock = b;
     }
 }

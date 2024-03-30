@@ -8,8 +8,6 @@ public class Talk_Icon : MonoBehaviour
     [SerializeField] GameObject NPCIcon;
     public Rescue_NPC Rescue_NPC;
 
-    private bool Lock = false;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -19,40 +17,45 @@ public class Talk_Icon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Rescue_NPC.IsItActiveIcon() && !IsItLock())
+        if (Rescue_NPC.IsItActiveIcon() && !Rescue_NPC.IsItLock())
         {
-            SetLock(true);
+            Rescue_NPC.SetLock(true);
             ActivePlayerIcon();
             Invoke("ActiveNPCIcon", 1f);
+            Invoke("FinishTalk", 2f);
         }
+        if (Rescue_NPC.IsItActiveIcon() && Rescue_NPC.IsItSecondContact())
+        {
+            FinishTalk();
+            Rescue_NPC.SetActiveIcon(false);
+            PlayerIcon.SetActive(false);
+            NPCIcon.SetActive(false);
+        }
+
+
     }
 
     private void ActivePlayerIcon()
     {
-        PlayerIcon.SetActive(true);
+        if (!Rescue_NPC.IsItSecondContact())
+        {
+            PlayerIcon.SetActive(true);
+        }
     }
 
     private void ActiveNPCIcon()
     {
-        PlayerIcon.SetActive(false);
-        NPCIcon.SetActive(true);
-
-        Invoke("FinishTalk", 1f);
+        if (!Rescue_NPC.IsItSecondContact())
+        {
+            PlayerIcon.SetActive(false);
+            NPCIcon.SetActive(true);
+        }
     }
 
     private void FinishTalk()
     {
         NPCIcon.SetActive(false);
         Rescue_NPC.SetActiveIcon(false);
-    }
-
-
-    private bool IsItLock()
-    {
-        return Lock;
-    }
-    private void SetLock(bool b)
-    {
-        Lock = b;
+        Rescue_NPC.SetLock(false);
     }
 }
