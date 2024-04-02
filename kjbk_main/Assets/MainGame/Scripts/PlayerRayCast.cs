@@ -23,7 +23,7 @@ public class PlayerRayCast : MonoBehaviour
 
     void Start ()
     {
-        Hosu = this.transform.FindChild("Hosu").gameObject;
+        Hosu = this.transform.Find("Hosu").gameObject;
         if(HosuStatus == false)
         {
             Hosu.SetActive(HosuStatus);

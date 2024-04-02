@@ -16,6 +16,7 @@ public class Inferno : MonoBehaviour
 
     //消火時間
     public float time = 0.0f;
+    public float span = 3.0f;
 
     void Start()
     {
