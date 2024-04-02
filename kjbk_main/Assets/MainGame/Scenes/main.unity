@@ -6988,7 +6988,7 @@ Rigidbody:
   m_GameObject: {fileID: 937850956}
   serializedVersion: 4
   m_Mass: 1
-  m_Drag: 0
+  m_Drag: 1
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -7040,8 +7040,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 1014560204}
   subCamera: {fileID: 856475135}
-  Speed: 10
-  RunSpeed: 20
+  Speed: 30
+  RunSpeed: 50
 --- !u!1 &985430012
 GameObject:
   m_ObjectHideFlags: 0
@@ -14374,6 +14374,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: e98ee50ac964d9f47aff4245e5436bbc, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e98ee50ac964d9f47aff4245e5436bbc, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -14611,6 +14615,7 @@ MonoBehaviour:
   ParticleBlazeR: {fileID: 0}
   ParticleBlazeY: {fileID: 0}
   time: 0
+  span: 3
 --- !u!1 &1800962861
 GameObject:
   m_ObjectHideFlags: 0
