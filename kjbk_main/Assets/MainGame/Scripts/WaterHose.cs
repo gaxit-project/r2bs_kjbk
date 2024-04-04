@@ -6,9 +6,16 @@ public class WaterHose : MonoBehaviour
 {
     public GameObject Child; //水のパーティクルを格納
     
-    bool WaterStatus = false; //放水状態
+    public static bool WaterStatus = false; //放水状態
     bool Hold = false; //長押し判定
 
+    private void OnEnable()
+    {
+        Debug.Log("aaaa");
+        WaterStatus = false;
+        Hold = false;
+        WaterCannon(WaterStatus);
+    }
     void Start(){
         Child = gameObject.transform.GetChild(0).gameObject;
     }
@@ -42,7 +49,11 @@ public class WaterHose : MonoBehaviour
         {
             WaterStatus = false;
         }
+        WaterCannon(WaterStatus);
 
+    }
+    void WaterCannon(bool WaterStatus)
+    {
         if (WaterStatus == true)
         {
             Child.SetActive(true);

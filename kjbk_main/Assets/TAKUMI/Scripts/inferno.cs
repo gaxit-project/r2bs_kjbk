@@ -1,17 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
+using static UnityEngine.ParticleSystem;
 
 public class inferno : MonoBehaviour
 {
-    //public GameObject BlazeR;//赤色の火のパーティクルを格納
-    //public GameObject BlazeY;//黄色の火のパーティクルを格納
+    GameObject BlazeR;//赤色の火のパーティクルを格納
+    GameObject BlazeY;//黄色の火のパーティクルを格納
 
-    public ParticleSystem ParticleBlazeR;//赤色の火のパーティクルシステムを格納
-    public ParticleSystem ParticleBlazeY;//黄色の火のパーティクルシステムを格納
+    ParticleSystem ParticleBlazeR;//赤色の火のパーティクルシステムを格納
+    ParticleSystem ParticleBlazeY;//黄色の火のパーティクルシステムを格納
 
-    float BlazeRMAX = 4.0f;
-    float BlazeYMAX = 2.0f;
+    ParticleSystem.EmissionModule BR; //赤色の火のEmissionModule格納
+    ParticleSystem.EmissionModule BY; //黄色の火のEmissionModule格納
+
+    ParticleSystem.MinMaxCurve BR_MinMaxCurve;
+    ParticleSystem.MinMaxCurve BY_MinMaxCurve;
 
     float BlazeRDown = 4.0f;
     float BlazeYDown = 2.0f;
@@ -19,14 +24,9 @@ public class inferno : MonoBehaviour
     float BlazeRUp = 4.0f;
     float BlazeYUp = 2.0f;
 
-    ParticleSystem.MainModule BR;
-    ParticleSystem.MainModule BY;
 
-    public bool FireStatus = false;
-
-
-    //消火時間
-    public float time = 2.0f;
+    public bool FireStatus = false; // 延焼ならfalse
+    public bool P_O_Fire = false; //消化中判定
 
     void Start()
     {
@@ -36,44 +36,62 @@ public class inferno : MonoBehaviour
         ParticleBlazeR = BlazeR.GetComponent<ParticleSystem>();
         ParticleBlazeY = BlazeY.GetComponent<ParticleSystem>();
 
-        BR = ParticleBlazeR.main;
-        BY = ParticleBlazeY.main;
+        BR = ParticleBlazeR.emission;
+        BY = ParticleBlazeY.emission;
 
-        BR.startLifetime = BlazeRMAX;
-        BY.startLifetime = BlazeYMAX;
+        BR.rateOverTime = 0;
+        BY.rateOverTime = 0;
+        BR_MinMaxCurve = BR.rateOverTime;
+        BY_MinMaxCurve = BY.rateOverTime;
 
-
-        /*if (FireStatus)
+        if (FireStatus)
         {
-            BR.startLifetime = BlazeRMAX;
-            BY.startLifetime = BlazeYMAX;
+            BR.rateOverTime = 100;
+            BY.rateOverTime = 100;
+            BR_MinMaxCurve = BR.rateOverTime;
+            BY_MinMaxCurve = BY.rateOverTime;
         }
-        else
-        {
-            BR.startLifetime = 0.0f;
-            BY.startLifetime = 0.0f;
-        }*/
     }
 
     void Update()
     {
-        /*if (!FireStatus)
+        if (!FireStatus && BR_MinMaxCurve.constant <= 100f && BY_MinMaxCurve.constant <= 100f && !P_O_Fire)
         {
-            BlazeRUp += Time.deltaTime / 10f;
-            BlazeYUp += Time.deltaTime / 10f;
-            BR.startLifetime = BlazeRUp;
-            BY.startLifetime = BlazeYUp;
-        }*/
+            BR_MinMaxCurve.constant += BlazeRUp * Time.deltaTime;
+            BY_MinMaxCurve.constant += BlazeYUp * Time.deltaTime;
+            BR.rateOverTime = BR_MinMaxCurve;
+            BY.rateOverTime = BY_MinMaxCurve;
+        }
     }
 
-    public void OnParticleCollision()
+    public void OnParticleCollision(UnityEngine.GameObject other)
     {
+        //infernoScriptが入る変数
+        inferno script = this.GetComponent<inferno>();
+        //当たっている火の子オブジェクトの取得
+        GameObject BlazeR1 = this.transform.GetChild(0).gameObject;
+        GameObject BlazeY1 = this.transform.GetChild(1).gameObject;
+
+        //赤色の火のパーティクルシステムを格納
+        ParticleSystem ParticleBlazeR1 = BlazeR1.GetComponent<ParticleSystem>();
+        //黄色の火のパーティクルシステムを格納
+        ParticleSystem ParticleBlazeY1 = BlazeY1.GetComponent<ParticleSystem>();
+
+        //赤色の火のEmissionModule格納
+        ParticleSystem.EmissionModule BR1 = ParticleBlazeR1.emission;
+        //黄色の火のEmissionModule格納
+        ParticleSystem.EmissionModule BY1 = ParticleBlazeY1.emission;
+
+        ParticleSystem.MinMaxCurve BR1_MinMaxCurve = BR1.rateOverTime;
+        ParticleSystem.MinMaxCurve BY1_MinMaxCurve = BY1.rateOverTime;
+
         Debug.Log("消化中");
-        BlazeRDown -= Time.deltaTime * time * BlazeRMAX;
-        BlazeYDown -= Time.deltaTime * time * BlazeYMAX;
-        BR.startLifetime = BlazeRDown;
-        BY.startLifetime = BlazeYDown;
-        if(BlazeRDown <= 0f &&  BlazeYDown <= 0f)
+        script.P_O_Fire = true;
+        BR1_MinMaxCurve.constant -= BlazeRDown * Time.deltaTime * 100;
+        BY1_MinMaxCurve.constant -= BlazeYDown * Time.deltaTime * 100;
+        BR1.rateOverTime = BR1_MinMaxCurve;
+        BY1.rateOverTime = BY1_MinMaxCurve;
+        if (BR1_MinMaxCurve.constant <= 0f &&  BY1_MinMaxCurve.constant <= 0f)
         {
             Destroy(this);
         }

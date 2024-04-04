@@ -90,7 +90,8 @@ public class PlayerRayCast : MonoBehaviour
                     }else{
                         //消火栓を非アクティブ
                         Debug.Log("消火栓使用してない");
-                        HosuStatus = false; 
+                        WaterHose.WaterStatus = false;
+                        HosuStatus = false;
                         Hosu.SetActive(HosuStatus);
                     }
                 }
