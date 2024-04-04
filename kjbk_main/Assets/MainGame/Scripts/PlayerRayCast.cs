@@ -15,11 +15,14 @@ public class PlayerRayCast : MonoBehaviour
     string MinorInjuries = "MinorInjuries"; // 軽症者のTag
     string SeriousInjuries = "SeriousInjuries"; // 重症者のTag
 
-    //ホースを持っているか
-    public static bool HosuStatus = false;
+    
+    public static bool HosuStatus = false;//ホースを持っているか
 
-    //ホースのオブジェクトを格納
-    public GameObject Hosu;
+    
+    public GameObject Hosu;//ホースのオブジェクトを格納
+
+    //破壊システム
+    public GameObject DesSystemUI; //破壊システムのUI
 
     void Start ()
     {
@@ -59,8 +62,20 @@ public class PlayerRayCast : MonoBehaviour
             if(raycastHit.collider.gameObject.CompareTag(DesObj)){
                 Debug.Log("破壊可能オブジェクト");
                 if(Input.GetKeyDown("g")){
-                    Destroy(raycastHit.collider.gameObject);
+                    DesSystem.DesSystemStatus = true;
+                    DesSystemUI.SetActive(true);
                 }
+                if(DesSystem.DesSystemStatus == false)
+                {
+                    if(DesSystem.DesSystemInput == true)
+                    {
+                        Destroy(raycastHit.collider.gameObject);
+                    }
+                    DesSystemUI.SetActive(false);
+                    DesSystem.DesSystemInput = false;
+                    DesSystem.DesSystemStatus = false;
+                }
+
             }
             if(raycastHit.collider.gameObject.CompareTag(WaterPoint)){
                 Debug.Log("消火栓");

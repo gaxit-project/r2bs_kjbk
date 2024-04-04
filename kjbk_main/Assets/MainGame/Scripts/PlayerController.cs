@@ -14,8 +14,8 @@ public class PlayerController : MonoBehaviour
 
     void Start () {
         //メインカメラとサブカメラをそれぞれ取得
-        mainCamera = GameObject.Find("Main Camera");
-        subCamera = GameObject.Find("FPCamera");
+        GameObject mainCamera = GameObject.Find("Main Camera");
+        GameObject subCamera = GameObject.Find("FPSCamera");
 
         //サブカメラを非アクティブにする
         mainCamera.SetActive(true); 
