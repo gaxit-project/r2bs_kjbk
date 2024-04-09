@@ -10,6 +10,7 @@ TagManager:
   - DesObj
   - MinorInjuries
   - SeriousInjuries
+  - Wall
   layers:
   - Default
   - TransparentFX
