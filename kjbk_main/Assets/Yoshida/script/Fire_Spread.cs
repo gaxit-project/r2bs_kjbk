@@ -10,6 +10,7 @@ public class Fire_Spread : MonoBehaviour
     [SerializeField] private float SpreadSecond;   //延焼間隔(秒)
     [SerializeField] private float SpreadProbability;   //延焼確立(%)
     [SerializeField] private int LvSpreadProbability;   //炎レベルによる確率の上昇(確率に数値*(Lv-1)プラス)
+    [SerializeField] private float SpreadRange;   //延焼時の移動距離
 
     //炎周囲４マスの炎判定
     private bool FireXp = false;
@@ -56,22 +57,22 @@ public class Fire_Spread : MonoBehaviour
         //Debug.DrawRay(rayXm.origin, rayXm.direction * 10, Color.red, 10, false);
         //Debug.DrawRay(rayZm.origin, rayZm.direction * 10, Color.red, 10, false);
 
-        Vector3 prefabXp = new Vector3(this.transform.position.x + 10f, this.transform.position.y, this.transform.position.z);
-        Vector3 prefabZp = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z + 10f);
-        Vector3 prefabXm = new Vector3(this.transform.position.x - 10f, this.transform.position.y, this.transform.position.z);
-        Vector3 prefabZm = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z - 10f);
+        Vector3 prefabXp = new Vector3(this.transform.position.x + SpreadRange, this.transform.position.y, this.transform.position.z);
+        Vector3 prefabZp = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z + SpreadRange);
+        Vector3 prefabXm = new Vector3(this.transform.position.x - SpreadRange, this.transform.position.y, this.transform.position.z);
+        Vector3 prefabZm = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z - SpreadRange);
 
-        while (!inferno.FireStatus && FireEmpty())
+        while (true)
         {
             yield return new WaitForSeconds(SpreadSecond);
             decision(rayXp, rayZp, rayXm, rayZm);
+            if (!inferno.FireStatus && !FireEmpty()) break;
+            if (Fire_Lv.FireLv == 1) continue;
             int spreadprobability = Random.Range(1, 100) + LvSpreadProbability * (Fire_Lv.FireLv - 1);
             if(spreadprobability < SpreadProbability)
             {
-                Debug.Log("延焼");
                 int Probability = Random.Range(1, 100);
                 int preProbability = 0;
-                if (FireNum == 4) break;
                 int probability = 100 / (4 - FireNum);
                 if (!FireXp)
                 {
