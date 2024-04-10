@@ -28,6 +28,7 @@ public class Fire_Spread : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (SpreadRange < 5) SpreadRange = 5;   //SpreadRange5ˆÈ‰º‚ÌŽžd‚³‘Îô‚Å5‚É‚·‚é
         StartCoroutine("SpreadFire");
     }
 
@@ -121,7 +122,7 @@ public class Fire_Spread : MonoBehaviour
     {
         FireNum = 0;
         RaycastHit hit;
-        if(Physics.Raycast(rayXp, out hit, 10f))
+        if(Physics.Raycast(rayXp, out hit, SpreadRange))
         {
             if (Raydecision(hit) && !FireXp)
             {
@@ -133,7 +134,7 @@ public class Fire_Spread : MonoBehaviour
         {
             FireXp = false;
         }
-        if (Physics.Raycast(rayZp, out hit, 10f))
+        if (Physics.Raycast(rayZp, out hit, SpreadRange))
         {
             if (Raydecision(hit) && !FireZp)
             {
@@ -145,7 +146,7 @@ public class Fire_Spread : MonoBehaviour
         {
             FireZp = false;
         }
-        if (Physics.Raycast(rayXm, out hit, 10f))
+        if (Physics.Raycast(rayXm, out hit, SpreadRange))
         {
             if (Raydecision(hit) && !FireXm)
             {
@@ -157,7 +158,7 @@ public class Fire_Spread : MonoBehaviour
         {
             FireXm = false;
         }
-        if (Physics.Raycast(rayZm, out hit, 10f))
+        if (Physics.Raycast(rayZm, out hit, SpreadRange))
         {
             if (Raydecision(hit) && !FireZm)
             {
