@@ -1,14 +1,16 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class CollapseGauge2 : MonoBehaviour
 {
     float CountTime = 0;            //時間計測
-    float Collapse = 81;            //倒壊ゲージ
+    float Collapse = 100;            //倒壊ゲージ
     float Span = 1;                 //Span秒に一回倒壊ゲージを1%減らす
     public Radio Demoscript;        //Radio.csから関数もって来るやつ
     public CollapseDesign2 Design;  //CollapseDesign2.csから関数もって来るやつ
+    public SceneChange Over;        //SceneChange.csからゲームオーバーを持ってくる
 
     // Use this for initialization
     void Start()
@@ -56,6 +58,10 @@ public class CollapseGauge2 : MonoBehaviour
             {
                 Demoscript.OneGauge();
                 Design.OneHouse();
+            }
+            else if (Collapse <= 0)
+            {
+                Over.GameOver();   
             }
         }
 
