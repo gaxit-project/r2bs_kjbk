@@ -22,6 +22,10 @@ public class Rescue_NPC : MonoBehaviour
     [SerializeField] public Radio_Text Radio_Text;   //無線制御
 
     MeshRenderer mesh;   //MeshRendere
+    private GameObject counter;
+    Rescue_Counter counterScript;
+    private GameObject RescueDiplication;
+    Rescue_Diplication DiplicationScript;
 
     bool Follow = false;   //NPCの追従 true = 追従 : false = 待機
     bool InGoal = false;   //救出地点に接触 true =　接触 : false = 非接触
@@ -37,6 +41,10 @@ public class Rescue_NPC : MonoBehaviour
     void Start()
     {
         mesh = GetComponent<MeshRenderer>();
+        counter = GameObject.Find("RescueCounter");
+        counterScript = counter.GetComponent<Rescue_Counter>();
+        RescueDiplication = GameObject.Find("RescueDiplication");
+        DiplicationScript = RescueDiplication.GetComponent<Rescue_Diplication>();
     }
 
     // Update is called once per frame
@@ -48,13 +56,15 @@ public class Rescue_NPC : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.E) && Severe == true && !IsItInGoal())   //重傷者に近づいたとき
             {
-                if (!IsItFollow())   //非追従時
+                if (!IsItFollow() && !DiplicationScript.getFlag())   //非追従時
                 {
+                    DiplicationScript.OnFlag();
                     StopNPC();
                     SetFollow(true);
                 }
                 else   //追従時
                 {
+                    DiplicationScript.OffFlag();
                     SetFollow(false);
                     PutVectorNPC(TargetPosition.x, TargetPosition.y, TargetPosition.z);
                 }
@@ -74,7 +84,6 @@ public class Rescue_NPC : MonoBehaviour
                 else if (IsItFirstContact())
                 {
                     SetSecondContact(true);
-                    Debug.Log("Second");
                     StopNPC();
                     SetNPCrun(true);   //NPCを救出地点まで誘導する
                     WaitChange(3.5f);
@@ -102,11 +111,13 @@ public class Rescue_NPC : MonoBehaviour
 
             if (IsItInGoal() && !IsItRescued() && Severe == true)   //救出地点に接触かつ未救出かつ重傷者
             {
+                DiplicationScript.OffFlag();
                 SetText("");
                 SetFollow(false);
                 RescuedVectorNPC(TargetPosition.x, TargetPosition.y, TargetPosition.z);   //NPCを救出したときのVector
                 SetRescued(true);
                 CountDestroy();   //一定時間後にオブジェクト削除
+                counterScript.Count();
             }
         }
     }
@@ -168,6 +179,7 @@ public class Rescue_NPC : MonoBehaviour
             yield return new WaitForSeconds(0.07f);
         }
         Destroy();
+        counterScript.Count();
     }
 
     //bool判定

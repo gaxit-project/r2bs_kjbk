@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 6903931599684740557}
   m_Layer: 0
   m_Name: Brokenkabe
-  m_TagString: Untagged
+  m_TagString: DesObj
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

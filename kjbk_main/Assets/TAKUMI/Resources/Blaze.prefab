@@ -108,7 +108,7 @@ ParticleSystem:
       m_RotationOrder: 4
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
-  scalingMode: 1
+  scalingMode: 0
   randomSeed: 0
   InitialModule:
     serializedVersion: 3
@@ -5086,9 +5086,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LvUpSecond: 5
-  LvUpProbability: 20
-  LvUpSize: 1
-  Size: 1
+  LvUpProbability: 75
+  LvUpSize: 2
+  Size: 2
+  FireLv: 1
 --- !u!114 &-6470092844295496837
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5102,8 +5103,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SpreadSecond: 3
-  SpreadProbability: 50
+  SpreadProbability: 75
   LvSpreadProbability: 10
+  SpreadRange: 10
   inferno: {fileID: 1438776958498779912}
   Fire_Lv: {fileID: -6314536278128657883}
   PrefabBlaze: {fileID: 556783039745682872}
@@ -5215,7 +5217,7 @@ ParticleSystem:
       m_RotationOrder: 4
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
-  scalingMode: 1
+  scalingMode: 0
   randomSeed: 0
   InitialModule:
     serializedVersion: 3

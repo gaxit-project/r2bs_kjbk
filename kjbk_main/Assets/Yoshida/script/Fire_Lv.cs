@@ -10,11 +10,13 @@ public class Fire_Lv : MonoBehaviour
     [SerializeField] private float LvUpSize;   //レベル上昇時のエフェクトサイズの増大数値
     [SerializeField] private float Size = 1;   //エフェクトのサイズ
 
-    [System.NonSerialized] public int FireLv = 1;   //レベル
+    public int FireLv;   //レベル
 
     // Start is called before the first frame update
     void Start()
     {
+        FireLv = 1;
+        this.transform.localScale = new Vector3(Size, Size, Size);
         StartCoroutine("LvUp");
     }
 
@@ -26,15 +28,18 @@ public class Fire_Lv : MonoBehaviour
 
     IEnumerator LvUp()
     {
-        while (FireLv < 3)
+        float PreSize = Size;
+        while (true)
         {
+            if (FireLv == 3) break;
             yield return new WaitForSeconds(LvUpSecond);
 
             int probability = Random.Range(0, 100);
             if (probability < LvUpProbability)
             {
-                Size += LvUpSize; 
-                this.transform.localScale = new Vector3(Size, Size, Size);
+                PreSize += LvUpSize; 
+                this.transform.localScale = new Vector3(PreSize, PreSize, PreSize);
+                Debug.Log("SizeUp");
                 FireLv++;
             }
         }
