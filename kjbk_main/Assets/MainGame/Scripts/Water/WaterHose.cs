@@ -7,7 +7,7 @@ public class WaterHose : MonoBehaviour
     public GameObject Child; //水のパーティクルを格納
     
     public static bool WaterStatus = false; //放水状態
-    bool Hold = false; //長押し判定
+    public static bool Hold = false; //長押し判定
 
     private void OnEnable()
     {

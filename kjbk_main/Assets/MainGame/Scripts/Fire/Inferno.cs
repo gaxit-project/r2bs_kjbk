@@ -26,23 +26,11 @@ public class Inferno : MonoBehaviour
 
     public bool FireStatus = false; // 延焼ならfalse
     public bool P_O_Fire = false; //消化中判定
+    public bool DesBlaze = false; //消化されたか
+
+    FireLv FireLv;
 
     void Start()
-    {
-        GameObject BlazeR = GameObject.Find("Fire_Red");
-        GameObject BlazeY = GameObject.Find("Fire_Yellow");
-
-        ParticleBlazeR = BlazeR.GetComponent<ParticleSystem>();
-        ParticleBlazeY = BlazeY.GetComponent<ParticleSystem>();
-
-        BR = ParticleBlazeR.emission;
-        BY = ParticleBlazeY.emission;
-
-        BR_MinMaxCurve = BR.rateOverTime;
-        BY_MinMaxCurve = BY.rateOverTime;
-    }
-
-    void Update()
     {
         GameObject BlazeR = GameObject.Find("Fire_Red");
         GameObject BlazeY = GameObject.Find("Fire_Yellow");
@@ -58,6 +46,11 @@ public class Inferno : MonoBehaviour
         BR_MinMaxCurve = BR.rateOverTime;
         BY_MinMaxCurve = BY.rateOverTime;
 
+        BR.rateOverTime = 100;
+        BY.rateOverTime = 100;
+        BR_MinMaxCurve = BR.rateOverTime;
+        BY_MinMaxCurve = BY.rateOverTime;
+
         if (FireStatus)
         {
             BR.rateOverTime = 100;
@@ -65,6 +58,19 @@ public class Inferno : MonoBehaviour
             BR_MinMaxCurve = BR.rateOverTime;
             BY_MinMaxCurve = BY.rateOverTime;
         }
+
+    }
+
+    void Update()
+    {
+        if (!FireStatus && BR_MinMaxCurve.constant <= 100f && BY_MinMaxCurve.constant <= 100f && !P_O_Fire)
+        {
+            BR_MinMaxCurve.constant += BlazeRUp * Time.deltaTime;
+            BY_MinMaxCurve.constant += BlazeRUp * Time.deltaTime;
+            BR.rateOverTime = BR_MinMaxCurve;
+            BY.rateOverTime = BY_MinMaxCurve;
+        }
+
     }
 
     public void OnParticleCollision(GameObject obj)
@@ -92,12 +98,13 @@ public class Inferno : MonoBehaviour
         Debug.Log("消化中");
         script.P_O_Fire = true;
         BR1_MinMaxCurve.constant -= BlazeRDown * Time.deltaTime * 100;
-        BY1_MinMaxCurve.constant -= BlazeYDown * Time.deltaTime * 100;
+        BY1_MinMaxCurve.constant -= BlazeRDown * Time.deltaTime * 100;
         BR1.rateOverTime = BR1_MinMaxCurve;
         BY1.rateOverTime = BY1_MinMaxCurve;
         if (BR1_MinMaxCurve.constant <= 0f && BY1_MinMaxCurve.constant <= 0f)
         {
-            Destroy(this);
+            Debug.Log("消化されました");
+            DesBlaze = true;
         }
     }
 }

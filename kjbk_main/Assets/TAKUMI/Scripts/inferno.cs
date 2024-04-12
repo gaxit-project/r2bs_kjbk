@@ -58,7 +58,7 @@ public class inferno : MonoBehaviour
         if (!FireStatus && BR_MinMaxCurve.constant <= 100f && BY_MinMaxCurve.constant <= 100f && !P_O_Fire)
         {
             BR_MinMaxCurve.constant += BlazeRUp * Time.deltaTime;
-            BY_MinMaxCurve.constant += BlazeYUp * Time.deltaTime;
+            BY_MinMaxCurve.constant += BlazeRUp * Time.deltaTime;
             BR.rateOverTime = BR_MinMaxCurve;
             BY.rateOverTime = BY_MinMaxCurve;
         }
@@ -88,7 +88,7 @@ public class inferno : MonoBehaviour
         Debug.Log("消化中");
         script.P_O_Fire = true;
         BR1_MinMaxCurve.constant -= BlazeRDown * Time.deltaTime * 100;
-        BY1_MinMaxCurve.constant -= BlazeYDown * Time.deltaTime * 100;
+        BY1_MinMaxCurve.constant -= BlazeRDown * Time.deltaTime * 100;
         BR1.rateOverTime = BR1_MinMaxCurve;
         BY1.rateOverTime = BY1_MinMaxCurve;
         if (BR1_MinMaxCurve.constant <= 0f &&  BY1_MinMaxCurve.constant <= 0f)

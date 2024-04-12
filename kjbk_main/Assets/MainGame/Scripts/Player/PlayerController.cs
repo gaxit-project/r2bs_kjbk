@@ -33,6 +33,19 @@ public class PlayerController : MonoBehaviour
         {
             rb.velocity = Vector3.zero;
         }
+        else if (WaterHose.Hold)
+        {
+            //垂直方向と水平方向の入力を取得
+            float Xvalue = Input.GetAxis("Horizontal") * CurrentSpeed * Time.deltaTime;
+            float Yvalue = Input.GetAxis("Vertical") * CurrentSpeed * Time.deltaTime;
+
+            //位置を移動
+            Vector3 MoveDir = new Vector3(Xvalue, 0, Yvalue);
+
+            //進行方向を向く
+            transform.forward = Vector3.Slerp(transform.forward, MoveDir, Time.deltaTime * RotateSpeed);
+            CurrentForward = transform.forward;
+        }
         else
         {
             if (Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0)

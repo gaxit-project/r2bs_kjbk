@@ -79,7 +79,6 @@ public class PlayerRayCast : MonoBehaviour
             }
             if(raycastHit.collider.gameObject.CompareTag(WaterPoint)){
                 Debug.Log("消火栓");
-                //スペースキーが押されている間、サブカメラをアクティブにする
                 if(Input.GetKeyDown("t")){
                     if(HosuStatus == false)
                     {
