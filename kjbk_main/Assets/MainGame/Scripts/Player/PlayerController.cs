@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -8,9 +9,14 @@ public class PlayerController : MonoBehaviour
     public GameObject subCamera;       //サブカメラ格納用 
 
     private bool CameraStatus = false; //カメラの状態
-    public float Speed, RunSpeed; // 通常速度，ダッシュ速度
+    public float Speed, RunSpeed, Debuff; // 通常速度，ダッシュ速度
     float CurrentSpeed; // 現在速度
     float RotateSpeed = 15f; // 回転速度
+
+    float DebuffSpeed;//移動速度低下割合
+
+    bool House = PlayerRayCast.HosuStatus;
+    bool Follow = RescueNPC.Follow;
 
     public static Vector3 CurrentForward;
 
@@ -65,9 +71,20 @@ public class PlayerController : MonoBehaviour
                     CurrentSpeed = Speed;
                 }
 
+                //移動速度にデバフがかかるかどうかを判定
+                if (House || Follow)
+                {
+                    DebuffSpeed = Debuff;
+                    UnityEngine.Debug.Log("デバフ");
+                }
+                else
+                {
+                    DebuffSpeed = 1;
+                }
+
                 //垂直方向と水平方向の入力を取得
-                float Xvalue = Input.GetAxis("Horizontal") * CurrentSpeed * Time.deltaTime;
-                float Yvalue = Input.GetAxis("Vertical") * CurrentSpeed * Time.deltaTime;
+                float Xvalue = Input.GetAxis("Horizontal") * CurrentSpeed * DebuffSpeed * Time.deltaTime;
+                float Yvalue = Input.GetAxis("Vertical") * CurrentSpeed * DebuffSpeed * Time.deltaTime;
 
                 MoveStatus = true;
 

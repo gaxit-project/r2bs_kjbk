@@ -22,7 +22,7 @@ public class RescueNPC : MonoBehaviour
 
     MeshRenderer mesh;   //MeshRendere
 
-    bool Follow = false;   //NPC‚Ì’Ç] true = ’Ç] : false = ‘Ò‹@
+    public static bool Follow = false;   //NPC‚Ì’Ç] true = ’Ç] : false = ‘Ò‹@
     bool InGoal = false;   //‹~o’n“_‚ÉÚG true =@ÚG : false = ”ñÚG
     bool InZone = false;   //‹~o”ÍˆÍ‚ÉÚG true = ÚG : false = ”ñÚG
     bool NPCrun = false;   //NPC‚Ì©“®‘€ì true = ©“®‘€ì : false = NPC_AI‚É‚æ‚é‘€ì

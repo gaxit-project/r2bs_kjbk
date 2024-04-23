@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement_daichi : MonoBehaviour
 {
     public float Speed, RunSpeed, Debuff; // 通常速度，ダッシュ速度
     float CurrentSpeed; // 現在速度
