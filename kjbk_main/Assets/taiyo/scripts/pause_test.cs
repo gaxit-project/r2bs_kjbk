@@ -71,7 +71,7 @@ public class test : MonoBehaviour
     }
     public void Title()
     {
-        SceneManager.LoadScene("title");
+        UnityEngine.SceneManagement.SceneManager.LoadScene("title");
     }
 }
 

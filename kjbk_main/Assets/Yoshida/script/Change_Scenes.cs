@@ -20,6 +20,6 @@ public class Change_Scenes : MonoBehaviour
 
     public void NormalChange(string SceneName)
     {
-        SceneManager.LoadScene(SceneName);
+        UnityEngine.SceneManagement.SceneManager.LoadScene(SceneName);
     }
 }
