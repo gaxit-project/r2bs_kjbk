@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MappingDoor : MonoBehaviour
 {
+    //mappingdoorにつける
     public GameObject door;
    // Start is called before the first frame update
     void Start()

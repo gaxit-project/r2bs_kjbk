@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8353685285038457713}
   - component: {fileID: 2074335932576262258}
   - component: {fileID: 6296806859698694764}
+  - component: {fileID: 8853570258269579831}
   m_Layer: 0
   m_Name: MapCamera
   m_TagString: Untagged
@@ -26,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3120834945496009733}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.7096539, y: -0, z: -0, w: 0.70455045}
+  m_LocalRotation: {x: 0.7096568, y: 0, z: 0, w: 0.7045476}
   m_LocalPosition: {x: 0, y: 315.7, z: 2.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -72,7 +73,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 72
   m_RenderingPath: 0
   m_TargetTexture: {fileID: 8400000, guid: 4c9117ec6a4fab044993fcc8eaca6312, type: 2}
   m_TargetDisplay: 0
@@ -92,3 +93,15 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3120834945496009733}
   m_Enabled: 1
+--- !u!114 &8853570258269579831
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3120834945496009733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac1c8b1b2b8cdbc41b4146e0d25943b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

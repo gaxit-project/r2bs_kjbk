@@ -14,13 +14,12 @@ public class SceneChange : MonoBehaviour
     public void GameOver()                  //ゲームオーバーへのシーンチェンジ
     {
         Debug.Log("GameOver");
-        SceneManager.LoadScene("Matsuno_GameOver");
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Matsuno_GameOver");
     }
 
     public void GameClear2()                //ゲームクリアへのシーンチェンジ
     {
         Debug.Log("GameClear2");
-        SceneManager.LoadScene("Matsuno_GameClear");
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Matsuno_GameClear");
     }
-
 }

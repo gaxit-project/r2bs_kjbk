@@ -23344,11 +23344,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b8d642677feb6274890ccd7d51845663, type: 3}
   m_PrefabInstance: {fileID: 1988663822}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &701046395 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8353685285038457713, guid: 919939b838f1c9b448ebe683e0e177e3, type: 3}
-  m_PrefabInstance: {fileID: 769034139663901729}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &701717134 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 6222ae88b49e0ea42bd4d85fb6f84f1c, type: 3}
@@ -30659,6 +30654,7 @@ MonoBehaviour:
   subCamera: {fileID: 856475135}
   Speed: 30
   RunSpeed: 50
+  Debuff: 0
 --- !u!1 &944815252
 GameObject:
   m_ObjectHideFlags: 0
@@ -54256,9 +54252,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: e98ee50ac964d9f47aff4245e5436bbc, type: 3}
       insertIndex: -1
       addedObject: {fileID: 388538490}
-    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: e98ee50ac964d9f47aff4245e5436bbc, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 701046395}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e98ee50ac964d9f47aff4245e5436bbc, type: 3}
       insertIndex: -1
@@ -67520,7 +67513,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 937850961}
+    m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2074335932576262258, guid: 919939b838f1c9b448ebe683e0e177e3, type: 3}
       propertyPath: m_CullingMask.m_Bits
@@ -68094,6 +68087,7 @@ SceneRoots:
   - {fileID: 1722483657}
   - {fileID: 6767762974072758617}
   - {fileID: 5422995932133746751}
+  - {fileID: 769034139663901729}
   - {fileID: 1697439511}
   - {fileID: 2079682341}
   - {fileID: 71346087}
