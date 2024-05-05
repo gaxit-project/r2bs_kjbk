@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -6353,7 +6353,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8ef3e54664a859438320e8b1e60fa5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: Rescued!!!
+  mild_text: Mild Rescued
+  severe_text: Severe Rescued
   TMP: {fileID: 550185909}
 --- !u!1 &990442967
 GameObject:
