@@ -10,10 +10,10 @@ public class PlayerRayCast : MonoBehaviour
     // オブジェクトのTag
     string Blaze = "Blaze"; // 火のTag
     string WaterPoint = "WaterPoint"; // 消火栓のTag
-    string Water = "Water"; // 水のTag
+    //string Water = "Aqua"; // 水のTag
     string DesObj = "DesObj"; // 破壊可能のTag
-    string MinorInjuries = "MinorInjuries"; // 軽症者のTag
-    string SeriousInjuries = "SeriousInjuries"; // 重症者のTag
+    //string MinorInjuries = "MinorInjuries"; // 軽症者のTag
+    //string SeriousInjuries = "SeriousInjuries"; // 重症者のTag
 
     
     public static bool HosuStatus = false;//ホースを持っているか
@@ -24,9 +24,13 @@ public class PlayerRayCast : MonoBehaviour
     //破壊システム
     public GameObject DesSystemUI; //破壊システムのUI
 
+    //消火器用
+    public static bool SHold = false; //長押し判定
+
+
     void Start ()
     {
-        Hosu = this.transform.Find("Hosu").gameObject;
+        Hosu = this.transform.Find("Syoukaki").gameObject;
         if(HosuStatus == false)
         {
             Hosu.SetActive(HosuStatus);
@@ -79,7 +83,7 @@ public class PlayerRayCast : MonoBehaviour
             }
             if(raycastHit.collider.gameObject.CompareTag(WaterPoint)){
                 Debug.Log("消火栓");
-                if(Input.GetKeyDown("t")){
+                /*if(Input.GetKeyDown("t")){
                     if(HosuStatus == false)
                     {
                         //消火栓をアクティブ
@@ -93,8 +97,37 @@ public class PlayerRayCast : MonoBehaviour
                         HosuStatus = false;
                         Hosu.SetActive(HosuStatus);
                     }
-                }
+                }*/
             }
+        }
+
+        //消火器用スクリプト
+        if (Input.GetKeyDown("t"))
+        {
+            if (HosuStatus == false)
+            {
+                //消火栓をアクティブ
+                Debug.Log("消火栓使用中");
+                HosuStatus = true;
+                Hosu.SetActive(HosuStatus);
+            }
+            else
+            {
+                //消火栓を非アクティブ
+                Debug.Log("消火栓使用してない");
+                WaterHose.WaterStatus = false;
+                HosuStatus = false;
+                Hosu.SetActive(HosuStatus);
+            }
+            SHold = true;
+        }
+        if (Input.GetKeyDown("t"))
+        {
+            SHold = false;
+        }
+        if (SHold)
+        {
+            Debug.Log("Hold");
         }
     }
 }

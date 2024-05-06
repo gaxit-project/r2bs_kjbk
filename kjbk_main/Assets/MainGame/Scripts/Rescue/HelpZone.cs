@@ -9,9 +9,11 @@ public class HelpZone : MonoBehaviour
     public GameObject NPC;   //NPCのGameObject
     public RescueNPC RescueNPC;
 
+
     void Start()
     {
         RescueNPC.SetText("");   //NPCに近づいていない時のテキスト
+
     }
 
     //接触判定(接触した瞬間)
@@ -19,8 +21,15 @@ public class HelpZone : MonoBehaviour
     {
         if ((collision.gameObject.name == "Player" || collision.gameObject.CompareTag("Player")) && !RescueNPC.IsItRescued() && !RescueNPC.IsItNPCrun())
         {
-            RescueNPC.SetInZone(true);
-            RescueNPC.SetText(RescueNPC.text);   //近づいたときにtextを表示
+            if (!RescueDiplication.instance.getFlag())
+            {
+                RescueNPC.SetInZone(true);
+                RescueNPC.SetText(RescueNPC.text);   //近づいたときにtextを表示
+            }
+            else
+            {
+                RescueNPC.SetText("");
+            }
         }
 
         if (collision.gameObject.name == "RescuePoint")   //NPCが救出地点にいるとき

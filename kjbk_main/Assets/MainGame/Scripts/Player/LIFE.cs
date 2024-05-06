@@ -41,7 +41,7 @@ public class LIFE : MonoBehaviour
         if (HitPoint <= 0)            //もしHPが尽きたら以下の処理を行う
         {
             Debug.Log("ゲームオーバー");
-            //SceneManager.instance.GameOver();         //ゲームオーバーに飛ばす
+            //Scene.instance.GameOver();         //ゲームオーバーに飛ばす
         }
     }
 

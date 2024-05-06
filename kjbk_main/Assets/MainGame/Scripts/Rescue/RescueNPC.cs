@@ -19,6 +19,7 @@ public class RescueNPC : MonoBehaviour
     [SerializeField] TextMeshPro TMP;   //NPCに近づいたときに表示されるtextMesh
     [SerializeField] public NPCAI NPCAI;   //NPCのAIスクリプト
     [SerializeField] public RadioText RadioText;   //無線制御
+    [SerializeField] public AutoRunNPC AutoRunNPC; //
 
     MeshRenderer mesh;   //MeshRendere
 
@@ -45,13 +46,15 @@ public class RescueNPC : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.E) && Severe == true && !IsItInGoal())   //重傷者に近づいたとき
             {
-                if (!IsItFollow())   //非追従時
+                if (!IsItFollow() && RescueDiplication.instance.getFlag())   //非追従時
                 {
+                    RescueDiplication.instance.OnFlag();
                     StopNPC();
                     SetFollow(true);
                 }
                 else   //追従時
                 {
+                    RescueDiplication.instance.OffFlag();
                     SetFollow(false);
                     PutVectorNPC(TargetPosition.x, TargetPosition.y, TargetPosition.z);
                 }
@@ -64,17 +67,18 @@ public class RescueNPC : MonoBehaviour
                     SetFirstContact(true);
                     SetActiveIcon(true);
                     StopNPC();
-                    SetNPCrun(true);   //NPCを救出地点まで誘導する
-                    WaitChange(3.5f);
+                    AutoRunNPC.OnAuto();   //NPCを救出地点まで誘導する
+                    //WaitChange(3.5f);
                     RadioText.SetActiveText(true);
+
                 }
                 else if (IsItFirstContact())
                 {
                     SetSecondContact(true);
                     Debug.Log("Second");
                     StopNPC();
-                    SetNPCrun(true);   //NPCを救出地点まで誘導する
-                    WaitChange(3.5f);
+                    AutoRunNPC.OnAuto();   //NPCを救出地点まで誘導する
+                    //WaitChange(3.5f);
                     RadioText.SetActiveText(true);
                 }
             }
@@ -88,11 +92,12 @@ public class RescueNPC : MonoBehaviour
 
             if (IsItInGoal() && !IsItRescued() && Severe == true)   //救出地点に接触かつ未救出かつ重傷者
             {
+                RescueDiplication.instance.OffFlag();
                 SetText("");
                 SetFollow(false);
                 RescuedVectorNPC(TargetPosition.x, TargetPosition.y, TargetPosition.z);   //NPCを救出したときのVector
                 SetRescued(true);
-                CountDestroy();   //一定時間後にオブジェクト削除
+                //CountDestroy();   //一定時間後にオブジェクト削除
             }
         }
     }

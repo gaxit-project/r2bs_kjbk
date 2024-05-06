@@ -16,11 +16,15 @@ public class WaterBlaze : MonoBehaviour
     }
     public void OnParticleCollision(GameObject obj)
     {
-        Inferno = obj.GetComponent<Inferno>();
-        if (Inferno.DesBlaze)
+        if (obj.CompareTag("Blaze"))
         {
-            Debug.Log("è¡âªÇ≥ÇÍÇ‹ÇµÇΩ");
-            Destroy(obj);
+            Inferno = obj.GetComponent<Inferno>();
+            if (Inferno.DesBlaze)
+            {
+                Debug.Log("è¡âªÇ≥ÇÍÇ‹ÇµÇΩ");
+                Destroy(obj);
+            }
         }
+
     }
 }
