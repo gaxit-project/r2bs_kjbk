@@ -22,6 +22,8 @@ public class PlayerController : MonoBehaviour
 
     public static bool MoveStatus = false; //移動しているか
 
+    private Animator animator;
+
     void Start () {
         //メインカメラとサブカメラをそれぞれ取得
         GameObject mainCamera = GameObject.Find("Main Camera");
@@ -30,6 +32,9 @@ public class PlayerController : MonoBehaviour
         //サブカメラを非アクティブにする
         mainCamera.SetActive(true); 
         subCamera.SetActive(false);
+
+        //アニメーション読み込み
+        animator = GetComponent<Animator>();
 	}
     void Update()
     {
@@ -38,6 +43,7 @@ public class PlayerController : MonoBehaviour
         if(DesSystem.DesSystemStatus == true)
         {
             rb.velocity = Vector3.zero;
+            animator.SetBool("Walk", false);
         }
         else if (WaterHose.Hold)
         {
@@ -47,6 +53,7 @@ public class PlayerController : MonoBehaviour
 
             //位置を移動
             Vector3 MoveDir = new Vector3(Xvalue, 0, Yvalue);
+            animator.SetBool("Walk", false);
 
             //進行方向を向く
             transform.forward = Vector3.Slerp(transform.forward, MoveDir, Time.deltaTime * RotateSpeed);
@@ -58,6 +65,7 @@ public class PlayerController : MonoBehaviour
             {
                 rb.velocity = Vector3.zero;
                 MoveStatus = false;
+                animator.SetBool("Walk", false);
             }
             else
             {
@@ -91,6 +99,7 @@ public class PlayerController : MonoBehaviour
                 //位置を移動
                 Vector3 MoveDir = new Vector3(Xvalue, 0, Yvalue);
                 rb.velocity += MoveDir;
+                animator.SetBool("Walk", true);
 
                 //進行方向を向く
                 transform.forward = Vector3.Slerp(transform.forward, MoveDir, Time.deltaTime * RotateSpeed);

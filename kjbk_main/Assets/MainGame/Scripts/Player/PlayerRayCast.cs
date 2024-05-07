@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerRayCast : MonoBehaviour
 {
-    [SerializeField] Camera     fpsCam;             // カメラ
+    [SerializeField] GameObject     fpsCam;             // カメラ
     [SerializeField] float      distance = 3f;    // 検出可能な距離
 
     // オブジェクトのTag
@@ -35,6 +35,8 @@ public class PlayerRayCast : MonoBehaviour
         {
             Hosu.SetActive(HosuStatus);
         }
+
+         fpsCam = GameObject.Find("FPSCamera");
     }
 
     void Update()
