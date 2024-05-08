@@ -5,16 +5,25 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Yoshida/Scenes/spread.unity
     guid: d73c27f1171ef39469191f2ccf2c9ac6
   - enabled: 0
     path: Assets/Sample Scene.unity
     guid: 9cf83e8139de8a94c9e81f5927660ddb
-  - enabled: 1
+  - enabled: 0
     path: Assets/taiyo/scene/test.unity
     guid: de1817034a4491f40b5c22942123d147
-  - enabled: 1
+  - enabled: 0
     path: Assets/taiyo/scene/title.unity
     guid: 3f3e0a67586df2744b9c6442c331cd1b
+  - enabled: 1
+    path: Assets/MainGame/Scenes/main.unity
+    guid: 56ab5ed3a1f8fe74b9a85c3240c6506c
+  - enabled: 1
+    path: Assets/matsuno/si-n/Matsuno_GameOver.unity
+    guid: a745fd72e1b123b489fc63b3fdc235d6
+  - enabled: 1
+    path: Assets/matsuno/si-n/Matsuno_GameClear.unity
+    guid: bc1b8cb36cfc31b4b884e22b093f00bd
   m_configObjects: {}
