@@ -11,7 +11,7 @@ public class Mapping : MonoBehaviour
     }
 
     // Update is called once per frame
-        void OnCollisionEnter(Collision collision)
+       /* void OnTriggerEnter(Collision collision)
 	{
 		// 衝突した相手にPlayerタグが付いているとき
 		if (collision.gameObject.tag == "Player")
@@ -19,5 +19,13 @@ public class Mapping : MonoBehaviour
 			
 			Destroy(gameObject);
 		}
-	}
+	}*/
+    void OnTriggerEnter(Collider other)
+    {
+        // 衝突したオブジェクトがプレイヤーである場合
+        if (other.CompareTag("Player"))
+        {
+            Destroy(gameObject);
+        }
+    }
     }

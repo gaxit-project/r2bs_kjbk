@@ -15,11 +15,11 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - MinMap
   - Water
   - UI
   - NavMeshExcept
-  - 
+  - MinMapdelete
   - 
   - 
   - 
