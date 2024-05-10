@@ -20,6 +20,8 @@ public class RescueNPC : MonoBehaviour
     [SerializeField] public NPCAI NPCAI;   //NPCÇÃAIÉXÉNÉäÉvÉg
     [SerializeField] public RadioText RadioText;   //ñ≥ê¸êßå‰
     [SerializeField] public AutoRunNPC AutoRunNPC; //
+    private GameObject Rescue;
+    RescueDiplication DiplicationScript;
 
     MeshRenderer mesh;   //MeshRendere
 
@@ -36,6 +38,8 @@ public class RescueNPC : MonoBehaviour
     void Start()
     {
         mesh = GetComponent<MeshRenderer>();
+        Rescue = GameObject.Find("Rescue");
+        DiplicationScript = Rescue.GetComponent<RescueDiplication>();
     }
 
     void Update()
@@ -46,15 +50,15 @@ public class RescueNPC : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.E) && Severe == true && !IsItInGoal())   //èdèùé“Ç…ãﬂÇ√Ç¢ÇΩÇ∆Ç´
             {
-                if (!IsItFollow() && RescueDiplication.instance.getFlag())   //îÒí«è]éû
+                if (!IsItFollow() && !DiplicationScript.getFlag())   //îÒí«è]éû
                 {
-                    RescueDiplication.instance.OnFlag();
+                    DiplicationScript.OnFlag();
                     StopNPC();
                     SetFollow(true);
                 }
                 else   //í«è]éû
                 {
-                    RescueDiplication.instance.OffFlag();
+                    DiplicationScript.OffFlag();
                     SetFollow(false);
                     PutVectorNPC(TargetPosition.x, TargetPosition.y, TargetPosition.z);
                 }
@@ -84,7 +88,7 @@ public class RescueNPC : MonoBehaviour
             }
 
 
-            if (IsItFollow() && !IsItInGoal())   //í«è]éû
+            if (IsItFollow() && !IsItInGoal() && Severe == true)   //í«è]éû
             {
                 FollowVectorNPC(TargetPosition.x, TargetPosition.y + NpcUp, TargetPosition.z);   //NPCÇâ^î¿Ç∑ÇÈéûÇÃVector
                 SetText("[E]Put");
@@ -92,7 +96,7 @@ public class RescueNPC : MonoBehaviour
 
             if (IsItInGoal() && !IsItRescued() && Severe == true)   //ã~èoínì_Ç…ê⁄êGÇ©Ç¬ñ¢ã~èoÇ©Ç¬èdèùé“
             {
-                RescueDiplication.instance.OffFlag();
+                DiplicationScript.OffFlag();
                 SetText("");
                 SetFollow(false);
                 RescuedVectorNPC(TargetPosition.x, TargetPosition.y, TargetPosition.z);   //NPCÇã~èoÇµÇΩÇ∆Ç´ÇÃVector

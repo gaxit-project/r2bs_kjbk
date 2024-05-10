@@ -39,7 +39,6 @@ public class Fire_Lv : MonoBehaviour
             {
                 PreSize += LvUpSize; 
                 this.transform.localScale = new Vector3(PreSize, PreSize, PreSize);
-                Debug.Log("SizeUp");
                 FireLv++;
             }
         }

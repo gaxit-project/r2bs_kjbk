@@ -12,6 +12,10 @@ public class Fire_Spread : MonoBehaviour
     [SerializeField] private int LvSpreadProbability;   //炎レベルによる確率の上昇(確率に数値*(Lv-1)プラス)
     [SerializeField] private float SpreadRange;   //延焼時の移動距離
 
+    [SerializeField] private string[] UntiBlazeTag;
+
+    public static bool FirstAction = true;
+
     //炎周囲４マスの炎判定
     private bool FireXp = false;
     private bool FireZp = false;
@@ -24,6 +28,21 @@ public class Fire_Spread : MonoBehaviour
     public Fire_Lv Fire_Lv;
 
     public GameObject PrefabBlaze;
+
+    void Awake()
+    {
+        if (FirstAction)
+        {
+            Debug.Log("=============================================");
+            Debug.Log("Blazeは以下のタグのオブジェクトを無視します。");
+            for (int i = 0; i < UntiBlazeTag.Length; i++)
+            {
+                Debug.Log("Tag: " + UntiBlazeTag[i]);
+            }
+            Debug.Log("=============================================");
+            FirstAction = false;
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -174,15 +193,15 @@ public class Fire_Spread : MonoBehaviour
 
     private bool Raydecision(RaycastHit hit)
     {
-        //Rayに接触したオブジェクトの判別(Tagが"Blaze","Wall","DesObj"には延焼しない)
-        if(hit.collider.CompareTag("Blaze") || hit.collider.CompareTag("Wall") || hit.collider.CompareTag("DesObj"))
+        //Rayに接触したオブジェクトの判別(配列にしていしたTag)には延焼しない)
+        for (int i = 0; i < UntiBlazeTag.Length; i++)
         {
-            return true;
+            if (hit.collider.CompareTag(UntiBlazeTag[i]))
+            {
+                return true;
+            }
         }
-        else
-        {
-            return false;
-        }
+        return false;
     }
 
     private bool FireEmpty()

@@ -5106,6 +5106,9 @@ MonoBehaviour:
   SpreadProbability: 75
   LvSpreadProbability: 10
   SpreadRange: 10
+  UntiBlazeTag:
+  - Blaze
+  - Wall
   inferno: {fileID: 1438776958498779912}
   Fire_Lv: {fileID: -6314536278128657883}
   PrefabBlaze: {fileID: 556783039745682872}

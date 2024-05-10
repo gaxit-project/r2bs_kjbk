@@ -1,13 +1,15 @@
 prefab
 MapPlayer:FFのミニマップ用。FFの子
+(5/08)MapPlayer2:MapPlayerの子。当たり判定を広げてる。
 MapHydrant:消火栓のミニマップ用。Hydrantの子
 Mapdoor:一つの扉のミニマップ用。Doorの子
 Mapdoortwo:二つの扉のミニマップ用。Doorどちらかの子
+(5/08)RescureMap:救助者のマップ用。SD_unitychanの子
 MapUnbreak(1):ミニマップの元のまとまり
 Extinctiondoor:Mapdoorの処理用、doorの下に配置
 Extinctiondoortwo:Mapdoortwoの処理用、doorの下に配置(一つ)
-Mappingtail:オートマッピング用、下で踏む用とマップに写す用でprefab化
-Mappingtails:Mappingtailの全体をprefab化したもの
+(5/08)Mappingtail:オートマッピング用、下で踏む用とマップに写す用でprefab化。細かくしました。
+Mappingtails:Mappingtailの全体をprefab化したもの。
 MapCamera:ミニマップ用のカメラ
 SwitchCamera:ミニマップ用のカメラのスクリプトを動かす用
 BigMapCamera:くそでかマップ用のカメラ

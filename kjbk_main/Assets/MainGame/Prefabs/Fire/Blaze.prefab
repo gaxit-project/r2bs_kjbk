@@ -287,7 +287,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 4
+      scalar: 8
       minScalar: 4
       maxCurve:
         serializedVersion: 2
@@ -870,7 +870,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 100
+      scalar: 10
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -5108,6 +5108,11 @@ MonoBehaviour:
   SpreadProbability: 75
   LvSpreadProbability: 10
   SpreadRange: 10
+  UntiBlazeTag:
+  - Blaze
+  - Wall
+  - DesObj
+  - WaterPoint
   PrefabBlaze: {fileID: 3901713899683814031}
 --- !u!114 &3601828981568048321
 MonoBehaviour:
@@ -5138,7 +5143,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 18
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4454232089166393479
 Transform:
   m_ObjectHideFlags: 0
