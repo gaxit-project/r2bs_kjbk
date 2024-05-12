@@ -9,6 +9,7 @@ public class CollapseDesign2 : MonoBehaviour
     /// ////////////////////////////////////////////////////////////////////////////////////////////////////
     /// 倒壊ゲージのデザインの定義
     /// 
+    [SerializeField] GameObject TenDesign;
     [SerializeField] GameObject EightDesign;
     [SerializeField] GameObject SixDesign;
     [SerializeField] GameObject FourDesign;
@@ -20,6 +21,8 @@ public class CollapseDesign2 : MonoBehaviour
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///倒壊ゲージのデザインを隠す
     {
+        //追加コード
+        TenDesign.SetActive(true);
         EightDesign.SetActive(false);
         SixDesign.SetActive(false);
         FourDesign.SetActive(false);
@@ -32,6 +35,8 @@ public class CollapseDesign2 : MonoBehaviour
     public void EightHouse()
     {
         Debug.Log("EightHouse");
+        //追加コード
+        TenDesign.SetActive(false);        //80%の時の倒壊デザインを非表示
         EightDesign.SetActive(true);          //80%の時倒壊デザインを表示
     }
 

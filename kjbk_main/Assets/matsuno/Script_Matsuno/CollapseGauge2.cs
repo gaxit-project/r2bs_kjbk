@@ -10,7 +10,8 @@ public class CollapseGauge2 : MonoBehaviour
     float Span = 1;                 //Span秒に一回倒壊ゲージを1%減らす
     public Radio Demoscript;        //Radio.csから関数もって来るやつ
     public CollapseDesign2 Design;  //CollapseDesign2.csから関数もって来るやつ
-    public SceneChange Over;        //SceneChange.csからゲームオーバーを持ってくる
+    //public SceneChange Over;        //SceneChange.csからゲームオーバーを持ってくる
+    //public Sunaarashi_ON_OFF Suna;  //Sunaarashiから砂嵐を持ってくる
 
     // Use this for initialization
     void Start()
@@ -32,6 +33,7 @@ public class CollapseGauge2 : MonoBehaviour
             //倒壊ゲージの無線通知＋倒壊ゲージのデザイン表示
             if (Collapse == 80)
             {
+               // Suna.SunaONOFF();
                 Demoscript.EightGauge();
                 Design.EightHouse();
             }
@@ -61,7 +63,7 @@ public class CollapseGauge2 : MonoBehaviour
             }
             else if (Collapse <= 0)
             {
-                Over.GameOver();   
+                //Over.GameOver();   
             }
         }
 
