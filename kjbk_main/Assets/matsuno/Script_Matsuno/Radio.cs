@@ -11,6 +11,9 @@ public class Radio : MonoBehaviour
     [SerializeField] GameObject FourPanel;
     [SerializeField] GameObject TwoPanel;
     [SerializeField] GameObject OnePanel;
+    [SerializeField] GameObject RSeikou;
+    [SerializeField] GameObject RShippai;
+    [SerializeField] GameObject Alone;
 
 
 
@@ -21,7 +24,9 @@ public class Radio : MonoBehaviour
         FourPanel.SetActive(false);
         TwoPanel.SetActive(false);
         OnePanel.SetActive(false);
-
+        RSeikou.SetActive(false);
+        RShippai.SetActive(false);
+        Alone.SetActive(false);
     }
 /// <summary>
 /// /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -30,42 +35,63 @@ public class Radio : MonoBehaviour
     {
         Debug.Log("EightGauge");
         EightPanel.SetActive(true);          //80%‚Ì‚Ì–³ü‚ğ•\¦
-        Invoke(nameof(EightGauge2), 5f);     //5•bŒã‚ÉÁ‚·
+        Invoke(nameof(EightGauge2), 10f);     //5•bŒã‚ÉÁ‚·
     }
 
     public void SixGauge()
     {
         Debug.Log("SixGauge");
         SixPanel.SetActive(true);            //60%‚Ì‚Ì–³ü‚ğ•\¦
-        Invoke(nameof(SixGauge2), 5f);       //5•bŒã‚ÉÁ‚·
+        Invoke(nameof(SixGauge2), 10f);       //5•bŒã‚ÉÁ‚·
     }
 
     public void FourGauge()
     {
         Debug.Log("FourGauge");
         FourPanel.SetActive(true);           //40%‚Ì‚Ì–³ü‚ğ•\¦
-        Invoke(nameof(FourGauge2), 5f);      //5•bŒã‚ÉÁ‚·
+        Invoke(nameof(FourGauge2), 10f);      //5•bŒã‚ÉÁ‚·
     }
 
     public void TwoGauge()
     {
         Debug.Log("TwoGauge");
         TwoPanel.SetActive(true);            //20%‚Ì‚Ì–³ü‚ğ•\¦
-        Invoke(nameof(TwoGauge2), 5f);       //5•bŒã‚ÉÁ‚·
+        Invoke(nameof(TwoGauge2), 10f);       //5•bŒã‚ÉÁ‚·
     }
 
     public void OneGauge()
     {
         Debug.Log("OneGauge");
         OnePanel.SetActive(true);            //10%‚Ì‚Ì–³ü‚ğ•\¦
-        Invoke(nameof(OneGauge2), 5f);       //5•bŒã‚ÉÁ‚·
+        Invoke(nameof(OneGauge2), 10f);       //5•bŒã‚ÉÁ‚·
+    }
+
+    public void RSeikouRadio()
+    {
+        Debug.Log("Rseikou");
+        RSeikou.SetActive(true);           //40%‚Ì‚Ì–³ü‚ğ•\¦
+        Invoke(nameof(FourGauge2), 10f);      //5•bŒã‚ÉÁ‚·
+    }
+
+    public void RShippaiSRadio()
+    {
+        Debug.Log("RShippai");
+        RShippai.SetActive(true);            //20%‚Ì‚Ì–³ü‚ğ•\¦
+        Invoke(nameof(TwoGauge2), 10f);       //5•bŒã‚ÉÁ‚·
+    }
+
+    public void AloneRadio()
+    {
+        Debug.Log("Alone");
+        Alone.SetActive(true);            //10%‚Ì‚Ì–³ü‚ğ•\¦
+        Invoke(nameof(OneGauge2), 10f);       //5•bŒã‚ÉÁ‚·
     }
 
 
-/// <summary>
-/// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/// –³ü‚ğÁ‚·‚Æ‚«‚Ég‚¤ƒvƒƒOƒ‰ƒ€(‚ ‚Æ‚©‚ç”z—ñ‚É•Ï‚¦‚é)
-/// 
+    /// <summary>
+    /// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// –³ü‚ğÁ‚·‚Æ‚«‚Ég‚¤ƒvƒƒOƒ‰ƒ€(‚ ‚Æ‚©‚ç”z—ñ‚É•Ï‚¦‚é)
+    /// 
     public void EightGauge2()
     {
         Debug.Log("EightGauge");
@@ -94,6 +120,24 @@ public class Radio : MonoBehaviour
     {
         Debug.Log("OneGauge");
         OnePanel.SetActive(false);           //OnePanel‚ğÁ‚·
+    }
+
+    public void RSeikouRadio2()
+    {
+        Debug.Log("RSeikou");
+        RSeikou.SetActive(false);          //FourPanel‚ğÁ‚·
+    }
+
+    public void RShippaiRadio2()
+    {
+        Debug.Log("RShippai");
+        RShippai.SetActive(false);           //TwoPanel‚ğÁ‚·
+    }
+
+    public void AloneRadio2()
+    {
+        Debug.Log("Alone");
+        Alone.SetActive(false);           //OnePanel‚ğÁ‚·
     }
 
 
