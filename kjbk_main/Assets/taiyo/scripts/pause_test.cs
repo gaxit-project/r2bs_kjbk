@@ -8,16 +8,23 @@ public class test : MonoBehaviour
 {
     public GameObject pause;
     public GameObject soundsetting;
+    public GameObject backtitle;
     bool pause_status;
 
     public Button sound;
     public Button pausemenu;
+    public Button titleback;
 
     // Start is called before the first frame update
     void Start()
     {
+        sound = GameObject.Find("/Canvas/Button1").GetComponent<Button>();
+        pausemenu = GameObject.Find("/Canvas/Button2").GetComponent<Button>();
+        titleback = GameObject.Find("/Canvas/Button3").GetComponent<Button>();
+
         pause.SetActive(false);
         soundsetting.SetActive(false);
+        backtitle.SetActive(false);
     }
 
     // Update is called once per frame
@@ -33,12 +40,18 @@ public class test : MonoBehaviour
                 Time.timeScale = 1.0f;
                 pause.SetActive(false);
                 soundsetting.SetActive(false);
-                pausemenu.Select();
+                backtitle.SetActive(false);
+                
             }
             else
             {
                 Time.timeScale = 0.0f;
+                pausemenu.Select();
             }
+        }
+        if (Input.GetKeyDown("n")) ;
+        {
+            AudioManager.GetInstance().PlaySound(18);
         }
     }
 
@@ -57,6 +70,19 @@ public class test : MonoBehaviour
             sound.Select();
         }
         if(pause.activeSelf == true)
+        {
+            pausemenu.Select();
+        }
+    }
+    public void title()
+    {
+        pause.SetActive(!pause.activeSelf);
+        backtitle.SetActive(!backtitle.activeSelf);
+        if(backtitle.activeSelf == true)
+        {
+            titleback.Select();
+        }
+        if(pause.activeSelf==true)
         {
             pausemenu.Select();
         }
