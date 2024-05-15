@@ -12,7 +12,7 @@ public class Fire_Spread : MonoBehaviour
     [SerializeField] private int LvSpreadProbability;   //炎レベルによる確率の上昇(確率に数値*(Lv-1)プラス)
     [SerializeField] private float SpreadRange;   //延焼時の移動距離
 
-    [SerializeField] private string[] UntiBlazeTag;
+    [SerializeField] private string[] AntiBlazeTag;
 
     public static bool FirstAction = true;
 
@@ -35,9 +35,9 @@ public class Fire_Spread : MonoBehaviour
         {
             Debug.Log("=============================================");
             Debug.Log("Blazeは以下のタグのオブジェクトを無視します。");
-            for (int i = 0; i < UntiBlazeTag.Length; i++)
+            for (int i = 0; i < AntiBlazeTag.Length; i++)
             {
-                Debug.Log("Tag: " + UntiBlazeTag[i]);
+                Debug.Log("Tag: " + AntiBlazeTag[i]);
             }
             Debug.Log("=============================================");
             FirstAction = false;
@@ -194,9 +194,9 @@ public class Fire_Spread : MonoBehaviour
     private bool Raydecision(RaycastHit hit)
     {
         //Rayに接触したオブジェクトの判別(配列にしていしたTag)には延焼しない)
-        for (int i = 0; i < UntiBlazeTag.Length; i++)
+        for (int i = 0; i < AntiBlazeTag.Length; i++)
         {
-            if (hit.collider.CompareTag(UntiBlazeTag[i]))
+            if (hit.collider.CompareTag(AntiBlazeTag[i]))
             {
                 return true;
             }

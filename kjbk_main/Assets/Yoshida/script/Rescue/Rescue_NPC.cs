@@ -17,8 +17,8 @@ public class Rescue_NPC : MonoBehaviour
     public GameObject Player;   //PlayerのGameObject
     public GameObject Zone;   //救出判定のGameObject
     [SerializeField] TextMeshPro TMP;   //NPCに近づいたときに表示されるtextMesh
-    [SerializeField] public Player_Script Player_Script;   //Player操作スクリプト
-    [SerializeField] public NPC_AI NPC_AI;   //NPCのAIスクリプト
+    //[SerializeField] public Player_Script Player_Script;   //Player操作スクリプト
+    //[SerializeField] public NPC_AI NPC_AI;   //NPCのAIスクリプト
     [SerializeField] public Radio_Text Radio_Text;   //無線制御
 
     MeshRenderer mesh;   //MeshRendere
@@ -97,11 +97,11 @@ public class Rescue_NPC : MonoBehaviour
             {
                 if (IsItLock())
                 {
-                    Player_Script.PlayerStop();
+                    //Player_Script.PlayerStop();
                 }
                 else if (!IsItLock())
                 {
-                    Player_Script.PlayerMove();
+                    //Player_Script.PlayerMove();
                 }
             }
 
@@ -157,7 +157,7 @@ public class Rescue_NPC : MonoBehaviour
 
     public void StopNPC()   //NPC_AIの停止
     {
-        NPC_AI.MoveNPC();
+        //NPC_AI.MoveNPC();
         SetText("");
     }
 
