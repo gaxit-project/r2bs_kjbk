@@ -5,6 +5,10 @@ using UnityEngine.UI;
 public class GoalON : MonoBehaviour
 {
     public SceneChange Clear;
+    public SceneChange Over;
+    public Rescue_Counter Cnt;
+
+    int Rcnt;
     //[SerializeField] Button EscapeON;
 
     // Start is called before the first frame update
@@ -18,8 +22,16 @@ public class GoalON : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.K))
         {
+            Rcnt = Cnt.getNum();
             Debug.Log("K");
-            Clear.GameClear2();
+            if(Rcnt >= 5)
+            {
+                Clear.GameClear2();
+            }
+            else
+            {
+                Over.GameOver();
+            }
         }
         
     }
