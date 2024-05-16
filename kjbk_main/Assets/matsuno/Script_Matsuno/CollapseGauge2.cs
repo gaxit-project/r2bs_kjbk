@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class CollapseGauge2 : MonoBehaviour
 {
     float CountTime = 0;            //ŠÔŒv‘ª
-    float Collapse = 82;            //“|‰óƒQ[ƒW
+    float Collapse = 100;            //“|‰óƒQ[ƒW
     float Span = 1;                 //Span•b‚Éˆê‰ñ“|‰óƒQ[ƒW‚ğ1%Œ¸‚ç‚·
     public Radio Demoscript;        //Radio.cs‚©‚çŠÖ”‚à‚Á‚Ä—ˆ‚é‚â‚Â
     public CollapseDesign2 Design;  //CollapseDesign2.cs‚©‚çŠÖ”‚à‚Á‚Ä—ˆ‚é‚â‚Â
