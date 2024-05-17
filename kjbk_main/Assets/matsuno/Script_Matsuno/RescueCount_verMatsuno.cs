@@ -7,6 +7,7 @@ public class RescueCount_verMatsuno : MonoBehaviour
     [SerializeField] private int RescueNum = 0;   //Œ»İ‹~•Ò”
     public bool RescueAll = false;   //Å‘å‹~•Ò”‚ğ–‚½‚µ‚½‚Æ‚«‚Ìƒtƒ‰ƒO
     public RCountText countText;
+    public Radio AloneRadio;
 
     // Start is called before the first frame update
     void Start()
@@ -20,6 +21,10 @@ public class RescueCount_verMatsuno : MonoBehaviour
         if (RescueNum == RescueMaxNum)   //Å‘å‹~•Ò”‚ğ–‚½‚µ‚Ä‚¢‚é‚©‚Ì”äŠr
         {
             RescueAll = true;
+        }
+        if(RescueAll)
+        {
+            AloneRadio.AloneRadio();
         }
     }
 
