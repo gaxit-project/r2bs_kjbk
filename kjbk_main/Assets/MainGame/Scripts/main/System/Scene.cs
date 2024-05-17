@@ -1,37 +1,39 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Scene : MonoBehaviour
 {
-    public static Scene instance;
+    public static Scene Instance = null;
 
-    void Awake()
+    public static Scene GetInstance()
     {
-        CheckInstance();
+        if (Instance == null)
+        {
+            Instance = FindObjectOfType<Scene>();
+        }
+        return Instance;
     }
-
-    void CheckInstance() //シングルトン
+    private void Awake()
     {
-        if (instance == null)
+        if (this != GetInstance())
         {
-            instance = this;
+            Destroy(this.gameObject);
+            return;
         }
-        else
-        {
-            Destroy(gameObject);
-        }
+        DontDestroyOnLoad(this.gameObject);
     }
 
     public void Title() //タイトル
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("title");
+        UnityEngine.SceneManagement.SceneManager.LoadScene("main_title");
     }
 
     public void GamePlay() //ゲーム画面
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("Main");
+        UnityEngine.SceneManagement.SceneManager.LoadScene("main");
     }
 
     public void GameOver() //ゲームオーバー画面

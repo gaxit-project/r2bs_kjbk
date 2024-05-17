@@ -27,6 +27,10 @@ public class PlayerRayCast : MonoBehaviour
     //消火器用
     public static bool SHold = false; //長押し判定
 
+    private Animator animator;
+
+    bool isCalledOnce = false;
+
 
     void Start ()
     {
@@ -38,6 +42,9 @@ public class PlayerRayCast : MonoBehaviour
         }
 
          fpsCam = GameObject.Find("FPSCamera");
+
+        //アニメーション読み込み
+        animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -109,6 +116,11 @@ public class PlayerRayCast : MonoBehaviour
         {
             if (HosuStatus == false)
             {
+                if (!isCalledOnce)
+                {
+                    isCalledOnce = true;
+                    animator.SetBool("take", isCalledOnce);
+                }
                 //消火栓をアクティブ
                 Debug.Log("消火栓使用中");
                 HosuStatus = true;
@@ -116,6 +128,8 @@ public class PlayerRayCast : MonoBehaviour
             }
             else
             {
+                isCalledOnce = false;
+                animator.SetBool("take", isCalledOnce);
                 //消火栓を非アクティブ
                 Debug.Log("消火栓使用してない");
                 WaterHose.WaterStatus = false;
