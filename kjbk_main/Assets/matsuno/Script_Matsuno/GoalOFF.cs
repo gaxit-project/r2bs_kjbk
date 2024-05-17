@@ -19,6 +19,7 @@ public class GoalOFF : MonoBehaviour
     // Update is called once per frame
     public void Update()
     {
+        //L‚ð‰Ÿ‚¹‚Î”ñ•\Ž¦‚É‚·‚é
         if(Input.GetKeyDown(KeyCode.L))
         {
             Debug.Log("L");

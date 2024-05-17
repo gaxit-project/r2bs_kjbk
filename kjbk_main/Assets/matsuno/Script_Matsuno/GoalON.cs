@@ -20,14 +20,19 @@ public class GoalON : MonoBehaviour
     // Update is called once per frame
     public void Update()
     {
+        //Kを押せば脱出する
         if(Input.GetKeyDown(KeyCode.K))
         {
             Rcnt = Cnt.getNum();
             Debug.Log("K");
+
+            //救助した人数が5人以上ならクリアへ移行
             if(Rcnt >= 5)
             {
                 Clear.GameClear2();
             }
+
+            //違うならゲームオーバーに移行
             else
             {
                 Over.GameOver();
