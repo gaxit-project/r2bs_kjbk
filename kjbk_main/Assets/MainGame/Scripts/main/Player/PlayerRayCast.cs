@@ -93,6 +93,43 @@ public class PlayerRayCast : MonoBehaviour
             }
             if(raycastHit.collider.gameObject.CompareTag(WaterPoint)){
                 Debug.Log("消火栓");
+                //消火器用スクリプト
+                if (Input.GetKeyDown("t"))
+                {
+                    if (HosuStatus == false)
+                    {
+                        if (!isCalledOnce)
+                        {
+                            isCalledOnce = true;
+                            animator.SetBool("take", isCalledOnce);
+                        }
+                        //消火栓をアクティブ
+                        Debug.Log("消火栓使用中");
+                        HosuStatus = true;
+                        Hosu.SetActive(HosuStatus);
+                    }
+                    else
+                    {
+                        isCalledOnce = false;
+                        animator.SetBool("take", isCalledOnce);
+                        //消火栓を非アクティブ
+                        Debug.Log("消火栓使用してない");
+                        WaterHose.WaterStatus = false;
+                        HosuStatus = false;
+                        Hosu.SetActive(HosuStatus);
+                    }
+                    SHold = true;
+                }
+                if (Input.GetKeyDown("t"))
+                {
+                    SHold = false;
+                }
+                if (SHold)
+                {
+                    Debug.Log("Hold");
+                }
+
+
                 /*if(Input.GetKeyDown("t")){
                     if(HosuStatus == false)
                     {
@@ -110,7 +147,7 @@ public class PlayerRayCast : MonoBehaviour
                 }*/
             }
         }
-
+        /*
         //消火器用スクリプト
         if (Input.GetKeyDown("t"))
         {
@@ -145,6 +182,6 @@ public class PlayerRayCast : MonoBehaviour
         if (SHold)
         {
             Debug.Log("Hold");
-        }
+        }*/
     }
 }

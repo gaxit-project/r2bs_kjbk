@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
     public static bool MoveStatus = false; //移動しているか
 
     private Animator animator;
+    bool isOne = false;
 
     void Start () {
         //メインカメラとサブカメラをそれぞれ取得

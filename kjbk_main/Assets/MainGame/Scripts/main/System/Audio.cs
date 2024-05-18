@@ -76,7 +76,7 @@ public class Audio : MonoBehaviour
         audioSorceRoopSE.Play();
     }
 
-    public void StopDANCE() //DANCE_BGMí‚é~
+    public void StopRoopSE() //DANCE_BGMí‚é~
     {
         audioSorceRoopSE.Stop();
     }

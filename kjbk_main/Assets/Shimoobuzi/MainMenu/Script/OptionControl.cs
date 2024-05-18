@@ -20,7 +20,7 @@ public class OptionControl : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
     }
     public void Quit()
-    {   
-        UnityEditor.EditorApplication.isPlaying = false;
+    {
+        Scene.Instance.EndGame();
     }
 }

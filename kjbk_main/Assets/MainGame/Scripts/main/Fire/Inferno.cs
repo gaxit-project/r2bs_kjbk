@@ -58,7 +58,7 @@ public class Inferno : MonoBehaviour
             BR_MinMaxCurve = BR.rateOverTime;
             //BY_MinMaxCurve = BY.rateOverTime;
         }
-
+        Audio.Instance.PlayRoopSE(0);
     }
 
     void Update()

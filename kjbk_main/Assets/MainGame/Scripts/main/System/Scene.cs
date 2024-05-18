@@ -38,12 +38,12 @@ public class Scene : MonoBehaviour
 
     public void GameOver() //ゲームオーバー画面
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("main_result");
+        UnityEngine.SceneManagement.SceneManager.LoadScene("main_gameover");
     }
 
     public void GameClear() //クリア画面
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("clear");
+        UnityEngine.SceneManagement.SceneManager.LoadScene("main_clear");
     }
 
 

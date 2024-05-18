@@ -18,8 +18,8 @@ public class MainMenuManager : MonoBehaviour
     }
 
     public void Quit()
-    {   
-        UnityEditor.EditorApplication.isPlaying = false;
+    {
+        Scene.Instance.EndGame();
     }
 
     public void Option()

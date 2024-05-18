@@ -20,12 +20,14 @@ public class OpenDoor : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F) && Near)
         {
             animator.SetBool("Open", true);
+            //Audio.Instance.PlaySound(0);
             doorCollider.enabled = false;
         }
 
         if (NPCNear)
         {
             animator.SetBool("Open", true);
+            //Audio.Instance.PlaySound(0);
             doorCollider.enabled = false;
         }
     }
@@ -48,6 +50,7 @@ public class OpenDoor : MonoBehaviour
         {
             Near = false;
             animator.SetBool("Open", false);
+            //Audio.Instance.PlaySound(1);
             doorCollider.enabled = true;
         }
 
@@ -55,6 +58,7 @@ public class OpenDoor : MonoBehaviour
         {
             NPCNear = false;
             animator.SetBool("Open", false);
+            //Audio.Instance.PlaySound(1);
             doorCollider.enabled = true;
         }
     }
