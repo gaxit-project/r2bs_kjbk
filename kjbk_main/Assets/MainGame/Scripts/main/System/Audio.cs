@@ -4,21 +4,32 @@ using UnityEngine;
 
 public class Audio : MonoBehaviour
 {
-    [SerializeField] AudioClip[] seList;
-    [SerializeField] AudioClip[] bgmList;
+    //音ファイル
+    [SerializeField] AudioClip[] SE_List;
+    [SerializeField] AudioClip[] BGM_List;
+    [SerializeField] AudioClip[] Roop_SE_List;
 
-    [SerializeField] AudioSource audioSourceBGM;
-    [SerializeField] AudioSource audioSourceSE;
+    //音の鳴らし方指定
+    [SerializeField] AudioSource audioSorceBGM;
+    [SerializeField] AudioSource audioSorceSE;
+    [SerializeField] AudioSource audioSorceRoopSE;
 
-    public float BGMVolume
+    public float BGMVolume //BGMボリューム
     {
-        get { return audioSourceBGM.volume; }
-        set { audioSourceBGM.volume = value; }
+        get { return audioSorceBGM.volume; }
+        set { audioSorceBGM.volume = value; }
     }
-    public float SEVolume
+
+    public float SEVolume //SEボリューム
     {
-        get { return audioSourceSE.volume; }
-        set { audioSourceSE.volume = value; }
+        get { return audioSorceSE.volume; }
+        set { audioSorceSE.volume = value; }
+    }
+
+    public float DANCEVolume //RoopSEボリューム
+    {
+        get { return audioSorceRoopSE.volume; }
+        set { audioSorceRoopSE.volume = value; }
     }
 
     public static Audio Instance = null;
@@ -31,7 +42,8 @@ public class Audio : MonoBehaviour
         }
         return Instance;
     }
-    private void Awake()
+
+    private void Awake() //シングルトン
     {
         if (this != GetInstance())
         {
@@ -41,13 +53,31 @@ public class Audio : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
     }
 
-    public void PlaySound(int index)
+    public void PlaySound(int index) //SE再生
     {
-        audioSourceSE.PlayOneShot(seList[index]);
+        audioSorceSE.PlayOneShot(SE_List[index]);
     }
-    public void PlayBGM(int index)
+
+    public void PlayBGM(int index) //BGM再生
     {
-        audioSourceBGM.clip = bgmList[index];
-        audioSourceBGM.Play();
+        audioSorceBGM.clip = BGM_List[index];
+        audioSorceBGM.Play();
+    }
+
+    public void StopBGM() //BGM停止
+    {
+        audioSorceBGM.Stop();
+        audioSorceRoopSE.Stop();
+    }
+
+    public void PlayRoopSE(int index) //DANCE_BGM再生
+    {
+        audioSorceRoopSE.clip = Roop_SE_List[index];
+        audioSorceRoopSE.Play();
+    }
+
+    public void StopDANCE() //DANCE_BGM停止
+    {
+        audioSorceRoopSE.Stop();
     }
 }

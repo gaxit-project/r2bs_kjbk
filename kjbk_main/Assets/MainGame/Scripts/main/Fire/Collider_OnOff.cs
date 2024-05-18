@@ -8,7 +8,7 @@ public class Collider_OnOff : MonoBehaviour
     BoxCollider FireCol;
 
     // Start is called before the first frame update
-    void Start()
+    public void Start()
     {
         FireCol = this.GetComponent<BoxCollider>();
     }
@@ -16,29 +16,35 @@ public class Collider_OnOff : MonoBehaviour
     // Update is called once per frame
 
     /// 
+    /// 炎のコライダーをオンにする
+    /// 
+
+
+    public void OnCollisionEnter(Collision Hit)
+    {
+        if (Hit.gameObject.tag == "Player")
+        {
+            FireCol.enabled = false;
+            Invoke(nameof(FireOn), 5f);
+        }
+    }
+
+
+    /// 
     /// 炎のコライダーをオフにする
     /// 
-    public void FireOff()
+
+    public void FireOn()
     {
-        FireCol.enabled = false;
+        FireCol.enabled = true;
     }
 
 
     /// 
     /// 炎のコライダーオンにするためにn秒間待つ
     /// 
-    public void FireOn()
-    {
-        Invoke(nameof(FireOn2), 5f);
-    }
-
-
-    /// 
-    /// 炎のコライダーをオンにする
-    /// 
-
-    public void FireOn2()
-    {
-        FireCol.enabled = true;
-    }
+    //public void FireOn()
+    //{
+    //    Invoke(nameof(FireOn2), 5f);
+    //}
 }

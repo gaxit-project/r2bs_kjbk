@@ -1,10 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
+using UnityEngine;
 
-public class RCountText : MonoBehaviour
+public class RescueCountText : MonoBehaviour
 {
 
     //テキストの宣言
@@ -29,7 +28,7 @@ public class RCountText : MonoBehaviour
     }
 
     // Update is called once per frame
-    public void Update()
+    void Update()
     {
         //テスト用
         //if((Input.GetKeyDown(KeyCode.I)))
@@ -54,6 +53,5 @@ public class RCountText : MonoBehaviour
             RInve.SetText("Success!!");
         }
     }
-
 
 }

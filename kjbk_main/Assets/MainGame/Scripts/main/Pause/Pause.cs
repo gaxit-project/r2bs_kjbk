@@ -5,27 +5,31 @@ using UnityEngine;
 public class Pause : MonoBehaviour
 {
     public GameObject pause;
-    bool pause_status;
+    public static bool pause_status;
     // Start is called before the first frame update
     void Start()
     {
         pause_status = false;
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            Debug.Log("‰Ÿ‚³‚ê‚Ü‚µ‚½");
-            if (pause_status == true)
-            {
-                pause_status = false;
-            }
-            else
-            {
-                pause_status = true;
-            }
+            PauseCon();
+        }
+    }
+
+    public void PauseCon()
+    {
+        if (pause_status == true)
+        {
+           pause_status = false;
+        }
+        else
+        {
+            pause_status = true;
         }
 
         if (pause_status == true)

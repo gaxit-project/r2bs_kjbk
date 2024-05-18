@@ -21,6 +21,7 @@ public class RescueNPC : MonoBehaviour
     [SerializeField] public RadioText RadioText;   //無線制御
     [SerializeField] public AutoRunNPC AutoRunNPC; //
     private GameObject Rescue;
+    RescueCount_verMatsuno CounterScript;   //救助者カウント
     RescueDiplication DiplicationScript;
 
     MeshRenderer mesh;   //MeshRendere
@@ -40,6 +41,7 @@ public class RescueNPC : MonoBehaviour
         mesh = GetComponent<MeshRenderer>();
         Rescue = GameObject.Find("Rescue");
         DiplicationScript = Rescue.GetComponent<RescueDiplication>();
+        CounterScript = Rescue.GetComponent<RescueCount_verMatsuno>();
     }
 
     void Update()
@@ -102,6 +104,15 @@ public class RescueNPC : MonoBehaviour
                 RescuedVectorNPC(TargetPosition.x, TargetPosition.y, TargetPosition.z);   //NPCを救出したときのVector
                 SetRescued(true);
                 //CountDestroy();   //一定時間後にオブジェクト削除
+                CounterScript.Count();   //救助者カウント
+            }
+
+            if (IsItInGoal() && !IsItRescued() && Severe == false)   //救出地点に接触かつ未救出かつ重傷者
+            {
+                RescuedVectorNPC(TargetPosition.x, TargetPosition.y, TargetPosition.z);   //NPCを救出したときのVector
+                SetRescued(true);
+                //CountDestroy();   //一定時間後にオブジェクト削除
+                CounterScript.Count();   //救助者カウント
             }
         }
     }
