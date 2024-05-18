@@ -10751,6 +10751,18 @@ PrefabInstance:
       propertyPath: LvSpreadProbability
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: -6470092844295496837, guid: 10b88904b940e784f8f464c7b5e83178, type: 3}
+      propertyPath: AntiBlazeTag.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -6470092844295496837, guid: 10b88904b940e784f8f464c7b5e83178, type: 3}
+      propertyPath: AntiBlazeTag.Array.data[0]
+      value: Blaze
+      objectReference: {fileID: 0}
+    - target: {fileID: -6470092844295496837, guid: 10b88904b940e784f8f464c7b5e83178, type: 3}
+      propertyPath: AntiBlazeTag.Array.data[1]
+      value: Wall
+      objectReference: {fileID: 0}
     - target: {fileID: -6314536278128657883, guid: 10b88904b940e784f8f464c7b5e83178, type: 3}
       propertyPath: LvUpSize
       value: 2
@@ -10762,6 +10774,10 @@ PrefabInstance:
     - target: {fileID: 556783039745682872, guid: 10b88904b940e784f8f464c7b5e83178, type: 3}
       propertyPath: m_Name
       value: Blaze
+      objectReference: {fileID: 0}
+    - target: {fileID: 556783039745682872, guid: 10b88904b940e784f8f464c7b5e83178, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3515939550904828322, guid: 10b88904b940e784f8f464c7b5e83178, type: 3}
       propertyPath: m_LocalPosition.x

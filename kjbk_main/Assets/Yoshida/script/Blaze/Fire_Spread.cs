@@ -23,11 +23,13 @@ public class Fire_Spread : MonoBehaviour
     private bool FireZm = false;
     private int FireNum = 0;
 
+    private int d = 0;
 
     public inferno inferno;
     public Fire_Lv Fire_Lv;
 
     public GameObject PrefabBlaze;
+    public GameObject PrefabPlane;
 
     void Awake()
     {
@@ -56,7 +58,7 @@ public class Fire_Spread : MonoBehaviour
     {
         if(inferno.FireStatus)
         {
-            StopCoroutine("SpreadFireS");
+            StopCoroutine("SpreadFire");
         }
     }
 
@@ -77,63 +79,15 @@ public class Fire_Spread : MonoBehaviour
         //Debug.DrawRay(rayXm.origin, rayXm.direction * 10, Color.red, 10, false);
         //Debug.DrawRay(rayZm.origin, rayZm.direction * 10, Color.red, 10, false);
 
-        Vector3 prefabXp = new Vector3(this.transform.position.x + SpreadRange, this.transform.position.y, this.transform.position.z);
-        Vector3 prefabZp = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z + SpreadRange);
-        Vector3 prefabXm = new Vector3(this.transform.position.x - SpreadRange, this.transform.position.y, this.transform.position.z);
-        Vector3 prefabZm = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z - SpreadRange);
-
         while (true)
         {
             yield return new WaitForSeconds(SpreadSecond);
             decision(rayXp, rayZp, rayXm, rayZm);
             if (!inferno.FireStatus && !FireEmpty()) break;
             if (Fire_Lv.FireLv == 1) continue;
-            int spreadprobability = Random.Range(1, 100) + LvSpreadProbability * (Fire_Lv.FireLv - 1);
-            if(spreadprobability < SpreadProbability)
-            {
-                int Probability = Random.Range(1, 100);
-                int preProbability = 0;
-                int probability = 100 / (4 - FireNum);
-                if (!FireXp)
-                {
-                    if(probability < Probability) { 
-                        GameObject newObject = Instantiate(PrefabBlaze, prefabXp, Quaternion.identity);
-                        newObject.name = "Blaze";
-                        preProbability = probability;
-                        probability += probability;
-                    }
-                }
-                if (!FireZp)
-                {
-                    if (preProbability <= Probability && probability > Probability)
-                    {
-                        GameObject newObject = Instantiate(PrefabBlaze, prefabZp, Quaternion.identity);
-                        newObject.name = "Blaze";
-                        preProbability = probability;
-                        probability += probability;
-                    }
-                }
-                if (!FireXm)
-                {
-                    if (preProbability <= Probability && probability > Probability)
-                    {
-                        GameObject newObject = Instantiate(PrefabBlaze, prefabXm, Quaternion.identity);
-                        newObject.name = "Blaze";
-                        preProbability = probability;
-                        probability += probability;
-                    }
-                }
-                if (!FireZm)
-                {
-                    if (preProbability <= Probability && probability > Probability)
-                    {
-                        GameObject newObject = Instantiate(PrefabBlaze, prefabZm, Quaternion.identity);
-                        newObject.name = "Blaze";
-                    }
-                }
-
-            }
-
+            d = dice();
+            CreatePlane();
+            Invoke("Spread", 1.5f);
         }
     }
 
@@ -141,7 +95,7 @@ public class Fire_Spread : MonoBehaviour
     {
         FireNum = 0;
         RaycastHit hit;
-        if(Physics.Raycast(rayXp, out hit, SpreadRange))
+        if (Physics.Raycast(rayXp, out hit, SpreadRange))
         {
             if (Raydecision(hit) && !FireXp)
             {
@@ -202,6 +156,115 @@ public class Fire_Spread : MonoBehaviour
             }
         }
         return false;
+    }
+
+    private int dice()
+    {
+        int d = 0;
+
+        int spreadprobability = Random.Range(1, 100) + LvSpreadProbability * (Fire_Lv.FireLv - 1);
+        if (spreadprobability < SpreadProbability)
+        {
+            int Probability = Random.Range(1, 100);
+            int preProbability = 0;
+            int probability = 100 / (4 - FireNum);
+            if (!FireXp)
+            {
+                if (probability < Probability)
+                {
+                    return 1;
+
+                }
+                preProbability = probability;
+                probability += probability;
+            }
+            if (!FireZp)
+            {
+                if (preProbability <= Probability && probability > Probability)
+                {
+                    return 2;
+                }
+                preProbability = probability;
+                probability += probability;
+            }
+            if (!FireXm)
+            {
+                if (preProbability <= Probability && probability > Probability)
+                {
+                    return 3;
+                }
+                preProbability = probability;
+                probability += probability;
+            }
+            if (!FireZm)
+            {
+                if (preProbability <= Probability && probability > Probability)
+                {
+                    return 4;
+                }
+            }
+        }
+        return 0;
+    }
+
+    private void CreatePlane()
+    {
+        Vector3 prefabXp = new Vector3(this.transform.position.x + SpreadRange, this.transform.position.y, this.transform.position.z);
+        Vector3 prefabZp = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z + SpreadRange);
+        Vector3 prefabXm = new Vector3(this.transform.position.x - SpreadRange, this.transform.position.y, this.transform.position.z);
+        Vector3 prefabZm = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z - SpreadRange);
+
+        if (d == 0) return;
+        if (d == 1)
+        {
+            GameObject newObject = Instantiate(PrefabPlane, prefabXp, Quaternion.identity);
+            newObject.name = "Plane";
+        }
+        if (d == 2)
+        {
+            GameObject newObject = Instantiate(PrefabPlane, prefabZp, Quaternion.identity);
+            newObject.name = "Plane";
+        }
+        if (d == 3)
+        {
+            GameObject newObject = Instantiate(PrefabPlane, prefabXm, Quaternion.identity);
+            newObject.name = "Plane";
+        }
+        if (d == 4)
+        {
+            GameObject newObject = Instantiate(PrefabPlane, prefabZm, Quaternion.identity);
+            newObject.name = "Plane";
+        }
+    }
+
+    private void Spread()
+    {
+        Vector3 prefabXp = new Vector3(this.transform.position.x + SpreadRange, this.transform.position.y, this.transform.position.z);
+        Vector3 prefabZp = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z + SpreadRange);
+        Vector3 prefabXm = new Vector3(this.transform.position.x - SpreadRange, this.transform.position.y, this.transform.position.z);
+        Vector3 prefabZm = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z - SpreadRange);
+
+        if (d == 0) return;
+        if (d == 1)
+        {
+            GameObject newObject = Instantiate(PrefabBlaze, prefabXp, Quaternion.identity);
+            newObject.name = "Blaze";
+        }
+        if (d == 2)
+        {
+            GameObject newObject = Instantiate(PrefabBlaze, prefabZp, Quaternion.identity);
+            newObject.name = "Blaze";
+        }
+        if (d == 3)
+        {
+            GameObject newObject = Instantiate(PrefabBlaze, prefabXm, Quaternion.identity);
+            newObject.name = "Blaze";
+        }
+        if (d == 4)
+        {
+            GameObject newObject = Instantiate(PrefabBlaze, prefabZm, Quaternion.identity);
+            newObject.name = "Blaze";
+        }
     }
 
     private bool FireEmpty()

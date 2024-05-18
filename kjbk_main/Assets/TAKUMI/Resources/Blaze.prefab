@@ -5102,16 +5102,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4033dcdffb91424899c1f34fc48e58b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpreadSecond: 3
+  SpreadSecond: 5
   SpreadProbability: 75
   LvSpreadProbability: 10
   SpreadRange: 10
-  UntiBlazeTag:
+  AntiBlazeTag:
   - Blaze
   - Wall
+  - Plane
   inferno: {fileID: 1438776958498779912}
   Fire_Lv: {fileID: -6314536278128657883}
   PrefabBlaze: {fileID: 556783039745682872}
+  PrefabPlane: {fileID: 8916174127013782177, guid: c2fa20853a294294dbc30f6b4a5cfbab, type: 3}
 --- !u!1 &7069109537453500892
 GameObject:
   m_ObjectHideFlags: 0
