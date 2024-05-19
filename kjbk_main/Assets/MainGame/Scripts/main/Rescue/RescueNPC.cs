@@ -36,6 +36,7 @@ public class RescueNPC : MonoBehaviour
     bool SecondContact = false;   //会話回数の判定
     bool Lock = false;   //Playerの動きの固定
 
+    public static int r_num = 0;
     void Start()
     {
         mesh = GetComponent<MeshRenderer>();
@@ -44,7 +45,7 @@ public class RescueNPC : MonoBehaviour
         CounterScript = Rescue.GetComponent<RescueCount_verMatsuno>();
     }
 
-    void Update()
+    void FixedUpdate()
     {
         Transform target = Player.transform;   //PlayerのTransform
         Vector3 TargetPosition = target.position;
@@ -103,21 +104,28 @@ public class RescueNPC : MonoBehaviour
                 SetFollow(false);
                 RescuedVectorNPC(TargetPosition.x, TargetPosition.y, TargetPosition.z);   //NPCを救出したときのVector
                 SetRescued(true);
-                //CountDestroy();   //一定時間後にオブジェクト削除
+                CountDestroy();   //一定時間後にオブジェクト削除
                 CounterScript.Count();   //救助者カウント
+                r_num = CounterScript.getNum();
             }
 
             if (IsItInGoal() && !IsItRescued() && Severe == false)   //救出地点に接触かつ未救出かつ重傷者
             {
                 RescuedVectorNPC(TargetPosition.x, TargetPosition.y, TargetPosition.z);   //NPCを救出したときのVector
                 SetRescued(true);
-                //CountDestroy();   //一定時間後にオブジェクト削除
+                CountDestroy();   //一定時間後にオブジェクト削除
                 CounterScript.Count();   //救助者カウント
+                r_num = CounterScript.getNum();
             }
         }
     }
 
     //関数
+
+    public int getNum()
+    {
+        return r_num;
+    }
     public void CountDestroy()//オブジェクトの破壊
     {
         Invoke("Destroy", 3f);

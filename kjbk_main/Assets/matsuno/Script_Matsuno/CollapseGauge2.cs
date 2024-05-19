@@ -7,7 +7,7 @@ public class CollapseGauge2 : MonoBehaviour
 {
     float CountTime = 0;            //ŠÔŒv‘ª
     float Collapse = 100;            //“|‰óƒQ[ƒW
-    float Span = 1;                 //Span•b‚Éˆê‰ñ“|‰óƒQ[ƒW‚ğ1%Œ¸‚ç‚·
+    float Span = 3.5f;                 //Span•b‚Éˆê‰ñ“|‰óƒQ[ƒW‚ğ1%Œ¸‚ç‚·
     public Radio Demoscript;        //Radio.cs‚©‚çŠÖ”‚à‚Á‚Ä—ˆ‚é‚â‚Â
     public CollapseDesign2 Design;  //CollapseDesign2.cs‚©‚çŠÖ”‚à‚Á‚Ä—ˆ‚é‚â‚Â
     public Sunaarashi_ON_OFF Suna;  //»—’‚ğ‚à‚Á‚Ä‚­‚é
@@ -69,7 +69,7 @@ public class CollapseGauge2 : MonoBehaviour
             }
             else if (Collapse <= 0)
             {
-                //Over.GameOver();   
+                Scene.Instance.GameOver(); 
             }
             
             //“Á’è‚ÌƒQ[ƒW‚É–³ü‚ğo‚·‚æ‚¤‚É‚·‚é

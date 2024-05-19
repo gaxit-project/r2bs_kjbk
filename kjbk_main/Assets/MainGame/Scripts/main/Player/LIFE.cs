@@ -104,7 +104,7 @@ public class LIFE : MonoBehaviour
                 StartCoroutine(Blink());     //点滅開始
                 if (HitPoint <= 0)            //もしHPが尽きたら以下の処理を行う
                 {
-                    Over.GameOver();         //ゲームオーバーに飛ばす
+                    Scene.Instance.GameOver();       //ゲームオーバーに飛ばす
                 }
             }
 

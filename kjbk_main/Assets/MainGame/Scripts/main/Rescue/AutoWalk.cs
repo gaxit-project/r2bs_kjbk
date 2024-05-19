@@ -57,7 +57,7 @@ public class AutoWalk : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         //石崎スクリプト
         bool Encount = rescueNPC.IsItFirstContact();
@@ -71,12 +71,13 @@ public class AutoWalk : MonoBehaviour
             //var NPCpos = transform.position;
             //var Diff = (PlayerPos.potision - NPCpos);
             //transform.rotation = Quaternion.LookRotation(Diff);
+
         }
         //待ち時間を数える
         time += Time.deltaTime;
 
         //待ち時間が設定された数値を超えると発動
-        if (time > waitTime)
+        if (time > waitTime && !Encount)
         {
             //目標地点を設定し直す
             GotoNextPoint();

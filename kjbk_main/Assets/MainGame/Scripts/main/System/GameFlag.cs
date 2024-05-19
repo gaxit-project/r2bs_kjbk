@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class GameFlag : MonoBehaviour
 {
-    public Rescue_Counter Cnt;
+    public RescueCount_verMatsuno Cnt;
     int Rcnt = 0;
 
     [SerializeField] GameObject EscapeON;
@@ -28,11 +28,11 @@ public class GameFlag : MonoBehaviour
         //Kを押せば脱出する
         if (Input.GetKeyDown(KeyCode.K))
         {
-            Rcnt = Cnt.getNum();
+            //Rcnt = Cnt.getNum();
             Debug.Log("K");
 
             //救助した人数が5人以上ならクリアへ移行
-            if (Rcnt >= 5)
+            if (Cnt.getNum() >= 2)
             {
                 Scene.Instance.GameClear();
             }
@@ -95,7 +95,7 @@ public class GameFlag : MonoBehaviour
         Debug.Log("K");
 
         //救助した人数が5人以上ならクリアへ移行
-        if (Rcnt >= 5)
+        if (Cnt.getNum() >= 2)
         {
             Scene.Instance.GameClear();
         }

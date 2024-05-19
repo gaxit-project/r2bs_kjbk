@@ -45,6 +45,10 @@ public class Scene : MonoBehaviour
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene("main_clear");
     }
+    public void GameResult() //クリア画面
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene("main_cresult");
+    }
 
 
     public void EndGame() //ゲーム終了

@@ -12,6 +12,7 @@ public class RescueCountText : MonoBehaviour
     [SerializeField] TextMeshProUGUI RText;
 
     public RescueCount_verMatsuno RCounter;
+    RescueNPC Rcounter1 = new RescueNPC(); 
     int Cnt;   //実際に使うやつ
     int Cnt2;  //テスト用
 
@@ -21,7 +22,7 @@ public class RescueCountText : MonoBehaviour
         //テキストの表示
         RCount.color = new Color(1.0f, 0.0f, 0.0f, 1.0f);
         RInve.color = new Color(1.0f, 0.0f, 0.0f, 1.0f);
-        Cnt = RCounter.getNum();
+        Cnt = Rcounter1.getNum();
         RCount.SetText(Cnt2 + "");
         RText.SetText("Objective : Help 5 people :");
         RInve.SetText("");
@@ -35,7 +36,7 @@ public class RescueCountText : MonoBehaviour
         //{
         //    Cnt2++;
         //}
-        Cnt = RCounter.getNum();
+        Cnt = Rcounter1.getNum();
         //もし救助した人数が5未満なら赤く表示
         Debug.Log(Cnt);
         if (Cnt < 5)
