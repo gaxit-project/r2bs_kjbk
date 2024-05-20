@@ -6,7 +6,7 @@ public class GoalON : MonoBehaviour
 {
     public SceneChange Clear;
     public SceneChange Over;
-    public Rescue_Counter Cnt;
+    public RescueCount_verMatsuno Cnt;
 
     int Rcnt;
     //[SerializeField] Button EscapeON;

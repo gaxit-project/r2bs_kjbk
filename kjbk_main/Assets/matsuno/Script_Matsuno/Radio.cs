@@ -69,21 +69,21 @@ public class Radio : MonoBehaviour
     public void RSeikouRadio()
     {
         Debug.Log("Rseikou");
-        RSeikou.SetActive(true);           //40%の時の無線を表示
+        RSeikou.SetActive(true);           //救出成功時の無線を表示
         Invoke(nameof(FourGauge2), 10f);      //5秒後に消す
     }
 
     public void RShippaiSRadio()
     {
         Debug.Log("RShippai");
-        RShippai.SetActive(true);            //20%の時の無線を表示
+        RShippai.SetActive(true);            //救出失敗時の無線を表示
         Invoke(nameof(TwoGauge2), 10f);       //5秒後に消す
     }
 
     public void AloneRadio()
     {
         Debug.Log("Alone");
-        Alone.SetActive(true);            //10%の時の無線を表示
+        Alone.SetActive(true);            //全員救ったときの無線を表示
         Invoke(nameof(OneGauge2), 10f);       //5秒後に消す
     }
 

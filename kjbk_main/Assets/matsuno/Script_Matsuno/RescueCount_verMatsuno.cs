@@ -4,10 +4,11 @@ using UnityEngine;
 public class RescueCount_verMatsuno : MonoBehaviour
 {
     public int RescueMaxNum;   //Å‘å‹~•Ò
-    [SerializeField] private int RescueNum = 0;   //Œ»İ‹~•Ò”
+    public int RescueNum = 0;   //Œ»İ‹~•Ò”
     public bool RescueAll = false;   //Å‘å‹~•Ò”‚ğ–‚½‚µ‚½‚Æ‚«‚Ìƒtƒ‰ƒO
     public RCountText countText;
-    public Radio AloneRadio;
+    public Radio ARadio;
+
 
     // Start is called before the first frame update
     void Start()
@@ -18,23 +19,34 @@ public class RescueCount_verMatsuno : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //ƒeƒXƒg—p
+         if ((Input.GetKeyDown(KeyCode.I)))
+         {
+            //RescueNum++;
+            Count();
+         }
+
+
         if (RescueNum == RescueMaxNum)   //Å‘å‹~•Ò”‚ğ–‚½‚µ‚Ä‚¢‚é‚©‚Ì”äŠr
         {
             RescueAll = true;
         }
-        if(RescueAll)
-        {
-            AloneRadio.AloneRadio();
-        }
+        // if(RescueAll)
+        //{
+        //    ARadio.AloneRadio();
+        //}
     }
 
     public void Count()   //Œ»İ‹~•Ò”‚ÌƒJƒEƒ“ƒg
     {
+        Debug.Log("count");
         RescueNum++;
+        Debug.Log(RescueNum);
     }
 
     public int getNum()   //Œ»İ‹~•Ò”‚Ìæ“¾
     {
+        Debug.Log("callNum");
         return RescueNum;
     }
 

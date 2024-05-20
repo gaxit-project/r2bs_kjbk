@@ -66,6 +66,8 @@ public class HP : MonoBehaviour
         }
     }
 
+    
+
     //public void HPminus2()
     //{
     //    HitPoint--;                  //HP‚ðŒ¸‚ç‚·

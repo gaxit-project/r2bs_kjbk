@@ -16261,7 +16261,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Clear: {fileID: 1516091321}
   Over: {fileID: 1516091321}
-  Cnt: {fileID: 0}
+  Cnt: {fileID: 1626063383}
 --- !u!1 &798754264
 GameObject:
   m_ObjectHideFlags: 0
@@ -34769,6 +34769,7 @@ MonoBehaviour:
   RescueNum: 0
   RescueAll: 0
   countText: {fileID: 0}
+  ARadio: {fileID: 783436246}
 --- !u!1 &1629100231
 GameObject:
   m_ObjectHideFlags: 0
