@@ -28,19 +28,23 @@ public class GameFlag : MonoBehaviour
         //Kを押せば脱出する
         if (Input.GetKeyDown(KeyCode.K))
         {
-            //Rcnt = Cnt.getNum();
+            Rcnt = PlayerPrefs.GetInt("RescueCount");
             Debug.Log("K");
 
             //救助した人数が5人以上ならクリアへ移行
-            if (Cnt.getNum() >= 2)
+            if (Rcnt >= 2)
             {
-                Scene.Instance.GameClear();
+                PlayerPrefs.SetString("Result", "CLEAR");
+                Scene.Instance.GameResult();
+                //Scene.Instance.GameClear();
             }
 
             //違うならゲームオーバーに移行
             else
             {
-                Scene.Instance.GameOver();
+                PlayerPrefs.SetString("Result", "GAMEOVER");
+                Scene.Instance.GameResult();
+                //Scene.Instance.GameOver();
             }
         }
 

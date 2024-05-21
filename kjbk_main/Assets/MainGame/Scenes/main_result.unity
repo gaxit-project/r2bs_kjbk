@@ -240,8 +240,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1248304092}
-        m_TargetAssemblyTypeName: RestartControl, Assembly-CSharp
+      - m_Target: {fileID: 1248304097}
+        m_TargetAssemblyTypeName: ResultScore, Assembly-CSharp
         m_MethodName: Quit
         m_Mode: 1
         m_Arguments:
@@ -378,7 +378,7 @@ Transform:
   m_GameObject: {fileID: 99607394}
   serializedVersion: 2
   m_LocalRotation: {x: 0.40821788, y: 0.23456976, z: -0.10938167, w: 0.8754261}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalPosition: {x: 477.76, y: 237, z: -6.86}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -876,7 +876,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 179.99358, y: 69}
+  m_AnchoredPosition: {x: 179.99359, y: 69}
   m_SizeDelta: {x: 160, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &457152691
@@ -923,8 +923,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1248304092}
-        m_TargetAssemblyTypeName: RestartControl, Assembly-CSharp
+      - m_Target: {fileID: 1248304097}
+        m_TargetAssemblyTypeName: ResultScore, Assembly-CSharp
         m_MethodName: ToTitle
         m_Mode: 1
         m_Arguments:
@@ -1023,7 +1023,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 0}
+  m_FirstSelected: {fileID: 457152689}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
 --- !u!4 &764056042
@@ -1275,6 +1275,7 @@ GameObject:
   - component: {fileID: 1248304094}
   - component: {fileID: 1248304093}
   - component: {fileID: 1248304092}
+  - component: {fileID: 1248304097}
   m_Layer: 5
   m_Name: ResultCanvas
   m_TagString: Untagged
@@ -1289,7 +1290,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1248304091}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9d478443835903f47826990ab0351e68, type: 3}
   m_Name: 
@@ -1384,6 +1385,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1248304097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1248304091}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3c99eadf121c4f4eb145325862832d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ResultCanvas: {fileID: 1248304091}
 --- !u!1001 &1294799038
 PrefabInstance:
   m_ObjectHideFlags: 0

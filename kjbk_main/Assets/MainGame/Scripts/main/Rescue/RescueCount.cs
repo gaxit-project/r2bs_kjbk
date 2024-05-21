@@ -1,31 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public class RescueCount_verMatsuno : MonoBehaviour
+public class RescueCount : MonoBehaviour
 {
     public int RescueMaxNum;   //Å‘å‹~•Ò
-    public int RescueNum = 0;   //Œ»İ‹~•Ò”
+    public static int RescueNum = 0;   //Œ»İ‹~•Ò”
     public bool RescueAll = false;   //Å‘å‹~•Ò”‚ğ–‚½‚µ‚½‚Æ‚«‚Ìƒtƒ‰ƒO
     public RCountText countText;
     public Radio ARadio;
 
 
-    // Start is called before the first frame update
     void Start()
     {
         RescueNum = 0;
         PlayerPrefs.SetInt("RescueCount", RescueNum);
     }
 
-    // Update is called once per frame
     void Update()
     {
         //ƒeƒXƒg—p
-         if ((Input.GetKeyDown(KeyCode.I)))
-         {
-            //RescueNum++;
+        if ((Input.GetKeyDown(KeyCode.I)))
+        {
             Count();
-         }
+        }
 
 
         if (RescueNum == RescueMaxNum)   //Å‘å‹~•Ò”‚ğ–‚½‚µ‚Ä‚¢‚é‚©‚Ì”äŠr
@@ -42,8 +39,8 @@ public class RescueCount_verMatsuno : MonoBehaviour
     {
         Debug.Log("count");
         RescueNum++;
-        PlayerPrefs.SetInt("RescueCount", RescueNum);
         Debug.Log(RescueNum);
+        PlayerPrefs.SetInt("RescueCount", RescueNum); //ƒZ[ƒu
     }
 
     public int getNum()   //Œ»İ‹~•Ò”‚Ìæ“¾

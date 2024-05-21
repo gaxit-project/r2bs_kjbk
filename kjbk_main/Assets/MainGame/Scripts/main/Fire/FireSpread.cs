@@ -12,7 +12,7 @@ public class FireSpread : MonoBehaviour
     [SerializeField] private int LvSpreadProbability;   //炎レベルによる確率の上昇(確率に数値*(Lv-1)プラス)
     [SerializeField] private float SpreadRange;   //延焼時の移動距離
 
-    [SerializeField] private string[] UntiBlazeTag;
+    [SerializeField] private string[] AntiBlazeTag;
 
     public static bool FirstAction = true;
 
@@ -23,11 +23,13 @@ public class FireSpread : MonoBehaviour
     private bool FireZm = false;
     private int FireNum = 0;
 
+    private int d = 0;
 
     Inferno Inferno;
     FireLv FireLv;
 
     public GameObject PrefabBlaze;
+    public GameObject PrefabPlane;
 
     void Awake()
     {
@@ -35,9 +37,9 @@ public class FireSpread : MonoBehaviour
         {
             Debug.Log("=============================================");
             Debug.Log("Blazeは以下のタグのオブジェクトを無視します。");
-            for (int i = 0; i < UntiBlazeTag.Length; i++)
+            for (int i = 0; i < AntiBlazeTag.Length; i++)
             {
-                Debug.Log("Tag: " + UntiBlazeTag[i]);
+                Debug.Log("Tag: " + AntiBlazeTag[i]);
             }
             Debug.Log("=============================================");
             FirstAction = false;
@@ -87,56 +89,13 @@ public class FireSpread : MonoBehaviour
         {
             yield return new WaitForSeconds(SpreadSecond);
             decision(rayXp, rayZp, rayXm, rayZm);
-            if (!FireEmpty()) break; //!Inferno.FireStatus && 
+            if (!Inferno.FireStatus && !FireEmpty()) break;
             if (FireLv.FireLvel == 1) continue;
-            int spreadprobability = Random.Range(1, 100) + LvSpreadProbability * (FireLv.FireLvel - 1);
-            if (spreadprobability < SpreadProbability)
-            {
-                int Probability = Random.Range(1, 100);
-                int preProbability = 0;
-                int probability = 100 / (4 - FireNum);
-                if (!FireXp)
-                {
-                    if (probability < Probability)
-                    {
-                        GameObject newObject = Instantiate(PrefabBlaze, prefabXp, Quaternion.identity);
-                        newObject.name = "Blaze";
-                        preProbability = probability;
-                        probability += probability;
-                    }
-                }
-                if (!FireZp)
-                {
-                    if (preProbability <= Probability && probability > Probability)
-                    {
-                        GameObject newObject = Instantiate(PrefabBlaze, prefabZp, Quaternion.identity);
-                        newObject.name = "Blaze";
-                        preProbability = probability;
-                        probability += probability;
-                    }
-                }
-                if (!FireXm)
-                {
-                    if (preProbability <= Probability && probability > Probability)
-                    {
-                        GameObject newObject = Instantiate(PrefabBlaze, prefabXm, Quaternion.identity);
-                        newObject.name = "Blaze";
-                        preProbability = probability;
-                        probability += probability;
-                    }
-                }
-                if (!FireZm)
-                {
-                    if (preProbability <= Probability && probability > Probability)
-                    {
-                        GameObject newObject = Instantiate(PrefabBlaze, prefabZm, Quaternion.identity);
-                        newObject.name = "Blaze";
-                    }
-                }
-
-            }
-
+            d = dice();
+            CreatePlane();
+            Invoke("Spread", 1.5f);
         }
+
     }
 
     private void decision(Ray rayXp, Ray rayZp, Ray rayXm, Ray rayZm)
@@ -196,14 +155,123 @@ public class FireSpread : MonoBehaviour
     private bool Raydecision(RaycastHit hit)
     {
         //Rayに接触したオブジェクトの判別(配列にしていしたTag)には延焼しない)
-        for (int i = 0; i < UntiBlazeTag.Length; i++)
+        for (int i = 0; i < AntiBlazeTag.Length; i++)
         {
-            if (hit.collider.CompareTag(UntiBlazeTag[i]))
+            if (hit.collider.CompareTag(AntiBlazeTag[i]))
             {
                 return true;
             }
         }
         return false;
+    }
+
+    private int dice()
+    {
+        int d = 0;
+
+        int spreadprobability = Random.Range(1, 100) + LvSpreadProbability * (FireLv.FireLvel - 1);
+        if (spreadprobability < SpreadProbability)
+        {
+            int Probability = Random.Range(1, 100);
+            int preProbability = 0;
+            int probability = 100 / (4 - FireNum);
+            if (!FireXp)
+            {
+                if (probability < Probability)
+                {
+                    return 1;
+
+                }
+                preProbability = probability;
+                probability += probability;
+            }
+            if (!FireZp)
+            {
+                if (preProbability <= Probability && probability > Probability)
+                {
+                    return 2;
+                }
+                preProbability = probability;
+                probability += probability;
+            }
+            if (!FireXm)
+            {
+                if (preProbability <= Probability && probability > Probability)
+                {
+                    return 3;
+                }
+                preProbability = probability;
+                probability += probability;
+            }
+            if (!FireZm)
+            {
+                if (preProbability <= Probability && probability > Probability)
+                {
+                    return 4;
+                }
+            }
+        }
+        return 0;
+    }
+
+    private void CreatePlane()
+    {
+        Vector3 prefabXp = new Vector3(this.transform.position.x + SpreadRange, this.transform.position.y, this.transform.position.z);
+        Vector3 prefabZp = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z + SpreadRange);
+        Vector3 prefabXm = new Vector3(this.transform.position.x - SpreadRange, this.transform.position.y, this.transform.position.z);
+        Vector3 prefabZm = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z - SpreadRange);
+
+        if (d == 0) return;
+        if (d == 1)
+        {
+            GameObject newObject = Instantiate(PrefabPlane, prefabXp, Quaternion.identity);
+            newObject.name = "Plane";
+        }
+        if (d == 2)
+        {
+            GameObject newObject = Instantiate(PrefabPlane, prefabZp, Quaternion.identity);
+            newObject.name = "Plane";
+        }
+        if (d == 3)
+        {
+            GameObject newObject = Instantiate(PrefabPlane, prefabXm, Quaternion.identity);
+            newObject.name = "Plane";
+        }
+        if (d == 4)
+        {
+            GameObject newObject = Instantiate(PrefabPlane, prefabZm, Quaternion.identity);
+            newObject.name = "Plane";
+        }
+    }
+
+    private void Spread()
+    {
+        Vector3 prefabXp = new Vector3(this.transform.position.x + SpreadRange, this.transform.position.y, this.transform.position.z);
+        Vector3 prefabZp = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z + SpreadRange);
+        Vector3 prefabXm = new Vector3(this.transform.position.x - SpreadRange, this.transform.position.y, this.transform.position.z);
+        Vector3 prefabZm = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z - SpreadRange);
+
+        if (d == 0) return;
+        if (d == 1)
+        {
+            GameObject newObject = Instantiate(PrefabBlaze, prefabXp, Quaternion.identity);
+            newObject.name = "Blaze";
+        }
+        if (d == 2)
+        {
+            GameObject newObject = Instantiate(PrefabBlaze, prefabZp, Quaternion.identity);
+            newObject.name = "Blaze";
+        }
+        if (d == 3)
+        {
+            GameObject newObject = Instantiate(PrefabBlaze, prefabXm, Quaternion.identity);
+            newObject.name = "Blaze";
+        }
+        if (d == 4)
+        {
+            GameObject newObject = Instantiate(PrefabBlaze, prefabZm, Quaternion.identity);
+            newObject.name = "Blaze";
+        }
     }
 
     private bool FireEmpty()

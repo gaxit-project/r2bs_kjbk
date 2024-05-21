@@ -92,13 +92,13 @@ public class PlayerController : MonoBehaviour
                 }
 
                 //垂直方向と水平方向の入力を取得
-                float Xvalue = Input.GetAxis("Horizontal") * CurrentSpeed * DebuffSpeed * Time.deltaTime;
-                float Yvalue = Input.GetAxis("Vertical") * CurrentSpeed * DebuffSpeed * Time.deltaTime;
+                float Xvalue = Input.GetAxis("Horizontal");
+                float Yvalue = Input.GetAxis("Vertical");
 
                 MoveStatus = true;
 
                 //位置を移動
-                Vector3 MoveDir = new Vector3(Xvalue, 0, Yvalue);
+                Vector3 MoveDir = new Vector3(Xvalue, 0, Yvalue).normalized * CurrentSpeed * DebuffSpeed * Time.deltaTime;
                 rb.velocity += MoveDir;
                 animator.SetBool("Walk", true);
 

@@ -47,7 +47,7 @@ public class Scene : MonoBehaviour
     }
     public void GameResult() //ƒNƒŠƒA‰æ–Ê
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("main_cresult");
+        UnityEngine.SceneManagement.SceneManager.LoadScene("main_result");
     }
 
 
