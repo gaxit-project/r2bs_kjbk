@@ -20,16 +20,16 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/MainGame/Scenes/main_result.unity
     guid: 24d42bbbf9c0352429302a5a1519a734
-  - enabled: 1
+  - enabled: 0
     path: Assets/matsuno/si-n/Matsuno_GameOver.unity
     guid: a745fd72e1b123b489fc63b3fdc235d6
-  - enabled: 1
+  - enabled: 0
     path: Assets/matsuno/si-n/Matsuno_GameClear.unity
     guid: bc1b8cb36cfc31b4b884e22b093f00bd
-  - enabled: 1
+  - enabled: 0
     path: Assets/Shimoobuzi/MainMenu/Scenes/Result.unity
     guid: d41a175e845a2c44b966216c0098dd97
-  - enabled: 1
+  - enabled: 0
     path: Assets/Shimoobuzi/MainMenu/Scenes/SampleMain.unity
     guid: 567353ca4b9d3284f9d6f3abaebe118d
   m_configObjects: {}
