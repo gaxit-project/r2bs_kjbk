@@ -98,8 +98,8 @@ public class PlayerController : MonoBehaviour
                 MoveStatus = true;
 
                 //位置を移動
-                Vector3 MoveDir = new Vector3(Xvalue, 0, Yvalue).normalized * CurrentSpeed * DebuffSpeed * Time.deltaTime;
-                rb.velocity += MoveDir;
+                Vector3 MoveDir = new Vector3(Xvalue, 0, Yvalue).normalized * CurrentSpeed * DebuffSpeed;
+                rb.velocity = MoveDir;
                 animator.SetBool("Walk", true);
 
                 //進行方向を向く

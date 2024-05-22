@@ -96,6 +96,7 @@ public class PlayerRayCast : MonoBehaviour
                 //消火器用スクリプト
                 if (Input.GetKeyDown("t"))
                 {
+
                     if (HosuStatus == false)
                     {
                         if (!isCalledOnce)
@@ -103,6 +104,7 @@ public class PlayerRayCast : MonoBehaviour
                             isCalledOnce = true;
                             animator.SetBool("take", isCalledOnce);
                         }
+                        Invoke(nameof(DelayMethod), 1.0f);
                         //消火栓をアクティブ
                         Debug.Log("消火栓使用中");
                         HosuStatus = true;
@@ -110,8 +112,11 @@ public class PlayerRayCast : MonoBehaviour
                     }
                     else
                     {
-                        isCalledOnce = false;
-                        animator.SetBool("take", isCalledOnce);
+                        if (isCalledOnce)
+                        {
+                            isCalledOnce = false;
+                            animator.SetBool("take", isCalledOnce);
+                        }
                         //消火栓を非アクティブ
                         Debug.Log("消火栓使用してない");
                         WaterHose.WaterStatus = false;
@@ -147,41 +152,11 @@ public class PlayerRayCast : MonoBehaviour
                 }*/
             }
         }
-        /*
-        //消火器用スクリプト
-        if (Input.GetKeyDown("t"))
-        {
-            if (HosuStatus == false)
-            {
-                if (!isCalledOnce)
-                {
-                    isCalledOnce = true;
-                    animator.SetBool("take", isCalledOnce);
-                }
-                //消火栓をアクティブ
-                Debug.Log("消火栓使用中");
-                HosuStatus = true;
-                Hosu.SetActive(HosuStatus);
-            }
-            else
-            {
-                isCalledOnce = false;
-                animator.SetBool("take", isCalledOnce);
-                //消火栓を非アクティブ
-                Debug.Log("消火栓使用してない");
-                WaterHose.WaterStatus = false;
-                HosuStatus = false;
-                Hosu.SetActive(HosuStatus);
-            }
-            SHold = true;
-        }
-        if (Input.GetKeyDown("t"))
-        {
-            SHold = false;
-        }
-        if (SHold)
-        {
-            Debug.Log("Hold");
-        }*/
+    }
+
+    void DelayMethod()
+    {
+        isCalledOnce = false;
+        animator.SetBool("take", isCalledOnce);
     }
 }
