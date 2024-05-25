@@ -37,6 +37,8 @@ public class RescueNPC : MonoBehaviour
     bool Lock = false;   //Playerの動きの固定
 
     public static int r_num = 0;
+    [HideInInspector] public int MCnt = 0;  //軽傷者のカウント，MCntが3になったら0に戻してカウントをし直す
+    public CollRadio RadioM;
     void Start()
     {
         mesh = GetComponent<MeshRenderer>();
@@ -76,7 +78,10 @@ public class RescueNPC : MonoBehaviour
                     StopNPC();
                     AutoRunNPC.OnAuto();   //NPCを救出地点まで誘導する
                     //WaitChange(3.5f);
+                        CountDestroy();   //一定時間後にオブジェクト削除
+                        Invoke("Count", 5f);
                     RadioText.SetActiveText(true);
+
 
                 }
                 else if (IsItFirstContact())
@@ -86,6 +91,8 @@ public class RescueNPC : MonoBehaviour
                     StopNPC();
                     AutoRunNPC.OnAuto();   //NPCを救出地点まで誘導する
                     //WaitChange(3.5f);
+                        CountDestroy();   //一定時間後にオブジェクト削除
+                        Invoke("Count", 5f);
                     RadioText.SetActiveText(true);
                 }
             }
@@ -109,13 +116,12 @@ public class RescueNPC : MonoBehaviour
                 r_num = CounterScript.getNum();
             }
 
-            if (IsItInGoal() && !IsItRescued() && Severe == false)   //救出地点に接触かつ未救出かつ重傷者
+            if (IsItInGoal() && !IsItRescued() && Severe == false)   //救出地点に接触かつ未救出かつ軽症者
             {
                 RescuedVectorNPC(TargetPosition.x, TargetPosition.y, TargetPosition.z);   //NPCを救出したときのVector
                 SetRescued(true);
                 CountDestroy();   //一定時間後にオブジェクト削除
-                CounterScript.Count();   //救助者カウント
-                r_num = CounterScript.getNum();
+                Invoke("Count", 5f);
             }
         }
     }
@@ -128,12 +134,17 @@ public class RescueNPC : MonoBehaviour
     }
     public void CountDestroy()//オブジェクトの破壊
     {
-        Invoke("Destroy", 3f);
+        Invoke("Destroy", 5f);
     }
 
     private void Destroy()
     {
         Destroy(this.gameObject);
+    }
+    private void Count()
+    {
+        CounterScript.Count();   //救助者カウント
+        r_num = CounterScript.getNum();
     }
 
     void FollowVectorNPC(float x, float y, float z)//NPCの追従

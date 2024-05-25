@@ -52,7 +52,7 @@ public class AutoRunNPC : MonoBehaviour
             yield return new WaitForSeconds(WaitSecond);
             if (Compare(prePosition))
             {
-                BuildScript.Build();   //V‹KMesh‚ÌBake
+                //BuildScript.Build();   //V‹KMesh‚ÌBake
                 yield return new WaitForSeconds(WaitSecond);
                 if (Compare(prePosition))
                 {
