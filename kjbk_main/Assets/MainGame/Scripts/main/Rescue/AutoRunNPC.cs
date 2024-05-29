@@ -16,6 +16,8 @@ public class AutoRunNPC : MonoBehaviour
     [SerializeField] private bool Severe;   //重傷者判別
     [SerializeField] private float WaitSecond;
 
+    public bool corFlag = false;   //コルーチン制御用のフラグ
+
     // Start is called before the first frame update
     void Start()
     {
@@ -94,7 +96,11 @@ public class AutoRunNPC : MonoBehaviour
     public void OnAuto()   //脱出行動ON
     {
         AutoRun = true;
-        StartCoroutine("Distance");
+        if (!corFlag)
+        {
+            StartCoroutine("Distance");
+            corFlag = true;
+        }
     }
 
     void OffAuto()   //脱出行動OFF
