@@ -145,7 +145,7 @@ public class RescueNPC_verMatsuno : MonoBehaviour
     void FollowVectorNPC(float x, float y, float z)//NPC‚Ì’Ç]
     {
         transform.position = new Vector3(x, y, z);
-        transform.forward = PlayerController.CurrentForward;
+        //transform.forward = PlayerController.CurrentForward;
     }
 
     void RescuedVectorNPC(float x, float y, float z)//NPC‹~o‚Ì“®ì

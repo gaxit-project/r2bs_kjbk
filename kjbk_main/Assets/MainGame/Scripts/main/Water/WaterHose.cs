@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class WaterHose : MonoBehaviour
 {
@@ -21,6 +22,22 @@ public class WaterHose : MonoBehaviour
         WaterStatus = false;
         Hold = false;
         WaterCannon(WaterStatus);
+    }
+
+    public void OnFire(InputAction.CallbackContext context)
+    {
+        switch (context.phase)
+        {
+            case InputActionPhase.Performed:
+                // ボタンが押された時の処理
+                Hold = true;
+                break;
+
+            case InputActionPhase.Canceled:
+                // ボタンが離された時の処理
+                Hold = false;
+                break;
+        }
     }
     void Start(){
         Child = gameObject.transform.GetChild(0).gameObject;

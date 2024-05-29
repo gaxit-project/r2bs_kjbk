@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class OpenDoor : MonoBehaviour
 {
@@ -8,16 +9,27 @@ public class OpenDoor : MonoBehaviour
     private bool NPCNear;
     private Animator animator;
     private BoxCollider doorCollider;
+
+    private InputAction TakeAction;
     void Start()
     {
         Near = false;
         NPCNear = false;
         animator = GetComponentInChildren<Animator>();
         doorCollider = GetComponentInChildren<BoxCollider>();
+
+        var pInput = GetComponent<PlayerInput>();
+        //現在のアクションマップを取得
+        var actionMap = pInput.currentActionMap;
+
+        //アクションマップからアクションを取得
+        TakeAction = actionMap["Take"];
     }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F) && Near)
+        bool Take = TakeAction.triggered;
+
+        if ((Input.GetKeyDown(KeyCode.F) || Take) && Near)
         {
             animator.SetBool("Open", true);
             //Audio.Instance.PlaySound(0);

@@ -5,6 +5,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.InputSystem;
 
 public class RescueNPC : MonoBehaviour
 {
@@ -36,6 +37,8 @@ public class RescueNPC : MonoBehaviour
     bool SecondContact = false;   //会話回数の判定
     bool Lock = false;   //Playerの動きの固定
 
+    private InputAction TalkAction;
+
     public static int r_num = 0;
     [HideInInspector] public int MCnt = 0;  //軽傷者のカウント，MCntが3になったら0に戻してカウントをし直す
     public CollRadio RadioM;
@@ -45,15 +48,24 @@ public class RescueNPC : MonoBehaviour
         Rescue = GameObject.Find("Rescue");
         DiplicationScript = Rescue.GetComponent<RescueDiplication>();
         CounterScript = Rescue.GetComponent<RescueCount_verMatsuno>();
+
+        var pInput = this.GetComponent<PlayerInput>();
+        //現在のアクションマップを取得
+        var actionMap = pInput.currentActionMap;
+
+        //アクションマップからアクションを取得
+        TalkAction = actionMap["Talk"];
     }
 
     void FixedUpdate()
     {
+        bool Talk = TalkAction.triggered;
+
         Transform target = Player.transform;   //PlayerのTransform
         Vector3 TargetPosition = target.position;
         if (IsItInZone())
         {
-            if (Input.GetKeyDown(KeyCode.E) && Severe == true && !IsItInGoal())   //重傷者に近づいたとき
+            if (Talk && Severe == true && !IsItInGoal())   //重傷者に近づいたとき
             {
                 if (!IsItFollow() && !DiplicationScript.getFlag())   //非追従時
                 {
@@ -68,7 +80,7 @@ public class RescueNPC : MonoBehaviour
                     PutVectorNPC(TargetPosition.x, TargetPosition.y, TargetPosition.z);
                 }
             }
-            if (Input.GetKeyDown(KeyCode.E) && Severe == false)   //軽症者に近づいたとき
+            if (Talk && Severe == false)   //軽症者に近づいたとき
             {
                 if (!IsItFirstContact())
                 {
@@ -150,7 +162,7 @@ public class RescueNPC : MonoBehaviour
     void FollowVectorNPC(float x, float y, float z)//NPCの追従
     {
         transform.position = new Vector3(x, y, z);
-        transform.forward = PlayerController.CurrentForward;
+        //transform.forward = PlayerController.CurrentForward;
     }
 
     void RescuedVectorNPC(float x, float y, float z)//NPC救出時の動作

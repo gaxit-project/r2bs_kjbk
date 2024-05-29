@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerRayCast : MonoBehaviour
 {
@@ -31,6 +32,8 @@ public class PlayerRayCast : MonoBehaviour
 
     bool isCalledOnce = false;
 
+    private InputAction TakeAction;
+
 
     void Start ()
     {
@@ -45,10 +48,19 @@ public class PlayerRayCast : MonoBehaviour
 
         //アニメーション読み込み
         animator = GetComponent<Animator>();
+
+        var pInput = GetComponent<PlayerInput>();
+        //現在のアクションマップを取得
+        var actionMap = pInput.currentActionMap;
+
+        //アクションマップからアクションを取得
+        TakeAction = actionMap["Take"];
     }
 
     void Update()
     {
+        bool Take = TakeAction.triggered;
+
         // Rayはカメラの位置からとばす
         var rayStartPosition   = fpsCam.transform.position;
         // Rayはカメラが向いてる方向にとばす
@@ -94,7 +106,7 @@ public class PlayerRayCast : MonoBehaviour
             if(raycastHit.collider.gameObject.CompareTag(WaterPoint)){
                 Debug.Log("消火栓");
                 //消火器用スクリプト
-                if (Input.GetKeyDown("t"))
+                if (Input.GetKeyDown("t") || Take)
                 {
 
                     if (HosuStatus == false)
@@ -125,7 +137,7 @@ public class PlayerRayCast : MonoBehaviour
                     }
                     SHold = true;
                 }
-                if (Input.GetKeyDown("t"))
+                if (Input.GetKeyDown("t") || Take)
                 {
                     SHold = false;
                 }
