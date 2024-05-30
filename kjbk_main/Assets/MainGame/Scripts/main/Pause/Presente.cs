@@ -27,7 +27,10 @@ public class Presente : MonoBehaviour
     public void OnChangedSEVolume()
     {
         Audio.GetInstance().SEVolume = seSlider.value;
+        Audio.GetInstance().RoopSEVolume = seSlider.value;
+        Audio.GetInstance().WALKVolume = seSlider.value;
         seValue.text = string.Format("{0:0.00}", seSlider.value);
+
     }
 
     public void Quit()

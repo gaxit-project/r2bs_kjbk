@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
 public class AudioManager : MonoBehaviour
@@ -10,6 +11,8 @@ public class AudioManager : MonoBehaviour
     [SerializeField] AudioSource audioSourceBGM;
     [SerializeField] AudioSource audioSourceSE;
 
+    [SerializeField] AudioSource audioSourceWALK;
+
     public float BGMVolume
     {
         get { return audioSourceBGM.volume; }
@@ -19,6 +22,11 @@ public class AudioManager : MonoBehaviour
     {
         get { return audioSourceSE.volume; }
         set { audioSourceSE.volume = value; }
+    }
+    public float WALKVolume
+    {
+        get{ return audioSourceWALK.volume;}
+        set{ audioSourceWALK.volume = value;}
     }
 
     static AudioManager Instance = null;
@@ -49,5 +57,10 @@ public class AudioManager : MonoBehaviour
     {
         audioSourceBGM.clip = bgmList[index];
         audioSourceBGM.Play();
+    }
+    public void StopSound()
+    {
+        audioSourceBGM.Stop();
+        audioSourceSE.Stop();
     }
 }
