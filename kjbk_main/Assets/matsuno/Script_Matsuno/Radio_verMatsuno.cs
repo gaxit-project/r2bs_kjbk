@@ -41,7 +41,7 @@ public class Radio_verMatsuno : MonoBehaviour
     [SerializeField] GameObject BedRoom3;
     [SerializeField] GameObject BedRoom4;
 
-
+    //無線のフラグ
     [HideInInspector] public bool RPeople = true;
     [HideInInspector] public bool RPeople2 = true;
 
@@ -151,51 +151,57 @@ public class Radio_verMatsuno : MonoBehaviour
         return mcnt;
     }
 
-
+    //重傷者の無線を管理
     public void SymbolStop()
     {
         Invoke(nameof(SymbolR), StartTimer);
     }
+
+    //重傷者の無線
     public void SymbolR()
     {
         int rnd = RPop.Rnd;
         if(rnd == 0)
         {
-            FirstKitchen.SetActive(true);            //救出失敗時の無線を表示
+            FirstKitchen.SetActive(true);            //しょっぱなの重傷者の無線を表示
             Invoke(nameof(RFirstKitchen), EndTimer);
         }
         else if (rnd == 1)
         {
-            Balcony1.SetActive(true);            //救出失敗時の無線を表示
+            Balcony1.SetActive(true);            //バルコニーの重傷者が湧いたときの無線を表示
             Invoke(nameof(RBalcony1), EndTimer);
         }
         else if (rnd == 2)
         {
-            Kitchen1.SetActive(true);            //救出失敗時の無線を表示
+            Kitchen1.SetActive(true);            //キッチンの重傷者が湧いたとき時の無線を表示
             Invoke(nameof(RKitchen1), EndTimer);
         }
         else if (rnd == 3)
         {
-            Bath1.SetActive(true);            //救出失敗時の無線を表示
+            Bath1.SetActive(true);            //風呂の重傷者が湧いたとき時の無線を表示
             Invoke(nameof(RBath1), EndTimer);
         }
         else if (rnd == 4)
         {
-            Closet1.SetActive(true);            //救出失敗時の無線を表示
+            Closet1.SetActive(true);            //クローゼットの重傷者が湧いた時の無線を表示
             Invoke(nameof(RCloset1), EndTimer);
         }
         else if (rnd == 5)
         {
-            BedRoom1.SetActive(true);            //救出失敗時の無線を表示
+            BedRoom1.SetActive(true);            //寝室の重傷者が湧いた時の無線を表示
             Invoke(nameof(RBedRoom1), EndTimer);
         }
 
     }
 
+
+    //軽症者の無線を管理
     public void RHintStop()
     {
         Invoke(nameof(RHint), StartTimer);
     }
+
+    //軽症者の無線関連
     public void RHint()
     {
         int Cnt = 0;
@@ -213,7 +219,7 @@ public class Radio_verMatsuno : MonoBehaviour
                 {
                     if(rnd == 0)
                     {
-                        FirstKitchen.SetActive(true);            //救出失敗時の無線を表示
+                        FirstKitchen.SetActive(true);            //しょっぱなの重傷者の位置確定時の無線を表示
                         Invoke(nameof(RFirstKitchen), EndTimer);
                         Debug.Log("一人目の位置確定");
                         //無線表示
@@ -229,19 +235,19 @@ public class Radio_verMatsuno : MonoBehaviour
                     {
                         if (RCnt % 3 == 1)
                         {
-                            Balcony2.SetActive(true);            //救出失敗時の無線を表示
+                            Balcony2.SetActive(true);            //バルコニーのヒント1の無線を表示
                             Invoke(nameof(RBalcony2), EndTimer);
                             Debug.Log("1-1");
                         }
                         else if (RCnt % 3 == 2)
                         {
-                            Balcony3.SetActive(true);            //救出失敗時の無線を表示
+                            Balcony3.SetActive(true);            //バルコニーのヒント2の無線を表示
                             Invoke(nameof(RBalcony3), EndTimer);
                             Debug.Log("1-2");
                         }
                         else if (RCnt % 3 == 0)
                         {
-                            Balcony4.SetActive(true);            //救出失敗時の無線を表示
+                            Balcony4.SetActive(true);            //バルコニーの最終ヒントの無線を表示
                             Invoke(nameof(RBalcony4), EndTimer);
                             Debug.Log("1-3");
                             RPeople2 = false;
@@ -253,21 +259,21 @@ public class Radio_verMatsuno : MonoBehaviour
                     {
                         if (RCnt % 3 == 1)
                         {
-                            Kitchen2.SetActive(true);            //救出失敗時の無線を表示
+                            Kitchen2.SetActive(true);            //キッチンのヒント1の無線を表示
                             Invoke(nameof(RKitchen2), EndTimer);
                             Debug.Log("2-1");
                             //rnd1の無線
                         }
                         else if (RCnt % 3 == 2)
                         {
-                            Kitchen3.SetActive(true);            //救出失敗時の無線を表示
+                            Kitchen3.SetActive(true);            //キッチンのヒント2の無線を表示
                             Invoke(nameof(RKitchen3), EndTimer);
                             Debug.Log("2-2");
                             //rnd1の無線
                         }
                         else if (RCnt % 3 == 0)
                         {
-                            Kitchen4.SetActive(true);            //救出失敗時の無線を表示
+                            Kitchen4.SetActive(true);            //キッチンの最終ヒントの無線を表示
                             Invoke(nameof(RKitchen4), EndTimer);
                             Debug.Log("2-3");
                             RPeople2 = false;
@@ -279,21 +285,21 @@ public class Radio_verMatsuno : MonoBehaviour
                     {
                         if (RCnt % 3 == 1)
                         {
-                            Bath2.SetActive(true);            //救出失敗時の無線を表示
+                            Bath2.SetActive(true);            //風呂のヒント1の無線を表示
                             Invoke(nameof(RBath2), EndTimer);
                             Debug.Log("3-1");
                             //rnd1の無線
                         }
                         else if (RCnt % 3 == 2)
                         {
-                            Bath3.SetActive(true);            //救出失敗時の無線を表示
+                            Bath3.SetActive(true);            //風呂のヒント2の無線を表示
                             Invoke(nameof(RBath3), EndTimer);
                             Debug.Log("3-2");
                             //rnd1の無線
                         }
                         else if (RCnt % 3 == 0)
                         {
-                            Bath4.SetActive(true);            //救出失敗時の無線を表示
+                            Bath4.SetActive(true);            //風呂の最終ヒントの無線を表示
                             Invoke(nameof(RBath4), EndTimer);
                             Debug.Log("3-3");
                             RPeople2 = false;
@@ -305,21 +311,21 @@ public class Radio_verMatsuno : MonoBehaviour
                     {
                         if (RCnt % 3 == 1)
                         {
-                            Closet2.SetActive(true);            //救出失敗時の無線を表示
+                            Closet2.SetActive(true);            //クローゼットのヒント1の無線を表示
                             Invoke(nameof(RCloset2), EndTimer);
                             Debug.Log("4-1");
                             //rnd1の無線
                         }
                         else if (RCnt % 3 == 2)
                         {
-                            Closet3.SetActive(true);            //救出失敗時の無線を表示
+                            Closet3.SetActive(true);            //クローゼットのヒント2の無線を表示
                             Invoke(nameof(RCloset3), EndTimer);
                             Debug.Log("4-2");
                             //rnd1の無線
                         }
                         else if (RCnt % 3 == 0)
                         {
-                            Closet4.SetActive(true);            //救出失敗時の無線を表示
+                            Closet4.SetActive(true);            //クローゼットの最終ヒントの無線を表示
                             Invoke(nameof(RCloset4), EndTimer);
                             Debug.Log("4-3");
                             RPeople2 = false;
@@ -331,21 +337,21 @@ public class Radio_verMatsuno : MonoBehaviour
                     {
                         if (RCnt % 3 == 1)
                         {
-                            BedRoom2.SetActive(true);            //救出失敗時の無線を表示
+                            BedRoom2.SetActive(true);            //寝室のヒント1の無線を表示
                             Invoke(nameof(RBedRoom2), EndTimer);
                             Debug.Log("5-1");
                             //rnd1の無線
                         }
                         else if (RCnt % 3 == 2)
                         {
-                            BedRoom3.SetActive(true);            //救出失敗時の無線を表示
+                            BedRoom3.SetActive(true);            //寝室のヒント2の無線を表示
                             Invoke(nameof(RBedRoom3), EndTimer);
                             Debug.Log("5-2");
                             //rnd1の無線
                         }
                         else if (RCnt % 3 == 0)
                         {
-                            BedRoom4.SetActive(true);            //救出失敗時の無線を表示
+                            BedRoom4.SetActive(true);            //寝室の最終ヒントの無線を表示
                             Invoke(nameof(RBedRoom4), EndTimer);
                             Debug.Log("5-3");
                             RPeople2 = false;
