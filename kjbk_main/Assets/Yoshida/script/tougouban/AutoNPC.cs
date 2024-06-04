@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class AutoWalk : MonoBehaviour
+public class AutoNPC : MonoBehaviour
 {
     //吉田スクリプト
     public Transform Target;   //ナビゲーション目的地のTransform
@@ -18,13 +18,12 @@ public class AutoWalk : MonoBehaviour
     [SerializeField] private float WaitSecond;
 
     public bool corFlag = false;   //コルーチン制御用のフラグ
-
+    bool Encount = false;
 
     //石崎スクリプト
     //MAPの中心の位置
     public Transform central;
 
-    private RescueNPC rescueNPC;
 
     //ランダムで決めるx軸の最大値
     [SerializeField] float Xradius = 10;
@@ -43,14 +42,12 @@ public class AutoWalk : MonoBehaviour
         //StopAgent();   //脱出行動がOFFの場合ナビゲーションを停止
 
         surface = GameObject.Find("yuka");   //NavMeshSurfaceをアタッチしたオブジェクト名
-        BuildScript = surface.GetComponent<NavMeshBuild>();   //NavMesh_Buildのスクリプト
 
         //軽症者に変化する判定
         //StartCoroutine("Distance");
 
 
         // 石崎スクリプト
-        rescueNPC = GetComponent<RescueNPC>();
 
         //目標地点に近づいても速度を落とさない
         m_Agent.autoBraking = false;
@@ -62,7 +59,11 @@ public class AutoWalk : MonoBehaviour
     void FixedUpdate()
     {
         //石崎スクリプト
-        bool Encount = rescueNPC.IsItFirstContact();
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            Encount = true;
+            Debug.Log(Encount);
+        }
         if (Encount)
         {
             //自動脱出を開始する
@@ -97,7 +98,6 @@ public class AutoWalk : MonoBehaviour
             yield return new WaitForSeconds(WaitSecond);
             if (Compare(prePosition))
             {
-                BuildScript.Build();   //新規MeshのBake
                 yield return new WaitForSeconds(WaitSecond);
                 if (Compare(prePosition))
                 {
