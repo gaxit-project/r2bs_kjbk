@@ -7,6 +7,7 @@ public class Presenter : MonoBehaviour
     [SerializeField] Slider seSlider;
     [SerializeField] Text bgmValue;
     [SerializeField] Text seValue;
+    [SerializeField] Text walkValue;
 
     private void Start()
     {
@@ -24,6 +25,8 @@ public class Presenter : MonoBehaviour
     public void OnChangedSEVolume()
     {
         AudioManager.GetInstance().SEVolume = seSlider.value;
+        AudioManager.GetInstance().WALKVolume = seSlider.value;
         seValue.text = string.Format("{0:0.00}", seSlider.value);
+        walkValue.text = string.Format("{0:0.00}", seSlider.value);
     }
 }

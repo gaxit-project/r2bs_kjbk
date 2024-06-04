@@ -49,9 +49,17 @@ public class test : MonoBehaviour
                 pausemenu.Select();
             }
         }
-        if (Input.GetKeyDown("n")) ;
+
+        //SEテスト用（
+        if (Input.GetKeyDown("o"))
         {
-            AudioManager.GetInstance().PlaySound(18);
+            AudioManager.GetInstance().PlaySound(3);
+        }
+
+        //音止める
+        if (Input.GetKeyDown("z"))
+        {
+            AudioManager.GetInstance().StopSound();
         }
     }
 

@@ -1,21 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Pause : MonoBehaviour
 {
     public GameObject pause;
     public static bool pause_status;
     // Start is called before the first frame update
+
+    private InputAction PauseAction;
     void Start()
     {
         pause_status = false;
+
+        var pInput = GetComponent<PlayerInput>();
+        //現在のアクションマップを取得
+        var actionMap = pInput.currentActionMap;
+
+        //アクションマップからアクションを取得
+        PauseAction = actionMap["Pause"];
     }
 
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Tab))
+        bool pause = PauseAction.triggered;
+        if (Input.GetKeyDown(KeyCode.Tab) || pause)
         {
             PauseCon();
         }

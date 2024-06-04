@@ -13,6 +13,7 @@ public class Audio : MonoBehaviour
     [SerializeField] AudioSource audioSorceBGM;
     [SerializeField] AudioSource audioSorceSE;
     [SerializeField] AudioSource audioSorceRoopSE;
+    [SerializeField] AudioSource audioSourceWALK;
 
     public float BGMVolume //BGMボリューム
     {
@@ -26,10 +27,16 @@ public class Audio : MonoBehaviour
         set { audioSorceSE.volume = value; }
     }
 
-    public float DANCEVolume //RoopSEボリューム
+    public float RoopSEVolume //RoopSEボリューム
     {
         get { return audioSorceRoopSE.volume; }
         set { audioSorceRoopSE.volume = value; }
+    }
+
+    public float WALKVolume
+    {
+        get { return audioSourceWALK.volume; }
+        set { audioSourceWALK.volume = value; }
     }
 
     public static Audio Instance = null;

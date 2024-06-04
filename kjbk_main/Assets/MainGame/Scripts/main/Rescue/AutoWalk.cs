@@ -17,6 +17,8 @@ public class AutoWalk : MonoBehaviour
     [SerializeField] private bool Severe;   //重傷者判別
     [SerializeField] private float WaitSecond;
 
+    public bool corFlag = false;   //コルーチン制御用のフラグ
+
 
     //石崎スクリプト
     //MAPの中心の位置
@@ -137,7 +139,11 @@ public class AutoWalk : MonoBehaviour
     void OnAuto()   //脱出行動ON
     {
         Auto = true;
-        StartCoroutine("Distance");
+        if (!corFlag)
+        {
+            StartCoroutine("Distance");
+            corFlag = true;
+        }
     }
 
     void OffAuto()   //脱出行動OFF

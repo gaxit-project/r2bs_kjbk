@@ -35211,9 +35211,9 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1362747244}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 0.6
+  m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.3
+  m_Value: 0.5
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -36966,7 +36966,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 105
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -37057,7 +37057,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   seList:
-  - {fileID: 8300000, guid: ba2553b423279c54497d42397993c056, type: 3}
+  - {fileID: 8300000, guid: c7a44ff625882f54fb8aae2a7304acb6, type: 3}
   - {fileID: 8300000, guid: 73257d45f52cb4e4aad8ed5c22023544, type: 3}
   - {fileID: 8300000, guid: c81935c5d3571fd4b89c2a44045e023a, type: 3}
   - {fileID: 8300000, guid: 47827632d67881d4aa57f49c4202bf80, type: 3}

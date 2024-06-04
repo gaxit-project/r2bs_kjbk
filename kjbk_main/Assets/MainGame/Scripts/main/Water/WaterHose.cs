@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class WaterHose : MonoBehaviour
 {
@@ -9,6 +10,12 @@ public class WaterHose : MonoBehaviour
     public static bool WaterStatus = false; //放水状態
     public static bool Hold = false; //長押し判定
 
+    public GameObject FF;
+
+    private Animator animator;
+
+    bool isOnes = false;
+
     private void OnEnable()
     {
         Debug.Log("aaaa");
@@ -16,8 +23,26 @@ public class WaterHose : MonoBehaviour
         Hold = false;
         WaterCannon(WaterStatus);
     }
+
+    public void OnFire(InputAction.CallbackContext context)
+    {
+        switch (context.phase)
+        {
+            case InputActionPhase.Performed:
+                // ボタンが押された時の処理
+                Hold = true;
+                break;
+
+            case InputActionPhase.Canceled:
+                // ボタンが離された時の処理
+                Hold = false;
+                break;
+        }
+    }
     void Start(){
         Child = gameObject.transform.GetChild(0).gameObject;
+        //アニメーション読み込み
+        animator = FF.GetComponent<Animator>();
     }
     void Update()
     {
@@ -38,11 +63,23 @@ public class WaterHose : MonoBehaviour
             Debug.Log("ホースは持っている");
             if (Hold)
             {
+                if (!isOnes)
+                {
+                    isOnes = true;
+                    animator.SetBool("Gun", isOnes);
+                    
+                }
                 WaterStatus = true;
+
             }
             else
             {
                 WaterStatus = false;
+                if (isOnes)
+                {
+                    isOnes = false;
+                    animator.SetBool("Gun", isOnes);
+                }
             }
         }
         else

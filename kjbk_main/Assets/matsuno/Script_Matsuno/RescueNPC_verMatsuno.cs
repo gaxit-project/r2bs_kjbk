@@ -5,9 +5,8 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.InputSystem;
 
-public class RescueNPC : MonoBehaviour
+public class RescueNPC_verMatsuno : MonoBehaviour
 {
     //入力
     [SerializeField] public bool Severe;
@@ -37,35 +36,27 @@ public class RescueNPC : MonoBehaviour
     bool SecondContact = false;   //会話回数の判定
     bool Lock = false;   //Playerの動きの固定
 
-    private InputAction TalkAction;
-
+    //松野追加部
     public static int r_num = 0;
     [HideInInspector] public int MCnt = 0;  //軽傷者のカウント，MCntが3になったら0に戻してカウントをし直す
-    public CollRadio RadioM;
+    public Radio_verMatsuno RadioM;
+
+
     void Start()
     {
         mesh = GetComponent<MeshRenderer>();
         Rescue = GameObject.Find("Rescue");
         DiplicationScript = Rescue.GetComponent<RescueDiplication>();
         CounterScript = Rescue.GetComponent<RescueCount_verMatsuno>();
-
-        var pInput = this.GetComponent<PlayerInput>();
-        //現在のアクションマップを取得
-        var actionMap = pInput.currentActionMap;
-
-        //アクションマップからアクションを取得
-        TalkAction = actionMap["Talk"];
     }
 
     void FixedUpdate()
     {
-        bool Talk = TalkAction.triggered;
-
         Transform target = Player.transform;   //PlayerのTransform
         Vector3 TargetPosition = target.position;
         if (IsItInZone())
         {
-            if (Talk && Severe == true && !IsItInGoal())   //重傷者に近づいたとき
+            if (Input.GetKeyDown(KeyCode.E) && Severe == true && !IsItInGoal())   //重傷者に近づいたとき
             {
                 if (!IsItFollow() && !DiplicationScript.getFlag())   //非追従時
                 {
@@ -80,7 +71,7 @@ public class RescueNPC : MonoBehaviour
                     PutVectorNPC(TargetPosition.x, TargetPosition.y, TargetPosition.z);
                 }
             }
-            if (Talk && Severe == false)   //軽症者に近づいたとき
+            if (Input.GetKeyDown(KeyCode.E) && Severe == false)   //軽症者に近づいたとき
             {
                 if (!IsItFirstContact())
                 {
@@ -90,10 +81,7 @@ public class RescueNPC : MonoBehaviour
                     StopNPC();
                     AutoRunNPC.OnAuto();   //NPCを救出地点まで誘導する
                     //WaitChange(3.5f);
-                        CountDestroy();   //一定時間後にオブジェクト削除
-                        Invoke("Count", 5f);
                     RadioText.SetActiveText(true);
-
 
                 }
                 else if (IsItFirstContact())
@@ -103,8 +91,6 @@ public class RescueNPC : MonoBehaviour
                     StopNPC();
                     AutoRunNPC.OnAuto();   //NPCを救出地点まで誘導する
                     //WaitChange(3.5f);
-                        CountDestroy();   //一定時間後にオブジェクト削除
-                        Invoke("Count", 5f);
                     RadioText.SetActiveText(true);
                 }
             }
@@ -128,16 +114,18 @@ public class RescueNPC : MonoBehaviour
                 r_num = CounterScript.getNum();
             }
 
-            if (IsItInGoal() && !IsItRescued() && Severe == false)   //救出地点に接触かつ未救出かつ軽症者
+            if (IsItInGoal() && !IsItRescued() && Severe == false)   //救出地点に接触かつ未救出かつ重傷者
             {
                 RescuedVectorNPC(TargetPosition.x, TargetPosition.y, TargetPosition.z);   //NPCを救出したときのVector
                 SetRescued(true);
                 CountDestroy();   //一定時間後にオブジェクト削除
-                Invoke("Count", 5f);
+                CounterScript.Count();   //救助者カウント
+                r_num = CounterScript.getNum();
             }
         }
     }
 
+    
     //関数
 
     public int getNum()
@@ -146,17 +134,12 @@ public class RescueNPC : MonoBehaviour
     }
     public void CountDestroy()//オブジェクトの破壊
     {
-        Invoke("Destroy", 5f);
+        Invoke("Destroy", 3f);
     }
 
     private void Destroy()
     {
         Destroy(this.gameObject);
-    }
-    private void Count()
-    {
-        CounterScript.Count();   //救助者カウント
-        r_num = CounterScript.getNum();
     }
 
     void FollowVectorNPC(float x, float y, float z)//NPCの追従
