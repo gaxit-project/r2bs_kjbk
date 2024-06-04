@@ -6,7 +6,7 @@ using UnityEngine;
 public class seoware_contorll : MonoBehaviour
 {
     public GameObject mainCamera;      //メインカメラ格納用
-    public GameObject subCamera;       //サブカメラ格納用 
+    public GameObject subCamera;       //サブカメラ格納用
 
     private bool CameraStatus = false; //カメラの状態
     public float Speed, RunSpeed, Debuff; // 通常速度，ダッシュ速度
