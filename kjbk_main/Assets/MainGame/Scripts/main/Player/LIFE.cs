@@ -6,7 +6,6 @@ using static Unity.IO.LowLevel.Unsafe.AsyncReadManagerMetrics;
 
 public class LIFE : MonoBehaviour
 {
-    public SceneChange Over;     //SceneChange.csからゲームオーバーを持ってくる
     int HitPoint = 3;            //プレイヤーのHP
 
     //public Collider_On_Off FireColOff;  //Collider_On_OffからFireOffを持ってくる
@@ -104,7 +103,8 @@ public class LIFE : MonoBehaviour
                 StartCoroutine(Blink());     //点滅開始
                 if (HitPoint <= 0)            //もしHPが尽きたら以下の処理を行う
                 {
-                    Scene.Instance.GameOver();       //ゲームオーバーに飛ばす
+                    PlayerPrefs.SetString("Result", "GAMEOVER");
+                    Scene.Instance.GameResult();
                 }
             }
 

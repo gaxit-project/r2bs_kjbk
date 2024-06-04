@@ -12,6 +12,8 @@ public class Presente : MonoBehaviour
     public GameObject SoundOptionUI;
     public GameObject TitleUI;
 
+    public static Pause PauseScript;
+
     private void Start()
     {
         OnChangedBGMVolume();
@@ -50,6 +52,7 @@ public class Presente : MonoBehaviour
         TitleUI.SetActive(false);
         PauseUI.SetActive(false);
         Time.timeScale = 1.0f;
+        //PauseScript.pause_status = false;
     }
     public void Title()
     {

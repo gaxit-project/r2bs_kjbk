@@ -28,6 +28,7 @@ public class Scene : MonoBehaviour
 
     public void Title() //ƒ^ƒCƒgƒ‹
     {
+        Time.timeScale = 1.0f;
         UnityEngine.SceneManagement.SceneManager.LoadScene("main_title");
     }
 

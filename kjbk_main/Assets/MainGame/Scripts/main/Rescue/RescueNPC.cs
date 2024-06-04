@@ -21,6 +21,7 @@ public class RescueNPC : MonoBehaviour
     [SerializeField] public NPCAI NPCAI;   //NPCのAIスクリプト
     [SerializeField] public RadioText RadioText;   //無線制御
     [SerializeField] public AutoRunNPC AutoRunNPC; //
+    //[SerializeField] public PlayController PlayerCon;
     private GameObject Rescue;
     RescueCount_verMatsuno CounterScript;   //救助者カウント
     RescueDiplication DiplicationScript;
@@ -55,6 +56,9 @@ public class RescueNPC : MonoBehaviour
 
         //アクションマップからアクションを取得
         TalkAction = actionMap["Talk"];
+
+        //初期化
+        r_num = 0;
     }
 
     void FixedUpdate()
@@ -162,7 +166,7 @@ public class RescueNPC : MonoBehaviour
     void FollowVectorNPC(float x, float y, float z)//NPCの追従
     {
         transform.position = new Vector3(x, y, z);
-        //transform.forward = PlayerController.CurrentForward;
+        transform.forward = PlayController.CurrentForward;
     }
 
     void RescuedVectorNPC(float x, float y, float z)//NPC救出時の動作

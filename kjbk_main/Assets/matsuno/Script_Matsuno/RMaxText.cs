@@ -12,6 +12,6 @@ public class RMaxText : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        RMax.SetText("/ 7");
+        RMax.SetText("/ 8");
     }
 }

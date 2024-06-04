@@ -52,4 +52,9 @@ public class GoalJudgement : MonoBehaviour
         EscapeON.SetActive(false);
         EscapeOFF.SetActive(false);
     }
+
+    public bool EscStatus()
+    {
+        return GJonoff;
+    }
 }

@@ -71,15 +71,6 @@ public class PlayController : MonoBehaviour
         }
         else if (WaterHose.Hold)
         {
-            // ダッシュ状態判定
-            if (IsPressedRun)
-            {
-                CurrentSpeed = RunSpeed;
-            }
-            else
-            {
-                CurrentSpeed = Speed;
-            }
 
             //垂直方向と水平方向の入力を取得
             float Xvalue = Input.GetAxisRaw("Horizontal");
@@ -89,8 +80,6 @@ public class PlayController : MonoBehaviour
 
             //位置を移動
             Vector3 MoveDir = new Vector3(Xvalue, 0, Yvalue).normalized * CurrentSpeed * DebuffSpeed;
-            rb.velocity = MoveDir;
-            animator.SetBool("Walk", true);
 
             //進行方向を向く
             transform.forward = Vector3.Slerp(transform.forward, MoveDir, Time.deltaTime * RotateSpeed);

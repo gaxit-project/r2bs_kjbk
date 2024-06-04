@@ -29,7 +29,7 @@ public class SwitchCamera : MonoBehaviour
         bool Map = MapAction.triggered;
 
         //キーボードのMが押されたら切り替える
-        if (Input.GetKeyDown(KeyCode.M) || Map){
+        if (Map || Input.GetKeyDown(KeyCode.M)){
 
             if (map_status == true)
             {
