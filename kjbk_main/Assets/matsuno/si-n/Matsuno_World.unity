@@ -363,6 +363,7 @@ MonoBehaviour:
   AutoRunNPC: {fileID: 0}
   MCnt: 0
   RadioM: {fileID: 0}
+  RPop: {fileID: 0}
 --- !u!114 &15296593
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3032,10 +3033,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 50
+    m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 5
+    m_MinSize: 4
     m_MaxSize: 60
     m_Alignment: 0
     m_AlignByGeometry: 0
@@ -3043,7 +3044,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u5BDD\u5BA4\u6700\u7D42\u30D2\u30F3\u30C8"
+  m_Text: "\u5BDD\u5BA4\u306B\u3066\u53D6\u308A\u6B8B\u3055\u308C\u3066\n\u3044\u308B\u4EBA\u304C\u3044\u308B\u3068\u306E\u60C5\u5831\u3060"
 --- !u!222 &114149767
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5787,6 +5788,7 @@ MonoBehaviour:
   AutoRunNPC: {fileID: 0}
   MCnt: 0
   RadioM: {fileID: 0}
+  RPop: {fileID: 0}
 --- !u!114 &208737600
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11602,10 +11604,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 50
+    m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 5
+    m_MinSize: 4
     m_MaxSize: 60
     m_Alignment: 0
     m_AlignByGeometry: 0
@@ -11613,7 +11615,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u5BDD\u5BA4\u6E67\u304D"
+  m_Text: "\u4ED6\u306B\u3082\u91CD\u50B7\u8005\u304C\n\u3044\u308B\u3089\u3057\u3044"
 --- !u!222 &465456273
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -18911,10 +18913,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 50
+    m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 5
+    m_MinSize: 4
     m_MaxSize: 60
     m_Alignment: 0
     m_AlignByGeometry: 0
@@ -18922,7 +18924,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u98A8\u54421\u3064\u3081\u30D2\u30F3\u30C8"
+  m_Text: "\u4E0A\u5074\u306B\u9003\u3052\u305F\u4EBA\u304C\n\u3044\u308B\u3089\u3057\u3044"
 --- !u!222 &560350661
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -20209,7 +20211,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RPop: {fileID: 403736191}
-  RNPC: {fileID: 0}
   EightPanel: {fileID: 656991764}
   SixPanel: {fileID: 1562390945}
   FourPanel: {fileID: 244222877}
@@ -20315,10 +20316,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 50
+    m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 5
+    m_MinSize: 4
     m_MaxSize: 60
     m_Alignment: 0
     m_AlignByGeometry: 0
@@ -20326,7 +20327,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u5BDD\u5BA42\u3064\u3081\u30D2\u30F3\u30C8"
+  m_Text: "\u3082\u3057\u304B\u3057\u3066\u3053\u306E\u708E\u306E\u4E2D\u3067\n\u307E\u3060\u5BDD\u3066\u3044\u308B\u5974\u304C\u3044\u308B\u306E\u304B\uFF1F"
 --- !u!222 &640128073
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -21876,10 +21877,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 50
+    m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 5
+    m_MinSize: 0
     m_MaxSize: 60
     m_Alignment: 0
     m_AlignByGeometry: 0
@@ -21887,7 +21888,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u30AF\u30ED\u30FC\u30BC\u30C3\u30C8\u6E67\u304D"
+  m_Text: "\u4ED6\u306B\u3082\u91CD\u50B7\u8005\u304C\n\u3044\u308B\u3089\u3057\u3044"
 --- !u!222 &692442960
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -23635,10 +23636,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 50
+    m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 5
+    m_MinSize: 0
     m_MaxSize: 60
     m_Alignment: 0
     m_AlignByGeometry: 0
@@ -23646,7 +23647,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u30D0\u30EB\u30B3\u30CB\u30FC\u6E67\u304D"
+  m_Text: "\u4ED6\u306B\u3082\u91CD\u50B7\u8005\u304C\n\u3044\u308B\u3089\u3057\u3044"
 --- !u!222 &771327569
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -24051,7 +24052,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RPop: {fileID: 403736191}
-  RNPC: {fileID: 0}
   EightPanel: {fileID: 656991764}
   SixPanel: {fileID: 1562390945}
   FourPanel: {fileID: 244222877}
@@ -24698,10 +24698,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 50
+    m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 5
+    m_MinSize: 4
     m_MaxSize: 60
     m_Alignment: 0
     m_AlignByGeometry: 0
@@ -24709,7 +24709,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u30AD\u30C3\u30C1\u30F3\u6E67\u304D"
+  m_Text: "\u4ED6\u306B\u3082\u91CD\u50B7\u8005\u304C\n\u3044\u308B\u3089\u3057\u3044"
 --- !u!222 &811145689
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -25082,10 +25082,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 50
+    m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 5
+    m_MinSize: 4
     m_MaxSize: 60
     m_Alignment: 0
     m_AlignByGeometry: 0
@@ -25093,7 +25093,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u30AD\u30C3\u30C1\u30F32\u3064\u3081\u30D2\u30F3\u30C8"
+  m_Text: "\u4E2D\u592E\u306E\u5ECA\u4E0B\u304B\u3089\n\u4E0A\u306B\u9003\u3052\u3066\u3044\u3063\u305F\u3089\u3057\u3044"
 --- !u!222 &843317080
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -37973,6 +37973,7 @@ MonoBehaviour:
   AutoRunNPC: {fileID: 0}
   MCnt: 0
   RadioM: {fileID: 0}
+  RPop: {fileID: 0}
 --- !u!114 &1138358218
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39546,6 +39547,7 @@ MonoBehaviour:
   AutoRunNPC: {fileID: 0}
   MCnt: 0
   RadioM: {fileID: 0}
+  RPop: {fileID: 0}
 --- !u!114 &1220235061
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40507,6 +40509,7 @@ MonoBehaviour:
   AutoRunNPC: {fileID: 0}
   MCnt: 0
   RadioM: {fileID: 0}
+  RPop: {fileID: 0}
 --- !u!114 &1273429831
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43909,10 +43912,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 50
+    m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 5
+    m_MinSize: 4
     m_MaxSize: 60
     m_Alignment: 0
     m_AlignByGeometry: 0
@@ -43920,7 +43923,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u30AF\u30ED\u30FC\u30BC\u30C3\u30C82\u3064\u3081\u30D2\u30F3\u30C8"
+  m_Text: "\u5165\u308A\u53E3\u4ED8\u8FD1\u304B\u3089\u3067\u3082\u58F0\u304C\n\u304D\u3053\u3048\u308B\u305E"
 --- !u!222 &1425538331
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -44484,10 +44487,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 50
+    m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 5
+    m_MinSize: 4
     m_MaxSize: 60
     m_Alignment: 0
     m_AlignByGeometry: 0
@@ -44495,7 +44498,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u30AD\u30C3\u30C1\u30F3\u6700\u7D42\u30D2\u30F3\u30C8"
+  m_Text: "\u30EA\u30D3\u30F3\u30B0\u3067\u5012\u308C\u3066\u3044\u308B\n\u60C5\u5831\u304C\u5165\u3063\u305F\u305E"
 --- !u!222 &1450784984
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -49927,10 +49930,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 50
+    m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 5
+    m_MinSize: 4
     m_MaxSize: 60
     m_Alignment: 0
     m_AlignByGeometry: 0
@@ -49938,7 +49941,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u30AD\u30C3\u30C1\u30F31\u3064\u3081\u30D2\u30F3\u30C8"
+  m_Text: "\u4E0A\u5074\u306B\u4EBA\u304C\u8D70\u3063\u3066\u3044\u3063\u305F\n\u3068\u3044\u3046\u60C5\u5831\u304C\u5165\u3063\u305F"
 --- !u!222 &1492613663
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -50006,10 +50009,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 50
+    m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 5
+    m_MinSize: 4
     m_MaxSize: 60
     m_Alignment: 0
     m_AlignByGeometry: 0
@@ -50017,7 +50020,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u6700\u521D\u306E\u6551\u52A9\u8005\u78BA\u5B9A"
+  m_Text: "\u30AD\u30C3\u30C1\u30F3\u306E\u5965\u3067\u4EBA\u304C\n\u5012\u308C\u3066\u3044\u308B\u3089\u3057\u3044"
 --- !u!222 &1492741801
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -50085,10 +50088,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 50
+    m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 5
+    m_MinSize: 0
     m_MaxSize: 60
     m_Alignment: 0
     m_AlignByGeometry: 0
@@ -50096,7 +50099,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u30D0\u30EB\u30B3\u30CB\u30FC2\u3064\u3081\u30D2\u30F3\u30C8"
+  m_Text: "\u5DE6\u4E0B\u5074\u306B\u5411\u304B\u3063\u305F\u4EBA\u304C\n\u307E\u3060\u52A9\u3051\u3089\u308C\u3066\u3044\u306A\u3044\u3089\u3057\u3044\u305E"
 --- !u!222 &1493079963
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -51436,10 +51439,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 50
+    m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 5
+    m_MinSize: 4
     m_MaxSize: 60
     m_Alignment: 0
     m_AlignByGeometry: 0
@@ -51447,7 +51450,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u98A8\u54422\u3064\u3081\u30D2\u30F3\u30C8"
+  m_Text: "\u3053\u3093\u306A\u4E2D\u98A8\u5442\u306B\u3067\u3082\n\u5165\u308A\u305F\u304F\u306A\u3063\u305F\u306E\u304B\uFF1F"
 --- !u!222 &1546263704
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -52559,10 +52562,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 50
+    m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 5
+    m_MinSize: 4
     m_MaxSize: 60
     m_Alignment: 0
     m_AlignByGeometry: 0
@@ -52570,7 +52573,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u30AF\u30ED\u30FC\u30BC\u30C3\u30C8\u6700\u7D42\u30D2\u30F3\u30C8"
+  m_Text: "\u30AF\u30ED\u30FC\u30BC\u30C3\u30C8\u306B\u9589\u3058\u8FBC\u3081\n\u3089\u308C\u3066\u3044\u308B\u60C5\u5831\u304C\u5165\u3063\u305F\u305E"
 --- !u!222 &1609738052
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -53235,6 +53238,7 @@ MonoBehaviour:
   AutoRunNPC: {fileID: 0}
   MCnt: 0
   RadioM: {fileID: 0}
+  RPop: {fileID: 0}
 --- !u!114 &1637632078
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60636,10 +60640,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 50
+    m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 5
+    m_MinSize: 4
     m_MaxSize: 60
     m_Alignment: 0
     m_AlignByGeometry: 0
@@ -60647,7 +60651,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u98A8\u5442\u6E67\u304D"
+  m_Text: "\u4ED6\u306B\u3082\u91CD\u50B7\u8005\u304C\n\u3044\u308B\u3089\u3057\u3044"
 --- !u!222 &1757886940
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -61450,10 +61454,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 50
+    m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 5
+    m_MinSize: 4
     m_MaxSize: 60
     m_Alignment: 0
     m_AlignByGeometry: 0
@@ -61461,7 +61465,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u5BDD\u5BA41\u3064\u3081\u30D2\u30F3\u30C8"
+  m_Text: "\u53F3\u624B\u5074\u3067\u58F0\u304C\n\u3059\u308B\u3089\u3057\u3044"
 --- !u!222 &1790717057
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -61775,10 +61779,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 50
+    m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 5
+    m_MinSize: 4
     m_MaxSize: 60
     m_Alignment: 0
     m_AlignByGeometry: 0
@@ -61786,7 +61790,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u98A8\u5442\u6700\u7D42\u30D2\u30F3\u30C8"
+  m_Text: "\u98A8\u5442\u306B\u4EBA\u304C\u53D6\u308A\u6B8B\u3055\u308C\u3066\n\u3044\u308B\u60C5\u5831\u304C\u5165\u3063\u305F\u305E"
 --- !u!222 &1795715788
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -62812,10 +62816,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 50
+    m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 5
+    m_MinSize: 4
     m_MaxSize: 60
     m_Alignment: 0
     m_AlignByGeometry: 0
@@ -62823,7 +62827,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u30AF\u30ED\u30FC\u30BC\u30C3\u30C81\u3064\u3081\u30D2\u30F3\u30C8"
+  m_Text: "\u4E0B\u5074\u3067\u58F0\u304C\u805E\u3053\u3048\u305F\n\u3089\u3057\u3044\u305E"
 --- !u!222 &1850497975
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -63641,6 +63645,7 @@ MonoBehaviour:
   AutoRunNPC: {fileID: 0}
   MCnt: 0
   RadioM: {fileID: 0}
+  RPop: {fileID: 0}
 --- !u!136 &1881971183
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -65764,10 +65769,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 50
+    m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 5
+    m_MinSize: 0
     m_MaxSize: 60
     m_Alignment: 0
     m_AlignByGeometry: 0
@@ -65775,7 +65780,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u30D0\u30EB\u30B3\u30CB\u30FC1\u3064\u3081\u30D2\u30F3\u30C8"
+  m_Text: "\u4E0B\u5074\u3067\u82E6\u3057\u3093\u3067\u308B\n\u58F0\u304C\u805E\u3053\u3048\u305F\u3089\u3057\u3044"
 --- !u!222 &2007311964
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -72587,10 +72592,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 50
+    m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 5
+    m_MinSize: 0
     m_MaxSize: 60
     m_Alignment: 0
     m_AlignByGeometry: 0
@@ -72598,7 +72603,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u30D0\u30EB\u30B3\u30CB\u30FC\u6700\u7D42\u30D2\u30F3\u30C8"
+  m_Text: "\u30D0\u30EB\u30B3\u30CB\u30FC\u3067\u5012\u308C\u3066\u3044\u308B\n\u4EBA\u304C\u3044\u308B\u3068\u306E\u60C5\u5831\u3060"
 --- !u!222 &2074669374
 CanvasRenderer:
   m_ObjectHideFlags: 0
