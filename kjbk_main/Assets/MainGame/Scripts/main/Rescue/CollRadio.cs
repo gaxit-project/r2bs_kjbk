@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class CollRadio : MonoBehaviour
 {
 
-    public RescuePop RPop;
+    public RescuePOP RPop;
 
     [SerializeField] GameObject EightPanel;
     [SerializeField] GameObject SixPanel;

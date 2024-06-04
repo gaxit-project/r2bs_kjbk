@@ -78,8 +78,11 @@ public class RescuePOP : MonoBehaviour
     //ŒyÇÒ‚ğ‹~‚¤‚Æƒqƒ“ƒg‚Ì•\¦‚ğ‚·‚é
     public void LightR()
     {
+        Debug.Log("aaaaaaa");
         MCnter();             //‹~‚Á‚½ŒyÇÒ‚ğƒJƒEƒ“ƒg‚·‚éŠÖ”
+        Debug.Log("bbbbbbbb");
         Radio.RHintStop();    //ŒyÇÒ‚Ìƒqƒ“ƒg‚ğ‘—‚é
+        Debug.Log("ccccccc");
     }
 
 

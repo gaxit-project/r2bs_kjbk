@@ -21,7 +21,7 @@ public class RescueNPC : MonoBehaviour
     [SerializeField] public NPCAI NPCAI;   //NPCのAIスクリプト
     [SerializeField] public RadioText RadioText;   //無線制御
     [SerializeField] public AutoRunNPC AutoRunNPC; //
-    //[SerializeField] public PlayController PlayerCon;
+    [SerializeField] public RescuePOP POP;
     private GameObject Rescue;
     RescueCount_verMatsuno CounterScript;   //救助者カウント
     RescueDiplication DiplicationScript;
@@ -150,6 +150,14 @@ public class RescueNPC : MonoBehaviour
     }
     public void CountDestroy()//オブジェクトの破壊
     {
+        if (Severe)//重傷者の時
+        {
+            POP.HeavyR();
+        }
+        else
+        {
+            POP.LightR();
+        }
         Invoke("Destroy", 5f);
     }
 

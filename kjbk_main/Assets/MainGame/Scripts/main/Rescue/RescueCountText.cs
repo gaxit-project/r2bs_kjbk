@@ -50,7 +50,7 @@ public class RescueCountText : MonoBehaviour
         //     Cnt2++;
         // }
 
-        Cnt = Rcounter1.getNum();
+        Cnt = PlayerPrefs.GetInt("RescueCount");
         Debug.Log("--------------------RCT50:" + Rcounter1.getNum());
         //‚à‚µ‹~•‚µ‚½l”‚ª5–¢–‚È‚çÔ‚­•\¦
         if (Cnt < 5)
