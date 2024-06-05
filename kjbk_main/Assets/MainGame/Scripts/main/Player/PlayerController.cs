@@ -27,6 +27,8 @@ public class PlayController : MonoBehaviour
 
     private bool IsPressedRun; // ボタンの押下状態
 
+    private AudioSource audiosource;
+
     // PlayerInput側から呼ばれるコールバック
     public void OnRun(InputAction.CallbackContext context)
     {
@@ -44,6 +46,10 @@ public class PlayController : MonoBehaviour
         }
     }
 
+    private void Awake()
+    {
+        audiosource = GetComponent<AudioSource>();
+    }
     void Start()
     {
         //メインカメラとサブカメラをそれぞれ取得
@@ -124,6 +130,10 @@ public class PlayController : MonoBehaviour
 
                 //位置を移動
                 Vector3 MoveDir = new Vector3(Xvalue, 0, Yvalue).normalized * CurrentSpeed * DebuffSpeed;
+                if (!audiosource.isPlaying)
+                {
+                    audiosource.Play();
+                }
                 rb.velocity = MoveDir;
                 animator.SetBool("Walk", true);
 

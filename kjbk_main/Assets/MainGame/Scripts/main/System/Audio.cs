@@ -14,6 +14,7 @@ public class Audio : MonoBehaviour
     [SerializeField] AudioSource audioSorceSE;
     [SerializeField] AudioSource audioSorceRoopSE;
     [SerializeField] AudioSource audioSourceWALK;
+    [SerializeField] AudioSource audioSourceWater;
 
     public float BGMVolume //BGMボリューム
     {
@@ -33,10 +34,16 @@ public class Audio : MonoBehaviour
         set { audioSorceRoopSE.volume = value; }
     }
 
-    public float WALKVolume
+    public float WALKVolume //WALKSEボリューム
     {
         get { return audioSourceWALK.volume; }
         set { audioSourceWALK.volume = value; }
+    }
+
+    public float WaterVolume //WALKSEボリューム
+    {
+        get { return audioSourceWater.volume; }
+        set { audioSourceWater.volume = value; }
     }
 
     public static Audio Instance = null;
@@ -74,7 +81,6 @@ public class Audio : MonoBehaviour
     public void StopBGM() //BGM停止
     {
         audioSorceBGM.Stop();
-        audioSorceRoopSE.Stop();
     }
 
     public void PlayRoopSE(int index) //DANCE_BGM再生
@@ -83,7 +89,7 @@ public class Audio : MonoBehaviour
         audioSorceRoopSE.Play();
     }
 
-    public void StopRoopSE() //DANCE_BGM停止
+    public void StopRoopSE() //Roop_SE停止
     {
         audioSorceRoopSE.Stop();
     }

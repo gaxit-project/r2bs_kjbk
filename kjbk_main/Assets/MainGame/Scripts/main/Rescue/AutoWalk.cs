@@ -35,6 +35,12 @@ public class AutoWalk : MonoBehaviour
     //待機時間数える用
     [SerializeField] float time = 0;
 
+
+
+    bool Encount = false;
+
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -63,10 +69,16 @@ public class AutoWalk : MonoBehaviour
     {
         //石崎スクリプト
         bool Encount = rescueNPC.IsItFirstContact();
+        if (Input.GetKeyDown("y"))
+        {
+            Encount = true;
+        }
         if (Encount)
         {
+            Debug.Log("encount" + Encount);
             //自動脱出を開始する
             m_Agent.destination = Target.position;
+            //m_Agent.isStopped = false;
             OnAuto();
 
             //プレイヤーの方を向く
@@ -151,14 +163,14 @@ public class AutoWalk : MonoBehaviour
         Auto = false;
     }
 
-    private void OnCollisionStay(Collision collision)   //炎に触れた際重傷者化
+    /*private void OnCollisionStay(Collision collision)   //炎に触れた際重傷者化
     {
         if (collision.gameObject.name == "Blaze" && !Severe)
         {
             Debug.Log("重傷者化");
             Severe = true;
         }
-    }
+    }*/
 
     //石崎スクリプト
     void GotoNextPoint()
