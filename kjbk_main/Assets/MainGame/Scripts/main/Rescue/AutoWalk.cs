@@ -75,6 +75,7 @@ public class AutoWalk : MonoBehaviour
         }
         if (Encount)
         {
+            m_Agent.ResetPath();
             Debug.Log("encount" + Encount);
             //©“®’Eo‚ğŠJn‚·‚é
             m_Agent.destination = Target.position;
