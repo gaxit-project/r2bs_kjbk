@@ -20,7 +20,6 @@ public class RescueNPC : MonoBehaviour
     [SerializeField] TextMeshPro TMP;   //NPCに近づいたときに表示されるtextMesh
     [SerializeField] public NPCAI NPCAI;   //NPCのAIスクリプト
     [SerializeField] public RadioText RadioText;   //無線制御
-    [SerializeField] public AutoRunNPC AutoRunNPC; //
     [SerializeField] public RescuePOP POP;
     private GameObject Rescue;
     RescueCount_verMatsuno CounterScript;   //救助者カウント
@@ -92,9 +91,7 @@ public class RescueNPC : MonoBehaviour
                     SetFirstContact(true);
                     SetActiveIcon(true);
                     StopNPC();
-                    AutoRunNPC.OnAuto();   //NPCを救出地点まで誘導する
                     //WaitChange(3.5f);
-                        CountDestroy();   //一定時間後にオブジェクト削除
                         Invoke("Count", 5f);
                     RadioText.SetActiveText(true);
 
@@ -105,9 +102,7 @@ public class RescueNPC : MonoBehaviour
                     SetSecondContact(true);
                     Debug.Log("Second");
                     StopNPC();
-                    AutoRunNPC.OnAuto();   //NPCを救出地点まで誘導する
                     //WaitChange(3.5f);
-                        CountDestroy();   //一定時間後にオブジェクト削除
                         Invoke("Count", 5f);
                     RadioText.SetActiveText(true);
                 }

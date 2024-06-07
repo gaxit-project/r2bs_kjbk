@@ -361,9 +361,9 @@ MonoBehaviour:
   NPCAI: {fileID: 15296593}
   RadioText: {fileID: 0}
   AutoRunNPC: {fileID: 0}
+  POP: {fileID: 0}
   MCnt: 0
   RadioM: {fileID: 0}
-  RPop: {fileID: 0}
 --- !u!114 &15296593
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5786,9 +5786,9 @@ MonoBehaviour:
   NPCAI: {fileID: 208737600}
   RadioText: {fileID: 0}
   AutoRunNPC: {fileID: 0}
+  POP: {fileID: 0}
   MCnt: 0
   RadioM: {fileID: 0}
-  RPop: {fileID: 0}
 --- !u!114 &208737600
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37971,9 +37971,9 @@ MonoBehaviour:
   NPCAI: {fileID: 1138358218}
   RadioText: {fileID: 0}
   AutoRunNPC: {fileID: 0}
+  POP: {fileID: 0}
   MCnt: 0
   RadioM: {fileID: 0}
-  RPop: {fileID: 0}
 --- !u!114 &1138358218
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39545,9 +39545,9 @@ MonoBehaviour:
   NPCAI: {fileID: 1220235061}
   RadioText: {fileID: 0}
   AutoRunNPC: {fileID: 0}
+  POP: {fileID: 0}
   MCnt: 0
   RadioM: {fileID: 0}
-  RPop: {fileID: 0}
 --- !u!114 &1220235061
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40507,9 +40507,9 @@ MonoBehaviour:
   NPCAI: {fileID: 1273429831}
   RadioText: {fileID: 0}
   AutoRunNPC: {fileID: 0}
+  POP: {fileID: 0}
   MCnt: 0
   RadioM: {fileID: 0}
-  RPop: {fileID: 0}
 --- !u!114 &1273429831
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -53236,9 +53236,9 @@ MonoBehaviour:
   NPCAI: {fileID: 1637632078}
   RadioText: {fileID: 0}
   AutoRunNPC: {fileID: 0}
+  POP: {fileID: 0}
   MCnt: 0
   RadioM: {fileID: 0}
-  RPop: {fileID: 0}
 --- !u!114 &1637632078
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63643,9 +63643,9 @@ MonoBehaviour:
   NPCAI: {fileID: 1881971180}
   RadioText: {fileID: 0}
   AutoRunNPC: {fileID: 0}
+  POP: {fileID: 0}
   MCnt: 0
   RadioM: {fileID: 0}
-  RPop: {fileID: 0}
 --- !u!136 &1881971183
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -71402,6 +71402,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4976716670175816425, guid: 3790862fd37eab64abadbb014e16011c, type: 3}
   m_PrefabInstance: {fileID: 9054719691695972414}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2029351035
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2029351036}
+  m_Layer: 0
+  m_Name: ShinMatsuno
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2029351036
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2029351035}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -80.361206, y: -11.063111, z: 123.79534}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2033309786
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -73447,3 +73478,4 @@ SceneRoots:
   - {fileID: 449919751}
   - {fileID: 1626063382}
   - {fileID: 353665208}
+  - {fileID: 2029351036}

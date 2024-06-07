@@ -15,13 +15,16 @@ public class WaterHose : MonoBehaviour
     private Animator animator;
 
     bool isOnes = false;
+    private AudioSource audiosource;
 
     private void OnEnable()
     {
         Debug.Log("aaaa");
         WaterStatus = false;
         Hold = false;
+        audiosource = GetComponent<AudioSource>();
         WaterCannon(WaterStatus);
+
     }
 
     public void OnFire(InputAction.CallbackContext context)
@@ -93,6 +96,10 @@ public class WaterHose : MonoBehaviour
     {
         if (WaterStatus == true)
         {
+            if (!audiosource.isPlaying)
+            {
+                audiosource.Play();
+            }
             Child.SetActive(true);
         }
         else

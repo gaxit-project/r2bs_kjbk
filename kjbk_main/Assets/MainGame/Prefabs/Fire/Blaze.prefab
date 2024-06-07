@@ -5108,7 +5108,9 @@ MonoBehaviour:
   SpreadProbability: 75
   LvSpreadProbability: 10
   SpreadRange: 10
-  AntiBlazeTag: []
+  AntiBlazeTag:
+  - Blaze
+  - Wall
   PrefabBlaze: {fileID: 3901713899683814031}
   PrefabPlane: {fileID: 8916174127013782177, guid: 5e9dcae92cc6e694d8f1f761a192a8ec, type: 3}
 --- !u!114 &3601828981568048321

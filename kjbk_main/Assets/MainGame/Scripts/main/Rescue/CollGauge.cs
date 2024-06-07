@@ -13,6 +13,8 @@ public class CollGauge : MonoBehaviour
     public Sunaarashi_ON_OFF Suna;  //砂嵐をもってくる
     private bool STOP = false;      //無線のフラグ
     int a = 5;                      //無線の種類分け
+
+    public BlockPOP POP;
     //public SceneChange Over;        //SceneChange.csからゲームオーバーを持ってくる
     //public Sunaarashi_ON_OFF Suna;  //Sunaarashiから砂嵐を持ってくる
 
@@ -51,6 +53,7 @@ public class CollGauge : MonoBehaviour
             {
                 Design.FourHouse();
                 Suna.SunaONOFF();
+                POP.Generate40 = true;
                 Invoke(nameof(STOPFlagON), 2f);
             }
 
@@ -58,6 +61,7 @@ public class CollGauge : MonoBehaviour
             {
                 Design.TwoHouse();
                 Suna.SunaONOFF();
+                POP.Generate20 = true;
                 Invoke(nameof(STOPFlagON), 2f);
             }
 
@@ -65,6 +69,7 @@ public class CollGauge : MonoBehaviour
             {
                 Design.OneHouse();
                 Suna.SunaONOFF();
+                POP.Generate10 = true;
                 Invoke(nameof(STOPFlagON), 2f);
             }
             else if (Collapse <= 0)

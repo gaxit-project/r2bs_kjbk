@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class CollapseGauge2 : MonoBehaviour
 {
-    float CountTime = 0;            //時間計測
+    [HideInInspector] public float CountTime = 0;            //時間計測
     float Collapse = 100;            //倒壊ゲージ
     float Span = 3.5f;                 //Span秒に一回倒壊ゲージを1%減らす
     public Radio Demoscript;        //Radio.csから関数もって来るやつ
@@ -15,6 +15,13 @@ public class CollapseGauge2 : MonoBehaviour
     int a = 5;                      //無線の種類分け
     //public SceneChange Over;        //SceneChange.csからゲームオーバーを持ってくる
     //public Sunaarashi_ON_OFF Suna;  //Sunaarashiから砂嵐を持ってくる
+
+
+    public bool Collapse80 = false;
+    public bool Collapse60 = false;
+    public bool Collapse40 = false;
+    public bool Collapse20 = false;
+    public bool Collapse10 = false;
 
     // Use this for initialization
     void Start()
@@ -78,23 +85,23 @@ public class CollapseGauge2 : MonoBehaviour
                 //フラグが届いたら以下の通りに無線を実行
                 if(a == 5)
                 {
-                    Demoscript.EightGauge();
+                    Collapse80 = true;
                 }
                 else if(a == 4)
                 {
-                    Demoscript.SixGauge();
+                    Collapse60 = true;
                 }
                 else if (a == 3)
                 {
-                    Demoscript.FourGauge();
+                    Collapse40 = true;
                 }
                 else if (a == 2)
                 {
-                    Demoscript.TwoGauge();
+                    Collapse20 = true;
                 }
                 else if (a == 1)
                 {
-                    Demoscript.OneGauge();
+                    Collapse10 = true;
                 }
                 STOP = false;  //フラグをOFFに
                 a--;           //次の無線に変更
