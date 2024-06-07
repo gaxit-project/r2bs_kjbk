@@ -72,7 +72,7 @@ public class WaterHose : MonoBehaviour
                     animator.SetBool("Gun", isOnes);
                     
                 }
-                WaterStatus = true;
+                Invoke(nameof(WaterChange), 1f);
 
             }
             else
@@ -106,5 +106,9 @@ public class WaterHose : MonoBehaviour
         {
             Child.SetActive(false);
         }
+    }
+    void WaterChange()
+    {
+        WaterStatus = true;
     }
 }
