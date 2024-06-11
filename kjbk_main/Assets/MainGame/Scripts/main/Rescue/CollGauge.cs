@@ -86,6 +86,7 @@ public class CollGauge : MonoBehaviour
             }
             else if (Collapse <= 0)
             {
+                PlayerPrefs.SetString("Result", "GAMEOVER");
                 Scene.Instance.GameResult();
             }
 
