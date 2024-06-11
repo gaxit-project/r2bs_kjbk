@@ -44,6 +44,8 @@ public class RescueNPC : MonoBehaviour
     public static int r_num = 0;
     [HideInInspector] public int MCnt = 0;  //軽傷者のカウント，MCntが3になったら0に戻してカウントをし直す
     public CollRadio RadioM;
+
+    public Radio_ver3 Radio3;
     void Start()
     {
         mesh = GetComponent<MeshRenderer>();
@@ -156,10 +158,14 @@ public class RescueNPC : MonoBehaviour
         if (Severe)//重傷者の時
         {
             POP.HeavyR();
+            Radio3.RHintFlag = true;
+            Radio3.SymbolStop();
         }
         else
         {
             POP.LightR();
+            Radio3.RPopFlag = true;
+            Radio3.RHintStop();
         }
         Invoke("Destroy", 5f);
     }
