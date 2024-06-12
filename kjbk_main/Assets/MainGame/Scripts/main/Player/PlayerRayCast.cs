@@ -41,8 +41,9 @@ public class PlayerRayCast : MonoBehaviour
     void Start ()
     {
         Hosu = this.transform.Find("shokaki").gameObject;
+        HosuStatus = false;
         //Hosu = this.transform.Find("Syoukaki").gameObject;
-        if(HosuStatus == false)
+        if (HosuStatus == false)
         {
             Hosu.SetActive(HosuStatus);
         }

@@ -100,8 +100,6 @@ public class RescueNPC : MonoBehaviour
                     SetFirstContact(true);
                     SetActiveIcon(true);
                     StopNPC();
-                    //WaitChange(3.5f);
-                        Invoke("Count", 5f);
                     RadioText.SetActiveText(true);
 
 
@@ -111,8 +109,6 @@ public class RescueNPC : MonoBehaviour
                     SetSecondContact(true);
                     Debug.Log("Second");
                     StopNPC();
-                    //WaitChange(3.5f);
-                        Invoke("Count", 5f);
                     RadioText.SetActiveText(true);
                 }
             }
@@ -142,7 +138,7 @@ public class RescueNPC : MonoBehaviour
                 RescuedVectorNPC(TargetPosition.x, TargetPosition.y, TargetPosition.z);   //NPCを救出したときのVector
                 SetRescued(true);
                 CountDestroy();   //一定時間後にオブジェクト削除
-                Invoke("Count", 5f);
+                CounterScript.Count();
             }
         }
     }
@@ -167,7 +163,7 @@ public class RescueNPC : MonoBehaviour
             Radio3.RPopFlag = true;
             Radio3.RHintStop();
         }
-        Invoke("Destroy", 5f);
+        Invoke("Destroy", 2f);
     }
 
     private void Destroy()
