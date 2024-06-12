@@ -14,13 +14,18 @@ public class Fire_Spread : MonoBehaviour
 
     [SerializeField] private string[] AntiBlazeTag;
 
+    private GameObject Rescue;
+    RescueCount_verMatsuno Counter;
+
     public static bool FirstAction = true;
 
+    private bool boost = false;
+
     //‰ŠŽüˆÍ‚Sƒ}ƒX‚Ì‰Š”»’è
-    private bool FireXp = false;
-    private bool FireZp = false;
-    private bool FireXm = false;
-    private bool FireZm = false;
+    [SerializeField] private bool FireXp = false;
+    [SerializeField] private bool FireZp = false;
+    [SerializeField] private bool FireXm = false;
+    [SerializeField] private bool FireZm = false;
     private int FireNum = 0;
 
     private int d = 0;
@@ -49,6 +54,9 @@ public class Fire_Spread : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Rescue = GameObject.Find("Rescue");
+        Counter = Rescue.GetComponent<RescueCount_verMatsuno>();
+
         if (SpreadRange < 5) SpreadRange = 5;   //SpreadRange5ˆÈ‰º‚ÌŽžd‚³‘Îô‚Å5‚É‚·‚é
         StartCoroutine("SpreadFire");
     }
@@ -59,6 +67,11 @@ public class Fire_Spread : MonoBehaviour
         if(inferno.FireStatus)
         {
             StopCoroutine("SpreadFire");
+        }     
+        if (Counter.getNum() > 5 && !boost)
+        {
+            SpreadSecond = SpreadSecond * 0.5f;
+            boost = true;
         }
     }
 
@@ -105,6 +118,7 @@ public class Fire_Spread : MonoBehaviour
         }
         else
         {
+            if (FireXp) FireNum--;
             FireXp = false;
         }
         if (Physics.Raycast(rayZp, out hit, SpreadRange))
@@ -117,6 +131,7 @@ public class Fire_Spread : MonoBehaviour
         }
         else
         {
+            if (FireZp) FireNum--;
             FireZp = false;
         }
         if (Physics.Raycast(rayXm, out hit, SpreadRange))
@@ -129,6 +144,7 @@ public class Fire_Spread : MonoBehaviour
         }
         else
         {
+            if (FireXm) FireNum--;
             FireXm = false;
         }
         if (Physics.Raycast(rayZm, out hit, SpreadRange))
@@ -141,6 +157,7 @@ public class Fire_Spread : MonoBehaviour
         }
         else
         {
+            if (FireZm) FireNum--;
             FireZm = false;
         }
     }

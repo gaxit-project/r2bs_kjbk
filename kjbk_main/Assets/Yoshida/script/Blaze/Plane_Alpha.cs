@@ -11,7 +11,8 @@ public class Plane_Alpha : MonoBehaviour
     {
         mesh = GetComponent<MeshRenderer>();
         StartCoroutine("Blink");
-        Invoke("Des", 1f);
+        Invoke("Stop", 1.5f);
+        
     }
 
     IEnumerator Blink()
@@ -35,10 +36,15 @@ public class Plane_Alpha : MonoBehaviour
         }
     }
 
+    private void Stop()
+    {
+        StopCoroutine("Blink");
+    }
+
     //ê⁄êGîªíË(ê⁄êGÇµÇΩèuä‘)
     void OnCollisionEnter(UnityEngine.Collision collision)
     {
-        if (collision.gameObject.name == "Blaze")
+        if (collision.gameObject.name == "Blaze" && collision.gameObject.name == "Plane")
         {
             Des();
         }
