@@ -15,6 +15,13 @@ public class Audio : MonoBehaviour
     [SerializeField] AudioSource audioSorceRoopSE;
     [SerializeField] AudioSource audioSourceWALK;
     [SerializeField] AudioSource audioSourceWater;
+    [SerializeField] AudioSource audioSourceFire1;
+    [SerializeField] AudioSource audioSourceFire2;
+    [SerializeField] AudioSource audioSourceFire3;
+    [SerializeField] AudioSource audioSourceFire4;
+    [SerializeField] AudioSource audioSourceFire5;
+    [SerializeField] AudioSource audioSourceFire6;
+    [SerializeField] AudioSource audioSourceFire7;
 
     public float BGMVolume //BGMボリューム
     {
@@ -44,6 +51,54 @@ public class Audio : MonoBehaviour
     {
         get { return audioSourceWater.volume; }
         set { audioSourceWater.volume = value; }
+    }
+
+    public float FireVolume1 //FireSEボリューム
+    {
+        get { return audioSourceFire1.volume; }
+        set { audioSourceFire1.volume = value; }
+
+    }
+    public float FireVolume2 //FireSEボリューム
+    {
+        get { return audioSourceFire2.volume; }
+        set { audioSourceFire2.volume = value; }
+
+    }
+
+    public float FireVolume3 //FireSEボリューム
+    {
+        get { return audioSourceFire3.volume; }
+        set { audioSourceFire3.volume = value; }
+
+    }
+
+    public float FireVolume4 //FireSEボリューム
+    {
+        get { return audioSourceFire4.volume; }
+        set { audioSourceFire4.volume = value; }
+
+    }
+
+    public float FireVolume5 //FireSEボリューム
+    {
+        get { return audioSourceFire5.volume; }
+        set { audioSourceFire5.volume = value; }
+
+    }
+
+    public float FireVolume6 //FireSEボリューム
+    {
+        get { return audioSourceFire6.volume; }
+        set { audioSourceFire6.volume = value; }
+
+    }
+
+    public float FireVolume7 //FireSEボリューム
+    {
+        get { return audioSourceFire7.volume; }
+        set { audioSourceFire7.volume = value; }
+
     }
 
     public static Audio Instance = null;

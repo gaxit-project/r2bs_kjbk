@@ -12,6 +12,7 @@ TagManager:
   - SeriousInjuries
   - Wall
   - Plane
+  - Scanner
   layers:
   - Default
   - TransparentFX
