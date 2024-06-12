@@ -10,6 +10,8 @@ public class WaterHose : MonoBehaviour
     public static bool WaterStatus = false; //放水状態
     public static bool Hold = false; //長押し判定
 
+    float capacity;
+
     public GameObject FF;
 
     private Animator animator;
@@ -49,6 +51,7 @@ public class WaterHose : MonoBehaviour
     }
     void Update()
     {
+        capacity = PlayerPrefs.GetFloat("capacity");
         if(Input.GetMouseButtonDown(1))
         {
             Hold = true;
@@ -72,7 +75,7 @@ public class WaterHose : MonoBehaviour
                     animator.SetBool("Gun", isOnes);
                     
                 }
-                WaterStatus = true;
+                Invoke(nameof(WaterChange), 1f);
 
             }
             else
@@ -94,17 +97,25 @@ public class WaterHose : MonoBehaviour
     }
     void WaterCannon(bool WaterStatus)
     {
-        if (WaterStatus == true)
+        capacity = PlayerPrefs.GetFloat("capacity");
+        if (WaterStatus && 0f <= capacity)
         {
             if (!audiosource.isPlaying)
             {
                 audiosource.Play();
             }
             Child.SetActive(true);
+            capacity -= 10 * Time.deltaTime;
+            Debug.Log("capacity = " + capacity);
         }
         else
         {
             Child.SetActive(false);
         }
+        PlayerPrefs.SetFloat("capacity",capacity);
+    }
+    void WaterChange()
+    {
+        WaterStatus = true;
     }
 }

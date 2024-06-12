@@ -32,6 +32,9 @@ public class PlayerRayCast : MonoBehaviour
 
     bool isCalledOnce = false;
 
+    float MaxWater = 100f;
+    float capacity = 0f;
+
     private InputAction TakeAction;
 
 
@@ -55,6 +58,8 @@ public class PlayerRayCast : MonoBehaviour
 
         //アクションマップからアクションを取得
         TakeAction = actionMap["Take"];
+
+        capacity = 0f;
     }
 
     void Update()
@@ -118,6 +123,7 @@ public class PlayerRayCast : MonoBehaviour
                         }
                         Invoke(nameof(DelayMethod), 1.0f);
                         //消火栓をアクティブ
+                        PlayerPrefs.SetFloat("capacity",MaxWater);
                         Debug.Log("消火栓使用中");
                         HosuStatus = true;
                         Hosu.SetActive(HosuStatus);
@@ -129,11 +135,15 @@ public class PlayerRayCast : MonoBehaviour
                             isCalledOnce = false;
                             animator.SetBool("take", isCalledOnce);
                         }
+                        PlayerPrefs.SetFloat("capacity", MaxWater);
+
+                        /*
                         //消火栓を非アクティブ
                         Debug.Log("消火栓使用してない");
                         WaterHose.WaterStatus = false;
                         HosuStatus = false;
                         Hosu.SetActive(HosuStatus);
+                        */
                     }
                     SHold = true;
                 }

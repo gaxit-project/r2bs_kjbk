@@ -97,7 +97,15 @@ public class PlayController : MonoBehaviour
             {
                 rb.velocity = Vector3.zero;
                 MoveStatus = false;
-                animator.SetBool("Walk", false);
+                if (Follow)
+                {
+                    animator.SetBool("CarryWalk", false);
+                }
+                else
+                {
+                    animator.SetBool("Walk", false);
+                }
+                
             }
             else
             {
@@ -135,7 +143,14 @@ public class PlayController : MonoBehaviour
                     audiosource.Play();
                 }
                 rb.velocity = MoveDir;
-                animator.SetBool("Walk", true);
+                if (Follow)
+                {
+                    animator.SetBool("CarryWalk", true);
+                }
+                else
+                {
+                    animator.SetBool("Walk", true);
+                }
 
                 //進行方向を向く
                 transform.forward = Vector3.Slerp(transform.forward, MoveDir, Time.deltaTime * RotateSpeed);

@@ -39,9 +39,13 @@ public class RescueNPC : MonoBehaviour
 
     private InputAction TalkAction;
 
+    private Animator FFanimator;
+
     public static int r_num = 0;
     [HideInInspector] public int MCnt = 0;  //軽傷者のカウント，MCntが3になったら0に戻してカウントをし直す
     public CollRadio RadioM;
+
+    public Radio_ver3 Radio3;
     void Start()
     {
         mesh = GetComponent<MeshRenderer>();
@@ -55,6 +59,9 @@ public class RescueNPC : MonoBehaviour
 
         //アクションマップからアクションを取得
         TalkAction = actionMap["Talk"];
+
+        //アニメーション読み込み
+        FFanimator = Player.GetComponent<Animator>();
 
         //初期化
         r_num = 0;
@@ -75,11 +82,13 @@ public class RescueNPC : MonoBehaviour
                     DiplicationScript.OnFlag();
                     StopNPC();
                     SetFollow(true);
+                    FFanimator.SetBool("Carry", true);
                 }
                 else   //追従時
                 {
                     DiplicationScript.OffFlag();
                     SetFollow(false);
+                    FFanimator.SetBool("Carry", false);
                     PutVectorNPC(TargetPosition.x, TargetPosition.y, TargetPosition.z);
                 }
             }
@@ -120,6 +129,7 @@ public class RescueNPC : MonoBehaviour
                 DiplicationScript.OffFlag();
                 SetText("");
                 SetFollow(false);
+                FFanimator.SetBool("Carry", false);
                 RescuedVectorNPC(TargetPosition.x, TargetPosition.y, TargetPosition.z);   //NPCを救出したときのVector
                 SetRescued(true);
                 CountDestroy();   //一定時間後にオブジェクト削除
@@ -148,10 +158,14 @@ public class RescueNPC : MonoBehaviour
         if (Severe)//重傷者の時
         {
             POP.HeavyR();
+            Radio3.RHintFlag = true;
+            Radio3.SymbolStop();
         }
         else
         {
             POP.LightR();
+            Radio3.RPopFlag = true;
+            Radio3.RHintStop();
         }
         Invoke("Destroy", 5f);
     }
