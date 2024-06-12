@@ -5110,6 +5110,11 @@ MonoBehaviour:
   - Blaze
   - Wall
   - Plane
+  boostNum: 5
+  FireXp: 0
+  FireZp: 0
+  FireXm: 0
+  FireZm: 0
   inferno: {fileID: 1438776958498779912}
   Fire_Lv: {fileID: -6314536278128657883}
   PrefabBlaze: {fileID: 556783039745682872}

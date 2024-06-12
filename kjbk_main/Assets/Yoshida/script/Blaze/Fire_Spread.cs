@@ -19,6 +19,7 @@ public class Fire_Spread : MonoBehaviour
 
     public static bool FirstAction = true;
 
+    [SerializeField] private int boostNum;
     private bool boost = false;
 
     //‰ŠŽüˆÍ‚Sƒ}ƒX‚Ì‰Š”»’è
@@ -68,7 +69,7 @@ public class Fire_Spread : MonoBehaviour
         {
             StopCoroutine("SpreadFire");
         }     
-        if (Counter.getNum() > 5 && !boost)
+        if (Counter.getNum() >= boostNum && !boost)
         {
             SpreadSecond = SpreadSecond * 0.5f;
             boost = true;
@@ -87,10 +88,10 @@ public class Fire_Spread : MonoBehaviour
         Ray rayXm = new Ray(this.transform.position, Xm);
         Ray rayZm = new Ray(this.transform.position, Zm);
 
-        //Debug.DrawRay(rayXp.origin, rayXp.direction * 10, Color.red, 10, false);
-        //Debug.DrawRay(rayZp.origin, rayZp.direction * 10, Color.red, 10, false);
-        //Debug.DrawRay(rayXm.origin, rayXm.direction * 10, Color.red, 10, false);
-        //Debug.DrawRay(rayZm.origin, rayZm.direction * 10, Color.red, 10, false);
+        //Debug.DrawRay(rayXp.origin, rayXp.direction * 10, Color.red, 100000, false);
+        //Debug.DrawRay(rayZp.origin, rayZp.direction * 10, Color.red, 100000, false);
+        //Debug.DrawRay(rayXm.origin, rayXm.direction * 10, Color.red, 100000, false);
+        //Debug.DrawRay(rayZm.origin, rayZm.direction * 10, Color.red, 100000, false);
 
         while (true)
         {
@@ -100,7 +101,8 @@ public class Fire_Spread : MonoBehaviour
             if (Fire_Lv.FireLv == 1) continue;
             d = dice();
             CreatePlane();
-            Invoke("Spread", 1.5f);
+            decision(rayXp, rayZp, rayXm, rayZm);
+            Spread();
         }
     }
 
