@@ -101,7 +101,7 @@ public class RescueNPC : MonoBehaviour
                     SetActiveIcon(true);
                     StopNPC();
                     RadioText.SetActiveText(true);
-
+                    CountDestroy();   //一定時間後にオブジェクト削除
 
                 }
                 else if (IsItFirstContact())
@@ -137,7 +137,7 @@ public class RescueNPC : MonoBehaviour
             {
                 RescuedVectorNPC(TargetPosition.x, TargetPosition.y, TargetPosition.z);   //NPCを救出したときのVector
                 SetRescued(true);
-                CountDestroy();   //一定時間後にオブジェクト削除
+                //CountDestroy();   //一定時間後にオブジェクト削除
                 CounterScript.Count();
             }
         }
