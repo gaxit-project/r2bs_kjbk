@@ -75732,6 +75732,13 @@ MonoBehaviour:
   audioSorceRoopSE: {fileID: 1245500006}
   audioSourceWALK: {fileID: 937850968}
   audioSourceWater: {fileID: 919132147742046910}
+  audioSourceFire1: {fileID: 0}
+  audioSourceFire2: {fileID: 0}
+  audioSourceFire3: {fileID: 0}
+  audioSourceFire4: {fileID: 0}
+  audioSourceFire5: {fileID: 0}
+  audioSourceFire6: {fileID: 0}
+  audioSourceFire7: {fileID: 0}
 --- !u!82 &1245500006
 AudioSource:
   m_ObjectHideFlags: 0
@@ -116812,25 +116819,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2006839658}
   m_CullTransparentMesh: 1
---- !u!1 &2006971957 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 643100b94ea63944d8d61c2e02bfbaf4, type: 3}
-  m_PrefabInstance: {fileID: 2070444679}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2006971958
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2006971957}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b45bec8bd588244db447c915697fd3b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetCamera: {fileID: 0}
-  objectRenderer: {fileID: 0}
 --- !u!4 &2008340797 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6903931599684740554, guid: 9738c89ed8957d343902c1c5d48133d4, type: 3}
@@ -119810,9 +119798,6 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 643100b94ea63944d8d61c2e02bfbaf4, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2006971958}
     - targetCorrespondingSourceObject: {fileID: 8164078558771037576, guid: 643100b94ea63944d8d61c2e02bfbaf4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1667893551}
