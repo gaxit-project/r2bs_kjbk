@@ -48,7 +48,7 @@ public class SwitchCamera : MonoBehaviour
         {
             subCamera.enabled=true;
             //mainCamera.enabled=true;
-            Debug.Log("表示");
+            //Debug.Log("表示");
             //Time.timeScale = 0.0f;
         }
         //くそでかマップ非表示
@@ -56,7 +56,7 @@ public class SwitchCamera : MonoBehaviour
         {
             //mainCamera.enabled=true;
             subCamera.enabled=false;
-            Debug.Log("非表示");
+            //Debug.Log("非表示");
             //Time.timeScale = 1.0f;
         }
     }

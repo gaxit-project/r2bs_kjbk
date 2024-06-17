@@ -1,21 +1,4 @@
-prefab
-MapPlayer:FFのミニマップ用。FFの子
-(5/08)MapPlayer2:MapPlayerの子。当たり判定を広げてる。
-MapHydrant:消火栓のミニマップ用。Hydrantの子
-Mapdoor:一つの扉のミニマップ用。Doorの子
-Mapdoortwo:二つの扉のミニマップ用。Doorどちらかの子
-(5/08)RescureMap:救助者のマップ用。SD_unitychanの子
-MapUnbreak(1):ミニマップの元のまとまり
-Extinctiondoor:Mapdoorの処理用、doorの下に配置
-Extinctiondoortwo:Mapdoortwoの処理用、doorの下に配置(一つ)
-(5/08)Mappingtail:オートマッピング用、下で踏む用とマップに写す用でprefab化。細かくしました。
-Mappingtails:Mappingtailの全体をprefab化したもの。
-MapCamera:ミニマップ用のカメラ
-SwitchCamera:ミニマップ用のカメラのスクリプトを動かす用
-BigMapCamera:くそでかマップ用のカメラ
-
-script
-CameraFixed:ミニマップカメラの視点を固定する、MapCameraにアタッチ
-MappingDoor:Mapdoorに触れると消え、離れると見えるようになる。Extinctiondoorにアタッチ
-MappingFloor:Mappingtailに触れると消える。踏む用のMappingtailにアタッチ
-SwitchCamera:Mキーを押すとくそでかマップのON/OFF。Switchcameraにアタッチ
+UI/MIniMap/Icon の更新
+POPJudge/Corridor/stop/default にDestroy Wallをアタッチ
+TargetCameraにMapCamera
+ObjectRenderにMeshRenderer
