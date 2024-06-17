@@ -118,9 +118,9 @@ public class Fire_Spread : MonoBehaviour
                 FireNum++;
             }
         }
-        else
+        else if (FireXp)
         {
-            if (FireXp) FireNum--;
+            FireNum--;
             FireXp = false;
         }
         if (Physics.Raycast(rayZp, out hit, SpreadRange))
@@ -131,9 +131,9 @@ public class Fire_Spread : MonoBehaviour
                 FireNum++;
             }
         }
-        else
+        else if (FireZp)
         {
-            if (FireZp) FireNum--;
+            FireNum--;
             FireZp = false;
         }
         if (Physics.Raycast(rayXm, out hit, SpreadRange))
@@ -144,9 +144,9 @@ public class Fire_Spread : MonoBehaviour
                 FireNum++;
             }
         }
-        else
+        else if (FireXm)
         {
-            if (FireXm) FireNum--;
+            FireNum--;
             FireXm = false;
         }
         if (Physics.Raycast(rayZm, out hit, SpreadRange))
@@ -157,9 +157,9 @@ public class Fire_Spread : MonoBehaviour
                 FireNum++;
             }
         }
-        else
+        else if (FireZm)
         {
-            if (FireZm) FireNum--;
+            FireNum--;
             FireZm = false;
         }
     }
@@ -189,7 +189,7 @@ public class Fire_Spread : MonoBehaviour
             int probability = 100 / (4 - FireNum);
             if (!FireXp)
             {
-                if (probability < Probability)
+                if (probability > Probability)
                 {
                     return 1;
 
