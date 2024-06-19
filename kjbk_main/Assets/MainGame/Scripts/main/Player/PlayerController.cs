@@ -70,6 +70,8 @@ public class PlayController : MonoBehaviour
 
         Rigidbody rb = this.transform.GetComponent<Rigidbody>();
 
+        Vector3 posi = this.transform.position;
+
         if (DesSystem.DesSystemStatus == true)
         {
             rb.velocity = Vector3.zero;
@@ -88,6 +90,7 @@ public class PlayController : MonoBehaviour
             Vector3 MoveDir = new Vector3(Xvalue, 0, Yvalue).normalized * CurrentSpeed * DebuffSpeed;
 
             //進行方向を向く
+            this.transform.position = posi;
             transform.forward = Vector3.Slerp(transform.forward, MoveDir, Time.deltaTime * RotateSpeed);
             CurrentForward = transform.forward;
         }
