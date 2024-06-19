@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TimerManager : MonoBehaviour
+public class CircleUI : MonoBehaviour
 {
     public float LimitTime1 = 5.0f; //タイマーの設定時間1
     public float LimitTime2 = 8.0f; //タイマーの設定時間2
     public GameObject CircleProgress; //円タイプのプログレスバー
-    public static string ScoreFlag = "Best"; // スコア用フラグ
+    public string ScoreFlag = "Best"; // スコア用フラグ
     private int ColorFlag; //色変更用フラグ
     private Image ImgCircle; //CircleProgressのImage取得用
     private float PassedTime; //経過時間

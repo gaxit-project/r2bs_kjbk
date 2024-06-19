@@ -106,7 +106,7 @@ public class WaterHose : MonoBehaviour
             }
             Child.SetActive(true);
             capacity -= 10 * Time.deltaTime;
-            Debug.Log("capacity = " + capacity);
+            //Debug.Log("capacity = " + capacity);
         }
         else
         {

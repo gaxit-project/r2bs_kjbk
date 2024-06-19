@@ -14,6 +14,10 @@ public class ResultScore : MonoBehaviour
     private GameObject Failed;
     private GameObject FireRoof;
 
+    int Best;
+    int Normal;
+    int Bad;
+
     int RescueCnt;
     void Start()
     {
@@ -27,7 +31,8 @@ public class ResultScore : MonoBehaviour
         FireRoof.SetActive(false);
         score = 1;
         RescueCnt = PlayerPrefs.GetInt("RescueCount");
-        score = RescueCnt * 100;
+        ScoreCount();
+        score = score + RescueCnt * 100;
         textScore.text = "Score:" + score.ToString();
         Result(PlayerPrefs.GetString("Result"));
     }
@@ -44,6 +49,19 @@ public class ResultScore : MonoBehaviour
             FireRoof.SetActive(true);
         }
     }
+
+    public void ScoreCount()
+    {
+        Best = PlayerPrefs.GetInt("ResCntBest");
+        Normal = PlayerPrefs.GetInt("ResCntNormal");
+        Bad = PlayerPrefs.GetInt("ResCntBad");
+
+        //デバッグ
+        Debug.Log(Best + " " + Normal + " " + Bad);
+
+        score = Best * 200 + Normal * 100 + Bad * 50;
+    }
+
     public void ToTitle()
     {
         Scene.Instance.Title();

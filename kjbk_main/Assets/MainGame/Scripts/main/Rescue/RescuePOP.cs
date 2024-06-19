@@ -15,6 +15,25 @@ public class RescuePOP : MonoBehaviour
     [SerializeField] GameObject RCloset;
     [SerializeField] GameObject RBedRoom;
 
+
+    [SerializeField] GameObject hito1st;
+    [SerializeField] GameObject JK1st;
+    [SerializeField] GameObject kurohuku1st;
+    [SerializeField] GameObject ILOVENY1st;
+    [SerializeField] GameObject hito1_st;
+    [SerializeField] GameObject hito2nd;
+    [SerializeField] GameObject JK2nd;
+    [SerializeField] GameObject kurohuku2nd;
+    [SerializeField] GameObject hito3rd;
+    [SerializeField] GameObject JK3rd;
+    [SerializeField] GameObject hito3_2rd;
+    [SerializeField] GameObject kurohuku4th;
+    [SerializeField] GameObject ILOVENY4th;
+    [SerializeField] GameObject hito4th;
+    [SerializeField] GameObject JK5th;
+    [SerializeField] GameObject kurohuku5th;
+    [SerializeField] GameObject ILOVENY5th;
+
     //ƒ‰ƒ“ƒ_ƒ€‚Ì’l‚ð“ü‚ê‚é
     [HideInInspector] public int Rnd = 0;
 
@@ -31,6 +50,8 @@ public class RescuePOP : MonoBehaviour
     bool R4 = true;
     bool R5 = true;
 
+    int cnt = 1;
+
 
     void Start()
     {
@@ -39,7 +60,23 @@ public class RescuePOP : MonoBehaviour
         RBath.SetActive(false);
         RCloset.SetActive(false);
         RBedRoom.SetActive(false);
-
+        hito1st.SetActive(false);
+        JK1st.SetActive(false);
+        kurohuku1st.SetActive(false);
+        ILOVENY1st.SetActive(false);
+        hito1_st.SetActive(false);
+        hito2nd.SetActive(false);
+        JK2nd.SetActive(false);
+        kurohuku2nd.SetActive(false);
+        hito3rd.SetActive(false);
+        JK3rd.SetActive(false);
+        hito3_2rd.SetActive(false);
+        kurohuku4th.SetActive(false);
+        ILOVENY4th.SetActive(false);
+        hito4th.SetActive(false);
+        JK5th.SetActive(false);
+        kurohuku5th.SetActive(false);
+        ILOVENY5th.SetActive(false);
     }
 
     void Update()
@@ -219,5 +256,76 @@ public class RescuePOP : MonoBehaviour
         {
             RBedRoom.SetActive(true);
         }
+
+        if (cnt == 1)
+        {
+            hito1st.SetActive(true);
+            JK1st.SetActive(true);
+            kurohuku1st.SetActive(true);
+            ILOVENY1st.SetActive(true);
+            hito1_st.SetActive(true);
+        }
+        else if (cnt == 2)
+        {
+            hito2nd.SetActive(true);
+            JK2nd.SetActive(true);
+            kurohuku2nd.SetActive(true);
+        }
+        else if (cnt == 3)
+        {
+            hito3rd.SetActive(true);
+            JK3rd.SetActive(true);
+            hito3_2rd.SetActive(true);
+        }
+        else if (cnt == 4)
+        {
+            kurohuku4th.SetActive(true);
+            ILOVENY4th.SetActive(true);
+            hito4th.SetActive(true);
+        }
+        else if (cnt == 5)
+        {
+            JK5th.SetActive(true);
+            kurohuku5th.SetActive(true);
+            ILOVENY5th.SetActive(true);
+        }
+        cnt++;
+    }
+
+    public void PopR()
+    {
+        if (cnt == 1)
+        {
+            hito1st.SetActive(true);
+            JK1st.SetActive(true);
+            kurohuku1st.SetActive(true);
+            ILOVENY1st.SetActive(true);
+            hito1_st.SetActive(true);
+        }
+        else if (cnt == 2)
+        {
+            hito2nd.SetActive(true);
+            JK2nd.SetActive(true);
+            kurohuku2nd.SetActive(true);
+        }
+        else if (cnt == 3)
+        {
+            hito3rd.SetActive(true);
+            JK3rd.SetActive(true);
+            hito3_2rd.SetActive(true);
+        }
+        else if (cnt == 4)
+        {
+            kurohuku4th.SetActive(true);
+            ILOVENY4th.SetActive(true);
+            hito4th.SetActive(true);
+        }
+        else if (cnt == 5)
+        {
+            JK5th.SetActive(true);
+            kurohuku5th.SetActive(true);
+            ILOVENY5th.SetActive(true);
+        }
+        cnt++;
     }
 }
