@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using System.Net.Security;
@@ -22,7 +23,7 @@ public class RescueNPC : MonoBehaviour
     [SerializeField] public RadioText RadioText;   //無線制御
     [SerializeField] public RescuePOP POP;
     private GameObject Rescue;
-    RescueCount_verMatsuno CounterScript;   //救助者カウント
+    RescueCount CounterScript;   //救助者カウント
     RescueDiplication DiplicationScript;
 
     MeshRenderer mesh;   //MeshRendere
@@ -49,12 +50,16 @@ public class RescueNPC : MonoBehaviour
     public CollRadio RadioM;
 
     public Radio_ver3 Radio3;
+
+    public R_Number number;
+
+    public int NumberR;
     void Start()
     {
         mesh = GetComponent<MeshRenderer>();
         Rescue = GameObject.Find("Rescue");
         DiplicationScript = Rescue.GetComponent<RescueDiplication>();
-        CounterScript = Rescue.GetComponent<RescueCount_verMatsuno>();
+        CounterScript = Rescue.GetComponent<RescueCount>();
 
         var pInput = this.GetComponent<PlayerInput>();
         //現在のアクションマップを取得
@@ -106,6 +111,7 @@ public class RescueNPC : MonoBehaviour
             {
                 if (!IsItFirstContact())
                 {
+                    ComentON();// オブジェクト削除
                     Debug.Log(SecondContact);
                     SetFirstContact(true);
                     SetActiveIcon(true);
@@ -141,8 +147,9 @@ public class RescueNPC : MonoBehaviour
                 RescuedVectorNPC(TargetPosition.x, TargetPosition.y, TargetPosition.z);   //NPCを救出したときのVector
                 SetRescued(true);
                 CountDestroy();   //一定時間後にオブジェクト削除
-                CounterScript.Count();   //救助者カウント
+                CounterScript.SevereCount();   //救助者カウント
                 r_num = CounterScript.getNum();
+                POP.PopR();
             }
 
             if (IsItInGoal() && !IsItRescued() && Severe == false)   //救出地点に接触かつ未救出かつ軽症者
@@ -150,7 +157,7 @@ public class RescueNPC : MonoBehaviour
                 RescuedVectorNPC(TargetPosition.x, TargetPosition.y, TargetPosition.z);   //NPCを救出したときのVector
                 SetRescued(true);
                 NPCanimator.SetBool("Walk", false);
-                //CountDestroy();   //一定時間後にオブジェクト削除
+                CountDestroy();   //一定時間後にオブジェクト削除
                 CounterScript.Count();
             }
         }
@@ -162,6 +169,15 @@ public class RescueNPC : MonoBehaviour
     {
         return r_num;
     }
+
+    public void ComentON()
+    {
+        NumberR = number.RNumber();
+        Debug.Log("救助者のナンバー：" + NumberR);
+        POP.LightR();
+        Radio3.RPopFlag = true;
+        Radio3.RHintStop(NumberR);
+    }
     public void CountDestroy()//オブジェクトの破壊
     {
         if (Severe)//重傷者の時
@@ -169,12 +185,6 @@ public class RescueNPC : MonoBehaviour
             POP.HeavyR();
             Radio3.RHintFlag = true;
             Radio3.SymbolStop();
-        }
-        else
-        {
-            POP.LightR();
-            Radio3.RPopFlag = true;
-            Radio3.RHintStop();
         }
         Invoke("Destroy", 2f);
     }

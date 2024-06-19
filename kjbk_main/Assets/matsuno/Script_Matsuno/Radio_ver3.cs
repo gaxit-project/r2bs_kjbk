@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,6 +13,7 @@ public class Radio_ver3 : MonoBehaviour
     [SerializeField] GameObject ChatPanel1;
     [SerializeField] GameObject ChatPanel2;
     [SerializeField] GameObject ChatPanel3;
+    [SerializeField] GameObject ChatPanel4;
 
     [HideInInspector] public bool JorE = true;
     [HideInInspector] public bool SwitchONOFF = true;
@@ -39,6 +41,9 @@ public class Radio_ver3 : MonoBehaviour
     float EndTimer = 10f;     //無線をきるときのタイマー
 
     int rndtext;
+
+    public RescueNPC npc;
+    public int number1 = 1;
 
 
     // Start is called before the first frame update
@@ -139,7 +144,7 @@ public class Radio_ver3 : MonoBehaviour
         }
         else if (RHintFlag)
         {
-            RHintStop();
+            //RHintStop();
             RHintFlag = false;
         }
         else if (RPopFlag)
@@ -169,6 +174,10 @@ public class Radio_ver3 : MonoBehaviour
     {
         ChatPanel3.SetActive(false);          //無線のデザインを表示
     }
+    public void Radio4OFF()
+    {
+        ChatPanel4.SetActive(false);          //無線のデザインを表示
+    }
 
     public int RCnt(int mcnt)
     {
@@ -192,12 +201,32 @@ public class Radio_ver3 : MonoBehaviour
     }
 
     //軽症者の無線を管理
-    public void RHintStop()
+    public void RHintStop(int number1)
     {
         RMessager();
         Invoke(nameof(RHint),5f);
-        ChatPanel1.SetActive(true);
-        Invoke(nameof(Radio1OFF), EndTimer);
+        Debug.Log("受け取った軽症者のナンバー：" + number1);
+        if(number1 == 1)
+        {
+            ChatPanel1.SetActive(true);
+            Invoke(nameof(Radio1OFF), EndTimer);
+        }
+        else if (number1 == 2)
+        {
+            ChatPanel2.SetActive(true);
+            Invoke(nameof(Radio2OFF), EndTimer);
+        }
+        else if (number1 == 3)
+        {
+            ChatPanel3.SetActive(true);
+            Invoke(nameof(Radio3OFF), EndTimer);
+        }
+        else if (number1 == 4)
+        {
+            ChatPanel4.SetActive(true);
+            Invoke(nameof(Radio4OFF), EndTimer);
+        }
+        
     }
 
     //倒壊ゲージに関する無線を管理するもの

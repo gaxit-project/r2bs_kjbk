@@ -89,9 +89,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf8870c809e360145a1ee2926574ba4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LimitTime1: 10
-  LimitTime2: 10
+  LimitTime1: 60
+  LimitTime2: 60
   CircleProgress: {fileID: 127109174506998788}
+  ScoreFlag: Best
 --- !u!1 &5862482724537231685
 GameObject:
   m_ObjectHideFlags: 0
@@ -177,7 +178,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &4423184343304349677
 MonoBehaviour:
   m_ObjectHideFlags: 0
