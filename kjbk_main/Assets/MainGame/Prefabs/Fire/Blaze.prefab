@@ -5111,6 +5111,13 @@ MonoBehaviour:
   AntiBlazeTag:
   - Blaze
   - Wall
+  boostNum: 5
+  FireXp: 0
+  FireZp: 0
+  FireXm: 0
+  FireZm: 0
+  inferno: {fileID: 5638366649039387006}
+  FireLv: {fileID: 2684742830343882491}
   PrefabBlaze: {fileID: 3901713899683814031}
   PrefabPlane: {fileID: 8916174127013782177, guid: 5e9dcae92cc6e694d8f1f761a192a8ec, type: 3}
 --- !u!114 &3601828981568048321

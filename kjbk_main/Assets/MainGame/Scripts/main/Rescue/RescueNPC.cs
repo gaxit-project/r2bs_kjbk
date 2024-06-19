@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class RescueNPC : MonoBehaviour
 {
@@ -40,6 +41,9 @@ public class RescueNPC : MonoBehaviour
     private InputAction TalkAction;
 
     private Animator FFanimator;
+    private Animator NPCanimator;
+
+    BoxCollider NPCCol;
 
     public static int r_num = 0;
     [HideInInspector] public int MCnt = 0;  //軽傷者のカウント，MCntが3になったら0に戻してカウントをし直す
@@ -62,6 +66,9 @@ public class RescueNPC : MonoBehaviour
 
         //アニメーション読み込み
         FFanimator = Player.GetComponent<Animator>();
+        NPCanimator = this.GetComponent<Animator>();
+
+        NPCCol = this.GetComponent<BoxCollider>();
 
         //初期化
         r_num = 0;
@@ -83,12 +90,16 @@ public class RescueNPC : MonoBehaviour
                     StopNPC();
                     SetFollow(true);
                     FFanimator.SetBool("Carry", true);
+                    NPCanimator.SetBool("NPCCarry", true);
+                    NPCCol.enabled = false;
                 }
                 else   //追従時
                 {
                     DiplicationScript.OffFlag();
                     SetFollow(false);
                     FFanimator.SetBool("Carry", false);
+                    NPCanimator.SetBool("NPCCarry", false);
+                    NPCCol.enabled = true;
                     PutVectorNPC(TargetPosition.x, TargetPosition.y, TargetPosition.z);
                 }
             }
@@ -101,8 +112,7 @@ public class RescueNPC : MonoBehaviour
                     SetActiveIcon(true);
                     StopNPC();
                     RadioText.SetActiveText(true);
-                    CountDestroy();   //一定時間後にオブジェクト削除
-
+                    NPCanimator.SetBool("Walk", true);
                 }
                 else if (IsItFirstContact())
                 {
@@ -110,6 +120,7 @@ public class RescueNPC : MonoBehaviour
                     Debug.Log("Second");
                     StopNPC();
                     RadioText.SetActiveText(true);
+                    NPCanimator.SetBool("Walk", true);
                 }
             }
 
@@ -126,6 +137,8 @@ public class RescueNPC : MonoBehaviour
                 SetText("");
                 SetFollow(false);
                 FFanimator.SetBool("Carry", false);
+                NPCanimator.SetBool("NPCCarry", false);
+                NPCCol.enabled = true;
                 RescuedVectorNPC(TargetPosition.x, TargetPosition.y, TargetPosition.z);   //NPCを救出したときのVector
                 SetRescued(true);
                 CountDestroy();   //一定時間後にオブジェクト削除
@@ -137,6 +150,7 @@ public class RescueNPC : MonoBehaviour
             {
                 RescuedVectorNPC(TargetPosition.x, TargetPosition.y, TargetPosition.z);   //NPCを救出したときのVector
                 SetRescued(true);
+                NPCanimator.SetBool("Walk", false);
                 //CountDestroy();   //一定時間後にオブジェクト削除
                 CounterScript.Count();
             }
@@ -178,8 +192,9 @@ public class RescueNPC : MonoBehaviour
 
     void FollowVectorNPC(float x, float y, float z)//NPCの追従
     {
-        transform.position = new Vector3(x, y, z);
-        transform.forward = PlayController.CurrentForward;
+        transform.position = new Vector3(x, y-4.5f, z);
+        transform.rotation = Quaternion.Euler(0,- 90, 0);
+        transform.right = PlayController.CurrentForward;
     }
 
     void RescuedVectorNPC(float x, float y, float z)//NPC救出時の動作

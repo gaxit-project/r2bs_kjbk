@@ -14,19 +14,25 @@ public class FireSpread : MonoBehaviour
 
     [SerializeField] private string[] AntiBlazeTag;
 
+    private GameObject Rescue;
+    RescueCount Counter;
+
     public static bool FirstAction = true;
 
+    [SerializeField] private int boostNum;
+    private bool boost = false;
+
     //‰ŠŽüˆÍ‚Sƒ}ƒX‚Ì‰Š”»’è
-    private bool FireXp = false;
-    private bool FireZp = false;
-    private bool FireXm = false;
-    private bool FireZm = false;
+    [SerializeField] private bool FireXp = false;
+    [SerializeField] private bool FireZp = false;
+    [SerializeField] private bool FireXm = false;
+    [SerializeField] private bool FireZm = false;
     private int FireNum = 0;
 
     private int d = 0;
 
-    Inferno Inferno;
-    FireLv FireLv;
+    public Inferno inferno;
+    public FireLv FireLv;
 
     public GameObject PrefabBlaze;
     public GameObject PrefabPlane;
@@ -46,10 +52,11 @@ public class FireSpread : MonoBehaviour
         }
     }
 
+    // Start is called before the first frame update
     void Start()
     {
-        Inferno = this.GetComponent<Inferno>();
-        FireLv = this.GetComponent<FireLv>();
+        Rescue = GameObject.Find("Rcounter");
+        Counter = Rescue.GetComponent<RescueCount>();
 
         if (SpreadRange < 5) SpreadRange = 5;   //SpreadRange5ˆÈ‰º‚ÌŽžd‚³‘Îô‚Å5‚É‚·‚é
         StartCoroutine("SpreadFire");
@@ -57,10 +64,15 @@ public class FireSpread : MonoBehaviour
 
     void Update()
     {
-        /*if (Inferno.FireStatus)
+        if (inferno.FireStatus)
         {
             StopCoroutine("SpreadFire");
-        }*/
+        }
+        if (Counter.getNum() >= boostNum && !boost)
+        {
+            SpreadSecond = SpreadSecond * 0.5f;
+            boost = true;
+        }
     }
 
     IEnumerator SpreadFire()
@@ -75,27 +87,22 @@ public class FireSpread : MonoBehaviour
         Ray rayXm = new Ray(this.transform.position, Xm);
         Ray rayZm = new Ray(this.transform.position, Zm);
 
-        //Debug.DrawRay(rayXp.origin, rayXp.direction * 10, Color.red, 10, false);
-        //Debug.DrawRay(rayZp.origin, rayZp.direction * 10, Color.red, 10, false);
-        //Debug.DrawRay(rayXm.origin, rayXm.direction * 10, Color.red, 10, false);
-        //Debug.DrawRay(rayZm.origin, rayZm.direction * 10, Color.red, 10, false);
-
-        Vector3 prefabXp = new Vector3(this.transform.position.x + SpreadRange, this.transform.position.y, this.transform.position.z);
-        Vector3 prefabZp = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z + SpreadRange);
-        Vector3 prefabXm = new Vector3(this.transform.position.x - SpreadRange, this.transform.position.y, this.transform.position.z);
-        Vector3 prefabZm = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z - SpreadRange);
+        //Debug.DrawRay(rayXp.origin, rayXp.direction * 10, Color.red, 100000, false);
+        //Debug.DrawRay(rayZp.origin, rayZp.direction * 10, Color.red, 100000, false);
+        //Debug.DrawRay(rayXm.origin, rayXm.direction * 10, Color.red, 100000, false);
+        //Debug.DrawRay(rayZm.origin, rayZm.direction * 10, Color.red, 100000, false);
 
         while (true)
         {
             yield return new WaitForSeconds(SpreadSecond);
             decision(rayXp, rayZp, rayXm, rayZm);
-            if (!Inferno.FireStatus && !FireEmpty()) break;
+            if (!inferno.FireStatus && !FireEmpty()) break;
             if (FireLv.FireLvel == 1) continue;
             d = dice();
             CreatePlane();
-            Invoke("Spread", 1.5f);
+            decision(rayXp, rayZp, rayXm, rayZm);
+            Spread();
         }
-
     }
 
     private void decision(Ray rayXp, Ray rayZp, Ray rayXm, Ray rayZm)
@@ -110,8 +117,9 @@ public class FireSpread : MonoBehaviour
                 FireNum++;
             }
         }
-        else
+        else if (FireXp)
         {
+            FireNum--;
             FireXp = false;
         }
         if (Physics.Raycast(rayZp, out hit, SpreadRange))
@@ -122,8 +130,9 @@ public class FireSpread : MonoBehaviour
                 FireNum++;
             }
         }
-        else
+        else if (FireZp)
         {
+            FireNum--;
             FireZp = false;
         }
         if (Physics.Raycast(rayXm, out hit, SpreadRange))
@@ -134,8 +143,9 @@ public class FireSpread : MonoBehaviour
                 FireNum++;
             }
         }
-        else
+        else if (FireXm)
         {
+            FireNum--;
             FireXm = false;
         }
         if (Physics.Raycast(rayZm, out hit, SpreadRange))
@@ -146,8 +156,9 @@ public class FireSpread : MonoBehaviour
                 FireNum++;
             }
         }
-        else
+        else if (FireZm)
         {
+            FireNum--;
             FireZm = false;
         }
     }
@@ -177,7 +188,7 @@ public class FireSpread : MonoBehaviour
             int probability = 100 / (4 - FireNum);
             if (!FireXp)
             {
-                if (probability < Probability)
+                if (probability > Probability)
                 {
                     return 1;
 

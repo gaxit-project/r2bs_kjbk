@@ -61,6 +61,8 @@ public class PlayerRayCast : MonoBehaviour
         TakeAction = actionMap["Take"];
 
         capacity = 0f;
+
+        PlayerPrefs.SetFloat("capacity", capacity);
     }
 
     void Update()
