@@ -23,6 +23,7 @@ public class RescueNPC : MonoBehaviour
     [SerializeField] public RadioText RadioText;   //無線制御
     [SerializeField] public RescuePOP POP;
     private GameObject Rescue;
+    private GameObject ResCounter;
     RescueCount CounterScript;   //救助者カウント
     RescueDiplication DiplicationScript;
 
@@ -58,8 +59,9 @@ public class RescueNPC : MonoBehaviour
     {
         mesh = GetComponent<MeshRenderer>();
         Rescue = GameObject.Find("Rescue");
+        ResCounter = GameObject.Find("Rcounter");
         DiplicationScript = Rescue.GetComponent<RescueDiplication>();
-        CounterScript = Rescue.GetComponent<RescueCount>();
+        CounterScript = ResCounter.GetComponent<RescueCount>();
 
         var pInput = this.GetComponent<PlayerInput>();
         //現在のアクションマップを取得
