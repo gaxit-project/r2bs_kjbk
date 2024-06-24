@@ -5012,10 +5012,10 @@ GameObject:
   - component: {fileID: 3515939550904828322}
   - component: {fileID: 8698993681385277227}
   - component: {fileID: 1438776958498779912}
-  - component: {fileID: -6314536278128657883}
-  - component: {fileID: -6470092844295496837}
+  - component: {fileID: 7897501147964165092}
+  - component: {fileID: 1575368211854864704}
   m_Layer: 6
-  m_Name: Blaze
+  m_Name: Blaze_test
   m_TagString: Blaze
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5073,7 +5073,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FireStatus: 0
   P_O_Fire: 0
---- !u!114 &-6314536278128657883
+--- !u!114 &7897501147964165092
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5082,15 +5082,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 556783039745682872}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a1b0d1e09646dc478ede728da44c35a, type: 3}
+  m_Script: {fileID: 11500000, guid: 673bfa7f398a10f4281446536867a10a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LvUpSecond: 5
-  LvUpProbability: 75
-  LvUpSize: 2
-  Size: 2
-  FireLv: 1
---- !u!114 &-6470092844295496837
+  FireLv: 0
+  m_Blaze: {fileID: 0}
+--- !u!114 &1575368211854864704
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5099,23 +5096,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 556783039745682872}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4033dcdffb91424899c1f34fc48e58b, type: 3}
+  m_Script: {fileID: 11500000, guid: 43a61dee6f64a124fae5628f1186856d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpreadSecond: 5
-  SpreadProbability: 75
-  LvSpreadProbability: 10
-  SpreadRange: 10
-  AntiBlazeTag:
-  - Blaze
-  - Wall
-  - Plane
-  boostNum: 5
   inferno: {fileID: 1438776958498779912}
-  Fire_Lv: {fileID: -6314536278128657883}
+  Fire_Lv1: {fileID: 7897501147964165092}
+  m_Blaze: {fileID: 0}
   PrefabBlaze: {fileID: 556783039745682872}
-  PrefabSpreadPlane: {fileID: 8916174127013782177, guid: c2fa20853a294294dbc30f6b4a5cfbab, type: 3}
-  PrefabExtPlane: {fileID: 5118994482348031965, guid: 061d0b116e1991a439a0c8c1a6eb7836, type: 3}
+  PrefabPlane: {fileID: 8916174127013782177, guid: c2fa20853a294294dbc30f6b4a5cfbab, type: 3}
 --- !u!1 &7069109537453500892
 GameObject:
   m_ObjectHideFlags: 0

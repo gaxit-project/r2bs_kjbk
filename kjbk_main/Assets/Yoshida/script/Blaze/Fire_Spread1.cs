@@ -5,21 +5,21 @@ using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 
-public class Fire_Spread : MonoBehaviour
+public class Fire_Spread1 : MonoBehaviour
 {
-    [SerializeField] private float SpreadSecond;   //延焼間隔(秒)
-    [SerializeField] private float SpreadProbability;   //延焼確立(%)
-    [SerializeField] private int LvSpreadProbability;   //炎レベルによる確率の上昇(確率に数値*(Lv-1)プラス)
-    [SerializeField] private float SpreadRange;   //延焼時の移動距離
+    private float SpreadSecond;   //延焼間隔(秒)
+    private float SpreadProbability;   //延焼確立(%)
+    private int LvSpreadProbability;   //炎レベルによる確率の上昇(確率に数値*(Lv-1)プラス)
+    private float SpreadRange;   //延焼時の移動距離
 
-    [SerializeField] private string[] AntiBlazeTag;
+    private string[] AntiBlazeTag;
 
     private GameObject Rescue;
     RescueCount_verMatsuno Counter;
 
     public static bool FirstAction = true;
 
-    [SerializeField] private int boostNum;
+    private int boostNum;
     private bool boost = false;
 
     //炎周囲４マスの炎判定
@@ -32,16 +32,29 @@ public class Fire_Spread : MonoBehaviour
     private int d = 0;
 
     public inferno inferno;
-    public Fire_Lv Fire_Lv;
+    public Fire_Lv1 Fire_Lv1;
+    public Blaze_Maneger Blaze_Maneger;
 
     public GameObject PrefabBlaze;
-    public GameObject PrefabSpreadPlane;
-    public GameObject PrefabExtPlane;
+    public GameObject PrefabPlane;
 
-    private bool Action = true;
-
-    void Awake()
+    // Start is called before the first frame update
+    void Start()
     {
+        Rescue = GameObject.Find("Rescue");
+        Counter = Rescue.GetComponent<RescueCount_verMatsuno>();
+
+        if (SpreadRange < 5) SpreadRange = 5;   //SpreadRange5以下の時重さ対策で5にする
+        StartCoroutine("SpreadFire");
+
+        var Data = Blaze_Maneger.getSpreadData(); 
+        SpreadSecond = Data.Second;
+        SpreadProbability = Data.Probability;
+        LvSpreadProbability = Data.LvProbability;
+        SpreadRange = Data.Range;
+        boostNum = Data.Boost;
+        AntiBlazeTag = Data.Tag;
+
         if (FirstAction)
         {
             Debug.Log("=============================================");
@@ -55,24 +68,12 @@ public class Fire_Spread : MonoBehaviour
         }
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        Rescue = GameObject.Find("Rescue");
-        Counter = Rescue.GetComponent<RescueCount_verMatsuno>();
-
-        if (SpreadRange < 5) SpreadRange = 5;   //SpreadRange5以下の時重さ対策で5にする
-        StartCoroutine("SpreadFire");
-    }
-
     // Update is called once per frame
     void Update()
     {
-        if(inferno.P_O_Fire && Action)   //ここに消化した時の条件入れてください。わからなかったです
+        if(inferno.FireStatus)
         {
-            CreateExtPlane();
             StopCoroutine("SpreadFire");
-            Action = false;
         }     
         if (Counter.getNum() >= boostNum && !boost)   //倒壊ゲージは参照してないため追加する場合は条件増やしてください
         {
@@ -103,9 +104,9 @@ public class Fire_Spread : MonoBehaviour
             yield return new WaitForSeconds(SpreadSecond);
             decision(rayXp, rayZp, rayXm, rayZm);
             if (!inferno.FireStatus && !FireEmpty()) break;
-            if (Fire_Lv.FireLv == 1) continue;
+            if (Fire_Lv1.FireLv == 1) continue;
             d = dice();
-            CreateSpreadPlane();
+            CreatePlane();
             decision(rayXp, rayZp, rayXm, rayZm);
             Spread();
         }
@@ -186,7 +187,7 @@ public class Fire_Spread : MonoBehaviour
     {
         int d = 0;
 
-        int spreadprobability = Random.Range(1, 100) + LvSpreadProbability * (Fire_Lv.FireLv - 1);
+        int spreadprobability = Random.Range(1, 100) + LvSpreadProbability * (Fire_Lv1.FireLv - 1);
         if (spreadprobability < SpreadProbability)
         {
             int Probability = Random.Range(1, 100);
@@ -231,7 +232,7 @@ public class Fire_Spread : MonoBehaviour
         return 0;
     }
 
-    private void CreateSpreadPlane()
+    private void CreatePlane()
     {
         Vector3 prefabXp = new Vector3(this.transform.position.x + SpreadRange, this.transform.position.y, this.transform.position.z);
         Vector3 prefabZp = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z + SpreadRange);
@@ -241,30 +242,24 @@ public class Fire_Spread : MonoBehaviour
         if (d == 0) return;
         if (d == 1)
         {
-            GameObject newObject = (GameObject)Instantiate(PrefabSpreadPlane, prefabXp, Quaternion.identity);
-            newObject.name = "SpreadPlane";
+            GameObject newObject = Instantiate(PrefabPlane, prefabXp, Quaternion.identity);
+            newObject.name = "Plane";
         }
         if (d == 2)
         {
-            GameObject newObject = (GameObject)Instantiate(PrefabSpreadPlane, prefabZp, Quaternion.identity);
-            newObject.name = "SpreadPlane";
+            GameObject newObject = Instantiate(PrefabPlane, prefabZp, Quaternion.identity);
+            newObject.name = "Plane";
         }
         if (d == 3)
         {
-            GameObject newObject = (GameObject)Instantiate(PrefabSpreadPlane, prefabXm, Quaternion.identity);
-            newObject.name = "SpreadPlane";
+            GameObject newObject = Instantiate(PrefabPlane, prefabXm, Quaternion.identity);
+            newObject.name = "Plane";
         }
         if (d == 4)
         {
-            GameObject newObject = (GameObject)Instantiate(PrefabSpreadPlane, prefabZm, Quaternion.identity);
-            newObject.name = "SpreadPlane";
+            GameObject newObject = Instantiate(PrefabPlane, prefabZm, Quaternion.identity);
+            newObject.name = "Plane";
         }
-    }
-
-    private void CreateExtPlane()
-    {
-        GameObject newObject = Instantiate(PrefabExtPlane, this.transform.position, Quaternion.identity);
-        newObject.name = "ExtPlane";
     }
 
     private void Spread()

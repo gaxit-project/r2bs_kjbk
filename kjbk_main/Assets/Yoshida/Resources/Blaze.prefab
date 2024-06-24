@@ -1,0 +1,165 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4680006791183700250
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1474073967715523744}
+  m_Layer: 0
+  m_Name: Blaze
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1474073967715523744
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4680006791183700250}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 81.632065, y: 23.436453, z: 17.83933}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 8542384123902334964}
+  - {fileID: 1537994948143738652}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7474007505903299734
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8542384123902334964}
+  - component: {fileID: 5126767739976677622}
+  m_Layer: 0
+  m_Name: Blaze_Maneger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8542384123902334964
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7474007505903299734}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1474073967715523744}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5126767739976677622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7474007505903299734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccddee4397328ce46a95c58453dacceb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Debug: 0
+  LvUpSecond: 3
+  LvUpProbability: 50
+  LvUpSize: 1
+  SpreadSecond: 3
+  SpreadProbability: 0
+  LvSpreadProbability: 50
+  SpreadRange: 10
+  BoostNum: 5
+  AntiBlazeTag:
+  - Wall
+  - Blaze
+--- !u!1001 &2707558537849876158
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1474073967715523744}
+    m_Modifications:
+    - target: {fileID: 556783039745682872, guid: 5303beff2d043bd448d74d64d8070465, type: 3}
+      propertyPath: m_Name
+      value: Blaze_test
+      objectReference: {fileID: 0}
+    - target: {fileID: 1575368211854864704, guid: 5303beff2d043bd448d74d64d8070465, type: 3}
+      propertyPath: Fire_Lv
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1575368211854864704, guid: 5303beff2d043bd448d74d64d8070465, type: 3}
+      propertyPath: Blaze_Maneger
+      value: 
+      objectReference: {fileID: 5126767739976677622}
+    - target: {fileID: 3515939550904828322, guid: 5303beff2d043bd448d74d64d8070465, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -61.632065
+      objectReference: {fileID: 0}
+    - target: {fileID: 3515939550904828322, guid: 5303beff2d043bd448d74d64d8070465, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -22.936453
+      objectReference: {fileID: 0}
+    - target: {fileID: 3515939550904828322, guid: 5303beff2d043bd448d74d64d8070465, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -17.83933
+      objectReference: {fileID: 0}
+    - target: {fileID: 3515939550904828322, guid: 5303beff2d043bd448d74d64d8070465, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3515939550904828322, guid: 5303beff2d043bd448d74d64d8070465, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3515939550904828322, guid: 5303beff2d043bd448d74d64d8070465, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3515939550904828322, guid: 5303beff2d043bd448d74d64d8070465, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3515939550904828322, guid: 5303beff2d043bd448d74d64d8070465, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3515939550904828322, guid: 5303beff2d043bd448d74d64d8070465, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3515939550904828322, guid: 5303beff2d043bd448d74d64d8070465, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7897501147964165092, guid: 5303beff2d043bd448d74d64d8070465, type: 3}
+      propertyPath: m_Blaze
+      value: 
+      objectReference: {fileID: 5126767739976677622}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5303beff2d043bd448d74d64d8070465, type: 3}
+--- !u!4 &1537994948143738652 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3515939550904828322, guid: 5303beff2d043bd448d74d64d8070465, type: 3}
+  m_PrefabInstance: {fileID: 2707558537849876158}
+  m_PrefabAsset: {fileID: 0}
