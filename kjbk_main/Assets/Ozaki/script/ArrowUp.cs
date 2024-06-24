@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ArrowUp : MonoBehaviour
 {
-    private RescueCount_verMatsuno CounterScript;
+    private RescueCount CounterScript;
     [SerializeField, Tooltip("Arrow")]
     private GameObject Arrow;
     [SerializeField, Tooltip("軽症者助けた数")]
@@ -14,7 +14,7 @@ public class ArrowUp : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        CounterScript = FindObjectOfType<RescueCount_verMatsuno>();
+        CounterScript = FindObjectOfType<RescueCount>();
     }
 
     // Update is called once per frame
@@ -24,7 +24,7 @@ public class ArrowUp : MonoBehaviour
         {
             Arrow.SetActive(true);
         }
-        else if(CounterScript.getNum() == maxnum)
+        else if(CounterScript.getRescueAll()/* == maxnum*/)
         {
             Arrow.SetActive(false);
         }

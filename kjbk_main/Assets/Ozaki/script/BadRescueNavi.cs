@@ -9,7 +9,7 @@ public class BadRescueNavi : MonoBehaviour
 
     // ターゲットのタグ
     [SerializeField, Tooltip("追いかけるターゲットのタグ")]
-    private string targetTag = "MinorInjuries";  // デフォルトでMinorInjuriesに設定
+    private string targetTag = "SeriousInjuries";  // デフォルトでMinorInjuriesに設定
 
     // 現在のターゲット
     private Transform currentTarget;

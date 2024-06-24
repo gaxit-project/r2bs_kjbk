@@ -5,16 +5,20 @@ using UnityEngine.InputSystem;
 
 public class SwitchCamera : MonoBehaviour
 {
+    private RescueCount CounterScript;
     public Camera mainCamera; //メインカメラ
     public Camera subCamera; //くそでかマップのカメラ
     bool map_status=false; //マップのボタンの処理用変数
-    // Start is called before the first frame update
-
+    bool initialMapStatusActivated = false; 
     private InputAction MapAction;
+    public GameObject Ui;
+    public GameObject Mkey;
+    private RescueNPC rescueNPC;
     void Start()
     {
         mainCamera=Camera.main;
-
+        CounterScript = FindObjectOfType<RescueCount>();
+        rescueNPC = FindObjectOfType<RescueNPC>();
         var pInput = GetComponent<PlayerInput>();
         //現在のアクションマップを取得
         var actionMap = pInput.currentActionMap;
@@ -28,36 +32,46 @@ public class SwitchCamera : MonoBehaviour
     {
         bool Map = MapAction.triggered;
 
-        //キーボードのMが押されたら切り替える
-        if (Map || Input.GetKeyDown(KeyCode.M)){
+        if (CounterScript.getNum() == 1 && !initialMapStatusActivated)
+        {
+            StartCoroutine(ActivateInitialMapStatusWithDelay(2.0f));
+            /*map_status = true;
+            initialMapStatusActivated = true;*/
+        }
 
-            if (map_status == true)
-            {
-                map_status = false;
-                
-            }
-            else
-            {
-                map_status = true;
-                
-            }
+        //キーボードのMが押されたら切り替える
+        if (Map || Input.GetKeyDown(KeyCode.M))
+        {// 初回アクティベーションの後のみトグルを許可
+            //if (initialMapStatusActivated) {
+                map_status = !map_status;
+            //}
         }
 
         //くそでかマップ表示
         if(map_status == true)
         {
             subCamera.enabled=true;
-            //mainCamera.enabled=true;
-            //Debug.Log("表示");
-            //Time.timeScale = 0.0f;
+            Ui.SetActive(true);
+            Mkey.SetActive(true);
         }
         //くそでかマップ非表示
         else
         {
-            //mainCamera.enabled=true;
             subCamera.enabled=false;
-            //Debug.Log("非表示");
-            //Time.timeScale = 1.0f;
+            Ui.SetActive(false);
+            Mkey.SetActive(false);
         }
+
+        if (rescueNPC != null && rescueNPC.IsItFollow())
+        {
+            Ui.SetActive(false);
+            Ui=null;
+        }
+    }
+    private IEnumerator ActivateInitialMapStatusWithDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        map_status = true;
+        initialMapStatusActivated = true;
     }
 }
