@@ -14,6 +14,7 @@ public class Radio_ver3 : MonoBehaviour
     [SerializeField] GameObject ChatPanel2;
     [SerializeField] GameObject ChatPanel3;
     [SerializeField] GameObject ChatPanel4;
+    [SerializeField] GameObject ChatR;
 
     [HideInInspector] public bool JorE = true;
     [HideInInspector] public bool SwitchONOFF = true;
@@ -39,6 +40,9 @@ public class Radio_ver3 : MonoBehaviour
     //無線を出すときとしまうときの時間
     float StartTimer = 15f;   //無線付けるときのタイマー
     float EndTimer = 10f;     //無線をきるときのタイマー
+    float EndTimer1 = 5f;     //無線をきるときのタイマー
+
+
 
     int rndtext;
 
@@ -49,6 +53,8 @@ public class Radio_ver3 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+       
+
         StartCoroutine(DelayCoroutine());
         ChatPanel.SetActive(false);
         ChatPanel1.SetActive(false);
@@ -61,6 +67,10 @@ public class Radio_ver3 : MonoBehaviour
     {
         if(FirstFlag)
         {
+            //var Gauge = GetComponent<CollGauge>();
+            //var Cont = GetComponent<PlayController>();
+            //Gauge.enabled = false;
+            //Cont.enabled = false;
             ChatPanel.SetActive(true);
             if(JorE)
             {
@@ -72,10 +82,10 @@ public class Radio_ver3 : MonoBehaviour
                 RadioText.SetText("The current location is a student dormitory! It's your responsibility to save half of the missing people.");
                 StartCoroutine(Simple2());
             }
-
-            Invoke(nameof(FirstRadio1),4f);
-            Invoke(nameof(FirstRadio2), 6f);
-            Invoke(nameof(RadioOFF), EndTimer);
+            //Invoke(nameof(FirstRadio1),4f);
+            //Invoke(nameof(FirstRadio2), 6f);
+            Invoke(nameof(RadioOFF), EndTimer1);
+            //Invoke(nameof(StartONOFF), EndTimer1);
             FirstFlag = false;
         }
         if (Input.GetKeyDown(KeyCode.V))
@@ -95,6 +105,15 @@ public class Radio_ver3 : MonoBehaviour
 
         }
     }
+
+    void StartONOFF()
+    {
+        var Gauge = GetComponent<CollGauge>();
+        var Cont = GetComponent<PlayController>();
+        Gauge.enabled = true;
+        Cont.enabled = true;
+    }
+
 
     public void FirstRadio1()
     {
@@ -183,6 +202,10 @@ public class Radio_ver3 : MonoBehaviour
     {
         return mcnt;
     }
+    public void ChatROFF()
+    {
+        ChatR.SetActive(false);
+    }
 
     //重傷者の無線を管理
     public void SymbolStop()
@@ -209,22 +232,30 @@ public class Radio_ver3 : MonoBehaviour
         if(number1 == 1)
         {
             ChatPanel1.SetActive(true);
+            ChatR.SetActive(true);
             Invoke(nameof(Radio1OFF), EndTimer);
+            Invoke(nameof(ChatROFF), EndTimer);
         }
         else if (number1 == 2)
         {
             ChatPanel2.SetActive(true);
+            ChatR.SetActive(true);
             Invoke(nameof(Radio2OFF), EndTimer);
+            Invoke(nameof(ChatROFF), EndTimer);
         }
         else if (number1 == 3)
         {
             ChatPanel3.SetActive(true);
+            ChatR.SetActive(true);
             Invoke(nameof(Radio3OFF), EndTimer);
+            Invoke(nameof(ChatROFF), EndTimer);
         }
         else if (number1 == 4)
         {
             ChatPanel4.SetActive(true);
+            ChatR.SetActive(true);
             Invoke(nameof(Radio4OFF), EndTimer);
+            Invoke(nameof(ChatROFF), EndTimer);
         }
         
     }

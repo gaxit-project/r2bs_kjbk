@@ -2,11 +2,12 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class CollapseGauge2 : MonoBehaviour
 {
     [HideInInspector] public float CountTime = 0;            //時間計測
-    float Collapse = 100;            //倒壊ゲージ
+    int Collapse = 100;            //倒壊ゲージ
     float Span = 3.5f;                 //Span秒に一回倒壊ゲージを1%減らす
     public Radio Demoscript;        //Radio.csから関数もって来るやつ
     public CollapseDesign2 Design;  //CollapseDesign2.csから関数もって来るやつ
@@ -23,9 +24,16 @@ public class CollapseGauge2 : MonoBehaviour
     public bool Collapse20 = false;
     public bool Collapse10 = false;
 
+    [SerializeField] TextMeshProUGUI CGauge;
+    int number100 = 1;
+    int number10 = 0;
+    int number1 = 0;
+    int persent = 11;
+
     // Use this for initialization
     void Start()
     {
+        CGauge.SetText("<sprite=" + number100 + ">" + "<sprite=" + number10 + ">" + "<sprite=" + number1 + ">" + "<sprite=" + persent + ">");
     }
 
     // Update is called once per frame
@@ -37,10 +45,12 @@ public class CollapseGauge2 : MonoBehaviour
         {
             Collapse--;                //倒壊ゲージ-1%
             CountTime = 0;             //秒数カウントリセット
+            number10 = Collapse / 10 % 10;
+            number1 = Collapse % 10;
 
             ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             //倒壊ゲージの無線通知＋倒壊ゲージのデザイン表示
-            if(Collapse == 80)
+            if (Collapse == 80)
             {
                 Design.EightHouse();             //家のデザインを出す
                 Suna.SunaONOFF();                //砂嵐を表示
@@ -108,9 +118,12 @@ public class CollapseGauge2 : MonoBehaviour
             }
         }
 
-
-        // 倒壊ゲージの表示
-        GetComponent<Text>().text = Collapse.ToString("0％");
+        if(Collapse < 100)
+        {
+            // 倒壊ゲージの表示
+            CGauge.SetText("<sprite=" + number10 + ">" + "<sprite=" + number1 + ">" + "<sprite=" + persent + ">");
+        }
+       
     }
 
 
