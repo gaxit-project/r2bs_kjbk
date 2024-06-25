@@ -140,7 +140,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &93393837
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6196,8 +6196,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: d56ae9ab34b737d449143eed9eee04cb, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -7409,8 +7409,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: f53de98f267f7d844a9e264c881b3dc9, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -8307,8 +8307,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 89a52603ab76d4942a3b05d91f4232c7, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -8342,7 +8342,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1318864456
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8478,7 +8478,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1337439835
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8695,6 +8695,15 @@ MonoBehaviour:
   audioSorceBGM: {fileID: 1455974269}
   audioSorceSE: {fileID: 1455974268}
   audioSorceRoopSE: {fileID: 1455974270}
+  audioSourceWALK: {fileID: 0}
+  audioSourceWater: {fileID: 0}
+  audioSourceFire1: {fileID: 0}
+  audioSourceFire2: {fileID: 0}
+  audioSourceFire3: {fileID: 0}
+  audioSourceFire4: {fileID: 0}
+  audioSourceFire5: {fileID: 0}
+  audioSourceFire6: {fileID: 0}
+  audioSourceFire7: {fileID: 0}
 --- !u!82 &1455974268
 AudioSource:
   m_ObjectHideFlags: 0

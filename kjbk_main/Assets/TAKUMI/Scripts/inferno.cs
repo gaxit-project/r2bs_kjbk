@@ -27,6 +27,7 @@ public class inferno : MonoBehaviour
 
     public bool FireStatus = false; // 延焼ならfalse
     public bool P_O_Fire = false; //消化中判定
+    public bool Des_Fire = false; //消化中判定
 
     void Start()
     {
@@ -93,6 +94,7 @@ public class inferno : MonoBehaviour
         BY1.rateOverTime = BY1_MinMaxCurve;
         if (BR1_MinMaxCurve.constant <= 0f &&  BY1_MinMaxCurve.constant <= 0f)
         {
+            Des_Fire = true;
             Destroy(this);
         }
     }

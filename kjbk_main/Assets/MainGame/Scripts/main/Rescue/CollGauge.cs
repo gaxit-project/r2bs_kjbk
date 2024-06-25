@@ -2,17 +2,26 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class CollGauge : MonoBehaviour
 {
+    [SerializeField] TextMeshProUGUI CGauge;
+
     float CountTime = 0;            //時間計測
-    float Collapse = 100;            //倒壊ゲージ
+    int Collapse = 100;            //倒壊ゲージ
     float Span = 3.5f;                 //Span秒に一回倒壊ゲージを1%減らす
     public CollRadio Demoscript;        //Radio.csから関数もって来るやつ
     public CollDesign Design;  //CollapseDesign2.csから関数もって来るやつ
     public Sunaarashi_ON_OFF Suna;  //砂嵐をもってくる
     private bool STOP = false;      //無線のフラグ
     int a = 5;                      //無線の種類分け
+
+    int number100 = 1;
+    int number10 = 0;
+    int number1 = 0;
+    int persent = 11;
+
 
     public BlockPOP POP;
     //public SceneChange Over;        //SceneChange.csからゲームオーバーを持ってくる
@@ -28,6 +37,8 @@ public class CollGauge : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        CGauge.SetText("<sprite=" + number100 + ">" + "<sprite=" + number10 + ">" + "<sprite=" + number1 + ">" + "<sprite=" + persent + ">");
+
     }
 
     // Update is called once per frame
@@ -39,6 +50,9 @@ public class CollGauge : MonoBehaviour
         {
             Collapse--;                //倒壊ゲージ-1%
             CountTime = 0;             //秒数カウントリセット
+            number10 = Collapse / 10 % 10;
+            number1 = Collapse % 10;
+
 
             ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             //倒壊ゲージの無線通知＋倒壊ゲージのデザイン表示
@@ -100,9 +114,12 @@ public class CollGauge : MonoBehaviour
             }
         }
 
+        if(Collapse < 100)
+        {
+            // 倒壊ゲージの表示
+            CGauge.SetText("<sprite=" + number10 + ">" + "<sprite=" + number1 + ">" + "<sprite=" + persent + ">");
+        }
 
-        // 倒壊ゲージの表示
-        GetComponent<Text>().text = Collapse.ToString("0％");
     }
 
 

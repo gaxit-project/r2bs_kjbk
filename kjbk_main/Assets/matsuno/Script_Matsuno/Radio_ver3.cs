@@ -108,10 +108,10 @@ public class Radio_ver3 : MonoBehaviour
 
     void StartONOFF()
     {
-        var Gauge = GetComponent<CollGauge>();
+        /*var Gauge = GetComponent<CollGauge>();
         var Cont = GetComponent<PlayController>();
         Gauge.enabled = true;
-        Cont.enabled = true;
+        Cont.enabled = true;*/
     }
 
 

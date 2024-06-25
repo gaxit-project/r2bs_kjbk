@@ -58,13 +58,13 @@ public class SwitchCamera : MonoBehaviour
         else
         {
             subCamera.enabled=false;
-            Ui.SetActive(false);
+            //Ui.SetActive(false);
             Mkey.SetActive(false);
         }
 
         if (rescueNPC != null && rescueNPC.IsItFollow())
         {
-            Ui.SetActive(false);
+            //Ui.SetActive(false);
             Ui=null;
         }
     }

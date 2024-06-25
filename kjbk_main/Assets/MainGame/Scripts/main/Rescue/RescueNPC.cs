@@ -149,7 +149,8 @@ public class RescueNPC : MonoBehaviour
                 RescuedVectorNPC(TargetPosition.x, TargetPosition.y, TargetPosition.z);   //NPCを救出したときのVector
                 SetRescued(true);
                 CountDestroy();   //一定時間後にオブジェクト削除
-                CounterScript.SevereCount();   //救助者カウント
+                //CounterScript.SevereCount();   //救助者カウント
+                CounterScript.Count();
                 r_num = CounterScript.getNum();
                 POP.PopR();
             }

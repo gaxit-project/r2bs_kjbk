@@ -7,38 +7,56 @@ using UnityEngine;
 
 public class FireSpread : MonoBehaviour
 {
-    [SerializeField] private float SpreadSecond;   //延焼間隔(秒)
-    [SerializeField] private float SpreadProbability;   //延焼確立(%)
-    [SerializeField] private int LvSpreadProbability;   //炎レベルによる確率の上昇(確率に数値*(Lv-1)プラス)
-    [SerializeField] private float SpreadRange;   //延焼時の移動距離
+    private float SpreadSecond;   //延焼間隔(秒)
+    private float SpreadProbability;   //延焼確立(%)
+    private int LvSpreadProbability;   //炎レベルによる確率の上昇(確率に数値*(Lv-1)プラス)
+    private float SpreadRange;   //延焼時の移動距離
 
-    [SerializeField] private string[] AntiBlazeTag;
+    private string[] AntiBlazeTag;
 
     private GameObject Rescue;
     RescueCount Counter;
 
     public static bool FirstAction = true;
+    private bool Action = true;
 
-    [SerializeField] private int boostNum;
+    private int boostNum;
     private bool boost = false;
 
     //炎周囲４マスの炎判定
-    [SerializeField] private bool FireXp = false;
-    [SerializeField] private bool FireZp = false;
-    [SerializeField] private bool FireXm = false;
-    [SerializeField] private bool FireZm = false;
+    private bool FireXp = false;
+    private bool FireZp = false;
+    private bool FireXm = false;
+    private bool FireZm = false;
     private int FireNum = 0;
 
     private int d = 0;
 
     public Inferno inferno;
-    public FireLv FireLv;
+    public FireLv Fire_Lv1;
+    private GameObject Blaze;
+    private Blaze_Maneger m_Blaze;
 
-    public GameObject PrefabBlaze;
-    public GameObject PrefabPlane;
-
-    void Awake()
+    // Start is called before the first frame update
+    void Start()
     {
+        Rescue = GameObject.Find("Rcounter");
+        Counter = Rescue.GetComponent<RescueCount>();
+
+        if (SpreadRange < 5) SpreadRange = 5;   //SpreadRange5以下の時重さ対策で5にする
+
+        StartCoroutine("SpreadFire");
+
+        Blaze = GameObject.Find("BlazeManeger");
+        m_Blaze = Blaze.GetComponent<Blaze_Maneger>();
+        var Data = m_Blaze.getSpreadData();
+        SpreadSecond = Data.Second;
+        SpreadProbability = Data.Probability;
+        LvSpreadProbability = Data.LvProbability;
+        SpreadRange = Data.Range;
+        boostNum = Data.Boost;
+        AntiBlazeTag = Data.Tag;
+
         if (FirstAction)
         {
             Debug.Log("=============================================");
@@ -52,23 +70,19 @@ public class FireSpread : MonoBehaviour
         }
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        Rescue = GameObject.Find("Rcounter");
-        Counter = Rescue.GetComponent<RescueCount>();
-
-        if (SpreadRange < 5) SpreadRange = 5;   //SpreadRange5以下の時重さ対策で5にする
-        StartCoroutine("SpreadFire");
-    }
-
+    // Update is called once per frame
     void Update()
     {
-        if (inferno.FireStatus)
+        if (inferno.DesBlaze)
         {
             StopCoroutine("SpreadFire");
+            if (Action)
+            {
+                m_Blaze.CreateExtPlane(this.transform.position);
+                Action = false;
+            }
         }
-        if (Counter.getNum() >= boostNum && !boost)
+        if (Counter.getNum() >= boostNum && !boost)   //倒壊ゲージは参照してないため追加する場合は条件増やしてください
         {
             SpreadSecond = SpreadSecond * 0.5f;
             boost = true;
@@ -97,10 +111,9 @@ public class FireSpread : MonoBehaviour
             yield return new WaitForSeconds(SpreadSecond);
             decision(rayXp, rayZp, rayXm, rayZm);
             if (!inferno.FireStatus && !FireEmpty()) break;
-            if (FireLv.FireLvel == 1) continue;
+            if (Fire_Lv1.FireLvel == 1) continue;
             d = dice();
-            CreatePlane();
-            decision(rayXp, rayZp, rayXm, rayZm);
+            Plane();
             Spread();
         }
     }
@@ -180,7 +193,7 @@ public class FireSpread : MonoBehaviour
     {
         int d = 0;
 
-        int spreadprobability = Random.Range(1, 100) + LvSpreadProbability * (FireLv.FireLvel - 1);
+        int spreadprobability = Random.Range(1, 100) + LvSpreadProbability * (Fire_Lv1.FireLvel - 1);
         if (spreadprobability < SpreadProbability)
         {
             int Probability = Random.Range(1, 100);
@@ -225,33 +238,30 @@ public class FireSpread : MonoBehaviour
         return 0;
     }
 
-    private void CreatePlane()
+    private void Plane()
     {
-        Vector3 prefabXp = new Vector3(this.transform.position.x + SpreadRange, this.transform.position.y, this.transform.position.z);
-        Vector3 prefabZp = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z + SpreadRange);
-        Vector3 prefabXm = new Vector3(this.transform.position.x - SpreadRange, this.transform.position.y, this.transform.position.z);
-        Vector3 prefabZm = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z - SpreadRange);
+        Vector3 prefabXp = new Vector3(this.transform.position.x + SpreadRange, this.transform.position.y - 0.5f, this.transform.position.z);
+        Vector3 prefabZp = new Vector3(this.transform.position.x, this.transform.position.y - 0.5f, this.transform.position.z + SpreadRange);
+        Vector3 prefabXm = new Vector3(this.transform.position.x - SpreadRange, this.transform.position.y - 0.5f, this.transform.position.z);
+        Vector3 prefabZm = new Vector3(this.transform.position.x, this.transform.position.y - 0.5f, this.transform.position.z - SpreadRange);
 
         if (d == 0) return;
         if (d == 1)
         {
-            GameObject newObject = Instantiate(PrefabPlane, prefabXp, Quaternion.identity);
-            newObject.name = "Plane";
+            m_Blaze.CreateSpreadPlane(prefabXp);
+
         }
         if (d == 2)
         {
-            GameObject newObject = Instantiate(PrefabPlane, prefabZp, Quaternion.identity);
-            newObject.name = "Plane";
+            m_Blaze.CreateSpreadPlane(prefabZp);
         }
         if (d == 3)
         {
-            GameObject newObject = Instantiate(PrefabPlane, prefabXm, Quaternion.identity);
-            newObject.name = "Plane";
+            m_Blaze.CreateSpreadPlane(prefabXm);
         }
         if (d == 4)
         {
-            GameObject newObject = Instantiate(PrefabPlane, prefabZm, Quaternion.identity);
-            newObject.name = "Plane";
+            m_Blaze.CreateSpreadPlane(prefabZm);
         }
     }
 
@@ -265,23 +275,19 @@ public class FireSpread : MonoBehaviour
         if (d == 0) return;
         if (d == 1)
         {
-            GameObject newObject = Instantiate(PrefabBlaze, prefabXp, Quaternion.identity);
-            newObject.name = "Blaze";
+            m_Blaze.CreateBlaze(prefabXp);
         }
         if (d == 2)
         {
-            GameObject newObject = Instantiate(PrefabBlaze, prefabZp, Quaternion.identity);
-            newObject.name = "Blaze";
+            m_Blaze.CreateBlaze(prefabZp);
         }
         if (d == 3)
         {
-            GameObject newObject = Instantiate(PrefabBlaze, prefabXm, Quaternion.identity);
-            newObject.name = "Blaze";
+            m_Blaze.CreateBlaze(prefabXm);
         }
         if (d == 4)
         {
-            GameObject newObject = Instantiate(PrefabBlaze, prefabZm, Quaternion.identity);
-            newObject.name = "Blaze";
+            m_Blaze.CreateBlaze(prefabZm);
         }
     }
 

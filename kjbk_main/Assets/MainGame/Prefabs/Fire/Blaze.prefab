@@ -5087,10 +5087,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee68b7f6fb9b44e4282ab4fd0cc4677e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LvUpSecond: 7
-  LvUpProbability: 75
-  LvUpSize: 0.5
-  Size: 1
   FireLvel: 1
 --- !u!114 &677222603641999109
 MonoBehaviour:
@@ -5104,22 +5100,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30196daf1dc2915478f5adba3b3024d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpreadSecond: 7
-  SpreadProbability: 75
-  LvSpreadProbability: 10
-  SpreadRange: 10
-  AntiBlazeTag:
-  - Blaze
-  - Wall
-  boostNum: 5
-  FireXp: 0
-  FireZp: 0
-  FireXm: 0
-  FireZm: 0
   inferno: {fileID: 5638366649039387006}
-  FireLv: {fileID: 2684742830343882491}
-  PrefabBlaze: {fileID: 3901713899683814031}
-  PrefabPlane: {fileID: 8916174127013782177, guid: 5e9dcae92cc6e694d8f1f761a192a8ec, type: 3}
+  Fire_Lv1: {fileID: 2684742830343882491}
 --- !u!114 &3601828981568048321
 MonoBehaviour:
   m_ObjectHideFlags: 0
