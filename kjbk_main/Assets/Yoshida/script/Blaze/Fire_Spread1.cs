@@ -18,6 +18,7 @@ public class Fire_Spread1 : MonoBehaviour
     RescueCount_verMatsuno Counter;
 
     public static bool FirstAction = true;
+    private bool Action = true;
 
     private int boostNum;
     private bool boost = false;
@@ -33,10 +34,8 @@ public class Fire_Spread1 : MonoBehaviour
 
     public inferno inferno;
     public Fire_Lv1 Fire_Lv1;
-    public Blaze_Maneger Blaze_Maneger;
-
-    public GameObject PrefabBlaze;
-    public GameObject PrefabPlane;
+    private GameObject Blaze;
+    private Blaze_Maneger m_Blaze;
 
     // Start is called before the first frame update
     void Start()
@@ -45,9 +44,12 @@ public class Fire_Spread1 : MonoBehaviour
         Counter = Rescue.GetComponent<RescueCount_verMatsuno>();
 
         if (SpreadRange < 5) SpreadRange = 5;   //SpreadRange5以下の時重さ対策で5にする
+
         StartCoroutine("SpreadFire");
 
-        var Data = Blaze_Maneger.getSpreadData(); 
+        Blaze = GameObject.Find("BlazeManeger");
+        m_Blaze = Blaze.GetComponent<Blaze_Maneger>();
+        var Data = m_Blaze.getSpreadData(); 
         SpreadSecond = Data.Second;
         SpreadProbability = Data.Probability;
         LvSpreadProbability = Data.LvProbability;
@@ -74,6 +76,11 @@ public class Fire_Spread1 : MonoBehaviour
         if(inferno.FireStatus)
         {
             StopCoroutine("SpreadFire");
+            if (Action)
+            {
+                m_Blaze.CreateExtPlane(this.transform.position);
+                Action = false;
+            }
         }     
         if (Counter.getNum() >= boostNum && !boost)   //倒壊ゲージは参照してないため追加する場合は条件増やしてください
         {
@@ -106,8 +113,7 @@ public class Fire_Spread1 : MonoBehaviour
             if (!inferno.FireStatus && !FireEmpty()) break;
             if (Fire_Lv1.FireLv == 1) continue;
             d = dice();
-            CreatePlane();
-            decision(rayXp, rayZp, rayXm, rayZm);
+            Plane();
             Spread();
         }
     }
@@ -232,33 +238,30 @@ public class Fire_Spread1 : MonoBehaviour
         return 0;
     }
 
-    private void CreatePlane()
+    private void Plane()
     {
-        Vector3 prefabXp = new Vector3(this.transform.position.x + SpreadRange, this.transform.position.y, this.transform.position.z);
-        Vector3 prefabZp = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z + SpreadRange);
-        Vector3 prefabXm = new Vector3(this.transform.position.x - SpreadRange, this.transform.position.y, this.transform.position.z);
-        Vector3 prefabZm = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z - SpreadRange);
+        Vector3 prefabXp = new Vector3(this.transform.position.x + SpreadRange, this.transform.position.y - 0.5f, this.transform.position.z);
+        Vector3 prefabZp = new Vector3(this.transform.position.x, this.transform.position.y - 0.5f, this.transform.position.z + SpreadRange);
+        Vector3 prefabXm = new Vector3(this.transform.position.x - SpreadRange, this.transform.position.y - 0.5f, this.transform.position.z);
+        Vector3 prefabZm = new Vector3(this.transform.position.x, this.transform.position.y - 0.5f, this.transform.position.z - SpreadRange);
 
         if (d == 0) return;
         if (d == 1)
         {
-            GameObject newObject = Instantiate(PrefabPlane, prefabXp, Quaternion.identity);
-            newObject.name = "Plane";
+            m_Blaze.CreateSpreadPlane(prefabXp);
+
         }
         if (d == 2)
         {
-            GameObject newObject = Instantiate(PrefabPlane, prefabZp, Quaternion.identity);
-            newObject.name = "Plane";
+            m_Blaze.CreateSpreadPlane(prefabZp);
         }
         if (d == 3)
         {
-            GameObject newObject = Instantiate(PrefabPlane, prefabXm, Quaternion.identity);
-            newObject.name = "Plane";
+            m_Blaze.CreateSpreadPlane(prefabXm);
         }
         if (d == 4)
         {
-            GameObject newObject = Instantiate(PrefabPlane, prefabZm, Quaternion.identity);
-            newObject.name = "Plane";
+            m_Blaze.CreateSpreadPlane(prefabZm);
         }
     }
 
@@ -272,23 +275,19 @@ public class Fire_Spread1 : MonoBehaviour
         if (d == 0) return;
         if (d == 1)
         {
-            GameObject newObject = Instantiate(PrefabBlaze, prefabXp, Quaternion.identity);
-            newObject.name = "Blaze";
+            m_Blaze.CreateBlaze(prefabXp);
         }
         if (d == 2)
         {
-            GameObject newObject = Instantiate(PrefabBlaze, prefabZp, Quaternion.identity);
-            newObject.name = "Blaze";
+            m_Blaze.CreateBlaze(prefabZp);
         }
         if (d == 3)
         {
-            GameObject newObject = Instantiate(PrefabBlaze, prefabXm, Quaternion.identity);
-            newObject.name = "Blaze";
+            m_Blaze.CreateBlaze(prefabXm);
         }
         if (d == 4)
         {
-            GameObject newObject = Instantiate(PrefabBlaze, prefabZm, Quaternion.identity);
-            newObject.name = "Blaze";
+            m_Blaze.CreateBlaze(prefabZm);
         }
     }
 

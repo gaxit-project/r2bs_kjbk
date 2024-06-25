@@ -12,10 +12,13 @@ public class Fire_Lv1 : MonoBehaviour
 
     public int FireLv;   //ƒŒƒxƒ‹
 
-    public Blaze_Maneger m_Blaze;
+    private GameObject Blaze;
+    private Blaze_Maneger m_Blaze;
 
     private void Awake()
     {
+        Blaze = GameObject.Find("BlazeManeger");
+        m_Blaze = Blaze.GetComponent<Blaze_Maneger>();
         var Data = m_Blaze.getLvData();
         LvUpSecond = Data.Second;
         LvUpProbability = Data.Probability;

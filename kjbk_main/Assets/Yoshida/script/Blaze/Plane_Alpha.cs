@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Plane_Alpha : MonoBehaviour
 {
-
     MeshRenderer mesh;
 
     void Start()

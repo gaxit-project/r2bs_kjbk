@@ -4,15 +4,21 @@ using UnityEngine;
 
 public class ReSpread : MonoBehaviour
 {
-    [SerializeField] private float minSecond;
-    [SerializeField] private float maxSecond;
+    private float minSecond;
+    private float maxSecond;
 
-    public GameObject PrefabBlaze;
+    private GameObject Blaze;
+    private Blaze_Maneger m_Blaze;
 
     private bool Action = true;
 
     private void Start()
     {
+        Blaze = GameObject.Find("BlazeManeger");
+        m_Blaze = Blaze.GetComponent<Blaze_Maneger>();
+        var Data = m_Blaze.getReData();
+        minSecond = Data.min;
+        maxSecond = Data.max;
         RandomReSpread();
     }
 
@@ -28,9 +34,9 @@ public class ReSpread : MonoBehaviour
 
     private void Spread()
     {
-        GameObject newObject = (GameObject)Instantiate(PrefabBlaze, this.transform.position, Quaternion.identity);
-        newObject.name = "SpreadPlane";
+        Vector3 plane = new Vector3 (this.transform.position.x, this.transform.position.y - 0.5f, this.transform.position.z);
+        m_Blaze.CreateBlaze(this.transform.position);
+        m_Blaze.CreateSpreadPlane(plane);
         Destroy(this.gameObject);
     }
-
 }
