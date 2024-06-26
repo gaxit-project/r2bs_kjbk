@@ -9,11 +9,8 @@ public class RescueCountText : MonoBehaviour
 
     //テキストの宣言
     [SerializeField] TextMeshProUGUI RCount;
-    [SerializeField] TextMeshProUGUI RInve;
-    [SerializeField] TextMeshProUGUI RText;
-    [SerializeField] Text LRCount;
 
-    public RescueCount_verMatsuno RCounter;
+    public RescueCount RCounter;
     RescueNPC Rcounter1 = new RescueNPC(); 
     int Cnt;   //実際に使うやつ
     int Cnt2;  //テスト用
@@ -24,22 +21,15 @@ public class RescueCountText : MonoBehaviour
         Debug.Log("こんちくわ:" + Cnt);
         //Cnt = RCounter.RescueNum;
         //RCount.SetText(Cnt + "");
-        LRCount.text = Cnt.ToString();
     }
     void Start()
     {
         //テキストの表示
         RCount.color = new Color(1.0f, 0.0f, 0.0f, 1.0f);
-        LRCount.color = new Color(1.0f, 0.0f, 0.0f, 1.0f);
-        RInve.color = new Color(1.0f, 0.0f, 0.0f, 1.0f);
         //Debug.Log(Cnt);
         Cnt = PlayerPrefs.GetInt("RescueCount");
         //Cnt = RCounter.RescueNum;
-        RCount.SetText(Cnt + "");
-        LRCount.text = Cnt.ToString();
-        RText.SetText("Objective : Help 5 people :");
-        RInve.SetText("");
-
+        RCount.SetText("<sprite="+Cnt + ">");
     }
 
     void Update()
@@ -56,9 +46,7 @@ public class RescueCountText : MonoBehaviour
         if (Cnt < 5)
         {
             RCount.color = new Color(1.0f, 0.0f, 0.0f, 1.0f);
-            RCount.SetText(Cnt + "");
-            LRCount.color = new Color(1.0f, 0.0f, 0.0f, 1.0f);
-            LRCount.text = Cnt.ToString();
+            RCount.SetText("<sprite=" + Cnt + ">");
 
             //text.text = Cnt.ToString();
         }
@@ -67,11 +55,9 @@ public class RescueCountText : MonoBehaviour
         else
         {
             RCount.color = new Color(0.0f, 1.0f, 0.085f, 1.0f);
-            LRCount.color = new Color(0.0f, 1.0f, 0.085f, 1.0f);
-            RInve.color = new Color(1.0f, 0.92f, 0.005f, 1.0f);
-            RCount.SetText(Cnt + "");
-            LRCount.text = Cnt.ToString();
-            RInve.SetText("Success!!");
+            RCount.SetText("<sprite=" + Cnt + ">");
+            //LRCount.SetText("");
+            //RInve.SetText("Success!!");
         }
     }
 
