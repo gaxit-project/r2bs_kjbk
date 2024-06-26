@@ -865,6 +865,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 130274026}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &131411851 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 556783039745682872, guid: 5303beff2d043bd448d74d64d8070465, type: 3}
+  m_PrefabInstance: {fileID: 1028208933}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &136225555
 GameObject:
   m_ObjectHideFlags: 0
@@ -1609,6 +1614,33 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3515939550904828322, guid: 5303beff2d043bd448d74d64d8070465, type: 3}
   m_PrefabInstance: {fileID: 1028208933}
   m_PrefabAsset: {fileID: 0}
+--- !u!54 &238417638
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 131411851}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1 &265644566
 GameObject:
   m_ObjectHideFlags: 0
@@ -3662,7 +3694,7 @@ MonoBehaviour:
   maxSecond: 15
   PrefabBlaze: {fileID: 556783039745682872, guid: 5303beff2d043bd448d74d64d8070465, type: 3}
   PrefabSpreadPlane: {fileID: 8916174127013782177, guid: c2fa20853a294294dbc30f6b4a5cfbab, type: 3}
-  PrefabExtPlane: {fileID: 5118994482348031965, guid: 0ded29c45380ebe4b9ef5f01c2b38b5b, type: 3}
+  PrefabExtPlane: {fileID: 3792721215190072585, guid: 0ded29c45380ebe4b9ef5f01c2b38b5b, type: 3}
 --- !u!4 &669904203
 Transform:
   m_ObjectHideFlags: 0
@@ -6048,7 +6080,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 556783039745682872, guid: 5303beff2d043bd448d74d64d8070465, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 238417638}
   m_SourcePrefab: {fileID: 100100000, guid: 5303beff2d043bd448d74d64d8070465, type: 3}
 --- !u!1 &1028405480
 GameObject:
@@ -6206,7 +6241,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8916174127013782177, guid: c2fa20853a294294dbc30f6b4a5cfbab, type: 3}
       propertyPath: m_Name
-      value: SpreaPlane
+      value: SpreadPlane
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

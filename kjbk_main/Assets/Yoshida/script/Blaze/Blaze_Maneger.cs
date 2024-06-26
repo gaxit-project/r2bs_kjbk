@@ -30,14 +30,7 @@ public class Blaze_Maneger : MonoBehaviour
 
     private void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        instance = this;
     }
 
     public void CreateBlaze(Vector3 position)

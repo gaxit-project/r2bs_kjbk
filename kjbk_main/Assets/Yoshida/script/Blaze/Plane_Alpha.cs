@@ -39,18 +39,4 @@ public class Plane_Alpha : MonoBehaviour
     {
         StopCoroutine("Blink");
     }
-
-    //ê⁄êGîªíË(ê⁄êGÇµÇΩèuä‘)
-    void OnCollisionEnter(UnityEngine.Collision collision)
-    {
-        if (collision.gameObject.name == "Blaze" && collision.gameObject.name == "Plane")
-        {
-            Des();
-        }
-    }
-
-    void Des()
-    {
-        Destroy(gameObject, 0.1f);
-    }
 }

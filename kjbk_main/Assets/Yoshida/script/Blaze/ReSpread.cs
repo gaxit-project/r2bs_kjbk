@@ -39,4 +39,12 @@ public class ReSpread : MonoBehaviour
         m_Blaze.CreateSpreadPlane(plane);
         Destroy(this.gameObject);
     }
+
+    void OnTriggerStay(Collider col)
+    {
+        if (col.gameObject.name == "Blazetest" || col.gameObject.name == "SpreadPlane")
+        {
+            Destroy(this.gameObject);
+        }
+    }
 }
