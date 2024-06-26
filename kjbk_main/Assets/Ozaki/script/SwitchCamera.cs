@@ -51,7 +51,7 @@ public class SwitchCamera : MonoBehaviour
         if(map_status == true)
         {
             subCamera.enabled=true;
-            Ui.SetActive(true);
+            //Ui.SetActive(true);
             Mkey.SetActive(true);
         }
         //くそでかマップ非表示
@@ -64,13 +64,14 @@ public class SwitchCamera : MonoBehaviour
 
         if (rescueNPC != null && rescueNPC.IsItFollow())
         {
-            //Ui.SetActive(false);
-            Ui=null;
+            Ui.SetActive(false);
+            //Ui=null;
         }
     }
     private IEnumerator ActivateInitialMapStatusWithDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
+        Ui.SetActive(true);
         map_status = true;
         initialMapStatusActivated = true;
     }

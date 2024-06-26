@@ -19,18 +19,22 @@ public class BadRescueNavi : MonoBehaviour
     private GameObject goal;
 
     private RescueNPC rescueNPC;
+    private RescueDiplication DiplicationScript;
+    private GameObject Rescue;
 
     public Transform SetPlayer { get { return player; } set { player = value; } }
     public string SetTargetTag { get { return targetTag; } set { targetTag = value; } }
 
     void Start()
     {
+        Rescue = GameObject.Find("Rescue");
         rescueNPC = FindObjectOfType<RescueNPC>();
+        DiplicationScript = Rescue.GetComponent<RescueDiplication>();
     }
 
     void Update()
     {
-        if (rescueNPC != null && rescueNPC.IsItFollow())
+        if (rescueNPC.IsItFollow() && DiplicationScript.getFlag())
         {
             currentTarget = goal.transform;
         }
