@@ -6,7 +6,7 @@ using static Unity.IO.LowLevel.Unsafe.AsyncReadManagerMetrics;
 
 public class LIFE : MonoBehaviour
 {
-    int HitPoint = 3;            //プレイヤーのHP
+    public static int HitPoint = 3;            //プレイヤーのHP
 
     //public Collider_On_Off FireColOff;  //Collider_On_OffからFireOffを持ってくる
     //public Collider_On_Off FireColOn;   //Collider_On_OffからFireOnを持ってくる

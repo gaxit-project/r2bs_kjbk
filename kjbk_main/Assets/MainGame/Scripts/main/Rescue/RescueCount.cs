@@ -30,8 +30,6 @@ public class RescueCount : MonoBehaviour
         {
             Count();
         }
-
-
         if (RescueNum == RescueMaxNum)   //Å‘å‹~•Ò”‚ğ–‚½‚µ‚Ä‚¢‚é‚©‚Ì”äŠr
         {
             RescueAll = true;

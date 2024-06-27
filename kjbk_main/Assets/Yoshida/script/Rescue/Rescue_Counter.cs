@@ -21,6 +21,8 @@ public class Rescue_Counter : MonoBehaviour
         {
             RescueAll = true;
         }
+        //テスト用↓
+        
     }
 
     public void Count()   //現在救助者数のカウント

@@ -9,7 +9,7 @@ public class CollGauge : MonoBehaviour
     [SerializeField] TextMeshProUGUI CGauge;
 
     float CountTime = 0;            //ŠÔŒv‘ª
-    int Collapse = 100;            //“|‰óƒQ[ƒW
+    public static int Collapse = 100;            //“|‰óƒQ[ƒW
     float Span = 3.5f;                 //Span•b‚Éˆê‰ñ“|‰óƒQ[ƒW‚ğ1%Œ¸‚ç‚·
     public CollRadio Demoscript;        //Radio.cs‚©‚çŠÖ”‚à‚Á‚Ä—ˆ‚é‚â‚Â
     public CollDesign Design;  //CollapseDesign2.cs‚©‚çŠÖ”‚à‚Á‚Ä—ˆ‚é‚â‚Â

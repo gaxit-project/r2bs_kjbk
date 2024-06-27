@@ -31,7 +31,6 @@ public class Presente : MonoBehaviour
         Audio.GetInstance().SEVolume = seSlider.value;
         Audio.GetInstance().RoopSEVolume = seSlider.value;
         Audio.GetInstance().WALKVolume = seSlider.value;
-        Audio.GetInstance().WaterVolume = seSlider.value;
         Audio.GetInstance().FireVolume1 = seSlider.value;
         Audio.GetInstance().FireVolume2 = seSlider.value;
         Audio.GetInstance().FireVolume3 = seSlider.value;
