@@ -10,9 +10,11 @@ public class SwitchCamera : MonoBehaviour
     public Camera subCamera; //くそでかマップのカメラ
     bool map_status=false; //マップのボタンの処理用変数
     bool initialMapStatusActivated = false; 
+    bool Ui_status=false;
     private InputAction MapAction;
     public GameObject Ui;
     public GameObject Mkey;
+    public GameObject miniMap;
     private RescueNPC rescueNPC;
     void Start()
     {
@@ -51,19 +53,26 @@ public class SwitchCamera : MonoBehaviour
         if(map_status == true)
         {
             subCamera.enabled=true;
-            //Ui.SetActive(true);
+            miniMap.SetActive(false);
+            if(Ui_status){
+            Ui.SetActive(true);
+            }
             Mkey.SetActive(true);
         }
         //くそでかマップ非表示
         else
         {
             subCamera.enabled=false;
-            //Ui.SetActive(false);
+            miniMap.SetActive(true);
+            if(Ui_status){
+            Ui.SetActive(false);
+            }
             Mkey.SetActive(false);
         }
 
         if (rescueNPC != null && rescueNPC.IsItFollow())
         {
+            Ui_status=false;
             Ui.SetActive(false);
             //Ui=null;
         }
@@ -71,6 +80,7 @@ public class SwitchCamera : MonoBehaviour
     private IEnumerator ActivateInitialMapStatusWithDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
+        Ui_status=true;
         Ui.SetActive(true);
         map_status = true;
         initialMapStatusActivated = true;
