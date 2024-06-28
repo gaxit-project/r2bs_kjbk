@@ -29,6 +29,8 @@ public class PlayController : MonoBehaviour
 
     private AudioSource audiosource;
 
+    private InputAction MoveAction;
+
     // PlayerInput側から呼ばれるコールバック
     public void OnRun(InputAction.CallbackContext context)
     {
@@ -62,6 +64,13 @@ public class PlayController : MonoBehaviour
 
         //アニメーション読み込み
         animator = GetComponent<Animator>();
+
+        var pInput = GetComponent<PlayerInput>();
+        //現在のアクションマップを取得
+        var actionMap = pInput.currentActionMap;
+
+        //アクションマップからアクションを取得
+        MoveAction = actionMap["Move"];
 
     }
     void Update()
@@ -108,7 +117,7 @@ public class PlayController : MonoBehaviour
                 {
                     animator.SetBool("Walk", false);
                 }
-                
+
             }
             else
             {
