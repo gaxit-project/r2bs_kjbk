@@ -39,20 +39,22 @@ public class LIFE_Bar : MonoBehaviour
         if (i == 3)
         {
             HP1Red.SetActive(true);
-            HP2Red.SetActive(true);
+            HP2Red.SetActive(false);
             HP3Red.SetActive(true);
             HP3.SetActive(true);
+            HP2.SetActive(true);
             StartCoroutine(HPBar2());
             Invoke(nameof(HP1RedKesu), 5f);
             Invoke(nameof(HP2RedKesu), 5f);
             Invoke(nameof(HP3RedKesu), 5f);
             Invoke(nameof(HP3Kesu), 5f);
+            Invoke(nameof(HP2Kesu), 5f);
         }
         else if (i == 2)
         {
+            HP2.SetActive(false);
             HP1Red.SetActive(true);
             HP2Red.SetActive(true);
-            HP2.SetActive(true);
             HP3.SetActive(true);
             StartCoroutine(HPBar1());
             Invoke(nameof(HP1RedKesu), 5f);

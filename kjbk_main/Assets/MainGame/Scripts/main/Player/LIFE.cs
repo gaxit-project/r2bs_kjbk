@@ -31,6 +31,7 @@ public class LIFE : MonoBehaviour
 
     void Start()
     {
+        HitPoint = 3;
         Anim = GetComponent<Animator>();
     }
 

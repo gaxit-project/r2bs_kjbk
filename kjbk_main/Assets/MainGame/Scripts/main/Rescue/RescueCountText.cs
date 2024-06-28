@@ -9,6 +9,11 @@ public class RescueCountText : MonoBehaviour
 
     //テキストの宣言
     [SerializeField] TextMeshProUGUI RCount;
+    [SerializeField] TextMeshProUGUI RSuccessCount;
+
+    public GameObject RsuccessCount;
+    public GameObject Rcount;
+
 
     public RescueCount RCounter;
     RescueNPC Rcounter1 = new RescueNPC(); 
@@ -24,6 +29,7 @@ public class RescueCountText : MonoBehaviour
     }
     void Start()
     {
+        RsuccessCount.SetActive(false);
         //テキストの表示
         RCount.color = new Color(1.0f, 0.0f, 0.0f, 1.0f);
         //Debug.Log(Cnt);
@@ -54,6 +60,8 @@ public class RescueCountText : MonoBehaviour
         //救助した人数が5以上なら緑に表示
         else
         {
+            Rcount.SetActive(false);
+            RsuccessCount.SetActive(true);
             RCount.color = new Color(0.0f, 1.0f, 0.085f, 1.0f);
             RCount.SetText("<sprite=" + Cnt + ">");
             //LRCount.SetText("");

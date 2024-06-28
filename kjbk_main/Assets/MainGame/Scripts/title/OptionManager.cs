@@ -14,6 +14,8 @@ public class OptionManager : MonoBehaviour
     [SerializeField] Text bgmValue;
     [SerializeField] Text seValue;
 
+    public Button TitleIcon2;
+
     private void Start()
     {
         OnChangedBGMVolume();
@@ -36,6 +38,7 @@ public class OptionManager : MonoBehaviour
     {
         TitleUI.SetActive(true);
         OptionUI.SetActive(false);
+        TitleIcon2.Select();
     }
 
     public void Quit()

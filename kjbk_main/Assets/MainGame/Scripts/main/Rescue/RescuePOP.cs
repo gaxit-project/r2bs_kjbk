@@ -34,6 +34,12 @@ public class RescuePOP : MonoBehaviour
     [SerializeField] GameObject kurohuku5th;
     [SerializeField] GameObject ILOVENY5th;
 
+    [SerializeField] GameObject FirstPop;
+    [SerializeField] GameObject SecondPop; 
+    [SerializeField] GameObject ThirdPop;
+    [SerializeField] GameObject ForthPop;
+    [SerializeField] GameObject FifthPop;
+
     //ƒ‰ƒ“ƒ_ƒ€‚Ì’l‚ð“ü‚ê‚é
     [HideInInspector] public int Rnd = 0;
 
@@ -55,28 +61,7 @@ public class RescuePOP : MonoBehaviour
 
     void Start()
     {
-        RBalcony.SetActive(false);
-        RKitchen.SetActive(false);
-        RBath.SetActive(false);
-        RCloset.SetActive(false);
-        RBedRoom.SetActive(false);
-        hito1st.SetActive(false);
-        JK1st.SetActive(false);
-        kurohuku1st.SetActive(false);
-        ILOVENY1st.SetActive(false);
-        hito1_st.SetActive(false);
-        hito2nd.SetActive(false);
-        JK2nd.SetActive(false);
-        kurohuku2nd.SetActive(false);
-        hito3rd.SetActive(false);
-        JK3rd.SetActive(false);
-        hito3_2rd.SetActive(false);
-        kurohuku4th.SetActive(false);
-        ILOVENY4th.SetActive(false);
-        hito4th.SetActive(false);
-        JK5th.SetActive(false);
-        kurohuku5th.SetActive(false);
-        ILOVENY5th.SetActive(false);
+
     }
 
     void Update()
@@ -256,75 +241,46 @@ public class RescuePOP : MonoBehaviour
         {
             RBedRoom.SetActive(true);
         }
-
-        if (cnt == 1)
-        {
-            hito1st.SetActive(true);
-            JK1st.SetActive(true);
-            kurohuku1st.SetActive(true);
-            ILOVENY1st.SetActive(true);
-            hito1_st.SetActive(true);
-        }
-        else if (cnt == 2)
-        {
-            hito2nd.SetActive(true);
-            JK2nd.SetActive(true);
-            kurohuku2nd.SetActive(true);
-        }
-        else if (cnt == 3)
-        {
-            hito3rd.SetActive(true);
-            JK3rd.SetActive(true);
-            hito3_2rd.SetActive(true);
-        }
-        else if (cnt == 4)
-        {
-            kurohuku4th.SetActive(true);
-            ILOVENY4th.SetActive(true);
-            hito4th.SetActive(true);
-        }
-        else if (cnt == 5)
-        {
-            JK5th.SetActive(true);
-            kurohuku5th.SetActive(true);
-            ILOVENY5th.SetActive(true);
-        }
-        cnt++;
     }
 
     public void PopR()
     {
         if (cnt == 1)
         {
-            hito1st.SetActive(true);
-            JK1st.SetActive(true);
-            kurohuku1st.SetActive(true);
-            ILOVENY1st.SetActive(true);
-            hito1_st.SetActive(true);
+            //hito1st.SetActive(true);
+            //JK1st.SetActive(true);
+            //kurohuku1st.SetActive(true);
+            //ILOVENY1st.SetActive(true);
+            //hito1_st.SetActive(true);
+            FirstPop.SetActive(true);
         }
         else if (cnt == 2)
         {
-            hito2nd.SetActive(true);
-            JK2nd.SetActive(true);
-            kurohuku2nd.SetActive(true);
+            //hito2nd.SetActive(true);
+            //JK2nd.SetActive(true);
+            //kurohuku2nd.SetActive(true);
+            SecondPop.SetActive(true);
         }
         else if (cnt == 3)
         {
-            hito3rd.SetActive(true);
-            JK3rd.SetActive(true);
-            hito3_2rd.SetActive(true);
+            //hito3rd.SetActive(true);
+            //JK3rd.SetActive(true);
+            //hito3_2rd.SetActive(true);
+            ThirdPop.SetActive(true);
         }
         else if (cnt == 4)
         {
-            kurohuku4th.SetActive(true);
-            ILOVENY4th.SetActive(true);
-            hito4th.SetActive(true);
+            //kurohuku4th.SetActive(true);
+            //ILOVENY4th.SetActive(true);
+            // hito4th.SetActive(true);
+            ForthPop.SetActive(true);
         }
         else if (cnt == 5)
         {
-            JK5th.SetActive(true);
-            kurohuku5th.SetActive(true);
-            ILOVENY5th.SetActive(true);
+            //JK5th.SetActive(true);
+            //kurohuku5th.SetActive(true);
+            //ILOVENY5th.SetActive(true);
+            FifthPop.SetActive(true);
         }
         cnt++;
     }

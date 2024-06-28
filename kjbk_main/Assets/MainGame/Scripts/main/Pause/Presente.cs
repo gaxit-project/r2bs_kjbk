@@ -12,6 +12,12 @@ public class Presente : MonoBehaviour
     public GameObject SoundOptionUI;
     public GameObject TitleUI;
 
+    public Button a;
+    public Button TitleIcon;
+    public Button TitlePIcon;
+    public Button SoundPIcon;
+
+
     public static Pause PauseScript;
 
     private void Start()
@@ -51,6 +57,7 @@ public class Presente : MonoBehaviour
     {
         SoundOptionUI.SetActive(true);
         PauseUI.SetActive(false);
+        a.Select();
     }
 
     public void PauseBack()
@@ -69,15 +76,18 @@ public class Presente : MonoBehaviour
     {
         TitleUI.SetActive(true);
         PauseUI.SetActive(false);
+        TitleIcon.Select();
     }
     public void TitleBack()
     {
         TitleUI.SetActive(false);
         PauseUI.SetActive(true);
+        TitlePIcon.Select();
     }
     public void SoundBack()
     {
         SoundOptionUI.SetActive(false);
         PauseUI.SetActive(true);
+        SoundPIcon.Select();
     }
 }

@@ -10,7 +10,7 @@ public class CollGauge : MonoBehaviour
 
     float CountTime = 0;            //ŠÔŒv‘ª
     public static int Collapse = 100;            //“|‰óƒQ[ƒW
-    float Span = 3.5f;                 //Span•b‚Éˆê‰ñ“|‰óƒQ[ƒW‚ğ1%Œ¸‚ç‚·
+    float Span = 0.5f;                 //Span•b‚Éˆê‰ñ“|‰óƒQ[ƒW‚ğ1%Œ¸‚ç‚·
     public CollRadio Demoscript;        //Radio.cs‚©‚çŠÖ”‚à‚Á‚Ä—ˆ‚é‚â‚Â
     public CollDesign Design;  //CollapseDesign2.cs‚©‚çŠÖ”‚à‚Á‚Ä—ˆ‚é‚â‚Â
     public Sunaarashi_ON_OFF Suna;  //»—’‚ğ‚à‚Á‚Ä‚­‚é
@@ -38,7 +38,7 @@ public class CollGauge : MonoBehaviour
     void Start()
     {
         CGauge.SetText("<sprite=" + number100 + ">" + "<sprite=" + number10 + ">" + "<sprite=" + number1 + ">" + "<sprite=" + persent + ">");
-
+        Collapse = 100;
     }
 
     // Update is called once per frame
