@@ -240,10 +240,10 @@ public class FireSpread : MonoBehaviour
 
     private void Plane()
     {
-        Vector3 prefabXp = new Vector3(this.transform.position.x + SpreadRange, this.transform.position.y - 0.5f, this.transform.position.z);
-        Vector3 prefabZp = new Vector3(this.transform.position.x, this.transform.position.y - 0.5f, this.transform.position.z + SpreadRange);
-        Vector3 prefabXm = new Vector3(this.transform.position.x - SpreadRange, this.transform.position.y - 0.5f, this.transform.position.z);
-        Vector3 prefabZm = new Vector3(this.transform.position.x, this.transform.position.y - 0.5f, this.transform.position.z - SpreadRange);
+        Vector3 prefabXp = new Vector3(this.transform.position.x + SpreadRange, this.transform.position.y - 6.445f, this.transform.position.z);
+        Vector3 prefabZp = new Vector3(this.transform.position.x, this.transform.position.y - 6.445f, this.transform.position.z + SpreadRange);
+        Vector3 prefabXm = new Vector3(this.transform.position.x - SpreadRange, this.transform.position.y - 6.445f, this.transform.position.z);
+        Vector3 prefabZm = new Vector3(this.transform.position.x, this.transform.position.y - 6.445f, this.transform.position.z - SpreadRange);
 
         if (d == 0) return;
         if (d == 1)

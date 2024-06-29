@@ -2,75 +2,57 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
-using static UnityEngine.ParticleSystem;
 
 public class Inferno : MonoBehaviour
 {
-    GameObject BlazeR;//赤色の火のパーティクルを格納
-    //GameObject BlazeY;//黄色の火のパーティクルを格納
-
-    ParticleSystem ParticleBlazeR;//赤色の火のパーティクルシステムを格納
-    //ParticleSystem ParticleBlazeY;//黄色の火のパーティクルシステムを格納
-
-    ParticleSystem.EmissionModule BR; //赤色の火のEmissionModule格納
-    ///ParticleSystem.EmissionModule BY; //黄色の火のEmissionModule格納
-
-    ParticleSystem.MinMaxCurve BR_MinMaxCurve;
-    //ParticleSystem.MinMaxCurve BY_MinMaxCurve;
-
-    float BlazeRDown = 4.0f;
-    //float BlazeYDown = 2.0f;
-
-    float BlazeRUp = 4.0f;
-    //float BlazeYUp = 2.0f;
+    public GameObject[] Artal;
+    int i;
+    private int len;
+    int rand;
+    float ran;
+    Transform myTransform;
+    float AratalCap;
 
     public bool FireStatus = false; // 延焼ならfalse
     public bool P_O_Fire = false; //消化中判定
     public bool DesBlaze = false; //消化されたか
 
-    FireLv FireLv;
 
     void Start()
     {
-        GameObject BlazeR = GameObject.Find("Fire_Red");
-        //GameObject BlazeY = GameObject.Find("Fire_Yellow");
-
-        ParticleBlazeR = BlazeR.GetComponent<ParticleSystem>();
-        //ParticleBlazeY = BlazeY.GetComponent<ParticleSystem>();
-
-        BR = ParticleBlazeR.emission;
-        //BY = ParticleBlazeY.emission;
-
-        BR.rateOverTime = 0;
-        //BY.rateOverTime = 0;
-        BR_MinMaxCurve = BR.rateOverTime;
-        //BY_MinMaxCurve = BY.rateOverTime;
-
-        BR.rateOverTime = 100;
-        //BY.rateOverTime = 100;
-        BR_MinMaxCurve = BR.rateOverTime;
-        //BY_MinMaxCurve = BY.rateOverTime;
-
-        if (FireStatus)
+        len = Artal.Length;
+        for (i = 1; i < len; i++)
         {
-            BR.rateOverTime = 100;
-            //BY.rateOverTime = 100;
-            BR_MinMaxCurve = BR.rateOverTime;
-            //BY_MinMaxCurve = BY.rateOverTime;
+            Artal[i].SetActive(false);
         }
-        Audio.Instance.PlayRoopSE(0);
+
+        ran = UnityEngine.Random.Range(0f, 90f);
+        myTransform = this.transform;
+
     }
 
     void Update()
     {
-        if (!FireStatus && BR_MinMaxCurve.constant <= 100f  && !P_O_Fire)//&& BY_MinMaxCurve.constant <= 100f
+        rand = Random.Range(0, len);
+        ran = UnityEngine.Random.Range(0f, 90f);
+        //Debug.Log(rand);
+        ArtalSet(rand);
+        // ワールド座標基準で、現在の回転量へ加算する
+        myTransform.Rotate(0f, ran, 0f, Space.World);
+    }
+    void ArtalSet(int num)
+    {
+        for (i = 0; i < len; i++)
         {
-            BR_MinMaxCurve.constant += BlazeRUp * Time.deltaTime;
-            //BY_MinMaxCurve.constant += BlazeRUp * Time.deltaTime;
-            BR.rateOverTime = BR_MinMaxCurve;
-            //BY.rateOverTime = BY_MinMaxCurve;
+            if (i == num)
+            {
+                Artal[i].SetActive(true);
+            }
+            else
+            {
+                Artal[i].SetActive(false);
+            }
         }
-
     }
 
     public void OnParticleCollision(GameObject obj)
@@ -80,31 +62,15 @@ public class Inferno : MonoBehaviour
 
         //当たっている火の子オブジェクトの取得
         GameObject BlazeR1 = this.transform.GetChild(0).gameObject;
-        //GameObject BlazeY1 = this.transform.GetChild(1).gameObject;
-
-        //赤色の火のパーティクルシステムを格納
-        ParticleSystem ParticleBlazeR1 = BlazeR1.GetComponent<ParticleSystem>();
-        //黄色の火のパーティクルシステムを格納
-        //ParticleSystem ParticleBlazeY1 = BlazeY1.GetComponent<ParticleSystem>();
-
-        //赤色の火のEmissionModule格納
-        ParticleSystem.EmissionModule BR1 = ParticleBlazeR1.emission;
-        //黄色の火のEmissionModule格納
-        //ParticleSystem.EmissionModule BY1 = ParticleBlazeY1.emission;
-
-        ParticleSystem.MinMaxCurve BR1_MinMaxCurve = BR1.rateOverTime;
-        //ParticleSystem.MinMaxCurve BY1_MinMaxCurve = BY1.rateOverTime;
 
         Debug.Log("消化中");
         script.P_O_Fire = true;
-        BR1_MinMaxCurve.constant -= BlazeRDown * Time.deltaTime * 100;
-        //BY1_MinMaxCurve.constant -= BlazeRDown * Time.deltaTime * 100;
-        BR1.rateOverTime = BR1_MinMaxCurve;
-        //BY1.rateOverTime = BY1_MinMaxCurve;
-        if (BR1_MinMaxCurve.constant <= 0f)// && BY1_MinMaxCurve.constant <= 0f
+        AratalCap -= 4f * Time.deltaTime * 100;
+        if (AratalCap <= 0f)// && BY1_MinMaxCurve.constant <= 0f
         {
             Debug.Log("消化されました");
             DesBlaze = true;
         }
     }
+
 }
