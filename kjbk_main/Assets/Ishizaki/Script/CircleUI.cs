@@ -12,12 +12,25 @@ public class CircleUI : MonoBehaviour
     private int ColorFlag; //色変更用フラグ
     private Image ImgCircle; //CircleProgressのImage取得用
     private float PassedTime; //経過時間
+    private GameObject Rescue;
+    public RescueNPC resNPC;
+
+    public static int ResNumBest = 0;   //Best救助者数
+    public static int ResNumNormal = 0;   //Normal救助者数
+    public static int ResNumBad = 0;   //Bad救助者数
 
     // Start is called before the first frame update
     void Start()
     {
         //CircleProgressのImageコンポーネント取得
         ImgCircle = CircleProgress.GetComponent<Image>();
+
+        //Rescue = GameObject.Find("Rescue");
+        //resNPC = Rescue.GetComponent<RescueNPC>();
+
+        PlayerPrefs.SetInt("ResCntBest", 0);
+        PlayerPrefs.SetInt("ResCntNormal", 0);
+        PlayerPrefs.SetInt("ResCntBad", 0);
 
         //タイマースタート
         ColorFlag = 1;
@@ -32,6 +45,29 @@ public class CircleUI : MonoBehaviour
 
         //塗りつぶし量を代入する
         ImgCircle.fillAmount = 1 - amount;
+    }
+
+    //重傷者カウント用
+    public void SevereCount()
+    {
+        if (ScoreFlag == "Best")
+        {
+            ResNumBest++;
+            PlayerPrefs.SetInt("ResCntBest", ResNumBest);
+            Debug.Log("Best++");
+        }
+        else if (ScoreFlag == "Normal")
+        {
+            ResNumNormal++;
+            PlayerPrefs.SetInt("ResCntNormal", ResNumNormal);
+            Debug.Log("Normal++");
+        }
+        else
+        {
+            ResNumBad++;
+            PlayerPrefs.SetInt("ResCntBad", ResNumBad);
+            Debug.Log("Bad++");
+        }
     }
 
     // Update is called once per frame
@@ -61,6 +97,11 @@ public class CircleUI : MonoBehaviour
                     ScoreFlag = "Bad";
                 }
             }
+        }
+
+        if (resNPC.IsItInGoal() && !resNPC.IsItRescued() && resNPC.Severe == true)
+        {
+            SevereCount();
         }
     }
 }
