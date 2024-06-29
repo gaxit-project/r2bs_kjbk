@@ -78,7 +78,8 @@ public class FireSpread : MonoBehaviour
             StopCoroutine("SpreadFire");
             if (Action)
             {
-                m_Blaze.CreateExtPlane(this.transform.position);
+
+                m_Blaze.CreateExtPlane(new Vector3(this.transform.position.x, this.transform.position.y - 5.495f, this.transform.position.z));
                 Action = false;
             }
         }
