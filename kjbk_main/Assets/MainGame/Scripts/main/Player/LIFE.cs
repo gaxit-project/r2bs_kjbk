@@ -92,18 +92,19 @@ public class LIFE : MonoBehaviour
                 //animator.SetBool("FallDown", true);
                 Update();        //無敵付与(多分意味なし！！)
                 StartCoroutine(Blink());     //点滅開始
-                Anim.SetBool("Damage", true); //ダメージのアニメーションをONに
 
                 BarHP.HPBar();
                 //FireColOff.FireOff();        //炎のコライダーをオフに
                 //FireColOn.FireOn();          //炎のコライダーをオンに
-                Invoke(nameof(Animation_OFF), 2f); //ダメージのアニメーションをオフに
 
                 Debug.Log("HP=" + HitPoint);
+
 
                 StartCoroutine(Blink());     //点滅開始
                 if (HitPoint <= 0)            //もしHPが尽きたら以下の処理を行う
                 {
+                    Anim.SetBool("CarryWalk", false);
+                    Anim.SetBool("Carry", false);
                     PlayerPrefs.SetString("Result", "GAMEOVER");
                     Scene.Instance.GameResult();
                 }
@@ -114,11 +115,6 @@ public class LIFE : MonoBehaviour
 
     }
 
-
-    void Animation_OFF()
-    {
-        Anim.SetBool("Damage", false);
-    }
 
 
     /// <summary>

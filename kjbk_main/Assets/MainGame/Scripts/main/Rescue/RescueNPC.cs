@@ -83,6 +83,21 @@ public class RescueNPC : MonoBehaviour
 
         //初期化
         r_num = 0;
+
+
+        //////////////////////////////////
+        Follow = false;   //NPCの追従 true = 追従 : false = 待機
+        InGoal = false;   //救出地点に接触 true =　接触 : false = 非接触
+        InZone = false;   //救出範囲に接触 true = 接触 : false = 非接触
+        NPCrun = false;   //NPCの自動操作 true = 自動操作 : false = NPC_AIによる操作
+        Rescued = false;   //キーボードを一回だけ入力するためのフラグ
+        ActiveIcon = false;   //会話アイコンの制御
+        FirstContact = false;   //会話回数の判定
+        SecondContact = false;   //会話回数の判定
+        Lock = false;
+
+        //FFanimator.SetBool("Carry", false);
+        //NPCanimator.SetBool("NPCCarry", false);
     }
 
     void FixedUpdate()

@@ -11,7 +11,7 @@ public class RescueDiplication : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        diplication = false;
     }
 
     // Update is called once per frame

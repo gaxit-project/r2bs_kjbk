@@ -81,6 +81,8 @@ public class PlayController : MonoBehaviour
 
         Vector3 posi = this.transform.position;
 
+        Follow = RescueNPC.Follow;
+
         if (DesSystem.DesSystemStatus == true)
         {
             rb.velocity = Vector3.zero;
