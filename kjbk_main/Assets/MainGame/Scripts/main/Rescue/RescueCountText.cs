@@ -20,6 +20,9 @@ public class RescueCountText : MonoBehaviour
     int Cnt;   //実際に使うやつ
     int Cnt2;  //テスト用
 
+    int number10;
+    int number1;
+
     private void Awake()
     {
         Cnt = PlayerPrefs.GetInt("RescueCount");
@@ -58,7 +61,7 @@ public class RescueCountText : MonoBehaviour
         }
 
         //救助した人数が5以上なら緑に表示
-        else
+        else if(Cnt < 10)
         {
             Rcount.SetActive(false);
             RsuccessCount.SetActive(true);
@@ -66,6 +69,15 @@ public class RescueCountText : MonoBehaviour
             RCount.SetText("<sprite=" + Cnt + ">");
             //LRCount.SetText("");
             //RInve.SetText("Success!!");
+        }
+        else
+        {
+            number10 = Cnt / 10 % 10;
+            number1 = Cnt % 10;
+            Rcount.SetActive(false);
+            RsuccessCount.SetActive(true);
+            RCount.color = new Color(0.0f, 1.0f, 0.085f, 1.0f);
+            RCount.SetText("<sprite=" + number10 + ">" + "<sprite=" + number1 + ">");
         }
     }
 
