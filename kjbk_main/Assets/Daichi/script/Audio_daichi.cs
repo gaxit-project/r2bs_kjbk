@@ -14,7 +14,6 @@ public class Audio_daichi : MonoBehaviour
     [SerializeField] AudioSource audioSorceSE;
     [SerializeField] AudioSource audioSorceRoopSE;
     [SerializeField] AudioSource audioSourceWALK;
-    [SerializeField] AudioSource audioSourceWater;
     [SerializeField] AudioSource audioSourceFire1;
     [SerializeField] AudioSource audioSourceFire2;
     [SerializeField] AudioSource audioSourceFire3;
@@ -45,12 +44,6 @@ public class Audio_daichi : MonoBehaviour
     {
         get { return audioSourceWALK.volume; }
         set { audioSourceWALK.volume = value; }
-    }
-
-    public float WaterVolume //WALKSEボリューム
-    {
-        get { return audioSourceWater.volume; }
-        set { audioSourceWater.volume = value; }
     }
 
     public float FireVolume1 //FireSEボリューム

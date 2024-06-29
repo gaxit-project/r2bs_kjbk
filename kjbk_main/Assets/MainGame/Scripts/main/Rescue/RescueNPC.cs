@@ -24,8 +24,13 @@ public class RescueNPC : MonoBehaviour
     [SerializeField] public RescuePOP POP;
     private GameObject Rescue;
     private GameObject ResCounter;
+    
+    public GameObject AudioManager;//大地変更点
+
     RescueCount CounterScript;   //救助者カウント
     RescueDiplication DiplicationScript;
+
+    Audio talkScript;//大地変更点
 
     MeshRenderer mesh;   //MeshRendere
 
@@ -120,6 +125,7 @@ public class RescueNPC : MonoBehaviour
                     StopNPC();
                     RadioText.SetActiveText(true);
                     NPCanimator.SetBool("Walk", true);
+                    AudioManager.GetComponent<Audio>().PlaySound(2);    //大地変更点
                 }
                 else if (IsItFirstContact())
                 {
