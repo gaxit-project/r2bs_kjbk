@@ -15,9 +15,13 @@ public class SwitchCamera : MonoBehaviour
     public GameObject Ui;
     public GameObject Mkey;
     public GameObject miniMap;
+    public GameObject hat1;
     private RescueNPC rescueNPC;
     void Start()
     {
+       // map_status=false;
+        //initialMapStatusActivated = false;
+        //Ui_status=false;
         mainCamera=Camera.main;
         CounterScript = FindObjectOfType<RescueCount>();
         rescueNPC = FindObjectOfType<RescueNPC>();
@@ -80,9 +84,12 @@ public class SwitchCamera : MonoBehaviour
     private IEnumerator ActivateInitialMapStatusWithDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
+        if(hat1!=null){
         Ui_status=true;
         Ui.SetActive(true);
         map_status = true;
+        }
+        
         initialMapStatusActivated = true;
     }
 }
