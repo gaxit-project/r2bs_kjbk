@@ -60,7 +60,7 @@ public class ResultScore : MonoBehaviour
         ScoreCount();
         score2 = RescueCnt * 100;
         people = score + score2;
-        timepoint = (int)a * 20;
+        timepoint = (int)a * 5;
         hppoint = hp * 1000;
         failedpeople = people / 10;
         failedtime = timepoint / 10;

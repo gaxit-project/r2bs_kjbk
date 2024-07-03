@@ -75,13 +75,13 @@ public class PlayController : MonoBehaviour
     }
     void Update()
     {
+
+
         print($"isPressed = {IsPressedRun}");
 
         Rigidbody rb = this.transform.GetComponent<Rigidbody>();
 
         Vector3 posi = this.transform.position;
-
-        Follow = RescueNPC.Follow;
 
         if (DesSystem.DesSystemStatus == true)
         {
@@ -152,7 +152,7 @@ public class PlayController : MonoBehaviour
 
                 //位置を移動
                 Vector3 MoveDir = new Vector3(Xvalue, 0, Yvalue).normalized * CurrentSpeed * DebuffSpeed;
-                if (!audiosource.isPlaying)
+                if (!audiosource.isPlaying && !(Time.timeScale == 0f))
                 {
                     audiosource.Play();
                 }
