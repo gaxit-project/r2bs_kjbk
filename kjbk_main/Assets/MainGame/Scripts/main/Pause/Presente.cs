@@ -17,6 +17,9 @@ public class Presente : MonoBehaviour
     public Button TitlePIcon;
     public Button SoundPIcon;
 
+    public bool ConfigSta;
+    public bool TitleSta;
+
 
     public static Pause PauseScript;
 
@@ -24,6 +27,9 @@ public class Presente : MonoBehaviour
     {
         OnChangedBGMVolume();
         OnChangedSEVolume();
+
+        ConfigSta = false;
+        TitleSta = false;
     }
 
     public void OnChangedBGMVolume()
@@ -58,6 +64,7 @@ public class Presente : MonoBehaviour
         SoundOptionUI.SetActive(true);
         PauseUI.SetActive(false);
         a.Select();
+        ConfigSta = true;
     }
 
     public void PauseBack()
@@ -77,17 +84,20 @@ public class Presente : MonoBehaviour
         TitleUI.SetActive(true);
         PauseUI.SetActive(false);
         TitleIcon.Select();
+        TitleSta = true;
     }
     public void TitleBack()
     {
         TitleUI.SetActive(false);
         PauseUI.SetActive(true);
         TitlePIcon.Select();
+        TitleSta = false;
     }
     public void SoundBack()
     {
         SoundOptionUI.SetActive(false);
         PauseUI.SetActive(true);
         SoundPIcon.Select();
+        ConfigSta = false;
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Presets;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,9 +8,15 @@ public class Pause : MonoBehaviour
 {
     public GameObject pause;
     public static bool pause_status;
-    // Start is called before the first frame update
 
     private InputAction PauseAction;
+
+    public static Presente presenter;
+
+    public static bool pause1;
+    public static bool pause2;
+
+    public GameObject Presen;
     void Start()
     {
         pause_status = false;
@@ -20,13 +27,17 @@ public class Pause : MonoBehaviour
 
         //アクションマップからアクションを取得
         PauseAction = actionMap["Pause"];
+
+        presenter = Presen.GetComponent<Presente>();
     }
 
 
     void Update()
     {
+        pause1 = presenter.ConfigSta;
+        pause2 = presenter.TitleSta;
         bool pause = PauseAction.triggered;
-        if (Input.GetKeyDown(KeyCode.Tab) || pause)
+        if ((Input.GetKeyDown(KeyCode.Tab) || pause) && (!pause1 && !pause2))
         {
             PauseCon();
         }
