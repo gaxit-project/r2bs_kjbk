@@ -304,4 +304,18 @@ public class FireSpread : MonoBehaviour
             return true;
         }
     }
+
+    void OnCollisionEnter(Collision col)
+    {
+        Debug.Log(col.gameObject.tag);
+        if (col.gameObject.tag == "Wall")
+        {
+            StopCoroutine("SpreadFire");
+            FireXp = true;
+            FireZp = true;
+            FireXm = true;
+            FireZm = true;
+            FireNum = 4;
+        }
+    }
 }
