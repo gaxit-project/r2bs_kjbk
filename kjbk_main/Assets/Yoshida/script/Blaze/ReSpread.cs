@@ -34,10 +34,9 @@ public class ReSpread : MonoBehaviour
 
     private void Spread()
     {
-        Vector3 BlazePos = new Vector3(this.transform.position.x, 6.16f, this.transform.position.z);
-        Vector3 plane = new Vector3 (this.transform.position.x, this.transform.position.y - 6.445f, this.transform.position.z);
-        m_Blaze.CreateBlaze(BlazePos);
-        m_Blaze.CreateSpreadPlane(plane);
+        Vector3 blaze = new Vector3 (this.transform.position.x, this.transform.position.y + 0.5f, this.transform.position.z);
+        m_Blaze.CreateBlaze(blaze);
+        m_Blaze.CreateSpreadPlane(this.transform.position);
         Destroy(this.gameObject);
     }
 

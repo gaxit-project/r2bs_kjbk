@@ -38,5 +38,6 @@ public class Plane_Alpha : MonoBehaviour
     private void Stop()
     {
         StopCoroutine("Blink");
+        Destroy(this.gameObject);
     }
 }
