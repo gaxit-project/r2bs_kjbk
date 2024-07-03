@@ -23,9 +23,12 @@ public class Radio_ver3 : MonoBehaviour
     [HideInInspector] public bool RPeople2 = true;
 
     [HideInInspector] public bool CollapseRadio = false;
+    [HideInInspector] public bool FirstFlag = true;
+
+    [HideInInspector] public bool CollapseFlag = false;
     [HideInInspector] public bool RHintFlag = false;
     [HideInInspector] public bool RPopFlag = false;
-    [HideInInspector] public bool FirstFlag = true;
+    public bool RadioFlag = true;
 
 
     public CollGauge CG2;
@@ -48,12 +51,17 @@ public class Radio_ver3 : MonoBehaviour
     public RescueNPC npc;
     public int number1 = 1;
 
+    public R_Number numberR;
+
+    [HideInInspector] public bool Radio80;
+    [HideInInspector] public bool Radio60;
+    [HideInInspector] public bool Radio40;
+    [HideInInspector] public bool Radio20;
+    [HideInInspector] public bool Radio10;
 
     // Start is called before the first frame update
     void Start()
     {
-       
-
         StartCoroutine(DelayCoroutine());
         ChatPanel.SetActive(false);
         ChatPanel1.SetActive(false);
@@ -103,73 +111,64 @@ public class Radio_ver3 : MonoBehaviour
             }
 
         }
+
+
+        if(RadioFlag)
+        {
+            Debug.Log("RadioFlag");
+            if (CollapseFlag)
+            {
+                Debug.Log("ゲージだすよー");
+                Debug.Log("こんちくわ");
+                RadioStoper();
+                CollapseFlag = false;
+                RadioFlag = false;
+                Invoke(nameof(RadioFlagONOFF), EndTimer);
+            }
+            else if(RHintFlag)
+            {
+                Debug.Log("軽症者ヒント出すよー");
+                RHintStop();
+                RHintFlag = false;
+                RadioFlag = false;
+                Invoke(nameof(RadioFlagONOFF), EndTimer);
+            }
+            else if(RPopFlag)
+            {
+                Debug.Log("重症者ヒント出すよー");
+                SymbolStop();
+                RPopFlag = false;
+                RadioFlag = false;
+                Invoke(nameof(RadioFlagONOFF), EndTimer);
+            }
+        }
     }
 
+    void RadioFlagONOFF()
+    {
+        RadioFlag = true;
+    }
     void StartONOFF()
     {
-        /*var Gauge = GetComponent<CollGauge>();
-        var Cont = GetComponent<PlayController>();
-        Gauge.enabled = true;
-        Cont.enabled = true;*/
     }
 
-
-    public void FirstRadio1()
-    {
-        if(JorE)
-        {
-            RadioText.SetText("重傷者が複数名いるとの情報だ");
-            StartCoroutine(Simple2());
-        }
-        else
-        {
-            RadioText.SetText("There are reports of multiple people seriously injured.");
-            StartCoroutine(Simple2());
-        }
-        
-    }
-    public void FirstRadio2()
-    {
-        if(JorE)
-        {
-            RadioText.SetText("軽症者を救いながら情報を集めてくれ");
-            StartCoroutine(Simple2());
-        }
-        else if(!JorE)
-        {
-            RadioText.SetText("Gather information while saving those with mild symptoms.");
-            StartCoroutine(Simple2());
-        }
-    }
     public void RadioStoper()
     {
         Debug.Log("Radio");
-        if (CollapseRadio)
+        
+        
+        //CollapsePanel();
+        if (JorE)
         {
-            CollapsePanel();
-            if (JorE)
-            {
-                StartCoroutine(Simple());
-            }
-            else if(!JorE)
-            {
-                StartCoroutine(Simple2());
-            }
-            
-            RadioON();
-            Invoke(nameof(RadioOFF), EndTimer);
-            CollapseRadio = false;
+            StartCoroutine(Simple());
         }
-        else if (RHintFlag)
+        else if(!JorE)
         {
-            //RHintStop();
-            RHintFlag = false;
+            StartCoroutine(Simple2());
         }
-        else if (RPopFlag)
-        {
-            SymbolStop();
-            RPopFlag = false;
-        }
+        
+        RadioON();
+        Invoke(nameof(RadioOFF), EndTimer);       
     }
 
     public void RadioON()
@@ -223,11 +222,13 @@ public class Radio_ver3 : MonoBehaviour
     }
 
     //軽症者の無線を管理
-    public void RHintStop(int number1)
+    public void RHintStop()
     {
         RMessager();
+        number1 = PlayerPrefs.GetInt("R_number");
+
         Invoke(nameof(RHint),5f);
-        Debug.Log("受け取った軽症者のナンバー：" + number1);
+        Debug.Log("ナンバー軽症者：" + number1);
         if(number1 == 1)
         {
             ChatPanel1.SetActive(true);
@@ -266,58 +267,59 @@ public class Radio_ver3 : MonoBehaviour
         if (JorE)
         {
             Debug.Log("文字入力2");
-            if (CG2.Radio80)
+            if (Radio80)
             {
+                Debug.Log("80%collapse");
                 RadioText.SetText("何か建物にヒビが入っていないか？");
-                CG2.Radio80 = false;
+                Radio80 = false;
             }
-            else if (CG2.Radio60)
+            else if (Radio60)
             {
                 RadioText.SetText("ヒビが拡大しているもしかしたら崩れるぞ");
-                CG2.Radio60 = false;
+                Radio60 = false;
             }
-            else if (CG2.Radio40)
+            else if (Radio40)
             {
                 RadioText.SetText("壁が崩れ始めている\r\n頑張ってくれ");
-                CG2.Radio40 = false;
+                Radio40 = false;
             }
-            else if (CG2.Radio20)
+            else if (Radio20)
             {
                 RadioText.SetText("天井が崩れ始めてるぞ\r\n急いでくれ");
-                CG2.Radio20 = false;
+                Radio20 = false;
             }
-            else if (CG2.Radio10)
+            else if (Radio10)
             {
                 RadioText.SetText("倒壊寸前だぞ\r\n速く逃げろ");
-                CG2.Radio10 = false;
+                Radio10 = false;
             }
         }
         else
         {
-            if (CG2.Radio80)
+            if (Radio80)
             {
                 RadioText.SetText("Are there any cracks in the building?\r\n\r\n");
-                CG2.Radio80 = false;
+                Radio80 = false;
             }
-            else if (CG2.Radio60)
+            else if (Radio60)
             {
                 RadioText.SetText("The cracks are getting bigger and it might collapse.\r\n\r\n");
-                CG2.Radio60 = false;
+                Radio60 = false;
             }
-            else if (CG2.Radio40)
+            else if (Radio40)
             {
                 RadioText.SetText("The walls are starting to crumble\r\nGood luck");
-                CG2.Radio40 = false;
+                Radio40 = false;
             }
-            else if (CG2.Radio20)
+            else if (Radio20)
             {
                 RadioText.SetText("The ceiling is starting to collapse\r\nHurry up!");
-                CG2.Radio20 = false;
+                Radio20 = false;
             }
-            else if (CG2.Radio10)
+            else if (Radio10)
             {
                 RadioText.SetText("It's on the verge of collapse.\r\nRun away quickly.");
-                CG2.Radio10 = false;
+                Radio10 = false;
             }
         }
     }

@@ -27,6 +27,7 @@ public class GoalJudgement : MonoBehaviour
         {
             if (Hit.gameObject.tag == "Player")
             {
+                //Time.timeScale = 0;
                 EscapeON.SetActive(true);
                 EscapeOFF.SetActive(true);
                 GJonoff = false;
