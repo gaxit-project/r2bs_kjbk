@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 
 public class FireLv : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class FireLv : MonoBehaviour
 
     private GameObject Blaze;
     private Blaze_Maneger m_Blaze;
+    Transform BlazePos;
+    Vector3 pos;
 
     private void Awake()
     {
@@ -30,6 +33,10 @@ public class FireLv : MonoBehaviour
     {
         FireLvel = 1;
         this.transform.localScale = new Vector3(Size, Size, Size);
+        BlazePos = this.transform;
+        pos = BlazePos.position;
+        pos.y = 2.2f;
+        BlazePos.position = pos;
         StartCoroutine("LvUp");
     }
 
@@ -53,6 +60,8 @@ public class FireLv : MonoBehaviour
                 PreSize += LvUpSize;
                 this.transform.localScale = new Vector3(PreSize, PreSize, PreSize);
                 FireLvel++;
+                pos.y =4.2f;
+                BlazePos.position = pos;
             }
         }
     }
