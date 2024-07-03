@@ -16,6 +16,7 @@ public class Blaze_Maneger : MonoBehaviour
     [SerializeField] private float SpreadProbability;
     [SerializeField] private int LvSpreadProbability;
     [SerializeField] private float SpreadRange;
+    [SerializeField] private float PosY_Spread;
     [SerializeField] private int BoostNum;
     [SerializeField] private string[] AntiBlazeTag;
 
@@ -59,9 +60,9 @@ public class Blaze_Maneger : MonoBehaviour
         return (LvUpSecond, LvUpProbability, LvUpSize);
     }
 
-    public (float Second, float Probability, int LvProbability, float Range, int Boost, string[] Tag) getSpreadData()
+    public (float Second, float Probability, int LvProbability, float Range, float Pos, int Boost, string[] Tag) getSpreadData()
     {
-        return (SpreadSecond, SpreadProbability, LvSpreadProbability, SpreadRange, BoostNum, AntiBlazeTag);
+        return (SpreadSecond, SpreadProbability, LvSpreadProbability, SpreadRange, PosY_Spread, BoostNum, AntiBlazeTag);
     }
 
     public (float min, float max) getReData()

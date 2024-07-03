@@ -20,6 +20,7 @@ public class ReSpread : MonoBehaviour
         minSecond = Data.min;
         maxSecond = Data.max;
         RandomReSpread();
+        Invoke("Des", maxSecond + 1f);
     }
 
     private void RandomReSpread()
@@ -42,9 +43,14 @@ public class ReSpread : MonoBehaviour
 
     void OnTriggerStay(Collider col)
     {
-        if (col.gameObject.name == "Blazetest" || col.gameObject.name == "SpreadPlane")
+        if (col.gameObject.name == "SpreadPlane")
         {
-            Destroy(this.gameObject);
+            Des();
         }
+    }
+
+    private void Des()
+    {
+        Destroy(this.gameObject);
     }
 }

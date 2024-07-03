@@ -11,6 +11,7 @@ public class FireSpread : MonoBehaviour
     private float SpreadProbability;   //延焼確立(%)
     private int LvSpreadProbability;   //炎レベルによる確率の上昇(確率に数値*(Lv-1)プラス)
     private float SpreadRange;   //延焼時の移動距離
+    private float PosY;
 
     private string[] AntiBlazeTag;
 
@@ -54,6 +55,7 @@ public class FireSpread : MonoBehaviour
         SpreadProbability = Data.Probability;
         LvSpreadProbability = Data.LvProbability;
         SpreadRange = Data.Range;
+        PosY = Data.Pos;
         boostNum = Data.Boost;
         AntiBlazeTag = Data.Tag;
 
@@ -78,8 +80,7 @@ public class FireSpread : MonoBehaviour
             StopCoroutine("SpreadFire");
             if (Action)
             {
-
-                m_Blaze.CreateExtPlane(new Vector3(this.transform.position.x, this.transform.position.y - 0.5f, this.transform.position.z));
+                m_Blaze.CreateExtPlane(new Vector3(this.transform.position.x, PosY, this.transform.position.z));
                 Action = false;
             }
         }
@@ -241,10 +242,10 @@ public class FireSpread : MonoBehaviour
 
     private void Plane()
     {
-        Vector3 prefabXp = new Vector3(this.transform.position.x + SpreadRange, this.transform.position.y - 6.445f, this.transform.position.z);
-        Vector3 prefabZp = new Vector3(this.transform.position.x, this.transform.position.y - 6.445f, this.transform.position.z + SpreadRange);
-        Vector3 prefabXm = new Vector3(this.transform.position.x - SpreadRange, this.transform.position.y - 6.445f, this.transform.position.z);
-        Vector3 prefabZm = new Vector3(this.transform.position.x, this.transform.position.y - 6.445f, this.transform.position.z - SpreadRange);
+        Vector3 prefabXp = new Vector3(this.transform.position.x + SpreadRange, PosY, this.transform.position.z);
+        Vector3 prefabZp = new Vector3(this.transform.position.x, PosY, this.transform.position.z + SpreadRange);
+        Vector3 prefabXm = new Vector3(this.transform.position.x - SpreadRange, PosY, this.transform.position.z);
+        Vector3 prefabZm = new Vector3(this.transform.position.x, PosY, this.transform.position.z - SpreadRange);
 
         if (d == 0) return;
         if (d == 1)
