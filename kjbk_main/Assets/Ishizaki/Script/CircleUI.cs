@@ -15,9 +15,10 @@ public class CircleUI : MonoBehaviour
     private GameObject Rescue;
     public RescueNPC resNPC;
 
-    public static int ResNumBest = 0;   //Best救助者数
-    public static int ResNumNormal = 0;   //Normal救助者数
-    public static int ResNumBad = 0;   //Bad救助者数
+    public static int ResNumBest;
+    public static int ResNumNormal;
+    public static int ResNumBad;
+    public static int ResNum;
 
     // Start is called before the first frame update
     void Start()
@@ -25,15 +26,10 @@ public class CircleUI : MonoBehaviour
         //CircleProgressのImageコンポーネント取得
         ImgCircle = CircleProgress.GetComponent<Image>();
 
-        //Rescue = GameObject.Find("Rescue");
-        //resNPC = Rescue.GetComponent<RescueNPC>();
-
-        PlayerPrefs.SetInt("ResCntBest", 0);
-        PlayerPrefs.SetInt("ResCntNormal", 0);
-        PlayerPrefs.SetInt("ResCntBad", 0);
-
         //タイマースタート
         ColorFlag = 1;
+
+        ResNum = 0;   //救助者数
     }
 
     //塗りつぶし
@@ -50,24 +46,21 @@ public class CircleUI : MonoBehaviour
     //重傷者カウント用
     public void SevereCount()
     {
+        ResNum++;
         if (ScoreFlag == "Best")
         {
-            ResNumBest++;
-            PlayerPrefs.SetInt("ResCntBest", ResNumBest);
-            Debug.Log("Best++");
+            PlayerPrefs.SetInt("ResCntBest", ResNum);
         }
         else if (ScoreFlag == "Normal")
         {
-            ResNumNormal++;
-            PlayerPrefs.SetInt("ResCntNormal", ResNumNormal);
-            Debug.Log("Normal++");
+            PlayerPrefs.SetInt("ResCntNormal", ResNum);
         }
-        else
+        else if (ScoreFlag == "Bad")
         {
-            ResNumBad++;
-            PlayerPrefs.SetInt("ResCntBad", ResNumBad);
-            Debug.Log("Bad++");
+            PlayerPrefs.SetInt("ResCntBad", ResNum);
         }
+
+        ResNum = 0;
     }
 
     // Update is called once per frame
@@ -102,6 +95,15 @@ public class CircleUI : MonoBehaviour
         if (resNPC.IsItInGoal() && !resNPC.IsItRescued() && resNPC.Severe == true)
         {
             SevereCount();
+
+        }
+
+        //テスト用
+        if ((Input.GetKeyDown(KeyCode.N)))
+        {
+            Debug.Log("Best = " + PlayerPrefs.GetInt("ResCntBest") + "Cnt = " + ResNumBest +
+                "Normal = " + PlayerPrefs.GetInt("ResCntNormal") + "Cnt = " + ResNumNormal +
+                "Bad = " + PlayerPrefs.GetInt("ResCntBad") + "Cnt = " + ResNumBad);
         }
     }
 }

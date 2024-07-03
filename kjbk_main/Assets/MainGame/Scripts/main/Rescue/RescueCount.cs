@@ -53,30 +53,6 @@ public class RescueCount : MonoBehaviour
         PlayerPrefs.SetInt("RescueCount", RescueNum); //セーブ
     }
 
-    //重傷者カウント用
-    public void SevereCount()
-    {
-        if (CirUI.ScoreFlag == "Best")
-        {
-            ResNumBest++;
-            PlayerPrefs.SetInt("ResCntBest", ResNumBest);
-            Debug.Log("Best++");
-        }
-        else if (CirUI.ScoreFlag == "Normal")
-        {
-            ResNumNormal++;
-            PlayerPrefs.SetInt("ResCntNormal", ResNumNormal);
-            Debug.Log("Normal++");
-        }
-        else
-        {
-            ResNumBad++;
-            PlayerPrefs.SetInt("ResCntBad", ResNumBad);
-            Debug.Log("Bad++");
-        }
-    }
-
-
     public int getNum()   //現在救助者数の取得
     {
         Debug.Log("callNum");
