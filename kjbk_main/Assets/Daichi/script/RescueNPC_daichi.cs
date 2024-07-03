@@ -187,11 +187,11 @@ public class RescueNPC_daichi : MonoBehaviour
 
     public void ComentON()
     {
-        NumberR = number.RNumber();
+       // NumberR = number.RNumber();
         Debug.Log("救助者のナンバー：" + NumberR);
         POP.LightR();
         Radio3.RPopFlag = true;
-        Radio3.RHintStop(NumberR);
+       // Radio3.RHintStop(NumberR);
     }
     public void CountDestroy()//オブジェクトの破壊
     {

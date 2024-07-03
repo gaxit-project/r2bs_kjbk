@@ -6,10 +6,10 @@ public class R_Number : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    public int Number = 0;
+    public int Number;
     void Start()
     {
-        
+        PlayerPrefs.SetInt("R_number", 0);
     }
 
     // Update is called once per frame
@@ -18,8 +18,8 @@ public class R_Number : MonoBehaviour
         
     }
 
-    public int RNumber()
+    public void RNumber()
     {
-        return Number;
+        PlayerPrefs.SetInt("R_number", Number);
     }
 }

@@ -196,19 +196,17 @@ public class RescueNPC : MonoBehaviour
 
     public void ComentON()
     {
-        NumberR = number.RNumber();
-        Debug.Log("救助者のナンバー：" + NumberR);
+        number.RNumber();
         POP.LightR();
-        Radio3.RPopFlag = true;
-        Radio3.RHintStop(NumberR);
+        Radio3.RHintFlag = true;
+        Debug.Log("軽症者フラグおんするよーん"+Radio3.RHintFlag);
     }
     public void CountDestroy()//オブジェクトの破壊
     {
         if (Severe)//重傷者の時
         {
             POP.HeavyR();
-            Radio3.RHintFlag = true;
-            Radio3.SymbolStop();
+            Radio3.RPopFlag = true;
         }
         Invoke("Destroy", 2f);
     }
