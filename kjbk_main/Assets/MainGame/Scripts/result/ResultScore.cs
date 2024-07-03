@@ -139,10 +139,10 @@ public class ResultScore : MonoBehaviour
         Normal = PlayerPrefs.GetInt("ResCntNormal");
         Bad = PlayerPrefs.GetInt("ResCntBad");
 
-        //デバッグ
-        Debug.Log(Best + " " + Normal + " " + Bad);
-
         score = Best * 200 + Normal * 100 + Bad * 50;
+
+        //デバッグ
+        Debug.Log(Best + "," + Normal + "," + Bad + " Score:" + score);
     }
 
     public void ToTitle()
