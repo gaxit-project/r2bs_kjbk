@@ -227,7 +227,13 @@ public class Radio_ver3 : MonoBehaviour
         RMessager();
         number1 = PlayerPrefs.GetInt("R_number");
 
-        Invoke(nameof(RHint),5f);
+        if (RPeople2)
+        {
+            if (RPeople)
+            {
+                Invoke(nameof(RHint), 5f);
+            }
+        }
         Debug.Log("ナンバー軽症者：" + number1);
         if(number1 == 1)
         {
@@ -280,7 +286,7 @@ public class Radio_ver3 : MonoBehaviour
             }
             else if (Radio40)
             {
-                RadioText.SetText("壁が崩れ始めている\r\n頑張ってくれ");
+                RadioText.SetText("火が強くなってきている\r\n防火シャッターをおろして炎の延焼を防いでいくぞ");
                 Radio40 = false;
             }
             else if (Radio20)
@@ -671,6 +677,15 @@ public class Radio_ver3 : MonoBehaviour
                     StartCoroutine(Simple1());
                 }
             }
+        }
+        else
+        {
+            ChatPanel4.SetActive(false);
+            ChatPanel3.SetActive(false);
+            ChatPanel2.SetActive(false);
+            ChatPanel1.SetActive(false);
+            ChatR.SetActive(false);
+
         }
 
         if (RCnt % 3 == 0)

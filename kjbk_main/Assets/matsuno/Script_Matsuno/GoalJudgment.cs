@@ -11,46 +11,50 @@ public class GoalJudgement : MonoBehaviour
     [SerializeField] GameObject SoundSetting;
     private bool GJonoff = true;
 
-    public bool JudgeFlag = true;
+    public bool JudgeFlag = false;
 
     // Start is called before the first frame update
     void Start()
     {
         EscapeON.SetActive(false);
         EscapeOFF.SetActive(false);
+        Invoke(nameof(FlagONOFF), 2);
     }
 
     // Update is called once per frame
 
-/// <summary>
-/// ///////////出口に触れた瞬間ゴールするかのボタンを出す
+    /// <summary>
+    /// ///////////出口に触れた瞬間ゴールするかのボタンを出す
 
     public void OnCollisionEnter(Collision Hit)
     {
-        if(GJonoff)
+        if (GJonoff)
         {
             if (Hit.gameObject.tag == "Player")
             {
                 BackToTheTitle.SetActive(false);
                 SoundSetting.SetActive(false);
-                Time.timeScale = 0.5f;
-                if(JudgeFlag)
-                {
-                    Invoke(nameof(gamestop), 0.5f);
-                    JudgeFlag = false;
-                }
+                Time.timeScale = 0;
                 EscapeON.SetActive(true);
                 EscapeOFF.SetActive(true);
                 GJonoff = false;
             }
         }
-        
+
     }
 
+    private void FlagONOFF()
+    {
+        JudgeFlag = true;
+    }
 
     private void gamestop()
     {
         Time.timeScale = 0;
+    }
+    private void GameRestart()
+    {
+        Time.timeScale = 1;
     }
     /// ///////////出口から離れた瞬間ゴールするかのボタンを消す
 
@@ -58,6 +62,7 @@ public class GoalJudgement : MonoBehaviour
     {
         if (Hit.gameObject.tag == "Player")
         {
+            Time.timeScale = 1f;
             EscapeON.SetActive(false);
             EscapeOFF.SetActive(false);
             GJonoff = true;
