@@ -8,88 +8,73 @@ public class SwitchCamera : MonoBehaviour
     private RescueCount CounterScript;
     public Camera mainCamera; //メインカメラ
     public Camera subCamera; //くそでかマップのカメラ
-    bool map_status=false; //マップのボタンの処理用変数
-    bool initialMapStatusActivated = false; 
-    bool Ui_status=false;
+    bool map_status = false; //マップのボタンの処理用変数
+    public bool initialMapStatusActivated = true; 
+    public bool Ui_status = false;
     private InputAction MapAction;
     public GameObject Ui;
     public GameObject Mkey;
     public GameObject miniMap;
     public GameObject hat1;
     private RescueNPC rescueNPC;
+
     void Start()
     {
-       // map_status=false;
-        //initialMapStatusActivated = false;
-        //Ui_status=false;
-        mainCamera=Camera.main;
+        mainCamera = Camera.main;
         CounterScript = FindObjectOfType<RescueCount>();
         rescueNPC = FindObjectOfType<RescueNPC>();
         var pInput = GetComponent<PlayerInput>();
-        //現在のアクションマップを取得
         var actionMap = pInput.currentActionMap;
-
-        //アクションマップからアクションを取得
         MapAction = actionMap["Map"];
     }
 
-    // Update is called once per frame
     void Update()
     {
         bool Map = MapAction.triggered;
 
-        if (CounterScript.getNum() == 1 && !initialMapStatusActivated)
+        if (CounterScript.getNum() == 1 && initialMapStatusActivated)
         {
             StartCoroutine(ActivateInitialMapStatusWithDelay(2.0f));
-            /*map_status = true;
-            initialMapStatusActivated = true;*/
         }
 
-        //キーボードのMが押されたら切り替える
         if (Map || Input.GetKeyDown(KeyCode.M))
-        {// 初回アクティベーションの後のみトグルを許可
-            //if (initialMapStatusActivated) {
-                map_status = !map_status;
-            //}
+        {
+            map_status = !map_status;
         }
 
-        //くそでかマップ表示
-        if(map_status == true)
+        if (map_status)
         {
-            subCamera.enabled=true;
+            subCamera.enabled = true;
             miniMap.SetActive(false);
-            if(Ui_status){
-            Ui.SetActive(true);
-            }
+            Ui.SetActive(Ui_status);
             Mkey.SetActive(true);
         }
-        //くそでかマップ非表示
         else
         {
-            subCamera.enabled=false;
+            subCamera.enabled = false;
             miniMap.SetActive(true);
-            if(Ui_status){
             Ui.SetActive(false);
-            }
             Mkey.SetActive(false);
         }
 
         if (rescueNPC != null && rescueNPC.IsItFollow())
         {
-            Ui_status=false;
+            initialMapStatusActivated = false;
+            Ui_status = false;
             Ui.SetActive(false);
-            //Ui=null;
         }
     }
+
     private IEnumerator ActivateInitialMapStatusWithDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
-        if(hat1!=null){
-        Ui_status=true;
-        Ui.SetActive(true);
-        map_status = true;
+        if (hat1 != null)
+        {
+            Ui_status = true;
+            Ui.SetActive(true);
+            map_status = true;
         }
-        
-        initialMapStatusActivated = true;
+        initialMapStatusActivated = false;
     }
 }
+
