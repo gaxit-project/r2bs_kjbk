@@ -12,6 +12,9 @@ public class Presente : MonoBehaviour
     public GameObject SoundOptionUI;
     public GameObject TitleUI;
 
+    public GameObject BackToTheTitle;
+    public GameObject SoundSetting;
+
     public Button a;
     public Button TitleIcon;
     public Button TitlePIcon;
@@ -20,8 +23,12 @@ public class Presente : MonoBehaviour
     public bool ConfigSta;
     public bool TitleSta;
 
+    public GoalJudgement Goal;
+
 
     public static Pause PauseScript;
+
+    int Rcnt = 0;
 
     private void Start()
     {
@@ -73,6 +80,9 @@ public class Presente : MonoBehaviour
         TitleUI.SetActive(false);
         PauseUI.SetActive(false);
         Time.timeScale = 1.0f;
+        Invoke(nameof(FlagONOFF), 5);
+        BackToTheTitle.SetActive(true);
+        SoundSetting.SetActive(true);
         //PauseScript.pause_status = false;
     }
     public void Title()
@@ -99,5 +109,34 @@ public class Presente : MonoBehaviour
         PauseUI.SetActive(true);
         SoundPIcon.Select();
         ConfigSta = false;
+    }
+    public void Escape()
+    {
+        Rcnt = PlayerPrefs.GetInt("RescueCount");
+        Debug.Log("K");
+
+        //救助した人数が5人以上ならクリアへ移行
+        if (Rcnt >= 5)
+        {
+            PlayerPrefs.SetString("Result", "CLEAR");
+            Scene.Instance.GameResult();
+            //Scene.Instance.GameClear();
+        }
+
+        //違うならゲームオーバーに移行
+        else
+        {
+            PlayerPrefs.SetString("Result", "GAMEOVER");
+            Scene.Instance.GameResult();
+            //Scene.Instance.GameOver();
+        }
+    }
+    public void NoEscape()
+    {
+
+    }
+    public void FlagONOFF()
+    {
+        Goal.JudgeFlag = true;
     }
 }

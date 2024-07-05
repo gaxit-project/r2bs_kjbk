@@ -7,6 +7,8 @@ public class GoalJudgement : MonoBehaviour
 {
     [SerializeField] GameObject EscapeON;
     [SerializeField] GameObject EscapeOFF;
+    [SerializeField] GameObject BackToTheTitle;
+    [SerializeField] GameObject SoundSetting;
     private bool GJonoff = true;
 
     public bool JudgeFlag = true;
@@ -29,6 +31,8 @@ public class GoalJudgement : MonoBehaviour
         {
             if (Hit.gameObject.tag == "Player")
             {
+                BackToTheTitle.SetActive(false);
+                SoundSetting.SetActive(false);
                 Time.timeScale = 0.5f;
                 if(JudgeFlag)
                 {
@@ -57,6 +61,8 @@ public class GoalJudgement : MonoBehaviour
             EscapeON.SetActive(false);
             EscapeOFF.SetActive(false);
             GJonoff = true;
+            BackToTheTitle.SetActive(true);
+            SoundSetting.SetActive(true);
         }
     }
 
