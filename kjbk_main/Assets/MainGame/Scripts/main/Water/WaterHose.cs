@@ -56,6 +56,7 @@ public class WaterHose : MonoBehaviour
             case InputActionPhase.Canceled:
                 // ボタンが離された時の処理
                 Hold = false;
+                HoldLock = true;
                 break;
         }
     }

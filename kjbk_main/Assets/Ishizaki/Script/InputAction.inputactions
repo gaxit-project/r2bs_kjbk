@@ -42,6 +42,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "ResTalk",
+                    "type": "Button",
+                    "id": "cf103e36-09cd-4f3b-8444-72043b5e24f7",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Destroy",
                     "type": "Button",
                     "id": "d36e8714-e0e1-48b9-b7d6-7f8e62604c1a",
@@ -295,6 +304,17 @@
                 },
                 {
                     "name": "",
+                    "id": "95f2b1e4-b5b9-4695-9cfb-6f6e5c16d6af",
+                    "path": "<XInputController>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Fire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "39f28b5d-2ee8-4368-b7bc-ec8e5d05681e",
                     "path": "<XInputController>/buttonEast",
                     "interactions": "",
@@ -361,8 +381,19 @@
                 },
                 {
                     "name": "",
-                    "id": "3c2c16e3-a8d0-4df1-a740-9b6032298265",
-                    "path": "<XInputController>/rightShoulder",
+                    "id": "d7f31f71-936e-466f-a11a-79b8cb19d4d8",
+                    "path": "<XInputController>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Map",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "02cc7d9e-b866-4b70-a976-cd54945ef471",
+                    "path": "<XInputController>/leftTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
@@ -411,6 +442,17 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Test",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "12005e8f-1002-4f7b-ae35-05b057b31a8b",
+                    "path": "<XInputController>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "ResTalk",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

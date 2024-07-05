@@ -45,6 +45,7 @@ public class RescueNPC : MonoBehaviour
     bool Lock = false;   //Playerの動きの固定
 
     private InputAction TalkAction;
+    private InputAction ResTalkAction;
 
     private Animator FFanimator;
     private Animator NPCanimator;
@@ -74,6 +75,7 @@ public class RescueNPC : MonoBehaviour
 
         //アクションマップからアクションを取得
         TalkAction = actionMap["Talk"];
+        ResTalkAction = actionMap["ResTalk"];
 
         //アニメーション読み込み
         FFanimator = Player.GetComponent<Animator>();
@@ -103,12 +105,13 @@ public class RescueNPC : MonoBehaviour
     void FixedUpdate()
     {
         bool Talk = TalkAction.triggered;
+        bool ResTalk = ResTalkAction.triggered;
 
         Transform target = Player.transform;   //PlayerのTransform
         Vector3 TargetPosition = target.position;
         if (IsItInZone())
         {
-            if (Talk && Severe == true && !IsItInGoal())   //重傷者に近づいたとき
+            if (ResTalk && Severe == true && !IsItInGoal())   //重傷者に近づいたとき
             {
                 if (!IsItFollow() && !DiplicationScript.getFlag())   //非追従時
                 {
