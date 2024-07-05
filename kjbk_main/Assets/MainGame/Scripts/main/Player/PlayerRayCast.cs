@@ -21,6 +21,7 @@ public class PlayerRayCast : MonoBehaviour
 
     
     public GameObject Hosu;//ホースのオブジェクトを格納
+    //public GameObject HosuObj;//ホースのオブジェクトを格納
 
     //破壊システム
     public GameObject DesSystemUI; //破壊システムのUI
@@ -40,12 +41,13 @@ public class PlayerRayCast : MonoBehaviour
 
     void Start ()
     {
-        Hosu = this.transform.Find("shokaki").gameObject;
+        //Hosu = this.transform.Find("shokaki").gameObject;
         HosuStatus = false;
         //Hosu = this.transform.Find("Syoukaki").gameObject;
         if (HosuStatus == false)
         {
             Hosu.SetActive(HosuStatus);
+            //HosuObj.SetActive(HosuStatus);
         }
 
          fpsCam = GameObject.Find("FPSCamera");
@@ -130,6 +132,7 @@ public class PlayerRayCast : MonoBehaviour
                         Debug.Log("消火栓使用中");
                         HosuStatus = true;
                         Hosu.SetActive(HosuStatus);
+                        //HosuObj.SetActive(HosuStatus);
                     }
                     else
                     {

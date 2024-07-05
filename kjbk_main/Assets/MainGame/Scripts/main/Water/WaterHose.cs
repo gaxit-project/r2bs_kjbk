@@ -13,6 +13,11 @@ public class WaterHose : MonoBehaviour
     float capacity;
 
     public GameObject FF;
+    public GameObject Hand;
+    public GameObject Waist;
+
+    Transform HandPos;
+    Transform WaistPos;
 
     private Animator animator;
 
@@ -28,6 +33,10 @@ public class WaterHose : MonoBehaviour
         Hold = false;
         audiosource = GetComponent<AudioSource>();
         WaterCannon(WaterStatus);
+        HandPos = Hand.transform;
+        WaistPos = Waist.transform;
+
+        this.transform.position = new Vector3(WaistPos.position.x, WaistPos.position.y, WaistPos.position.z);
 
     }
 
@@ -54,6 +63,8 @@ public class WaterHose : MonoBehaviour
 
     void Update()
     {
+        HandPos = Hand.transform;
+        WaistPos = Waist.transform;
         capacity = PlayerPrefs.GetFloat("capacity");
         if(Input.GetMouseButtonDown(1))
         {
@@ -88,9 +99,10 @@ public class WaterHose : MonoBehaviour
                 {
                     isOnes = true;
                     animator.SetBool("Gun", isOnes);
-                    
+                    Invoke(nameof(HandPocket), 0.4f);
+
                 }
-                Invoke(nameof(WaterChange), 0.7f);
+                Invoke(nameof(WaterChange), 0.3f);
 
             }
             else
@@ -102,6 +114,7 @@ public class WaterHose : MonoBehaviour
                     animator.SetBool("Gun", isOnes);
                 }
                 Invoke(nameof(HoldLockOFF), 1f);
+                this.transform.position = new Vector3(WaistPos.position.x, WaistPos.position.y, WaistPos.position.z);
             }
         }
         else
@@ -137,5 +150,10 @@ public class WaterHose : MonoBehaviour
     void HoldLockOFF()
     {
         HoldLock = false;
+    }
+
+    void HandPocket()
+    {
+        this.transform.position = new Vector3(HandPos.position.x, HandPos.position.y, HandPos.position.z);
     }
 }
