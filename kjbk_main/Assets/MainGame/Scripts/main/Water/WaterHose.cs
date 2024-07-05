@@ -19,6 +19,8 @@ public class WaterHose : MonoBehaviour
     bool isOnes = false;
     private AudioSource audiosource;
 
+    bool HoldLock = false;
+
     private void OnEnable()
     {
         Debug.Log("aaaa");
@@ -49,6 +51,7 @@ public class WaterHose : MonoBehaviour
         //アニメーション読み込み
         animator = FF.GetComponent<Animator>();
     }
+
     void Update()
     {
         capacity = PlayerPrefs.GetFloat("capacity");
@@ -56,14 +59,26 @@ public class WaterHose : MonoBehaviour
         {
             Hold = true;
         }
+
         if (Input.GetMouseButtonUp(1))
         {
+            
             Hold = false;
+            HoldLock = true;
         }
+
+        /*
         if (Hold)
         {
             Debug.Log("Hold");
         }
+        */
+
+        if(HoldLock)
+        {
+            Hold = false;
+        }
+
         if (PlayerRayCast.HosuStatus == true)
         {
             Debug.Log("ホースは持っている");
@@ -75,7 +90,7 @@ public class WaterHose : MonoBehaviour
                     animator.SetBool("Gun", isOnes);
                     
                 }
-                Invoke(nameof(WaterChange), 1f);
+                Invoke(nameof(WaterChange), 0.7f);
 
             }
             else
@@ -86,6 +101,7 @@ public class WaterHose : MonoBehaviour
                     isOnes = false;
                     animator.SetBool("Gun", isOnes);
                 }
+                Invoke(nameof(HoldLockOFF), 1f);
             }
         }
         else
@@ -117,5 +133,9 @@ public class WaterHose : MonoBehaviour
     void WaterChange()
     {
         WaterStatus = true;
+    }
+    void HoldLockOFF()
+    {
+        HoldLock = false;
     }
 }
