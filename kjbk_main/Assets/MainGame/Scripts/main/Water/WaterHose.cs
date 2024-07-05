@@ -51,6 +51,7 @@ public class WaterHose : MonoBehaviour
             case InputActionPhase.Performed:
                 // ボタンが押された時の処理
                 Hold = true;
+                Debug.Log("押してます(コントローラ)");
                 break;
 
             case InputActionPhase.Canceled:
