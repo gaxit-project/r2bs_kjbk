@@ -9,6 +9,8 @@ public class GoalJudgement : MonoBehaviour
     [SerializeField] GameObject EscapeOFF;
     private bool GJonoff = true;
 
+    public bool JudgeFlag = true;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,7 +29,12 @@ public class GoalJudgement : MonoBehaviour
         {
             if (Hit.gameObject.tag == "Player")
             {
-                //Time.timeScale = 0;
+                Time.timeScale = 0.5f;
+                if(JudgeFlag)
+                {
+                    Invoke(nameof(gamestop), 0.5f);
+                    JudgeFlag = false;
+                }
                 EscapeON.SetActive(true);
                 EscapeOFF.SetActive(true);
                 GJonoff = false;
@@ -36,6 +43,11 @@ public class GoalJudgement : MonoBehaviour
         
     }
 
+
+    private void gamestop()
+    {
+        Time.timeScale = 0;
+    }
     /// ///////////出口から離れた瞬間ゴールするかのボタンを消す
 
     public void OnCollisionExit(Collision Hit)

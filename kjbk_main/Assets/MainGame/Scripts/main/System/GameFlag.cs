@@ -18,6 +18,7 @@ public class GameFlag : MonoBehaviour
     private InputAction ExitAction;
     private InputAction NotExitAction;
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -71,6 +72,8 @@ public class GameFlag : MonoBehaviour
             {
                 Debug.Log("L");
                 Goal.EscapeONOFF();
+                Time.timeScale = 1;
+                Invoke(nameof(FlagONOFF), 5);
                 //EscapeON.SetActive(false);
                 //EscapeOFF.SetActive(false);
             }
@@ -78,6 +81,10 @@ public class GameFlag : MonoBehaviour
         }
     }
 
+    public void FlagONOFF()
+    {
+        Goal.JudgeFlag = true;
+    }
 
     public void EscapeONOFF()
     {
