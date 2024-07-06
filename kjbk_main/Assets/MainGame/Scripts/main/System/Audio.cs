@@ -21,6 +21,7 @@ public class Audio : MonoBehaviour
     [SerializeField] AudioSource audioSourceFire5;
     [SerializeField] AudioSource audioSourceFire6;
     [SerializeField] AudioSource audioSourceFire7;
+    [SerializeField] AudioSource audioSourceFireEx;
 
     public float BGMVolume //BGMÉ{ÉäÉÖÅ[ÉÄ
     {
@@ -94,6 +95,12 @@ public class Audio : MonoBehaviour
         get { return audioSourceFire7.volume; }
         set { audioSourceFire7.volume = value; }
 
+    }
+
+    public float FireExVolume
+    {
+        get { return audioSourceFireEx.volume; }
+        set { audioSourceFireEx.volume = value; }
     }
 
     public static Audio Instance = null;

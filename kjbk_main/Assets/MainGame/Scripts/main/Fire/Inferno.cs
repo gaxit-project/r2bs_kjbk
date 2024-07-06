@@ -17,6 +17,7 @@ public class Inferno : MonoBehaviour
     public bool P_O_Fire = false; //消化中判定
     public bool DesBlaze = false; //消化されたか
 
+    private AudioSource audiosource;
 
     void Start()
     {
@@ -28,6 +29,8 @@ public class Inferno : MonoBehaviour
 
         ran = UnityEngine.Random.Range(0f, 90f);
         myTransform = this.transform;
+
+        //audiosource = GetComponent<AudioSource>();
 
     }
 
@@ -59,6 +62,7 @@ public class Inferno : MonoBehaviour
     {
         //InfernoScriptが入る変数
         Inferno script = this.GetComponent<Inferno>();
+        audiosource = this.GetComponent<AudioSource>();
 
         //当たっている火の子オブジェクトの取得
         GameObject BlazeR1 = this.transform.GetChild(0).gameObject;
@@ -69,6 +73,7 @@ public class Inferno : MonoBehaviour
         if (AratalCap <= 0f)// && BY1_MinMaxCurve.constant <= 0f
         {
             Debug.Log("消化されました");
+            audiosource.Play();
             DesBlaze = true;
         }
     }

@@ -22,6 +22,7 @@ public class WaterBlaze : MonoBehaviour
             if (Inferno.DesBlaze)
             {
                 Debug.Log("è¡âªÇ≥ÇÍÇ‹ÇµÇΩ");
+                obj.GetComponent<AudioSource>().Play();
                 Destroy(obj);
             }
         }
