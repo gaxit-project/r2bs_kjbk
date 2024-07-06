@@ -26,7 +26,7 @@ public class Presente : MonoBehaviour
     public GoalJudgement Goal;
 
 
-    public static Pause PauseScript;
+    public Pause PauseScript;
 
     int Rcnt = 0;
 
@@ -38,6 +38,11 @@ public class Presente : MonoBehaviour
 
         ConfigSta = false;
         TitleSta = false;
+    }
+
+    private void Update()
+    {
+        Debug.Log("ふらぐおーーーーーん"+Goal.PauseFlag);
     }
 
     public void OnChangedBGMVolume()
@@ -84,7 +89,8 @@ public class Presente : MonoBehaviour
         Invoke(nameof(FlagONOFF), 5);
         BackToTheTitle.SetActive(true);
         SoundSetting.SetActive(true);
-        Goal.PauseFlag = false;
+        PauseScript.PauseCon();
+        //Goal.PauseFlag = false;
         //PauseScript.pause_status = false;
     }
     public void Title()
