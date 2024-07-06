@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         Audio.Instance.PlayBGM(0);
+        Cursor.visible = false;
+        //Cursor.lockState = CursorLockMode.Locked;
     }
 
     // Update is called once per frame

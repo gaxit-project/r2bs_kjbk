@@ -81,7 +81,7 @@ public class Radio_ver3 : MonoBehaviour
             ChatPanel.SetActive(true);
             if(JorE)
             {
-                RadioText.SetText("今回の現場は学生寮だ！行方不明者の半数を救うのが君の任務だ");
+                RadioText.SetText("今回の現場は学生寮だ！行方不明者の内5人を救うのが君の任務だ");
                 StartCoroutine(Simple2());
             }
             else
