@@ -43,6 +43,7 @@ public class ResultScore : MonoBehaviour
     int RescueCnt;
     void Start()
     {
+        Time.timeScale = 1.0f;
         a = CollGauge.Collapse;
         hp = LIFE.HitPoint;
         //textPeople = GameObject.Find("People").GetComponent<Text>();

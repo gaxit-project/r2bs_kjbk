@@ -3,6 +3,7 @@ using System.Collections.Generic;
 //using UnityEditor.Presets;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class Pause : MonoBehaviour
 {
@@ -17,6 +18,11 @@ public class Pause : MonoBehaviour
     public static bool pause2;
 
     public GameObject Presen;
+    public Button ResumeIcon;
+
+    public GoalJudgement Goal;
+
+    [SerializeField] GameObject EscapeON;
     void Start()
     {
         pause_status = false;
@@ -39,7 +45,14 @@ public class Pause : MonoBehaviour
         bool pause = PauseAction.triggered;
         if ((Input.GetKeyDown(KeyCode.Tab) || pause) && (!pause1 && !pause2))
         {
-            PauseCon();
+            ResumeIcon.Select();
+
+            if(!Goal.PauseFlag)
+            {
+                EscapeON.SetActive(false);
+                PauseCon();
+            }
+
         }
     }
 
