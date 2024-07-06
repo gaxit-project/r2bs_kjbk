@@ -90,7 +90,7 @@ public class Presente : MonoBehaviour
         BackToTheTitle.SetActive(true);
         SoundSetting.SetActive(true);
         PauseScript.PauseCon();
-        //Goal.PauseFlag = false;
+        Goal.PauseFlag = false;
         //PauseScript.pause_status = false;
     }
     public void Title()
