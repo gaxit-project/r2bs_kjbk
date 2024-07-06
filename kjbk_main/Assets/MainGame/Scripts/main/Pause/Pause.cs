@@ -25,7 +25,7 @@ public class Pause : MonoBehaviour
     [SerializeField] GameObject EscapeON;
     void Start()
     {
-        pause_status = false;
+        pause.SetActive(false);
 
         var pInput = GetComponent<PlayerInput>();
         //現在のアクションマップを取得
@@ -58,26 +58,15 @@ public class Pause : MonoBehaviour
 
     public void PauseCon()
     {
-        if (pause_status == true)
+        if (Time.timeScale == 0)
         {
-           pause_status = false;
-        }
-        else
-        {
-            pause_status = true;
-        }
-
-        if (pause_status == true)
-        {
-            pause.SetActive(pause_status);
-            //Debug.Log("ポーズ中です");
-            Time.timeScale = 0.0f;
-        }
-        else
-        {
-            pause.SetActive(pause_status);
-            //Debug.Log("ゲーム中です");
+            pause.SetActive(!pause.activeSelf);
             Time.timeScale = 1.0f;
+        }
+        else
+        {
+            pause.SetActive(!pause.activeSelf);
+            Time.timeScale = 0.0f;
         }
     }
 }

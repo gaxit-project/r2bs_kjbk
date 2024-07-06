@@ -84,8 +84,8 @@ public class Presente : MonoBehaviour
     {
         SoundOptionUI.SetActive(false);
         TitleUI.SetActive(false);
-        PauseUI.SetActive(false);
-        Time.timeScale = 1.0f;
+        //PauseUI.SetActive(false);
+        //Time.timeScale = 1.0f;
         Invoke(nameof(FlagONOFF), 5);
         BackToTheTitle.SetActive(true);
         SoundSetting.SetActive(true);
