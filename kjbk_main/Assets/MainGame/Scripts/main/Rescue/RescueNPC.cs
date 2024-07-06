@@ -60,6 +60,9 @@ public class RescueNPC : MonoBehaviour
 
     public R_Number number;
 
+    GameObject gameManagerObj;
+    GameManager gameManager;
+
     public int NumberR;
     void Start()
     {
@@ -85,6 +88,9 @@ public class RescueNPC : MonoBehaviour
 
         //初期化
         r_num = 0;
+
+        gameManagerObj = GameObject.Find("Manager");
+        gameManager = gameManagerObj.GetComponent<GameManager>(); // スクリプトを取得
 
 
         //////////////////////////////////
@@ -164,6 +170,7 @@ public class RescueNPC : MonoBehaviour
 
             if (IsItInGoal() && !IsItRescued() && Severe == true)   //救出地点に接触かつ未救出かつ重傷者
             {
+                gameManager.CallInoperable(2.0f); // 2 秒間　このスクリプトを無効にする（Inputできない）
                 DiplicationScript.OffFlag();
                 SetText("");
                 SetFollow(false);

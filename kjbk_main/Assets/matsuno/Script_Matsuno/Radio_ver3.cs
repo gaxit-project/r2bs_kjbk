@@ -286,7 +286,7 @@ public class Radio_ver3 : MonoBehaviour
             }
             else if (Radio40)
             {
-                RadioText.SetText("火が強くなってきている\r\n防火シャッターをおろして炎の延焼を防いでいくぞ");
+                RadioText.SetText("防火シャッターをおろして炎の延焼を防いでいくぞ");
                 Radio40 = false;
             }
             else if (Radio20)
