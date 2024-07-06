@@ -116,7 +116,8 @@ public class FireSpread : MonoBehaviour
             if (Fire_Lv1.FireLvel == 1) continue;
             d = dice();
             Plane();
-            Spread();
+            Invoke(nameof(Spread), 1f);
+            //Spread();
         }
     }
 

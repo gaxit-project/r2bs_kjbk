@@ -414,6 +414,17 @@
                 },
                 {
                     "name": "",
+                    "id": "ef2b8b53-f441-4520-bf94-1557c5365b47",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "371f7684-4912-49b6-b233-d8730743ad1c",
                     "path": "<XInputController>/leftTrigger",
                     "interactions": "",
@@ -425,11 +436,33 @@
                 },
                 {
                     "name": "",
+                    "id": "910652c2-a2dc-498c-bfdc-26fe89c88495",
+                    "path": "<Keyboard>/k",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Exit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "bf27b92e-e254-45a4-bea2-2cb3c5dcc879",
                     "path": "<XInputController>/leftShoulder",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
+                    "action": "NotExit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9ab4db93-90cf-474e-a348-0a73d2a98dc4",
+                    "path": "<Keyboard>/l",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
                     "action": "NotExit",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -452,6 +485,17 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
+                    "action": "ResTalk",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a13315f0-e5fd-49de-8fc8-f06afb166331",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
                     "action": "ResTalk",
                     "isComposite": false,
                     "isPartOfComposite": false
