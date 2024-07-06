@@ -39,6 +39,7 @@ public class ResultScore : MonoBehaviour
     int failedtime;
     int failedhp;
     bool clearflag;
+    int failedtotal;
 
     int RescueCnt;
     void Start()
@@ -62,11 +63,8 @@ public class ResultScore : MonoBehaviour
         score2 = RescueCnt * 100;
         people = score + score2;
         timepoint = (int)a * 5;
-        hppoint = hp * 1000;
-        failedpeople = people / 10;
-        failedtime = timepoint / 10;
-        failedhp = hppoint / 10;
-
+        hppoint = hp * 100;
+        
         Result(PlayerPrefs.GetString("Result"));
     }
     private void Update()
@@ -75,48 +73,37 @@ public class ResultScore : MonoBehaviour
         countscore += Time.deltaTime;
         if(countscore >= injureddisplay)
         {
-            if (clearflag == false)
-            {
-                textPeople.text = "People:" + failedpeople.ToString();
-            }
-            else if (clearflag == true)
-            {
                 textPeople.text = "People:" + people.ToString();
-            }
         }
         if (countscore >= timedisplay)
         {
-            if (clearflag == false)
-            {
-                textTime.text = "Time:" + failedtime.ToString();
-            }
-            else if (clearflag == true)
-            {
                 textTime.text = "Time:" + timepoint.ToString();
-            }
         }
         if (countscore >= hpdisplay)
         {
-            if (clearflag == false) 
-            {
-                textHP.text = "HP:" + failedhp.ToString();
-            }
-            else if (clearflag == true)
-            {
                 textHP.text = "HP:" + hppoint.ToString();
-            }
         }
         if (countscore >= totaldisplay)
         {
             if (clearflag == false)
             {
-                total = (int)(failedpeople + failedtime + failedhp);
+                failedtotal = (int)(people + timepoint + hppoint) - 1000;
+                total = (int)(people + timepoint + hppoint);
+                if (failedtotal > 0)
+                {
+                    textTotal.text = "Total:" + total.ToString() + "-1000=" + failedtotal.ToString();
+                }
+                else
+                {
+                    textTotal.text = "Total:" + total.ToString() + "-1000=" + "0";
+                }
             }
             else if(clearflag == true)
             {
                 total = (int)(people + timepoint + hppoint);
+                textTotal.text = "Total:" + total.ToString();
             }
-            textTotal.text = "Total:" + total.ToString();
+            
         }
     }
     public void Result(string str)
