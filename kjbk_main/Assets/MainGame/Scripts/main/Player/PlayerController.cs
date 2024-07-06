@@ -75,7 +75,7 @@ public class PlayController : MonoBehaviour
     }
     void Update()
     {
-
+        Follow = RescueNPC.Follow;
 
         print($"isPressed = {IsPressedRun}");
 
