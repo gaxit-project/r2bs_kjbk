@@ -30,6 +30,7 @@ public class Presente : MonoBehaviour
 
     int Rcnt = 0;
 
+
     private void Start()
     {
         OnChangedBGMVolume();
@@ -83,6 +84,7 @@ public class Presente : MonoBehaviour
         Invoke(nameof(FlagONOFF), 5);
         BackToTheTitle.SetActive(true);
         SoundSetting.SetActive(true);
+        Goal.PauseFlag = false;
         //PauseScript.pause_status = false;
     }
     public void Title()
@@ -115,6 +117,7 @@ public class Presente : MonoBehaviour
         Rcnt = PlayerPrefs.GetInt("RescueCount");
         Debug.Log("K");
 
+        Time.timeScale = 1;
         //救助した人数が5人以上ならクリアへ移行
         if (Rcnt >= 5)
         {

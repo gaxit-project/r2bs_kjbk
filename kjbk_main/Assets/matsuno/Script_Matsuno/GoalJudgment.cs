@@ -12,6 +12,7 @@ public class GoalJudgement : MonoBehaviour
     private bool GJonoff = true;
 
     public bool JudgeFlag = false;
+    public bool PauseFlag = false;
 
     // Start is called before the first frame update
     void Start()
@@ -38,6 +39,7 @@ public class GoalJudgement : MonoBehaviour
                 EscapeON.SetActive(true);
                 EscapeOFF.SetActive(true);
                 GJonoff = false;
+                PauseFlag = true;
             }
         }
 
