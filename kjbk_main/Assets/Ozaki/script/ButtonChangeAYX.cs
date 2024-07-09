@@ -16,7 +16,14 @@ public class ButtonChangeAYX : MonoBehaviour
         Rescue = GameObject.Find("Rescue");
         rescueNPC = FindObjectOfType<RescueNPC>();
         DiplicationScript = Rescue.GetComponent<RescueDiplication>();
-        button.SetActive(false);
+        if (button != null)
+        {
+            button.SetActive(false);
+        }
+        if (Xbutton != null)
+        {
+            Xbutton.SetActive(false);
+        }
     }
 
     void Update()
