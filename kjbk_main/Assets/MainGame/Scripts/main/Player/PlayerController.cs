@@ -31,6 +31,8 @@ public class PlayController : MonoBehaviour
 
     private InputAction MoveAction;
 
+    public static bool MoveInput;
+
     // PlayerInput側から呼ばれるコールバック
     public void OnRun(InputAction.CallbackContext context)
     {
@@ -62,6 +64,9 @@ public class PlayController : MonoBehaviour
         mainCamera.SetActive(true);
         subCamera.SetActive(false);
 
+        MoveInput = true;
+        PlayerPrefs.SetInt("Lock", 0);
+
         //アニメーション読み込み
         animator = GetComponent<Animator>();
 
@@ -71,6 +76,8 @@ public class PlayController : MonoBehaviour
 
         //アクションマップからアクションを取得
         MoveAction = actionMap["Move"];
+
+
 
     }
     void Update()
@@ -83,66 +90,24 @@ public class PlayController : MonoBehaviour
 
         Vector3 posi = this.transform.position;
 
-        if (DesSystem.DesSystemStatus == true)
+        if(0 == PlayerPrefs.GetInt("Lock"))
         {
-            rb.velocity = Vector3.zero;
-            animator.SetBool("Walk", false);
-        }
-        else if (WaterHose.Hold)
-        {
-
-            //垂直方向と水平方向の入力を取得
-            float Xvalue = Input.GetAxisRaw("Horizontal");
-            float Yvalue = Input.GetAxisRaw("Vertical");
-
-            MoveStatus = true;
-
-            //位置を移動
-            Vector3 MoveDir = new Vector3(Xvalue, 0, Yvalue).normalized * CurrentSpeed * DebuffSpeed;
-
-            //進行方向を向く
-            this.transform.position = posi;
-            transform.forward = Vector3.Slerp(transform.forward, MoveDir, Time.deltaTime * RotateSpeed);
-            CurrentForward = transform.forward;
+            MoveInput = true;
         }
         else
         {
-            if (Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0)
+            MoveInput = false;
+        }
+
+        if (MoveInput)
+        {
+            if (DesSystem.DesSystemStatus == true)
             {
                 rb.velocity = Vector3.zero;
-                MoveStatus = false;
-                if (Follow)
-                {
-                    animator.SetBool("CarryWalk", false);
-                }
-                else
-                {
-                    animator.SetBool("Walk", false);
-                }
-
+                animator.SetBool("Walk", false);
             }
-            else
+            else if (WaterHose.Hold)
             {
-                // ダッシュ状態判定
-                if (IsPressedRun)
-                {
-                    CurrentSpeed = RunSpeed;
-                }
-                else
-                {
-                    CurrentSpeed = Speed;
-                }
-
-                //移動速度にデバフがかかるかどうかを判定
-                if (House || Follow)
-                {
-                    DebuffSpeed = Debuff;
-                    UnityEngine.Debug.Log("デバフ");
-                }
-                else
-                {
-                    DebuffSpeed = 1;
-                }
 
                 //垂直方向と水平方向の入力を取得
                 float Xvalue = Input.GetAxisRaw("Horizontal");
@@ -152,23 +117,77 @@ public class PlayController : MonoBehaviour
 
                 //位置を移動
                 Vector3 MoveDir = new Vector3(Xvalue, 0, Yvalue).normalized * CurrentSpeed * DebuffSpeed;
-                if (!audiosource.isPlaying && !(Time.timeScale == 0f))
+
+                //進行方向を向く
+                this.transform.position = posi;
+                transform.forward = Vector3.Slerp(transform.forward, MoveDir, Time.deltaTime * RotateSpeed);
+                CurrentForward = transform.forward;
+            }
+            else
+            {
+                if (Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0)
                 {
-                    audiosource.Play();
-                }
-                rb.velocity = MoveDir;
-                if (Follow)
-                {
-                    animator.SetBool("CarryWalk", true);
+                    rb.velocity = Vector3.zero;
+                    MoveStatus = false;
+                    if (Follow)
+                    {
+                        animator.SetBool("CarryWalk", false);
+                    }
+                    else
+                    {
+                        animator.SetBool("Walk", false);
+                    }
+
                 }
                 else
                 {
-                    animator.SetBool("Walk", true);
-                }
+                    // ダッシュ状態判定
+                    if (IsPressedRun)
+                    {
+                        CurrentSpeed = RunSpeed;
+                    }
+                    else
+                    {
+                        CurrentSpeed = Speed;
+                    }
 
-                //進行方向を向く
-                transform.forward = Vector3.Slerp(transform.forward, MoveDir, Time.deltaTime * RotateSpeed);
-                CurrentForward = transform.forward;
+                    //移動速度にデバフがかかるかどうかを判定
+                    if (House || Follow)
+                    {
+                        DebuffSpeed = Debuff;
+                        UnityEngine.Debug.Log("デバフ");
+                    }
+                    else
+                    {
+                        DebuffSpeed = 1;
+                    }
+
+                    //垂直方向と水平方向の入力を取得
+                    float Xvalue = Input.GetAxisRaw("Horizontal");
+                    float Yvalue = Input.GetAxisRaw("Vertical");
+
+                    MoveStatus = true;
+
+                    //位置を移動
+                    Vector3 MoveDir = new Vector3(Xvalue, 0, Yvalue).normalized * CurrentSpeed * DebuffSpeed;
+                    if (!audiosource.isPlaying && !(Time.timeScale == 0f))
+                    {
+                        audiosource.Play();
+                    }
+                    rb.velocity = MoveDir;
+                    if (Follow)
+                    {
+                        animator.SetBool("CarryWalk", true);
+                    }
+                    else
+                    {
+                        animator.SetBool("Walk", true);
+                    }
+
+                    //進行方向を向く
+                    transform.forward = Vector3.Slerp(transform.forward, MoveDir, Time.deltaTime * RotateSpeed);
+                    CurrentForward = transform.forward;
+                }
             }
         }
     }

@@ -24,7 +24,8 @@ public class RescueNPC : MonoBehaviour
     [SerializeField] public RescuePOP POP;
     private GameObject Rescue;
     private GameObject ResCounter;
-    
+    private PlayController PlayCon;
+
     public GameObject AudioManager;//大地変更点
 
     RescueCount CounterScript;   //救助者カウント
@@ -71,6 +72,7 @@ public class RescueNPC : MonoBehaviour
         ResCounter = GameObject.Find("Rcounter");
         DiplicationScript = Rescue.GetComponent<RescueDiplication>();
         CounterScript = ResCounter.GetComponent<RescueCount>();
+        PlayCon = Player.GetComponent<PlayController>();
 
         var pInput = this.GetComponent<PlayerInput>();
         //現在のアクションマップを取得
@@ -124,18 +126,22 @@ public class RescueNPC : MonoBehaviour
                     DiplicationScript.OnFlag();
                     StopNPC();
                     SetFollow(true);
+                    PlayerPrefs.SetInt("Lock", 1);
                     FFanimator.SetBool("Carry", true);
                     NPCanimator.SetBool("NPCCarry", true);
                     NPCCol.enabled = false;
+                    Invoke(nameof(MoveLock), 2f);
                 }
                 else   //追従時
                 {
                     DiplicationScript.OffFlag();
                     SetFollow(false);
+                    PlayerPrefs.SetInt("Lock", 1);
                     FFanimator.SetBool("Carry", false);
                     NPCanimator.SetBool("NPCCarry", false);
                     NPCCol.enabled = true;
                     PutVectorNPC(TargetPosition.x, TargetPosition.y, TargetPosition.z);
+                    Invoke(nameof(MoveLock), 2f);
                 }
             }
             if (Talk && Severe == false)   //軽症者に近づいたとき
@@ -355,5 +361,10 @@ public class RescueNPC : MonoBehaviour
     public void SetLock(bool b)
     {
         Lock = b;
+    }
+
+    public void MoveLock()
+    {
+        PlayerPrefs.SetInt("Lock", 0);
     }
 }
