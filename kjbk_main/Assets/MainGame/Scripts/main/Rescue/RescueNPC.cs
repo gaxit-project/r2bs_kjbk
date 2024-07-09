@@ -180,9 +180,11 @@ public class RescueNPC : MonoBehaviour
                 DiplicationScript.OffFlag();
                 SetText("");
                 SetFollow(false);
+                PlayerPrefs.SetInt("Lock", 1);
                 FFanimator.SetBool("Carry", false);
                 NPCanimator.SetBool("NPCCarry", false);
                 NPCCol.enabled = true;
+                Invoke(nameof(MoveLock), 2f);
                 RescuedVectorNPC(TargetPosition.x, TargetPosition.y, TargetPosition.z);   //NPCを救出したときのVector
                 SetRescued(true);
                 CountDestroy();   //一定時間後にオブジェクト削除
