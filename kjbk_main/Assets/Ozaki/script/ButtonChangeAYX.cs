@@ -31,7 +31,9 @@ public class ButtonChangeAYX : MonoBehaviour
         if (rescueNPC.IsItFollow())
             {
                 Xb=true;
+                if (Xbutton != null){
                 Xbutton.SetActive(false);
+                }
             }else{
                 Xb=false;
             }
