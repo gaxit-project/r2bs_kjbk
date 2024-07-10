@@ -146,26 +146,22 @@ public class RescueNPC : MonoBehaviour
                     Invoke(nameof(MoveLock), 2f);
                 }
             }
+
+            //軽傷者消滅用
             if (Talk && Severe == false)   //軽症者に近づいたとき
             {
                 if (!IsItFirstContact())
                 {
                     ComentON();// オブジェクト削除
-                    Debug.Log(SecondContact);
-                    SetFirstContact(true);
                     SetActiveIcon(true);
                     StopNPC();
                     RadioText.SetActiveText(true);
-                    NPCanimator.SetBool("Walk", true);
                     AudioManager.GetComponent<Audio>().PlaySound(2);    //大地変更点
-                }
-                else if (IsItFirstContact())
-                {
-                    SetSecondContact(true);
-                    Debug.Log("Second");
-                    StopNPC();
-                    RadioText.SetActiveText(true);
-                    NPCanimator.SetBool("Walk", true);
+                    RescuedVectorNPC(TargetPosition.x, TargetPosition.y, TargetPosition.z);   //NPCを救出したときのVector
+                    SetRescued(true);
+                    NPCanimator.SetBool("Walk", false);
+                    CounterScript.Count();
+                    CountDestroy();   //一定時間後にオブジェクト削除
                 }
             }
 
@@ -228,7 +224,7 @@ public class RescueNPC : MonoBehaviour
             POP.HeavyR();
             Radio3.RPopFlag = true;
         }
-        Invoke("Destroy", 2f);
+        Invoke("Destroy", 11f);
     }
 
     private void Destroy()
