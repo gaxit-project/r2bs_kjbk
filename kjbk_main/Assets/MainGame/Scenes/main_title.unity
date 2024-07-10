@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -8092,6 +8092,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 607f1d2263933a640815d4b61d50f38e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayCon: {fileID: 0}
+  Player: {fileID: 0}
 --- !u!4 &1257182877
 Transform:
   m_ObjectHideFlags: 0
@@ -8854,6 +8856,7 @@ MonoBehaviour:
   audioSourceFire5: {fileID: 0}
   audioSourceFire6: {fileID: 0}
   audioSourceFire7: {fileID: 0}
+  audioSourceFireEx: {fileID: 0}
 --- !u!82 &1455974268
 AudioSource:
   m_ObjectHideFlags: 0
@@ -11404,7 +11407,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9103f03b6d8b95547bcf9a93e86c9aa7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a825e44186f6e9b41a3363acd8aebf71, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -11438,8 +11441,8 @@ MonoBehaviour:
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 4a35ec7ba865e424bb2898a55460f0c0, type: 2}
-  m_sharedMaterial: {fileID: 4969174133625938707, guid: 4a35ec7ba865e424bb2898a55460f0c0, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -11646,7 +11649,6 @@ MonoBehaviour:
   seSlider: {fileID: 3440724866490612736}
   bgmValue: {fileID: 0}
   seValue: {fileID: 0}
-  BGMFlag: 0
   TitleIcon2: {fileID: 451229874}
 --- !u!1 &6938091121867162567
 GameObject:
@@ -11831,8 +11833,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 51.2, y: 14.799999}
-  m_SizeDelta: {x: 160, y: 50}
+  m_AnchoredPosition: {x: 53, y: 14.799999}
+  m_SizeDelta: {x: 300, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7892107537906896889
 CanvasRenderer:
