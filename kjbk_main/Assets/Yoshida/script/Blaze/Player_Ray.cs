@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Player_Ray : MonoBehaviour
 {
+    [SerializeField] float clampMax = 2;
+    [SerializeField] float clampMin = 1;
+
     private Vector3 Xp;
     private Vector3 Zp;
     private Vector3 Xm;
@@ -39,6 +42,16 @@ public class Player_Ray : MonoBehaviour
     public bool UpLeft = false;
     public bool UnderRight = false;
     public bool UnderLeft = false;
+
+    public float XpDistance = 100;
+    public float ZpDistance = 100;
+    public float XmDistance = 100;
+    public float ZmDistance = 100;
+    public float XpZpDistance = 100;
+    public float XpZmDistance = 100;
+    public float XmZpDistance = 100;
+    public float XmZmDistance = 100;
+
 
     // Start is called before the first frame update
     void Start()
@@ -80,9 +93,18 @@ public class Player_Ray : MonoBehaviour
 
         if (Physics.Raycast(rayXp, out XpHit, 100))
         {
-            if(XpHit.collider.CompareTag("Blaze")) 
+            if (XpHit.collider.CompareTag("Blaze"))
             {
-                Right = true;
+                float Xpdistance = Vector3.Distance(XpHit.transform.position, transform.position);
+                XpDistance = Xpdistance / 10;
+                if (XpDistance > 5)
+                {
+                    Right = false;
+                }
+                else
+                {
+                    Right = true;
+                }
             }
             else
             {
@@ -98,7 +120,16 @@ public class Player_Ray : MonoBehaviour
         {
             if (ZpHit.collider.CompareTag("Blaze"))
             {
-                Up = true;
+                float Zpdistance = Vector3.Distance(ZpHit.transform.position, transform.position);
+                ZpDistance = Zpdistance / 10;
+                if (ZpDistance > 5)
+                {
+                    Up = false;
+                }
+                else
+                {
+                    Up = true;
+                }
             }
             else
             {
@@ -114,7 +145,16 @@ public class Player_Ray : MonoBehaviour
         {
             if (XmHit.collider.CompareTag("Blaze"))
             {
-                Left = true;
+                float Xmdistance = Vector3.Distance(XmHit.transform.position, transform.position);
+                XmDistance = Xmdistance / 10;
+                if (XmDistance > 5)
+                {
+                    Left = false;
+                }
+                else
+                {
+                    Left = true;
+                }
             }
             else
             {
@@ -130,7 +170,16 @@ public class Player_Ray : MonoBehaviour
         {
             if (ZmHit.collider.CompareTag("Blaze"))
             {
-                Under = true;
+                float Zmdistance = Vector3.Distance(ZmHit.transform.position, transform.position);
+                ZmDistance = Zmdistance / 10;
+                if (ZmDistance > 5)
+                {
+                    Under = false;
+                }
+                else
+                {
+                    Under = true;
+                }
             }
             else
             {
@@ -146,11 +195,20 @@ public class Player_Ray : MonoBehaviour
         {
             if (XpZpHit.collider.CompareTag("Blaze"))
             {
-                UpRight = true;
+                float XpZpdistance = Vector3.Distance(XpZpHit.transform.position, transform.position);
+                XpZpDistance = XpZpdistance / 10;
+                if (XpZpDistance > 5)
+                {
+                    UpRight = false;
+                }
+                else
+                {
+                    UpRight = true;
+                }
             }
             else
             {
-                UpRight= false;
+                UpRight = false;
             }
         }
         else
@@ -162,11 +220,20 @@ public class Player_Ray : MonoBehaviour
         {
             if (XpZmHit.collider.CompareTag("Blaze"))
             {
-                UnderRight = true;
+                float XpZmdistance = Vector3.Distance(XpZmHit.transform.position, transform.position);
+                XpZmDistance = XpZmdistance / 10;
+                if (XpZmDistance > 5)
+                {
+                    UnderRight = false;
+                }
+                else
+                {
+                    UnderRight = true;
+                }
             }
             else
             {
-                UnderRight= false;
+                UnderRight = false;
             }
         }
         else
@@ -178,11 +245,20 @@ public class Player_Ray : MonoBehaviour
         {
             if (XmZpHit.collider.CompareTag("Blaze"))
             {
-                UpLeft = true;
+                float XmZpdistance = Vector3.Distance(XmZpHit.transform.position, transform.position);
+                XmZpDistance = XmZpdistance / 10;
+                if (XmZpdistance > 5)
+                {
+                    UpLeft = false;
+                }
+                else
+                {
+                    UpLeft = true;
+                }
             }
             else
             {
-                UpLeft= false;
+                UpLeft = false;
             }
         }
         else
@@ -194,11 +270,20 @@ public class Player_Ray : MonoBehaviour
         {
             if (XmZmHit.collider.CompareTag("Blaze"))
             {
-                UnderLeft = true;
+                float XmZmdistance = Vector3.Distance(XmZmHit.transform.position, transform.position);
+                XmZmDistance = XmZmdistance / 10;
+                if (XmZmDistance > 5)
+                {
+                    UnderLeft = false;
+                }
+                else
+                {
+                    UnderLeft = true;
+                }
             }
             else
             {
-                UnderLeft= false;
+                UnderLeft = false;
             }
         }
         else

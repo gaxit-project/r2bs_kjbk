@@ -26,6 +26,8 @@ public class camera_bar : MonoBehaviour
     private MeshRenderer UnderRightMesh;
     private MeshRenderer UnderLeftMesh;
 
+    private double _time;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -53,9 +55,12 @@ public class camera_bar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        _time += Time.deltaTime;
+
         if (ray.Up)
         {
-            UpMesh.material.color = new Color32(255, 0, 0, 255);
+            float Upalpha = 255 * Mathf.Cos((float)(2 * Mathf.PI * _time / ray.ZpDistance)) * 0.5f + 0.5f;
+            UpMesh.material.color = new Color32(255, 0, 0, (byte)Upalpha);
         }
         else
         {
@@ -64,7 +69,8 @@ public class camera_bar : MonoBehaviour
 
         if (ray.Under)
         {
-            UnderMesh.material.color = new Color32(255, 0, 0, 255);
+            float Underalpha = 255 * Mathf.Cos((float)(2 * Mathf.PI * _time / ray.ZmDistance)) * 0.5f + 0.5f;
+            UnderMesh.material.color = new Color32(255, 0, 0, (byte)Underalpha);
         }
         else
         {
@@ -73,7 +79,8 @@ public class camera_bar : MonoBehaviour
 
         if (ray.Right)
         {
-            RightMesh.material.color = new Color32(255, 0, 0, 255);
+            float Rightalpha = 255 * Mathf.Cos((float)(2 * Mathf.PI * _time / ray.XpDistance)) * 0.5f + 0.5f;
+            RightMesh.material.color = new Color32(255, 0, 0, (byte)Rightalpha);
         }
         else
         {
@@ -82,7 +89,8 @@ public class camera_bar : MonoBehaviour
 
         if (ray.Left)
         {
-            LeftMesh.material.color = new Color32(255, 0, 0, 255);
+            float Leftalpha = 255 * Mathf.Cos((float)(2 * Mathf.PI * _time / Mathf.Round(ray.XmDistance))) * 0.5f + 0.5f;
+            LeftMesh.material.color = new Color32(255, 0, 0, (byte)Leftalpha);
         }
         else
         {
@@ -91,7 +99,8 @@ public class camera_bar : MonoBehaviour
 
         if (ray.UpRight)
         {
-            UpRightMesh.material.color = new Color32(255, 0, 0, 255);
+            float UpRightalpha = 255 * Mathf.Cos((float)(2 * Mathf.PI * _time / ray.XpZpDistance)) * 0.5f + 0.5f;
+            UpRightMesh.material.color = new Color32(255, 0, 0, (byte)UpRightalpha);
         }
         else
         {
@@ -100,7 +109,8 @@ public class camera_bar : MonoBehaviour
 
         if (ray.UnderRight)
         {
-            UnderRightMesh.material.color = new Color32(255, 0, 0, 255);
+            float UnderRightalpha = 255 * Mathf.Cos((float)(2 * Mathf.PI * _time / ray.XpZmDistance)) * 0.5f + 0.5f;
+            UnderRightMesh.material.color = new Color32(255, 0, 0, (byte)UnderRightalpha);
         }
         else
         {
@@ -109,7 +119,8 @@ public class camera_bar : MonoBehaviour
 
         if (ray.UpLeft)
         {
-            UpLeftMesh.material.color = new Color32(255, 0, 0, 255);
+            float UpLeftalpha = 255 * Mathf.Cos((float)(2 * Mathf.PI * _time / ray.XmZpDistance)) * 0.5f + 0.5f;
+            UpLeftMesh.material.color = new Color32(255, 0, 0, (byte)UpLeftalpha);
         }
         else
         {
@@ -118,7 +129,8 @@ public class camera_bar : MonoBehaviour
 
         if (ray.UnderLeft)
         {
-            UnderLeftMesh.material.color = new Color32(255, 0, 0, 255);
+            float UnderLeftalpha = 255 * Mathf.Cos((float)(2 * Mathf.PI * _time / ray.XmZmDistance)) * 0.5f + 0.5f;
+            UnderLeftMesh.material.color = new Color32(255, 0, 0, (byte)UnderLeftalpha);
         }
         else
         {
