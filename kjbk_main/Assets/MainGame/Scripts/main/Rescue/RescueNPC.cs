@@ -65,6 +65,8 @@ public class RescueNPC : MonoBehaviour
     GameManager gameManager;
 
     public int NumberR;
+
+    public RadioText RText;
     void Start()
     {
         mesh = GetComponent<MeshRenderer>();
@@ -215,6 +217,7 @@ public class RescueNPC : MonoBehaviour
         number.RNumber();
         POP.LightR();
         Radio3.RHintFlag = true;
+        RText.RescueFlag = true;
         Debug.Log("軽症者フラグおんするよーん"+Radio3.RHintFlag);
     }
     public void CountDestroy()//オブジェクトの破壊

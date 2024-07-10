@@ -20,7 +20,7 @@ public class CollGauge : MonoBehaviour
     int number100 = 1;
     int number10 = 0;
     int number1 = 0;
-    int persent = 11;
+    int persent = 10;
 
 
     public BlockPOP POP;
