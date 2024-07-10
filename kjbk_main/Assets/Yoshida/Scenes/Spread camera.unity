@@ -6269,7 +6269,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1575368211854864704, guid: 5303beff2d043bd448d74d64d8070465, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3515939550904828322, guid: 5303beff2d043bd448d74d64d8070465, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6313,7 +6313,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7897501147964165092, guid: 5303beff2d043bd448d74d64d8070465, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -8368,6 +8368,10 @@ MonoBehaviour:
   Under: 0
   Left: 0
   Right: 0
+  UpRight: 0
+  UpLeft: 0
+  UnderRight: 0
+  UnderLeft: 0
 --- !u!1 &1203364142
 GameObject:
   m_ObjectHideFlags: 0

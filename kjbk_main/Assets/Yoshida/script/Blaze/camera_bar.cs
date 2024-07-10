@@ -37,7 +37,7 @@ public class camera_bar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (ray.Up)
+        if (ray.Up || ray.UpRight || ray.UpLeft)
         {
             UpMesh.material.color = new Color32(255, 0, 0, 255);
         }
@@ -46,7 +46,7 @@ public class camera_bar : MonoBehaviour
             UpMesh.material.color = new Color32(255, 0, 0, 0);
         }
 
-        if (ray.Under)
+        if (ray.Under || ray.UnderLeft ||ray.UnderRight)
         {
             UnderMesh.material.color = new Color32(255, 0, 0, 255);
         }
@@ -55,7 +55,7 @@ public class camera_bar : MonoBehaviour
             UnderMesh.material.color = new Color32(255, 0, 0, 0);
         }
 
-        if (ray.Right)
+        if (ray.Right || ray.UpRight || ray.UnderRight)
         {
             RightMesh.material.color = new Color32(255, 0, 0, 255);
         }
@@ -64,7 +64,7 @@ public class camera_bar : MonoBehaviour
             RightMesh.material.color = new Color32(255, 0, 0, 0);
         }
 
-        if (ray.Left)
+        if (ray.Left || ray.UpLeft || ray.UnderLeft)
         {
             LeftMesh.material.color = new Color32(255, 0, 0, 255);
         }
