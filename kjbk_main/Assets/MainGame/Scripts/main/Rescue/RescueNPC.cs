@@ -127,6 +127,7 @@ public class RescueNPC : MonoBehaviour
                     StopNPC();
                     SetFollow(true);
                     PlayerPrefs.SetInt("Lock", 1);
+                    FFanimator.SetBool("Walk", false);
                     FFanimator.SetBool("Carry", true);
                     NPCanimator.SetBool("NPCCarry", true);
                     NPCCol.enabled = false;
@@ -137,6 +138,7 @@ public class RescueNPC : MonoBehaviour
                     DiplicationScript.OffFlag();
                     SetFollow(false);
                     PlayerPrefs.SetInt("Lock", 1);
+                    FFanimator.SetBool("Walk", false);
                     FFanimator.SetBool("Carry", false);
                     NPCanimator.SetBool("NPCCarry", false);
                     NPCCol.enabled = true;
