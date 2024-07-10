@@ -19,6 +19,11 @@ public class AutoWalk : MonoBehaviour
 
     public bool corFlag = false;   //コルーチン制御用のフラグ
 
+    private Animator NPCanimator;
+
+    float posX;
+    float posZ;
+
 
     //石崎スクリプト
     //MAPの中心の位置
@@ -62,6 +67,8 @@ public class AutoWalk : MonoBehaviour
         m_Agent.autoBraking = false;
         //目標地点を決める
         GotoNextPoint();
+
+        NPCanimator = this.GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -96,8 +103,15 @@ public class AutoWalk : MonoBehaviour
         {
             //目標地点を設定し直す
             GotoNextPoint();
+            //ここにキャラ移動アニメーション
+            NPCanimator.SetBool("Walk", true);
             time = 0;
         }
+        if (GotoNextPointGoal())
+        {
+            NPCanimator.SetBool("Walk", false);
+        }
+
     }
 
 
@@ -177,8 +191,8 @@ public class AutoWalk : MonoBehaviour
     void GotoNextPoint()
     {
         //目標地点のX軸、Z軸をランダムで決める
-        float posX = Random.Range(-1 * Xradius, Xradius);
-        float posZ = Random.Range(-1 * Zradius, Zradius);
+        posX = Random.Range(-1 * Xradius, Xradius);
+        posZ = Random.Range(-1 * Zradius, Zradius);
 
         //CentralPointの位置にPosXとPosZを足す
         Vector3 pos = central.position;
@@ -187,5 +201,24 @@ public class AutoWalk : MonoBehaviour
 
         //NavMeshAgentに目標地点を設定する
         m_Agent.destination = pos;
+    }
+
+    bool GotoNextPointGoal()
+    {
+        Vector3 NPCpos = this.transform.position;
+        Vector3 pos = central.position;
+
+        pos.x += posX;
+        pos.z += posZ;
+
+        if(NPCpos.x == pos.x && NPCpos.z == pos.z)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+
     }
 }
