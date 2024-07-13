@@ -17,8 +17,8 @@ public class SwitchCamera : MonoBehaviour
     public GameObject miniMap;
     public GameObject hat1;
     private RescueNPC rescueNPC;
-    bool MapON = false;
-    bool NiseMapON = false;
+    public bool MapON = false;
+    public bool NiseMapON = false;
     public GameObject MAPOFF;
     public GameObject MiniMAPOFF;
     public GameObject MiniMAP;

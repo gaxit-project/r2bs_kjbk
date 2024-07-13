@@ -61,7 +61,14 @@ public class Radio_ver3 : MonoBehaviour
 
     bool ChatFlag = true;
 
-    bool MapPresent = false;
+    public bool MapPresent = false;
+    bool FirstRescueFlag=true;
+
+    public GameObject MiniMapOff;
+    public GameObject MapOff;
+    public GameObject MiniMap;
+
+    public SwitchCamera Scame;
 
     // Start is called before the first frame update
     void Start()
@@ -343,7 +350,18 @@ public class Radio_ver3 : MonoBehaviour
         int rnd = RPOP.Rnd;
         if (JorE)
         {
-            if (rnd == 0)
+            if (FirstRescueFlag)
+            {
+                RadioText.SetText("この建物の構造を入手した\n\rぜひ活用してみてくれ");
+                MiniMapOff.SetActive(false);
+                MapOff.SetActive(false);
+                MiniMap.SetActive(true);
+                MapPresent = true;
+                FirstRescueFlag = false;
+                Scame.MapON = true;
+                Scame.NiseMapON = true;
+            }
+            else if (rnd == 0)
             {
                 RadioText.SetText("他にも重傷者がいるとの情報だ！至急探してくれ！");
             }
@@ -570,6 +588,7 @@ public class Radio_ver3 : MonoBehaviour
                     {
                         if (rnd == 0)
                         {
+                            FirstRescueFlag = false;
                             RadioText2.SetText("え、間取りがわからない?\r\nマップをあげるから確認してみて");
                             Debug.Log("一人目の位置確定");
                             StartCoroutine(Simple1());
