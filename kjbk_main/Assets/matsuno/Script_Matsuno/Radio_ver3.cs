@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using TMPro;
@@ -18,7 +18,7 @@ public class Radio_ver3 : MonoBehaviour
     [HideInInspector] public bool JorE = true;
     [HideInInspector] public bool SwitchONOFF = true;
 
-    //–³ü‚Ìƒtƒ‰ƒO
+    //ç„¡ç·šã®ãƒ•ãƒ©ã‚°
     [HideInInspector] public bool RPeople = true;
     [HideInInspector] public bool RPeople2 = true;
 
@@ -39,10 +39,10 @@ public class Radio_ver3 : MonoBehaviour
     public RescuePOP RPOP;
 
 
-    //–³ü‚ğo‚·‚Æ‚«‚Æ‚µ‚Ü‚¤‚Æ‚«‚ÌŠÔ
-    float StartTimer = 15f;   //–³ü•t‚¯‚é‚Æ‚«‚Ìƒ^ƒCƒ}[
-    float EndTimer = 10f;     //–³ü‚ğ‚«‚é‚Æ‚«‚Ìƒ^ƒCƒ}[
-    float EndTimer1 = 5f;     //–³ü‚ğ‚«‚é‚Æ‚«‚Ìƒ^ƒCƒ}[
+    //ç„¡ç·šã‚’å‡ºã™ã¨ãã¨ã—ã¾ã†ã¨ãã®æ™‚é–“
+    float StartTimer = 15f;   //ç„¡ç·šä»˜ã‘ã‚‹ã¨ãã®ã‚¿ã‚¤ãƒãƒ¼
+    float EndTimer = 10f;     //ç„¡ç·šã‚’ãã‚‹ã¨ãã®ã‚¿ã‚¤ãƒãƒ¼
+    float EndTimer1 = 5f;     //ç„¡ç·šã‚’ãã‚‹ã¨ãã®ã‚¿ã‚¤ãƒãƒ¼
 
 
 
@@ -60,6 +60,8 @@ public class Radio_ver3 : MonoBehaviour
     [HideInInspector] public bool Radio10;
 
     bool ChatFlag = true;
+
+    bool MapPresent = false;
 
     // Start is called before the first frame update
     void Start()
@@ -83,7 +85,7 @@ public class Radio_ver3 : MonoBehaviour
             ChatPanel.SetActive(true);
             if(JorE)
             {
-                RadioText.SetText("Œ»ê‚ÍŠw¶—¾‚¾Is•û•s–¾Ò‚Ì“à5l‚ğ‹~‚¤‚Ì‚ªŒN‚Ì”C–±‚¾");
+                RadioText.SetText("ç¾å ´ã¯å­¦ç”Ÿå¯®ã ï¼è¡Œæ–¹ä¸æ˜è€…ã®å†…5äººã‚’æ•‘ã†ã®ãŒå›ã®ä»»å‹™ã ");
                 StartCoroutine(Simple2());
             }
             else
@@ -101,13 +103,13 @@ public class Radio_ver3 : MonoBehaviour
         {
             if (SwitchONOFF)
             {
-                Debug.Log("‰pŒê‰»");
+                Debug.Log("è‹±èªåŒ–");
                 JorE = false;
                 SwitchONOFF = false;
             }
             else
             {
-                Debug.Log("“ú–{Œê‰»");
+                Debug.Log("æ—¥æœ¬èªåŒ–");
                 JorE = true;
                 SwitchONOFF = true;
             }
@@ -121,8 +123,8 @@ public class Radio_ver3 : MonoBehaviour
             Debug.Log("RadioFlag");
             if (CollapseFlag)
             {
-                Debug.Log("ƒQ[ƒW‚¾‚·‚æ[");
-                Debug.Log("‚±‚ñ‚¿‚­‚í");
+                Debug.Log("ã‚²ãƒ¼ã‚¸ã ã™ã‚ˆãƒ¼");
+                Debug.Log("ã“ã‚“ã¡ãã‚");
                 RadioStoper();
                 CollapseFlag = false;
                 RadioFlag = false;
@@ -130,7 +132,7 @@ public class Radio_ver3 : MonoBehaviour
             }
             else if(RHintFlag)
             {
-                Debug.Log("ŒyÇÒƒqƒ“ƒgo‚·‚æ[");
+                Debug.Log("è»½ç—‡è€…ãƒ’ãƒ³ãƒˆå‡ºã™ã‚ˆãƒ¼");
                 RHintStop();
                 RHintFlag = false;
                 RadioFlag = false;
@@ -138,7 +140,7 @@ public class Radio_ver3 : MonoBehaviour
             }
             else if(RPopFlag)
             {
-                Debug.Log("dÇÒƒqƒ“ƒgo‚·‚æ[");
+                Debug.Log("é‡ç—‡è€…ãƒ’ãƒ³ãƒˆå‡ºã™ã‚ˆãƒ¼");
                 SymbolStop();
                 RPopFlag = false;
                 RadioFlag = false;
@@ -176,27 +178,27 @@ public class Radio_ver3 : MonoBehaviour
 
     public void RadioON()
     {
-        ChatPanel.SetActive(true);          //–³ü‚ÌƒfƒUƒCƒ“‚ğ•\¦
+        ChatPanel.SetActive(true);          //ç„¡ç·šã®ãƒ‡ã‚¶ã‚¤ãƒ³ã‚’è¡¨ç¤º
     }
     public void RadioOFF()
     {
-        ChatPanel.SetActive(false);          //–³ü‚ÌƒfƒUƒCƒ“‚ğ•\¦
+        ChatPanel.SetActive(false);          //ç„¡ç·šã®ãƒ‡ã‚¶ã‚¤ãƒ³ã‚’è¡¨ç¤º
     }
     public void Radio1OFF()
     {
-        ChatPanel1.SetActive(false);          //–³ü‚ÌƒfƒUƒCƒ“‚ğ•\¦
+        ChatPanel1.SetActive(false);          //ç„¡ç·šã®ãƒ‡ã‚¶ã‚¤ãƒ³ã‚’è¡¨ç¤º
     }
     public void Radio2OFF()
     {
-        ChatPanel2.SetActive(false);          //–³ü‚ÌƒfƒUƒCƒ“‚ğ•\¦
+        ChatPanel2.SetActive(false);          //ç„¡ç·šã®ãƒ‡ã‚¶ã‚¤ãƒ³ã‚’è¡¨ç¤º
     }
     public void Radio3OFF()
     {
-        ChatPanel3.SetActive(false);          //–³ü‚ÌƒfƒUƒCƒ“‚ğ•\¦
+        ChatPanel3.SetActive(false);          //ç„¡ç·šã®ãƒ‡ã‚¶ã‚¤ãƒ³ã‚’è¡¨ç¤º
     }
     public void Radio4OFF()
     {
-        ChatPanel4.SetActive(false);          //–³ü‚ÌƒfƒUƒCƒ“‚ğ•\¦
+        ChatPanel4.SetActive(false);          //ç„¡ç·šã®ãƒ‡ã‚¶ã‚¤ãƒ³ã‚’è¡¨ç¤º
     }
 
     public int RCnt(int mcnt)
@@ -208,7 +210,7 @@ public class Radio_ver3 : MonoBehaviour
         ChatR.SetActive(false);
     }
 
-    //dÒ‚Ì–³ü‚ğŠÇ—
+    //é‡å‚·è€…ã®ç„¡ç·šã‚’ç®¡ç†
     public void SymbolStop()
     {
         SymbolR();
@@ -224,7 +226,7 @@ public class Radio_ver3 : MonoBehaviour
         Invoke(nameof(RadioOFF), EndTimer);
     }
 
-    //ŒyÇÒ‚Ì–³ü‚ğŠÇ—
+    //è»½ç—‡è€…ã®ç„¡ç·šã‚’ç®¡ç†
     public void RHintStop()
     {
         RMessager();
@@ -237,7 +239,7 @@ public class Radio_ver3 : MonoBehaviour
                 Invoke(nameof(RHint), 5f);
             }
         }
-        Debug.Log("ƒiƒ“ƒo[ŒyÇÒF" + number1);
+        Debug.Log("ãƒŠãƒ³ãƒãƒ¼è»½ç—‡è€…ï¼š" + number1);
         if(number1 == 1)
         {
             ChatPanel1.SetActive(true);
@@ -269,37 +271,37 @@ public class Radio_ver3 : MonoBehaviour
         
     }
 
-    //“|‰óƒQ[ƒW‚ÉŠÖ‚·‚é–³ü‚ğŠÇ—‚·‚é‚à‚Ì
+    //å€’å£Šã‚²ãƒ¼ã‚¸ã«é–¢ã™ã‚‹ç„¡ç·šã‚’ç®¡ç†ã™ã‚‹ã‚‚ã®
     public void CollapsePanel()
     {
-        Debug.Log("•¶š“ü—Í");
+        Debug.Log("æ–‡å­—å…¥åŠ›");
         if (JorE)
         {
-            Debug.Log("•¶š“ü—Í2");
+            Debug.Log("æ–‡å­—å…¥åŠ›2");
             if (Radio80)
             {
                 Debug.Log("80%collapse");
-                RadioText.SetText("‰½‚©Œš•¨‚Éƒqƒr‚ª“ü‚Á‚Ä‚¢‚È‚¢‚©H");
+                RadioText.SetText("ä½•ã‹å»ºç‰©ã«ãƒ’ãƒ“ãŒå…¥ã£ã¦ã„ãªã„ã‹ï¼Ÿ");
                 Radio80 = false;
             }
             else if (Radio60)
             {
-                RadioText.SetText("ƒqƒr‚ªŠg‘å‚µ‚Ä‚¢‚é‚à‚µ‚©‚µ‚½‚ç•ö‚ê‚é‚¼");
+                RadioText.SetText("ãƒ’ãƒ“ãŒæ‹¡å¤§ã—ã¦ã„ã‚‹ã‚‚ã—ã‹ã—ãŸã‚‰å´©ã‚Œã‚‹ã");
                 Radio60 = false;
             }
             else if (Radio40)
             {
-                RadioText.SetText("–h‰ÎƒVƒƒƒbƒ^[‚ğ‚¨‚ë‚µ‚Ä‰Š‚Ì‰„Ä‚ğ–h‚¢‚Å‚¢‚­‚¼");
+                RadioText.SetText("é˜²ç«ã‚·ãƒ£ãƒƒã‚¿ãƒ¼ã‚’ãŠã‚ã—ã¦ç‚ã®å»¶ç„¼ã‚’é˜²ã„ã§ã„ãã");
                 Radio40 = false;
             }
             else if (Radio20)
             {
-                RadioText.SetText("“Vˆä‚ª•ö‚ên‚ß‚Ä‚é‚¼\r\n‹}‚¢‚Å‚­‚ê");
+                RadioText.SetText("å¤©äº•ãŒå´©ã‚Œå§‹ã‚ã¦ã‚‹ã\r\næ€¥ã„ã§ãã‚Œ");
                 Radio20 = false;
             }
             else if (Radio10)
             {
-                RadioText.SetText("“|‰ó¡‘O‚¾‚¼\r\n‘¬‚­“¦‚°‚ë");
+                RadioText.SetText("å€’å£Šå¯¸å‰ã ã\r\né€Ÿãé€ƒã’ã‚");
                 Radio10 = false;
             }
         }
@@ -335,7 +337,7 @@ public class Radio_ver3 : MonoBehaviour
 
     
 
-    //dÒ‚Ì–³ü
+    //é‡å‚·è€…ã®ç„¡ç·š
     public void SymbolR()
     {
         int rnd = RPOP.Rnd;
@@ -343,27 +345,27 @@ public class Radio_ver3 : MonoBehaviour
         {
             if (rnd == 0)
             {
-                RadioText.SetText("‘¼‚É‚àdÒ‚ª‚¢‚é‚Æ‚Ìî•ñ‚¾IŠ‹}’T‚µ‚Ä‚­‚êI");
+                RadioText.SetText("ä»–ã«ã‚‚é‡å‚·è€…ãŒã„ã‚‹ã¨ã®æƒ…å ±ã ï¼è‡³æ€¥æ¢ã—ã¦ãã‚Œï¼");
             }
             else if (rnd == 1)
             {
-                RadioText.SetText("‘¼‚É‚àdÒ‚ª‚¢‚é‚Æ‚Ìî•ñ‚¾IŠ‹}’T‚µ‚Ä‚­‚êI");
+                RadioText.SetText("ä»–ã«ã‚‚é‡å‚·è€…ãŒã„ã‚‹ã¨ã®æƒ…å ±ã ï¼è‡³æ€¥æ¢ã—ã¦ãã‚Œï¼");
             }
             else if (rnd == 2)
             {
-                RadioText.SetText("‘¼‚É‚àdÒ‚ª‚¢‚é‚Æ‚Ìî•ñ‚¾IŠ‹}’T‚µ‚Ä‚­‚êI");
+                RadioText.SetText("ä»–ã«ã‚‚é‡å‚·è€…ãŒã„ã‚‹ã¨ã®æƒ…å ±ã ï¼è‡³æ€¥æ¢ã—ã¦ãã‚Œï¼");
             }
             else if (rnd == 3)
             {
-                RadioText.SetText("‘¼‚É‚àdÒ‚ª‚¢‚é‚Æ‚Ìî•ñ‚¾IŠ‹}’T‚µ‚Ä‚­‚êI");
+                RadioText.SetText("ä»–ã«ã‚‚é‡å‚·è€…ãŒã„ã‚‹ã¨ã®æƒ…å ±ã ï¼è‡³æ€¥æ¢ã—ã¦ãã‚Œï¼");
             }
             else if (rnd == 4)
             {
-                RadioText.SetText("‘¼‚É‚àdÒ‚ª‚¢‚é‚Æ‚Ìî•ñ‚¾IŠ‹}’T‚µ‚Ä‚­‚êI");
+                RadioText.SetText("ä»–ã«ã‚‚é‡å‚·è€…ãŒã„ã‚‹ã¨ã®æƒ…å ±ã ï¼è‡³æ€¥æ¢ã—ã¦ãã‚Œï¼");
             }
             else if (rnd == 5)
             {
-                RadioText.SetText("‘¼‚É‚àdÒ‚ª‚¢‚é‚Æ‚Ìî•ñ‚¾IŠ‹}’T‚µ‚Ä‚­‚êI");
+                RadioText.SetText("ä»–ã«ã‚‚é‡å‚·è€…ãŒã„ã‚‹ã¨ã®æƒ…å ±ã ï¼è‡³æ€¥æ¢ã—ã¦ãã‚Œï¼");
             }
         }
         else if(!JorE)
@@ -397,14 +399,14 @@ public class Radio_ver3 : MonoBehaviour
 
     }
 
-    //ŒyÇÒ‚Ì–³üŠÖ˜A
+    //è»½ç—‡è€…ã®ç„¡ç·šé–¢é€£
     public void RHint()
     {
         int Cnt = 0;
         int RCnt = RPOP.MCnt;
         int rnd = RPOP.Rnd;
-        Debug.Log("ó‚¯æ‚Á‚½dÒ”Ô†:" + rnd);
-        Debug.Log("ó‚¯æ‚Á‚½ŒyÇÒ:" + RCnt);
+        Debug.Log("å—ã‘å–ã£ãŸé‡å‚·è€…ç•ªå·:" + rnd);
+        Debug.Log("å—ã‘å–ã£ãŸè»½ç—‡è€…:" + RCnt);
 
 
         if (RPeople2)
@@ -417,10 +419,10 @@ public class Radio_ver3 : MonoBehaviour
                     {
                         if (rnd == 0)
                         {
-                            RadioText.SetText("ƒLƒbƒ`ƒ“‚©‚çº‚ª•·‚±‚¦‚½‚Æ‚Ìî•ñ‚¾IŠ‹}Œü‚©‚Á‚Ä‚­‚êI");
-                            Debug.Log("ˆêl–Ú‚ÌˆÊ’uŠm’è");
+                            RadioText.SetText("ã‚­ãƒƒãƒãƒ³ã‹ã‚‰å£°ãŒèã“ãˆãŸã¨ã®æƒ…å ±ã ï¼è‡³æ€¥å‘ã‹ã£ã¦ãã‚Œï¼");
+                            Debug.Log("ä¸€äººç›®ã®ä½ç½®ç¢ºå®š");
                             StartCoroutine(Simple1());
-                            //–³ü•\¦
+                            //ç„¡ç·šè¡¨ç¤º
                         }
                         else
                         {
@@ -433,24 +435,24 @@ public class Radio_ver3 : MonoBehaviour
                         {
                             if (RCnt % 3 == 1)
                             {
-                                RadioText.SetText("¼‚Ì•û‚Él‚ª“¦‚°‚Ä‚¢‚Á‚½‚Æ‚Ìî•ñ‚¾");
+                                RadioText.SetText("è¥¿ã®æ–¹ã«äººãŒé€ƒã’ã¦ã„ã£ãŸã¨ã®æƒ…å ±ã ");
                                 Debug.Log("1-1");
                                 StartCoroutine(Simple1());
                                 ChatFlag = false;
                             }
                             else if (RCnt % 3 == 2)
                             {
-                                RadioText.SetText("¼“ì•û–Ê‚Él‰e‚ª‚ ‚Á‚½‚©‚à‚µ‚ê‚È‚¢ˆê‰Œü‚©‚Á‚Ä‚­‚ê‚È‚¢‚©");
+                                RadioText.SetText("è¥¿å—æ–¹é¢ã«äººå½±ãŒã‚ã£ãŸã‹ã‚‚ã—ã‚Œãªã„ä¸€å¿œå‘ã‹ã£ã¦ãã‚Œãªã„ã‹");
                                 StartCoroutine(Simple1());
                                 Debug.Log("1-2");
                             }
                             else if (RCnt % 3 == 0)
                             {
-                                RadioText.SetText("ƒoƒ‹ƒRƒj[‚Ål‚ª“|‚ê‚Ä‚¢‚é‚Æ‚Ìî•ñ‚¾");
+                                RadioText.SetText("ãƒãƒ«ã‚³ãƒ‹ãƒ¼ã§äººãŒå€’ã‚Œã¦ã„ã‚‹ã¨ã®æƒ…å ±ã ");
                                 StartCoroutine(Simple1());
                                 Debug.Log("1-3");
                                 RPeople2 = false;
-                                //rnd1‚Ì–³ü
+                                //rnd1ã®ç„¡ç·š
 
                             }
                         }
@@ -458,25 +460,25 @@ public class Radio_ver3 : MonoBehaviour
                         {
                             if (RCnt % 3 == 1)
                             {
-                                RadioText.SetText("–k‘¤‚Él‚ªŒü‚©‚Á‚Ä‚¢‚Á‚½‚Æ‚Ìî•ñ‚ª“ü‚Á‚½");
+                                RadioText.SetText("åŒ—å´ã«äººãŒå‘ã‹ã£ã¦ã„ã£ãŸã¨ã®æƒ…å ±ãŒå…¥ã£ãŸ");
                                 StartCoroutine(Simple1());
                                 Debug.Log("2-1");
-                                //rnd1‚Ì–³ü
+                                //rnd1ã®ç„¡ç·š
                             }
                             else if (RCnt % 3 == 2)
                             {
-                                RadioText.SetText("–k¼‘¤‚©‚ç‹©‚Ñº‚ª•·‚±‚¦‚½‚©‚çŒü‚©‚Á‚Ä‚­‚ê");
+                                RadioText.SetText("åŒ—è¥¿å´ã‹ã‚‰å«ã³å£°ãŒèã“ãˆãŸã‹ã‚‰å‘ã‹ã£ã¦ãã‚Œ");
                                 StartCoroutine(Simple1());
                                 Debug.Log("2-2");
-                                //rnd1‚Ì–³ü
+                                //rnd1ã®ç„¡ç·š
                             }
                             else if (RCnt % 3 == 0)
                             {
-                                RadioText.SetText("ƒŠƒrƒ“ƒO‚Ål‚ª“|‚ê‚Ä‚¢‚é‚Æ‚Ìî•ñ‚¾");
+                                RadioText.SetText("ãƒªãƒ“ãƒ³ã‚°ã§äººãŒå€’ã‚Œã¦ã„ã‚‹ã¨ã®æƒ…å ±ã ");
                                 StartCoroutine(Simple1());
                                 Debug.Log("2-3");
                                 RPeople2 = false;
-                                //rnd1‚Ì–³ü
+                                //rnd1ã®ç„¡ç·š
 
                             }
                         }
@@ -484,25 +486,25 @@ public class Radio_ver3 : MonoBehaviour
                         {
                             if (RCnt % 3 == 1)
                             {
-                                RadioText.SetText("–k‘¤‚Él‚ªŒü‚©‚Á‚Ä‚¢‚Á‚½‚Æ‚Ìî•ñ‚ª“ü‚Á‚½");
+                                RadioText.SetText("åŒ—å´ã«äººãŒå‘ã‹ã£ã¦ã„ã£ãŸã¨ã®æƒ…å ±ãŒå…¥ã£ãŸ");
                                 StartCoroutine(Simple1());
                                 Debug.Log("3-1");
-                                //rnd1‚Ì–³ü
+                                //rnd1ã®ç„¡ç·š
                             }
                             else if (RCnt % 3 == 2)
                             {
-                                RadioText.SetText("‰´‚Í‚±‚ÌŠÔ‚æ‚­‚¨•—˜C‚É“ü‚Á‚Ä...‚ A–³ü‚ğ•t‚¯‚½‚Ü‚Ü‚¾‚Á‚½...");
+                                RadioText.SetText("ä¿ºã¯ã“ã®æ™‚é–“ã‚ˆããŠé¢¨å‘‚ã«å…¥ã£ã¦...ã‚ã€ç„¡ç·šã‚’ä»˜ã‘ãŸã¾ã¾ã ã£ãŸ...");
                                 StartCoroutine(Simple1());
                                 Debug.Log("3-2");
-                                //rnd1‚Ì–³ü
+                                //rnd1ã®ç„¡ç·š
                             }
                             else if (RCnt % 3 == 0)
                             {
-                                RadioText.SetText("‚¨•—˜Cê‚É‚ÄŠŠ‚Á‚Ä“®‚¯‚È‚¢l‚ª‚¢‚é‚Æ‚Ìî•ñ‚¾");
+                                RadioText.SetText("ãŠé¢¨å‘‚å ´ã«ã¦æ»‘ã£ã¦å‹•ã‘ãªã„äººãŒã„ã‚‹ã¨ã®æƒ…å ±ã ");
                                 StartCoroutine(Simple1());
                                 Debug.Log("3-3");
                                 RPeople2 = false;
-                                //rnd1‚Ì–³ü
+                                //rnd1ã®ç„¡ç·š
 
                             }
                         }
@@ -510,25 +512,25 @@ public class Radio_ver3 : MonoBehaviour
                         {
                             if (RCnt % 3 == 1)
                             {
-                                RadioText.SetText("“ì‘¤‚Él‚ªŒü‚©‚Á‚Ä‚¢‚Á‚½‚Æ‚Ìî•ñ‚ª“ü‚Á‚½");
+                                RadioText.SetText("å—å´ã«äººãŒå‘ã‹ã£ã¦ã„ã£ãŸã¨ã®æƒ…å ±ãŒå…¥ã£ãŸ");
                                 StartCoroutine(Simple1());
                                 Debug.Log("4-1");
-                                //rnd1‚Ì–³ü
+                                //rnd1ã®ç„¡ç·š
                             }
                             else if (RCnt % 3 == 2)
                             {
-                                RadioText.SetText("‚±‚Ì•‚à‰Œ‚Ü‚İ‚ê‚Å‚à‚¤‚»‚ë‚»‚ë’…‘Ö‚¦‚½‚¢‚ºI");
+                                RadioText.SetText("ã“ã®æœã‚‚ç…™ã¾ã¿ã‚Œã§ã‚‚ã†ãã‚ãã‚ç€æ›¿ãˆãŸã„ãœï¼");
                                 StartCoroutine(Simple1());
                                 Debug.Log("4-2");
-                                //rnd1‚Ì–³ü
+                                //rnd1ã®ç„¡ç·š
                             }
                             else if (RCnt % 3 == 0)
                             {
-                                RadioText.SetText("ƒNƒ[ƒ[ƒbƒg‚É‚Ä•¨‚ª“|‚ê‚Ä“®‚¯‚È‚¢l‚ª‚¢‚é‚Æ‚Ìî•ñ‚¾");
+                                RadioText.SetText("ã‚¯ãƒ­ãƒ¼ã‚¼ãƒƒãƒˆã«ã¦ç‰©ãŒå€’ã‚Œã¦å‹•ã‘ãªã„äººãŒã„ã‚‹ã¨ã®æƒ…å ±ã ");
                                 StartCoroutine(Simple1());
                                 Debug.Log("4-3");
                                 RPeople2 = false;
-                                //rnd1‚Ì–³ü
+                                //rnd1ã®ç„¡ç·š
 
                             }
                         }
@@ -536,25 +538,25 @@ public class Radio_ver3 : MonoBehaviour
                         {
                             if (RCnt % 3 == 1)
                             {
-                                RadioText.SetText("¼‘¤‚É‘–‚Á‚Ä“¦‚°‚él‚ª‚¢‚½‚Æ‚Ìî•ñ‚¾");
+                                RadioText.SetText("è¥¿å´ã«èµ°ã£ã¦é€ƒã’ã‚‹äººãŒã„ãŸã¨ã®æƒ…å ±ã ");
                                 StartCoroutine(Simple1());
                                 Debug.Log("5-1");
-                                //rnd1‚Ì–³ü
+                                //rnd1ã®ç„¡ç·š
                             }
                             else if (RCnt % 3 == 2)
                             {
-                                RadioText.SetText("‚Ü‚³‚©‚±‚ñ‚Èó‹µ‚ÅQ‚Ä‚é‚â‚Â‚Í‚¢‚È‚¢‚æ‚È...");
+                                RadioText.SetText("ã¾ã•ã‹ã“ã‚“ãªçŠ¶æ³ã§å¯ã¦ã‚‹ã‚„ã¤ã¯ã„ãªã„ã‚ˆãª...");
                                 StartCoroutine(Simple1());
                                 Debug.Log("5-2");
-                                //rnd1‚Ì–³ü
+                                //rnd1ã®ç„¡ç·š
                             }
                             else if (RCnt % 3 == 0)
                             {
-                                RadioText.SetText("Qº‚Å‘S‘R‹N‚«‚È‚¢l‚ª‚¢‚é‚İ‚½‚¢‚¾I‹}‚¢‚Å‹N‚±‚µ‚És‚Á‚Ä‚­‚ê");
+                                RadioText.SetText("å¯å®¤ã§å…¨ç„¶èµ·ããªã„äººãŒã„ã‚‹ã¿ãŸã„ã ï¼æ€¥ã„ã§èµ·ã“ã—ã«è¡Œã£ã¦ãã‚Œ");
                                 StartCoroutine(Simple1());
                                 Debug.Log("5-3");
                                 RPeople2 = false;
-                                //rnd1‚Ì–³ü
+                                //rnd1ã®ç„¡ç·š
 
                             }
                         }
@@ -568,10 +570,10 @@ public class Radio_ver3 : MonoBehaviour
                     {
                         if (rnd == 0)
                         {
-                            RadioText2.SetText("ƒLƒbƒ`ƒ“‚Ì‰œ‚Ì•û‚Ål‚ª“|‚ê‚Ä‚½‚Ì!");
-                            Debug.Log("ˆêl–Ú‚ÌˆÊ’uŠm’è");
+                            RadioText2.SetText("ãˆã€é–“å–ã‚ŠãŒã‚ã‹ã‚‰ãªã„?\r\nãƒãƒƒãƒ—ã‚’ã‚ã’ã‚‹ã‹ã‚‰ç¢ºèªã—ã¦ã¿ã¦");
+                            Debug.Log("ä¸€äººç›®ã®ä½ç½®ç¢ºå®š");
                             StartCoroutine(Simple1());
-                            //–³ü•\¦
+                            //ç„¡ç·šè¡¨ç¤º
                         }
                         else
                         {
@@ -584,23 +586,23 @@ public class Radio_ver3 : MonoBehaviour
                         {
                             if (RCnt % 3 == 1)
                             {
-                                RadioText2.SetText("¼‚Ì•û‚Él‚ª“¦‚°‚Ä‚¢‚Á‚½‚¼");
+                                RadioText2.SetText("è¥¿ã®æ–¹ã«äººãŒé€ƒã’ã¦ã„ã£ãŸã");
                                 StartCoroutine(Simple1());
                                 Debug.Log("1-1");
                             }
                             else if (RCnt % 3 == 2)
                             {
-                                RadioText2.SetText("¼“ì•û–Ê‚Él‰e‚ª‚ ‚Á‚½‚©‚à‚µ‚ê‚È‚¢ˆê‰Œü‚©‚Á‚Ä‚­‚ê‚È‚¢‚©");
+                                RadioText2.SetText("è¥¿å—æ–¹é¢ã«äººå½±ãŒã‚ã£ãŸã‹ã‚‚ã—ã‚Œãªã„ä¸€å¿œå‘ã‹ã£ã¦ãã‚Œãªã„ã‹");
                                 StartCoroutine(Simple1());
                                 Debug.Log("1-2");
                             }
                             else if (RCnt % 3 == 0)
                             {
-                                RadioText2.SetText("ƒoƒ‹ƒRƒj[‚Ål‚ª“®‚¯‚È‚¢‚Á‚Ä‚¢‹©‚ñ‚Å‚½‚í");
+                                RadioText2.SetText("ãƒãƒ«ã‚³ãƒ‹ãƒ¼ã§äººãŒå‹•ã‘ãªã„ã£ã¦ã„å«ã‚“ã§ãŸã‚");
                                 StartCoroutine(Simple1());
                                 Debug.Log("1-3");
                                 RPeople2 = false;
-                                //rnd1‚Ì–³ü
+                                //rnd1ã®ç„¡ç·š
 
                             }
                         }
@@ -608,25 +610,25 @@ public class Radio_ver3 : MonoBehaviour
                         {
                             if (RCnt % 3 == 1)
                             {
-                                RadioText2.SetText("–k‘¤‚Él‚ª‘–‚Á‚Ä‚¢‚Á‚½‚æ");
+                                RadioText2.SetText("åŒ—å´ã«äººãŒèµ°ã£ã¦ã„ã£ãŸã‚ˆ");
                                 StartCoroutine(Simple1());
                                 Debug.Log("2-1");
-                                //rnd1‚Ì–³ü
+                                //rnd1ã®ç„¡ç·š
                             }
                             else if (RCnt % 3 == 2)
                             {
-                                RadioText2.SetText("‚³‚Á‚«‚©‚çƒŠƒrƒ“ƒO•û–Ê‚Å‹©‚Ñº‚ª•·‚±‚¦‚é‚Ì");
+                                RadioText2.SetText("ã•ã£ãã‹ã‚‰ãƒªãƒ“ãƒ³ã‚°æ–¹é¢ã§å«ã³å£°ãŒèã“ãˆã‚‹ã®");
                                 StartCoroutine(Simple1());
                                 Debug.Log("2-2");
-                                //rnd1‚Ì–³ü
+                                //rnd1ã®ç„¡ç·š
                             }
                             else if (RCnt % 3 == 0)
                             {
-                                RadioText2.SetText("ƒŠƒrƒ“ƒO‚Ål‚ª“|‚ê‚Ä‚¢‚½‚í");
+                                RadioText2.SetText("ãƒªãƒ“ãƒ³ã‚°ã§äººãŒå€’ã‚Œã¦ã„ãŸã‚");
                                 StartCoroutine(Simple1());
                                 Debug.Log("2-3");
                                 RPeople2 = false;
-                                //rnd1‚Ì–³ü
+                                //rnd1ã®ç„¡ç·š
 
                             }
                         }
@@ -634,25 +636,25 @@ public class Radio_ver3 : MonoBehaviour
                         {
                             if (RCnt % 3 == 1)
                             {
-                                RadioText2.SetText("‚³‚Á‚«–k‘¤‚Él‚ªŒü‚©‚Á‚Ä‚¢‚Á‚½‚¼");
+                                RadioText2.SetText("ã•ã£ãåŒ—å´ã«äººãŒå‘ã‹ã£ã¦ã„ã£ãŸã");
                                 StartCoroutine(Simple1());
                                 Debug.Log("3-1");
-                                //rnd1‚Ì–³ü
+                                //rnd1ã®ç„¡ç·š
                             }
                             else if (RCnt % 3 == 2)
                             {
-                                RadioText2.SetText("‰Š‚ÅŠ¾‚ª~‚Ü‚ç‚È‚¢‚í...‚¨•—˜C‚É“ü‚è‚½‚¢...");
+                                RadioText2.SetText("ç‚ã§æ±—ãŒæ­¢ã¾ã‚‰ãªã„ã‚...ãŠé¢¨å‘‚ã«å…¥ã‚ŠãŸã„...");
                                 StartCoroutine(Simple1());
                                 Debug.Log("3-2");
-                                //rnd1‚Ì–³ü
+                                //rnd1ã®ç„¡ç·š
                             }
                             else if (RCnt % 3 == 0)
                             {
-                                RadioText2.SetText("‚³‚Á‚«‚¨•—˜C‚É“ü‚Á‚½l‚ª‚Å‚Ä‚±‚È‚¢‚Ì...");
+                                RadioText2.SetText("ã•ã£ããŠé¢¨å‘‚ã«å…¥ã£ãŸäººãŒã§ã¦ã“ãªã„ã®...");
                                 StartCoroutine(Simple1());
                                 Debug.Log("3-3");
                                 RPeople2 = false;
-                                //rnd1‚Ì–³ü
+                                //rnd1ã®ç„¡ç·š
 
                             }
                         }
@@ -660,25 +662,25 @@ public class Radio_ver3 : MonoBehaviour
                         {
                             if (RCnt % 3 == 1)
                             {
-                                RadioText2.SetText("“ì‘¤‚Él‚ªŒü‚©‚Á‚Ä‚¢‚Á‚½‚í");
+                                RadioText2.SetText("å—å´ã«äººãŒå‘ã‹ã£ã¦ã„ã£ãŸã‚");
                                 StartCoroutine(Simple1());
                                 Debug.Log("4-1");
-                                //rnd1‚Ì–³ü
+                                //rnd1ã®ç„¡ç·š
                             }
                             else if (RCnt % 3 == 2)
                             {
-                                RadioText2.SetText("•‚ª‰Œ‚Ü‚İ‚ê`‚¢‚¿‘‚­’…‘Ö‚¦‚½‚¢I");
+                                RadioText2.SetText("æœãŒç…™ã¾ã¿ã‚Œï½ã„ã¡æ—©ãç€æ›¿ãˆãŸã„ï¼");
                                 StartCoroutine(Simple1());
                                 Debug.Log("4-2");
-                                //rnd1‚Ì–³ü
+                                //rnd1ã®ç„¡ç·š
                             }
                             else if (RCnt % 3 == 0)
                             {
-                                RadioText2.SetText("ƒNƒ[ƒ[ƒbƒg‚Å•¨‚ª“|‚ê‚Ä“®‚¯‚È‚¢l‚ª‚¢‚é‚ÌI");
+                                RadioText2.SetText("ã‚¯ãƒ­ãƒ¼ã‚¼ãƒƒãƒˆã§ç‰©ãŒå€’ã‚Œã¦å‹•ã‘ãªã„äººãŒã„ã‚‹ã®ï¼");
                                 StartCoroutine(Simple1());
                                 Debug.Log("4-3");
                                 RPeople2 = false;
-                                //rnd1‚Ì–³ü
+                                //rnd1ã®ç„¡ç·š
 
                             }
                         }
@@ -686,25 +688,25 @@ public class Radio_ver3 : MonoBehaviour
                         {
                             if (RCnt % 3 == 1)
                             {
-                                RadioText2.SetText("‚³‚Á‚«¼‘¤‚É‘–‚Á‚Ä“¦‚°‚él‚ª‚¢‚½‚¼");
+                                RadioText2.SetText("ã•ã£ãè¥¿å´ã«èµ°ã£ã¦é€ƒã’ã‚‹äººãŒã„ãŸã");
                                 StartCoroutine(Simple1());
                                 Debug.Log("5-1");
-                                //rnd1‚Ì–³ü
+                                //rnd1ã®ç„¡ç·š
                             }
                             else if (RCnt % 3 == 2)
                             {
-                                RadioText2.SetText("‚Ü‚³‚©‚±‚ñ‚Èó‹µ‚ÅQ‚Ä‚é‚â‚Â‚Í‚¢‚È‚¢‚æ‚È...");
+                                RadioText2.SetText("ã¾ã•ã‹ã“ã‚“ãªçŠ¶æ³ã§å¯ã¦ã‚‹ã‚„ã¤ã¯ã„ãªã„ã‚ˆãª...");
                                 StartCoroutine(Simple1());
                                 Debug.Log("5-2");
-                                //rnd1‚Ì–³ü
+                                //rnd1ã®ç„¡ç·š
                             }
                             else if (RCnt % 3 == 0)
                             {
-                                RadioText2.SetText("Qº‚ÅŒ‚Á‚Ï‚ç‚Á‚½‚â‚Â‚ªQ‚Ä‚Ä‹N‚«‚È‚¢‚ñ‚¾I•‚¯‚Ä‚â‚Á‚Ä‚­‚ê");
+                                RadioText2.SetText("å¯å®¤ã§é…”ã£ã±ã‚‰ã£ãŸã‚„ã¤ãŒå¯ã¦ã¦èµ·ããªã„ã‚“ã ï¼åŠ©ã‘ã¦ã‚„ã£ã¦ãã‚Œ");
                                 StartCoroutine(Simple1());
                                 Debug.Log("5-3");
                                 RPeople2 = false;
-                                //rnd1‚Ì–³ü
+                                //rnd1ã®ç„¡ç·š
 
                             }
                         }
@@ -727,27 +729,27 @@ public class Radio_ver3 : MonoBehaviour
         if (RCnt % 3 == 0)
         {
             RPeople = true;
-            Debug.Log("‹~•Òƒtƒ‰ƒOF" + RPeople);
+            Debug.Log("æ•‘åŠ©è€…ãƒ•ãƒ©ã‚°ï¼š" + RPeople);
         }
     }
 
     public void RMessage()
     {
-        RadioText.SetText("‚ ‚È‚½‚Í–½‚Ì‰¶l‚æI‚ ‚è‚ª‚Æ‚¤I");
+        RadioText.SetText("ã‚ãªãŸã¯å‘½ã®æ©äººã‚ˆï¼ã‚ã‚ŠãŒã¨ã†ï¼");
         StartCoroutine(Simple());
         ChatPanel1.SetActive(true);
         Invoke(nameof(Radio1OFF), EndTimer);
     }
     public void RMessage1()
     {
-        RadioText.SetText("ŠO‚Ì‹ó‹C‚¤‚ß‚¦II");
+        RadioText.SetText("å¤–ã®ç©ºæ°—ã†ã‚ãˆï¼ï¼");
         StartCoroutine(Simple());
         ChatPanel2.SetActive(true);
         Invoke(nameof(Radio2OFF), EndTimer);
     }
     public void RMessage2()
     {
-        RadioText.SetText("•‚©‚Á‚½‚æI‚ ‚è‚ª‚Æ‚¤I");
+        RadioText.SetText("åŠ©ã‹ã£ãŸã‚ˆï¼ã‚ã‚ŠãŒã¨ã†ï¼");
         StartCoroutine(Simple());
         ChatPanel3.SetActive(true);
         Invoke(nameof(Radio3OFF), EndTimer);
@@ -758,25 +760,30 @@ public class Radio_ver3 : MonoBehaviour
         rndtext = Random.Range(1, 6);
         if(JorE)
         {
-            if (rndtext == 1)
+            if(!MapPresent)
             {
-                RadioText2.SetText("•‚©‚Á‚½‚æI‚ ‚è‚ª‚Æ‚¤I");
+                RadioText2.SetText("åŠ©ã‹ã£ãŸã‚ˆï¼ã‚­ãƒƒãƒãƒ³ã®\r\nå¥¥ã®æ–¹ã§äººãŒå€’ã‚Œã¦ãŸã®!");
+                MapPresent = true;
+            }
+            else if (rndtext == 1)
+            {
+                RadioText2.SetText("åŠ©ã‹ã£ãŸã‚ˆï¼ã‚ã‚ŠãŒã¨ã†ï¼");
             }
             else if (rndtext == 2)
             {
-                RadioText2.SetText("‚ ‚È‚½‚Í–½‚Ì‰¶l‚æI‚ ‚è‚ª‚Æ‚¤I");
+                RadioText2.SetText("ã‚ãªãŸã¯å‘½ã®æ©äººã‚ˆï¼ã‚ã‚ŠãŒã¨ã†ï¼");
             }
             else if (rndtext == 3)
             {
-                RadioText2.SetText("‚È‚ñ‚Ä‚·‚Î‚ç‚µ‚¢‹~•‚È‚ñ‚¾I");
+                RadioText2.SetText("ãªã‚“ã¦ã™ã°ã‚‰ã—ã„æ•‘åŠ©ãªã‚“ã ï¼");
             }
             else if (rndtext == 4)
             {
-                RadioText2.SetText("‚Ï[‚Ó‚¥‚­‚ÆI");
+                RadioText2.SetText("ã±ãƒ¼ãµã‡ãã¨ï¼");
             }
             else if (rndtext == 5)
             {
-                RadioText2.SetText("¶‚«‚Ä‹A‚ê‚é...I");
+                RadioText2.SetText("ç”Ÿãã¦å¸°ã‚Œã‚‹...ï¼");
             }
         }
          StartCoroutine(Simple1());
@@ -802,6 +809,8 @@ public class Radio_ver3 : MonoBehaviour
         }
         ChatFlag = false;
     }
+
+    //æ—¥æœ¬èªç”¨ã®æ–‡å­—æ›´æ–°
     private IEnumerator Simple1()
     {
        
@@ -809,15 +818,15 @@ public class Radio_ver3 : MonoBehaviour
 
             for (var i = 0; i < RadioText2.text.Length; i++)
             {
-                yield return new WaitForSeconds(0.15f);
+                yield return new WaitForSeconds(0.075f);
                 RadioText2.maxVisibleCharacters = i + 1;
             }
      
     }
+
+    //è‹±èªç”¨ã®æ–‡å­—æ›´æ–°
     private IEnumerator Simple2()
     {
-        if(ChatFlag)
-        {
             RadioText.maxVisibleCharacters = 0;
 
             for (var i = 0; i < RadioText.text.Length; i++)
@@ -825,8 +834,6 @@ public class Radio_ver3 : MonoBehaviour
                 yield return new WaitForSeconds(0.05f);
                 RadioText.maxVisibleCharacters = i + 1;
             }
-        }
-        ChatFlag = false;
     }
     private IEnumerator DelayCoroutine()
     {

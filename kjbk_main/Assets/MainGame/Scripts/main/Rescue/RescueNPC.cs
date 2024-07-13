@@ -67,6 +67,7 @@ public class RescueNPC : MonoBehaviour
     public int NumberR;
 
     public RadioText RText;
+    //public RescuedText RescuedText;
     void Start()
     {
         mesh = GetComponent<MeshRenderer>();
@@ -154,6 +155,7 @@ public class RescueNPC : MonoBehaviour
             {
                 if (!IsItFirstContact())
                 {
+                    //RescuedText.RescuedFlagONOFF();
                     ComentON();// オブジェクト削除
                     SetActiveIcon(true);
                     StopNPC();
@@ -162,7 +164,7 @@ public class RescueNPC : MonoBehaviour
                     RescuedVectorNPC(TargetPosition.x, TargetPosition.y, TargetPosition.z);   //NPCを救出したときのVector
                     SetRescued(true);
                     NPCanimator.SetBool("Walk", false);
-                    CounterScript.Count();
+                    //CounterScript.Count();
                     CountDestroy();   //一定時間後にオブジェクト削除
                 }
             }
@@ -233,6 +235,8 @@ public class RescueNPC : MonoBehaviour
     private void Destroy()
     {
         Destroy(this.gameObject);
+        CounterScript.Count();   //救助者カウント
+        r_num = CounterScript.getNum();
     }
     private void Count()
     {

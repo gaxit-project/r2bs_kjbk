@@ -17,9 +17,16 @@ public class SwitchCamera : MonoBehaviour
     public GameObject miniMap;
     public GameObject hat1;
     private RescueNPC rescueNPC;
+    bool MapON = false;
+    bool NiseMapON = false;
+    public GameObject MAPOFF;
+    public GameObject MiniMAPOFF;
+    public GameObject MiniMAP;
 
     void Start()
     {
+        MAPOFF.SetActive(false);
+        MiniMAP.SetActive(false);
         mainCamera = Camera.main;
         CounterScript = FindObjectOfType<RescueCount>();
         rescueNPC = FindObjectOfType<RescueNPC>();
@@ -34,12 +41,26 @@ public class SwitchCamera : MonoBehaviour
 
         if (CounterScript.getNum() == 1 && initialMapStatusActivated)
         {
-            StartCoroutine(ActivateInitialMapStatusWithDelay(2.0f));
+            StartCoroutine(ActivateInitialMapStatusWithDelay(0f));
         }
 
         if (Map || Input.GetKeyDown(KeyCode.M))
         {
-            map_status = !map_status;
+            if(MapON)
+            {
+                map_status = !map_status;
+            }
+            else if(!NiseMapON)
+            {
+                MAPOFF.SetActive(true);
+                NiseMapON = true;
+            }
+            else
+            {
+                MAPOFF.SetActive(false);
+                NiseMapON = false;
+            }
+
         }
 
         if (map_status)
@@ -67,6 +88,10 @@ public class SwitchCamera : MonoBehaviour
 
     private IEnumerator ActivateInitialMapStatusWithDelay(float delay)
     {
+        MapON = true;
+        MiniMAPOFF.SetActive(false);
+        MiniMAP.SetActive(true);
+        initialMapStatusActivated = false;
         yield return new WaitForSeconds(delay);
         if (hat1 != null)
         {
@@ -74,7 +99,6 @@ public class SwitchCamera : MonoBehaviour
             Ui.SetActive(true);
             map_status = true;
         }
-        initialMapStatusActivated = false;
     }
 }
 
