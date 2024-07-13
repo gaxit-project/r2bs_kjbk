@@ -89,7 +89,7 @@ public class PlayerRayCast : MonoBehaviour
         if (isHit)
         {
             // LogにHitしたオブジェクト名を出力
-            Debug.Log("HitObject : " + raycastHit.collider.gameObject.name);
+            //Debug.Log("HitObject : " + raycastHit.collider.gameObject.name);
             // HitしたオブジェクトのTag何か判定
             if (raycastHit.collider.gameObject.CompareTag(Blaze))
             {

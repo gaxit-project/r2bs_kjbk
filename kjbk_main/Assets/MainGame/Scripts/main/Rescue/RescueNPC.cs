@@ -153,6 +153,7 @@ public class RescueNPC : MonoBehaviour
             //軽傷者消滅用
             if (Talk && Severe == false)   //軽症者に近づいたとき
             {
+                Debug.Log("しゃべったーーーーーーーーーーーーーーーー");
                 if (!IsItFirstContact())
                 {
                     //RescuedText.RescuedFlagONOFF();
