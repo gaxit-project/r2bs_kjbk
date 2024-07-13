@@ -9,6 +9,7 @@ public class GoalJudgement : MonoBehaviour
     [SerializeField] GameObject EscapeOFF;
     [SerializeField] GameObject BackToTheTitle;
     [SerializeField] GameObject SoundSetting;
+    [SerializeField] Button Esc;
     private bool GJonoff = true;
 
     public bool JudgeFlag = false;
@@ -40,6 +41,7 @@ public class GoalJudgement : MonoBehaviour
                 EscapeOFF.SetActive(true);
                 GJonoff = false;
                 PauseFlag = true;
+                Esc.Select();
             }
         }
 
