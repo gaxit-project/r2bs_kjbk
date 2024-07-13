@@ -19,7 +19,6 @@ public class FireSpread : MonoBehaviour
     RescueCount Counter;
 
     public static bool FirstAction = true;
-    private bool Action = true;
 
     private int boostNum;
     private bool boost = false;
@@ -78,11 +77,8 @@ public class FireSpread : MonoBehaviour
         if (inferno.DesBlaze)
         {
             StopCoroutine("SpreadFire");
-            if (Action)
-            {
-                m_Blaze.CreateExtPlane(new Vector3(this.transform.position.x, PosY, this.transform.position.z));
-                Action = false;
-            }
+            m_Blaze.CreateExtPlane(new Vector3(this.transform.position.x, PosY, this.transform.position.z));
+            Destroy(this.gameObject);
         }
         if (Counter.getNum() >= boostNum && !boost)   //“|‰óƒQ[ƒW‚ÍŽQÆ‚µ‚Ä‚È‚¢‚½‚ß’Ç‰Á‚·‚éê‡‚ÍðŒ‘‚â‚µ‚Ä‚­‚¾‚³‚¢
         {
