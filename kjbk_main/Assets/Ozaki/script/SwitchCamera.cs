@@ -22,6 +22,7 @@ public class SwitchCamera : MonoBehaviour
     public GameObject MAPOFF;
     public GameObject MiniMAPOFF;
     public GameObject MiniMAP;
+    public GameObject MiniMAPOFF2;
 
     void Start()
     {
@@ -53,11 +54,15 @@ public class SwitchCamera : MonoBehaviour
             else if(!NiseMapON)
             {
                 MAPOFF.SetActive(true);
+                MiniMAPOFF.SetActive(false);
+                MiniMAPOFF2.SetActive(false);
                 NiseMapON = true;
             }
             else
             {
                 MAPOFF.SetActive(false);
+                MiniMAPOFF.SetActive(true);
+                MiniMAPOFF2.SetActive(true);
                 NiseMapON = false;
             }
 
@@ -91,6 +96,8 @@ public class SwitchCamera : MonoBehaviour
         MapON = true;
         MiniMAPOFF.SetActive(false);
         MiniMAP.SetActive(true);
+        MAPOFF.SetActive(false);
+        MiniMAPOFF2.SetActive(true);
         initialMapStatusActivated = false;
         yield return new WaitForSeconds(delay);
         if (hat1 != null)

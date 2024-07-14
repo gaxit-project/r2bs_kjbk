@@ -33,6 +33,9 @@ public class PlayController : MonoBehaviour
 
     public static bool MoveInput;
 
+    float Yvalue;
+    float Xvalue;
+
     // PlayerInput側から呼ばれるコールバック
     public void OnRun(InputAction.CallbackContext context)
     {
@@ -99,6 +102,17 @@ public class PlayController : MonoBehaviour
             MoveInput = false;
         }
 
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Carry"))
+        {
+            rb.velocity = Vector3.zero;
+        }
+        else
+        {
+            //垂直方向と水平方向の入力を取得
+            Xvalue = Input.GetAxisRaw("Horizontal");
+            Yvalue = Input.GetAxisRaw("Vertical");
+        }
+
         if (MoveInput)
         {
             if (DesSystem.DesSystemStatus == true)
@@ -108,10 +122,6 @@ public class PlayController : MonoBehaviour
             }
             else if (WaterHose.Hold)
             {
-
-                //垂直方向と水平方向の入力を取得
-                float Xvalue = Input.GetAxisRaw("Horizontal");
-                float Yvalue = Input.GetAxisRaw("Vertical");
 
                 MoveStatus = true;
 
@@ -163,8 +173,8 @@ public class PlayController : MonoBehaviour
                     }
 
                     //垂直方向と水平方向の入力を取得
-                    float Xvalue = Input.GetAxisRaw("Horizontal");
-                    float Yvalue = Input.GetAxisRaw("Vertical");
+                    //float Xvalue = Input.GetAxisRaw("Horizontal");
+                    //float Yvalue = Input.GetAxisRaw("Vertical");
 
                     MoveStatus = true;
 

@@ -50,6 +50,7 @@ public class WaterHose : MonoBehaviour
         {
             case InputActionPhase.Performed:
                 // ボタンが押された時の処理
+                FF.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
                 Hold = true;
                 Debug.Log("押してます(コントローラ)");
                 break;
@@ -111,6 +112,7 @@ public class WaterHose : MonoBehaviour
             {
                 if (!isOnes)
                 {
+                    
                     isOnes = true;
                     animator.SetBool("Gun", isOnes);
                     Invoke(nameof(HandPocket), 0.4f);
