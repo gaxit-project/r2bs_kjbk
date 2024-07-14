@@ -4,9 +4,7 @@ using UnityEngine;
 
 public class Danger_Ray : MonoBehaviour
 {
-    [SerializeField] float clampMax = 2;
-    [SerializeField] float clampMin = 1;
-    [SerializeField] float reacDisrance = 7;
+    [SerializeField] float reacDistance = 0.45f;
 
     private Vector3 Xp;
     private Vector3 Zp;
@@ -66,8 +64,8 @@ public class Danger_Ray : MonoBehaviour
             if (XpHit.collider.CompareTag("Blaze"))
             {
                 float Xpdistance = Vector3.Distance(XpHit.transform.position, transform.position);
-                XpDistance = Xpdistance / 10;
-                if (XpDistance > reacDisrance)
+                XpDistance = Xpdistance / 100;
+                if(XpDistance > reacDistance)
                 {
                     Right = false;
                 }
@@ -91,8 +89,8 @@ public class Danger_Ray : MonoBehaviour
             if (ZpHit.collider.CompareTag("Blaze"))
             {
                 float Zpdistance = Vector3.Distance(ZpHit.transform.position, transform.position);
-                ZpDistance = Zpdistance / 10;
-                if (ZpDistance > reacDisrance)
+                ZpDistance = Zpdistance / 100;
+                if (ZpDistance > reacDistance)
                 {
                     Up = false;
                 }
@@ -116,8 +114,8 @@ public class Danger_Ray : MonoBehaviour
             if (XmHit.collider.CompareTag("Blaze"))
             {
                 float Xmdistance = Vector3.Distance(XmHit.transform.position, transform.position);
-                XmDistance = Xmdistance / 10;
-                if (XmDistance > reacDisrance)
+                XmDistance = Xmdistance / 100;
+                if (XmDistance > reacDistance)
                 {
                     Left = false;
                 }
@@ -141,14 +139,14 @@ public class Danger_Ray : MonoBehaviour
             if (ZmHit.collider.CompareTag("Blaze"))
             {
                 float Zmdistance = Vector3.Distance(ZmHit.transform.position, transform.position);
-                ZmDistance = Zmdistance / 10;
-                if (ZmDistance > reacDisrance)
+                ZmDistance = Zmdistance / 100;
+                if (ZmDistance > reacDistance)
                 {
-                    Under = false;
+                    Left = false;
                 }
                 else
                 {
-                    Under = true;
+                    Left = true;
                 }
             }
             else

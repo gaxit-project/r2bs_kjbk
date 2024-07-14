@@ -15,10 +15,10 @@ public class Danger_UI : MonoBehaviour
     public GameObject Left;
     public GameObject Right;
 
-    private Image UpImage;
-    private Image UnderImage;
-    private Image LeftImage;
-    private Image RightImage;
+    private CanvasGroup UpImage;
+    private CanvasGroup UnderImage;
+    private CanvasGroup LeftImage;
+    private CanvasGroup RightImage;
 
     private double _time;
 
@@ -27,26 +27,15 @@ public class Danger_UI : MonoBehaviour
     {
         ray = Player.GetComponent<Danger_Ray>();
 
-        UpImage = Up.GetComponent<Image>();
-        UnderImage = Under.GetComponent<Image>();
-        LeftImage = Left.GetComponent<Image>();
-        RightImage = Right.GetComponent<Image>();
+        UpImage = Up.GetComponent<CanvasGroup>();
+        UnderImage = Under.GetComponent<CanvasGroup>();
+        LeftImage = Left.GetComponent<CanvasGroup>();
+        RightImage = Right.GetComponent<CanvasGroup>();
 
-        var c = UpImage.color;
-        c.a = 0;
-        UpImage.color = c;
-
-        c = UnderImage.color;
-        c.a = 0;
-        UnderImage.color = c;
-
-        c = LeftImage.color;
-        c.a = 0;
-        LeftImage.color = c;
-
-        c = RightImage.color;
-        c.a = 0;
-        RightImage.color = c;
+        UpImage.alpha = 0;
+        UnderImage.alpha = 0;
+        LeftImage.alpha = 0;
+        RightImage.alpha = 0;
     }
 
     // Update is called once per frame
@@ -56,58 +45,42 @@ public class Danger_UI : MonoBehaviour
 
         if (ray.Up)
         {
-            float Upalpha = 255 * Mathf.Cos((float)(2 * Mathf.PI * _time / ray.ZpDistance)) * 0.5f + 0.5f;
-            var c = UpImage.color;
-            c.a = Upalpha;
-            UpImage.color = c;
+            var Upalpha = Mathf.Abs(Mathf.Clamp(ray.ZpDistance, 0, 1) - 1);
+            UpImage.alpha = Upalpha;
         }
         else
         {
-            var c = UpImage.color;
-            c.a = 0;
-            UpImage.color = c;
+            UpImage.alpha = 0;
         }
 
         if (ray.Under)
         {
-            float Underalpha = 255 * Mathf.Cos((float)(2 * Mathf.PI * _time / ray.ZmDistance)) * 0.5f + 0.5f;
-            var c = UnderImage.color;
-            c.a = Underalpha;
-            UnderImage.color = c;
+            float Underalpha = Mathf.Abs(Mathf.Clamp(ray.ZmDistance, 0, 1) - 1);
+            UnderImage.alpha = Underalpha;
         }
         else
         {
-            var c = UnderImage.color;
-            c.a = 0;
-            UnderImage.color = c;
+            UnderImage.alpha = 0;
         }
 
         if (ray.Right)
         {
-            float Rightalpha = 255 * Mathf.Cos((float)(2 * Mathf.PI * _time / ray.XpDistance)) * 0.5f + 0.5f;
-            var c = RightImage.color;
-            c.a = Rightalpha;
-            RightImage.color = c;
+            float Rightalpha = Mathf.Abs(Mathf.Clamp(ray.XpDistance, 0, 1) - 1);
+            RightImage.alpha = Rightalpha;
         }
         else
         {
-            var c = RightImage.color;
-            c.a = 0;
-            RightImage.color = c;
+            RightImage.alpha = 0;
         }
 
         if (ray.Left)
         {
-            float Leftalpha = 255 * Mathf.Cos((float)(2 * Mathf.PI * _time / Mathf.Round(ray.XmDistance))) * 0.5f + 0.5f;
-            var c = LeftImage.color;
-            c.a = Leftalpha;
-            LeftImage.color = c;
+            float Leftalpha = Mathf.Abs(Mathf.Clamp(ray.XmDistance, 0, 1) - 1);
+            LeftImage.alpha = Leftalpha;
         }
         else
         {
-            var c = LeftImage.color;
-            c.a = 0;
-            LeftImage.color = c;
+            LeftImage.alpha = 0;
         }
     }
 }
