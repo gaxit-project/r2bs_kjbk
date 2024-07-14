@@ -8,15 +8,16 @@ public class OpenDoor : MonoBehaviour
     private bool Near;
     private bool NPCNear;
     private Animator animator;
-    private BoxCollider doorCollider;
+    public BoxCollider doorCollider;
 
     private InputAction TakeAction;
+    bool DoorOpen=false;
     void Start()
     {
         Near = false;
         NPCNear = false;
         animator = GetComponentInChildren<Animator>();
-        doorCollider = GetComponentInChildren<BoxCollider>();
+        //doorCollider = GetComponentInChildren<BoxCollider>();
 
         var pInput = GetComponent<PlayerInput>();
         //現在のアクションマップを取得
@@ -31,16 +32,16 @@ public class OpenDoor : MonoBehaviour
 
         if ((Input.GetKeyDown(KeyCode.F) || Take) && Near)
         {
+            doorCollider.enabled = false;
             animator.SetBool("Open", true);
             //Audio.Instance.PlaySound(0);
-            doorCollider.enabled = false;
         }
 
         if (NPCNear)
-        {
+        {          
+            doorCollider.enabled = false;
             animator.SetBool("Open", true);
             //Audio.Instance.PlaySound(0);
-            doorCollider.enabled = false;
         }
     }
     void OnTriggerEnter(Collider col)
@@ -66,12 +67,20 @@ public class OpenDoor : MonoBehaviour
             doorCollider.enabled = true;
         }
 
-        if (col.tag == "Minorlnjuries")
+        if (col.tag == "MinorInjuries")
         {
             NPCNear = false;
             animator.SetBool("Open", false);
-            //Audio.Instance.PlaySound(1);
             doorCollider.enabled = true;
+            //Audio.Instance.PlaySound(1);
+
         }
+    }
+
+    void DoorOpenONOFF()
+    {
+        animator.SetBool("Open", false);
+        doorCollider.enabled = true;
+        DoorOpen = false;
     }
 }
