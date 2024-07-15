@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class Pause : MonoBehaviour
 {
     public GameObject pause;
-    public static bool pause_status;
+    public bool pause_status=false;
 
     private InputAction PauseAction;
 
@@ -28,10 +28,10 @@ public class Pause : MonoBehaviour
         pause.SetActive(false);
 
         var pInput = GetComponent<PlayerInput>();
-        //Œ»İ‚ÌƒAƒNƒVƒ‡ƒ“ƒ}ƒbƒv‚ğæ“¾
+        //ï¿½ï¿½ï¿½İ‚ÌƒAï¿½Nï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½}ï¿½bï¿½vï¿½ï¿½ï¿½æ“¾
         var actionMap = pInput.currentActionMap;
 
-        //ƒAƒNƒVƒ‡ƒ“ƒ}ƒbƒv‚©‚çƒAƒNƒVƒ‡ƒ“‚ğæ“¾
+        //ï¿½Aï¿½Nï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½}ï¿½bï¿½vï¿½ï¿½ï¿½ï¿½Aï¿½Nï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½æ“¾
         PauseAction = actionMap["Pause"];
 
         presenter = Presen.GetComponent<Presente>();
@@ -46,13 +46,16 @@ public class Pause : MonoBehaviour
         if ((Input.GetKeyDown(KeyCode.Tab) || pause) && (!pause1 && !pause2))
         {
             ResumeIcon.Select();
-
+            pause_status=true;
             if(!Goal.PauseFlag)
             {
+                
                 EscapeON.SetActive(false);
                 PauseCon();
             }
 
+        }else{
+        pause_status=false;
         }
     }
 

@@ -17,18 +17,21 @@ public class SwitchCamera : MonoBehaviour
     public GameObject miniMap;
     public GameObject hat1;
     private RescueNPC rescueNPC;
+    private Pause pause;
     public bool MapON = false;
     public bool NiseMapON = false;
     public GameObject MAPOFF;
     public GameObject MiniMAPOFF;
     public GameObject MiniMAP;
     public GameObject MiniMAPOFF2;
+    public GameObject AllButton;
 
     void Start()
     {
         MAPOFF.SetActive(false);
         MiniMAP.SetActive(false);
         mainCamera = Camera.main;
+        pause=FindObjectOfType<Pause>();
         CounterScript = FindObjectOfType<RescueCount>();
         rescueNPC = FindObjectOfType<RescueNPC>();
         var pInput = GetComponent<PlayerInput>();
@@ -45,18 +48,24 @@ public class SwitchCamera : MonoBehaviour
             StartCoroutine(ActivateInitialMapStatusWithDelay(0f));
         }
 
+        if(pause.pause_status){
+            map_status=false;
+        }else{
+
         if (Map || Input.GetKeyDown(KeyCode.M))
         {
             if(MapON)
             {
                 map_status = !map_status;
             }
+
             else if(!NiseMapON)
             {
                 MAPOFF.SetActive(true);
                 MiniMAPOFF.SetActive(false);
-                MiniMAPOFF2.SetActive(false);
+                MiniMAPOFF2.SetActive(false);  
                 NiseMapON = true;
+                AllButton.SetActive(false);
             }
             else
             {
@@ -64,8 +73,10 @@ public class SwitchCamera : MonoBehaviour
                 MiniMAPOFF.SetActive(true);
                 MiniMAPOFF2.SetActive(true);
                 NiseMapON = false;
+                AllButton.SetActive(true);
             }
 
+        }
         }
 
         if (map_status)
@@ -74,6 +85,7 @@ public class SwitchCamera : MonoBehaviour
             miniMap.SetActive(false);
             Ui.SetActive(Ui_status);
             Mkey.SetActive(true);
+            AllButton.SetActive(false);
         }
         else
         {
@@ -81,6 +93,9 @@ public class SwitchCamera : MonoBehaviour
             miniMap.SetActive(true);
             Ui.SetActive(false);
             Mkey.SetActive(false);
+            if(MapON){
+            AllButton.SetActive(true);
+            }
         }
 
         if (rescueNPC != null && rescueNPC.IsItFollow())

@@ -8,14 +8,15 @@ public class ButtonChangeAYX : MonoBehaviour
     public GameObject YSbutton;
     public GameObject Abutton;
     public GameObject Xbutton;
-    public GameObject YDTwobutton;
+    /*public GameObject YDTwobutton;
     public GameObject YSTwobutton;
     public GameObject ATwobutton;
-    public GameObject XTwobutton;
+    public GameObject XTwobutton;*/
     private RescueNPC rescueNPC;
     private RescueDiplication DiplicationScript;
     private GameObject Rescue;
     private bool Xb = false;
+    private bool x=false;
     public int cnt = 0;
 
     void Start()
@@ -36,14 +37,15 @@ public class ButtonChangeAYX : MonoBehaviour
 
         if (rescueNPC.IsItFollow())
         {
+            
             Xb = true;
             if(Xbutton != null){
-            Xbutton.SetActive(false);
+            Xbutton.SetActive(false);        
             }
-            if(XTwobutton != null){
+            /*if(XTwobutton != null){
             XTwobutton.SetActive(false);
-            }
-            cnt=0;
+            }*/
+            
         }
         else
         {
@@ -60,20 +62,24 @@ public class ButtonChangeAYX : MonoBehaviour
             {
                 
                 case "DoorButton":
-                    if (cnt == 1 && YDbutton != null) YDbutton.SetActive(true);
-                    else if (cnt == 2 && YDTwobutton != null) YDTwobutton.SetActive(true);
+                    /*if (cnt == 1 && YDbutton != null) YDbutton.SetActive(true);
+                    else if (cnt == 2 && YDTwobutton != null) YDTwobutton.SetActive(true);*/
+                    if (YDbutton != null) YDbutton.SetActive(true);
                     break;
                 case "SyoukaButton":
-                    if (cnt == 1 && YSbutton != null) YSbutton.SetActive(true);
-                    else if (cnt == 2 && YSTwobutton != null) YSTwobutton.SetActive(true);
+                    /*if (cnt == 1 && YSbutton != null) YSbutton.SetActive(true);
+                    else if (cnt == 2 && YSTwobutton != null) YSTwobutton.SetActive(true);*/
+                    if(YSbutton != null)YSbutton.SetActive(true);
                     break;
                 case "AButton":
-                    if (cnt == 1 && Abutton != null) Abutton.SetActive(true);
-                    else if (cnt == 2 && ATwobutton != null) ATwobutton.SetActive(true);
+                    /*if (cnt == 1 && Abutton != null) Abutton.SetActive(true);
+                    else if (cnt == 2 && ATwobutton != null) ATwobutton.SetActive(true);*/
+                    if (Abutton != null) Abutton.SetActive(true);
                     break;
                 case "XButton":
-                    if (cnt == 1 && !Xb && Xbutton != null) Xbutton.SetActive(true);
-                    else if (cnt == 2 && !Xb && XTwobutton != null) XTwobutton.SetActive(true);
+                    /*if (cnt == 1 && !Xb && Xbutton != null) Xbutton.SetActive(true);
+                    else if (cnt == 2 && !Xb && XTwobutton != null) XTwobutton.SetActive(true);*/
+                    if (!Xb && Xbutton != null) Xbutton.SetActive(true);
                     break;
                 default:
                     break;
@@ -107,28 +113,28 @@ public class ButtonChangeAYX : MonoBehaviour
         if(YDbutton != null){
         YDbutton.SetActive(false);
         }
-        if(YDTwobutton != null){
+        /*if(YDTwobutton != null){
         YDTwobutton.SetActive(false);
-        }
+        }*/
         if(YSbutton != null){
         YSbutton.SetActive(false);
         }
-        if(YSTwobutton != null){
+        /*if(YSTwobutton != null){
         YSTwobutton.SetActive(false);
-        }
+        }*/
         if(Abutton != null){
         Abutton.SetActive(false);
         }
-        if(ATwobutton != null){
+        /*if(ATwobutton != null){
         ATwobutton.SetActive(false);
-        }
+        }*/
         if (!Xb){ 
         if(Xbutton != null){
         Xbutton.SetActive(false);
         }
-        if(XTwobutton != null){
+        /*if(XTwobutton != null){
         XTwobutton.SetActive(false);
-        }
+        }*/
         }
     }
 
@@ -138,19 +144,19 @@ public class ButtonChangeAYX : MonoBehaviour
         {
             case "DoorButton":
                 if (YDbutton != null) YDbutton.SetActive(false);
-                if (YDTwobutton != null) YDTwobutton.SetActive(false);
+                /*if (YDTwobutton != null) YDTwobutton.SetActive(false);*/
                 break;
             case "SyoukaButton":
                 if (YSbutton != null) YSbutton.SetActive(false);
-                if (YSTwobutton != null) YSTwobutton.SetActive(false);
+                /*if (YSTwobutton != null) YSTwobutton.SetActive(false);*/
                 break;
             case "AButton":
                 if (Abutton != null) Abutton.SetActive(false);
-                if (ATwobutton != null) ATwobutton.SetActive(false);
+                /*if (ATwobutton != null) ATwobutton.SetActive(false);*/
                 break;
             case "XButton":
                 if (Xbutton != null && !Xb) Xbutton.SetActive(false);
-                if (XTwobutton != null) XTwobutton.SetActive(false);
+                /*if (XTwobutton != null) XTwobutton.SetActive(false);*/
                 break;
             default:
                 break;
