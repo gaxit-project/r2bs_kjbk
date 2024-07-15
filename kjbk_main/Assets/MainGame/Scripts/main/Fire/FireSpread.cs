@@ -94,10 +94,12 @@ public class FireSpread : MonoBehaviour
         Vector3 Xm = Vector3.left;
         Vector3 Zm = Vector3.back;
 
-        Ray rayXp = new Ray(this.transform.position, Xp);
-        Ray rayZp = new Ray(this.transform.position, Zp);
-        Ray rayXm = new Ray(this.transform.position, Xm);
-        Ray rayZm = new Ray(this.transform.position, Zm);
+        Vector3 t = new Vector3(this.transform.position.x, 0.1f, this.transform.position.z);
+
+        Ray rayXp = new Ray(t, Xp);
+        Ray rayZp = new Ray(t, Zp);
+        Ray rayXm = new Ray(t, Xm);
+        Ray rayZm = new Ray(t, Zm);
 
         //Debug.DrawRay(rayXp.origin, rayXp.direction * 10, Color.red, 100000, false);
         //Debug.DrawRay(rayZp.origin, rayZp.direction * 10, Color.red, 100000, false);

@@ -46,10 +46,12 @@ public class Danger_Ray : MonoBehaviour
         Xm = Vector3.left;
         Zm = Vector3.back;
 
-        rayXp = new Ray(this.transform.position, Xp);
-        rayZp = new Ray(this.transform.position, Zp);
-        rayXm = new Ray(this.transform.position, Xm);
-        rayZm = new Ray(this.transform.position, Zm);
+        Vector3 t = new Vector3(this.transform.position.x, 5f, this.transform.position.z);
+
+        Ray rayXp = new Ray(t, Xp);
+        Ray rayZp = new Ray(t, Zp);
+        Ray rayXm = new Ray(t, Xm);
+        Ray rayZm = new Ray(t, Zm);
 
         /*
         Debug.DrawRay(rayXp.origin, rayXp.direction * 100, Color.red, 1, false);
@@ -57,7 +59,7 @@ public class Danger_Ray : MonoBehaviour
         Debug.DrawRay(rayXm.origin, rayXm.direction * 100, Color.red, 1, false);
         Debug.DrawRay(rayZm.origin, rayZm.direction * 100, Color.red, 1, false);
         */
-        
+
 
         if (Physics.Raycast(rayXp, out XpHit, 100))
         {
