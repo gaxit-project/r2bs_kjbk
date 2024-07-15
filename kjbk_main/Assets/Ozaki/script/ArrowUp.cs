@@ -34,7 +34,7 @@ public class ArrowUp : MonoBehaviour
         //{
         //    Arrow.SetActive(true);
         //}
-        if(CounterScript.getRescueAll()/* == maxnum*/)
+        if(CounterScript.getNum() == maxnum)
         {
             Arrow.SetActive(false);
         }

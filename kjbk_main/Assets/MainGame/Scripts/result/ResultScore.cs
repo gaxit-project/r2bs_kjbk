@@ -104,7 +104,7 @@ public class ResultScore : MonoBehaviour
         }
         if (countscore >= injureddisplay2)
         {
-            textTotal.text = "0+" + people.ToString();
+            textTotal.text = "Total:" + "0+" + people.ToString();
         }
         if (countscore >= timedisplay)
         {
@@ -116,7 +116,7 @@ public class ResultScore : MonoBehaviour
         }
         if (countscore >= timedisplay2)
         {
-            textTotal.text = people.ToString() + "+" + timepoint.ToString();
+            textTotal.text = "Total:" + people.ToString() + "+" + timepoint.ToString();
         }
         if (countscore >= hpdisplay)
         {
@@ -128,7 +128,7 @@ public class ResultScore : MonoBehaviour
         if (countscore >= hpdisplay2)
         {
             pt = (int)(people + timepoint);
-            textTotal.text = pt.ToString() + "+" + hppoint.ToString();
+            textTotal.text = "Total:" + pt.ToString() + "+" + hppoint.ToString();
         }
         if (countscore >= faileddisplay)
         {
@@ -150,7 +150,7 @@ public class ResultScore : MonoBehaviour
             
             if (clearflag == false)
             {
-                textTotal.text = total.ToString() + "-500";
+                textTotal.text = "Total:"+total.ToString() + "-500";
             }
         }
 
@@ -163,17 +163,17 @@ public class ResultScore : MonoBehaviour
                 
                 if (failedtotal > 0)
                 {
-                    textTotal.text = failedtotal.ToString();
+                    textTotal.text = "Total:" + failedtotal.ToString();
                 }
                 else
                 {
-                    textTotal.text = total.ToString();
+                    textTotal.text = "Total:" + total.ToString();
                 }
             }
             else if(clearflag == true)
             {
                 total = (int)(people + timepoint + hppoint);
-                textTotal.text = total.ToString();
+                textTotal.text = "Total:" + total.ToString();
             }
             
         }
