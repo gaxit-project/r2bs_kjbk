@@ -67,6 +67,7 @@ public class RescueNPC : MonoBehaviour
     public int NumberR;
 
     public RadioText RText;
+    public bool ArrowON = false;
     //public RescuedText RescuedText;
     void Start()
     {
@@ -113,7 +114,7 @@ public class RescueNPC : MonoBehaviour
         //NPCanimator.SetBool("NPCCarry", false);
     }
 
-    void FixedUpdate()
+    void Update()
     {
         bool Talk = TalkAction.triggered;
         bool ResTalk = ResTalkAction.triggered;
@@ -195,6 +196,8 @@ public class RescueNPC : MonoBehaviour
                 CounterScript.Count();
                 r_num = CounterScript.getNum();
                 POP.PopR();
+                ArrowON = false;
+                Debug.Log("ArrowFlag:" + ArrowON);
             }
 
             if (IsItInGoal() && !IsItRescued() && Severe == false)   //ã~èoínì_Ç…ê⁄êGÇ©Ç¬ñ¢ã~èoÇ©Ç¬åyè«é“
@@ -209,7 +212,14 @@ public class RescueNPC : MonoBehaviour
     }
 
     //ä÷êî
-
+    public bool ArrowONOFF()
+    {
+        return ArrowON;
+    }
+    public void ArrowFlag()
+    {
+        ArrowON = true;
+    }
     public int getNum()
     {
         return r_num;

@@ -8,9 +8,11 @@ public class ArrowUp : MonoBehaviour
     [SerializeField, Tooltip("Arrow")]
     private GameObject Arrow;
     [SerializeField, Tooltip("軽症者助けた数")]
-    private int num;
+    int num = 1;
     [SerializeField, Tooltip("人数最大値")]
     private int maxnum;
+
+    //public RescuePOP RPOP;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,7 +22,15 @@ public class ArrowUp : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (CounterScript.getNum() == num)
+        //if(RPOP.ArrowONFlag)
+        //{
+        //    Arrow.SetActive(true);
+        //}
+        //else if(!RPOP.ArrowONFlag)
+        //{
+        //    Arrow.SetActive(false);
+        //}
+        if(CounterScript.getNum() == num)
         {
             Arrow.SetActive(true);
         }

@@ -58,6 +58,8 @@ public class RescuePOP : MonoBehaviour
 
     int cnt = 1;
 
+    [HideInInspector] public bool ArrowONFlag = false; 
+
 
     void Start()
     {
@@ -127,6 +129,7 @@ public class RescuePOP : MonoBehaviour
             Radio.RPeople = true;   //ラジオの方のフラグをオン
         }
         Radio.RPeople2 = true;
+        ArrowONFlag = false;
 
         Debug.Log("重傷者を救った：" + Radio.RPeople);
     }

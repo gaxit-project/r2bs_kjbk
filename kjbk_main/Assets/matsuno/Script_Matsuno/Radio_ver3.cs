@@ -70,6 +70,7 @@ public class Radio_ver3 : MonoBehaviour
 
     public SwitchCamera Scame;
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -92,7 +93,7 @@ public class Radio_ver3 : MonoBehaviour
             ChatPanel.SetActive(true);
             if(JorE)
             {
-                RadioText.SetText("現場は学生寮だ！行方不明者の内5人を救うのが君の任務だ");
+                RadioText.SetText("現場は学生寮だ！行方不明者の内10人を救うのが君の任務だ");
                 StartCoroutine(Simple2());
             }
             else
@@ -440,6 +441,7 @@ public class Radio_ver3 : MonoBehaviour
                             RadioText.SetText("キッチンから声が聞こえたとの情報だ！至急向かってくれ！");
                             Debug.Log("一人目の位置確定");
                             StartCoroutine(Simple1());
+                            RPOP.ArrowONFlag = true;
                             //無線表示
                         }
                         else
@@ -470,8 +472,8 @@ public class Radio_ver3 : MonoBehaviour
                                 StartCoroutine(Simple1());
                                 Debug.Log("1-3");
                                 RPeople2 = false;
+                                RPOP.ArrowONFlag = true;
                                 //rnd1の無線
-
                             }
                         }
                         else if (rnd == 2)
@@ -496,6 +498,7 @@ public class Radio_ver3 : MonoBehaviour
                                 StartCoroutine(Simple1());
                                 Debug.Log("2-3");
                                 RPeople2 = false;
+                                RPOP.ArrowONFlag = true;
                                 //rnd1の無線
 
                             }
@@ -522,6 +525,7 @@ public class Radio_ver3 : MonoBehaviour
                                 StartCoroutine(Simple1());
                                 Debug.Log("3-3");
                                 RPeople2 = false;
+                                RPOP.ArrowONFlag = true;
                                 //rnd1の無線
 
                             }
@@ -548,6 +552,7 @@ public class Radio_ver3 : MonoBehaviour
                                 StartCoroutine(Simple1());
                                 Debug.Log("4-3");
                                 RPeople2 = false;
+                                RPOP.ArrowONFlag = true;
                                 //rnd1の無線
 
                             }
@@ -574,6 +579,7 @@ public class Radio_ver3 : MonoBehaviour
                                 StartCoroutine(Simple1());
                                 Debug.Log("5-3");
                                 RPeople2 = false;
+                                RPOP.ArrowONFlag = true;
                                 //rnd1の無線
 
                             }
@@ -592,6 +598,7 @@ public class Radio_ver3 : MonoBehaviour
                             RadioText2.SetText("え、間取りがわからない?\r\nマップをあげるから確認してみて");
                             Debug.Log("一人目の位置確定");
                             StartCoroutine(Simple1());
+                            RPOP.ArrowONFlag = true;
                             //無線表示
                         }
                         else
@@ -621,6 +628,7 @@ public class Radio_ver3 : MonoBehaviour
                                 StartCoroutine(Simple1());
                                 Debug.Log("1-3");
                                 RPeople2 = false;
+                                RPOP.ArrowONFlag = true;
                                 //rnd1の無線
 
                             }
@@ -647,6 +655,7 @@ public class Radio_ver3 : MonoBehaviour
                                 StartCoroutine(Simple1());
                                 Debug.Log("2-3");
                                 RPeople2 = false;
+                                RPOP.ArrowONFlag = true;
                                 //rnd1の無線
 
                             }
@@ -673,6 +682,7 @@ public class Radio_ver3 : MonoBehaviour
                                 StartCoroutine(Simple1());
                                 Debug.Log("3-3");
                                 RPeople2 = false;
+                                RPOP.ArrowONFlag = true;
                                 //rnd1の無線
 
                             }
@@ -699,6 +709,7 @@ public class Radio_ver3 : MonoBehaviour
                                 StartCoroutine(Simple1());
                                 Debug.Log("4-3");
                                 RPeople2 = false;
+                                RPOP.ArrowONFlag = true;
                                 //rnd1の無線
 
                             }
@@ -725,6 +736,7 @@ public class Radio_ver3 : MonoBehaviour
                                 StartCoroutine(Simple1());
                                 Debug.Log("5-3");
                                 RPeople2 = false;
+                                RPOP.ArrowONFlag = true;
                                 //rnd1の無線
 
                             }
