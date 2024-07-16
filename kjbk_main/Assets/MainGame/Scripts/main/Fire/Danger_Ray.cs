@@ -144,11 +144,11 @@ public class Danger_Ray : MonoBehaviour
                 ZmDistance = Zmdistance / 100;
                 if (ZmDistance > reacDistance)
                 {
-                    Left = false;
+                    Under = false;
                 }
                 else
                 {
-                    Left = true;
+                    Under = true;
                 }
             }
             else
