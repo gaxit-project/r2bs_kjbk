@@ -13,6 +13,6 @@ public class RMaxText : MonoBehaviour
     void Start()
     {
         //RMax.SetText("/ 13");
-        RMax.SetText("<sprite=2><sprite=3>");
+        RMax.SetText("<sprite=3><sprite=0>");
     }
 }
