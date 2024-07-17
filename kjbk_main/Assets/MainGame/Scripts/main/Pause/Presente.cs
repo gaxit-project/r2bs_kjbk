@@ -48,7 +48,6 @@ public class Presente : MonoBehaviour
     public void OnChangedBGMVolume()
     {
         Audio.GetInstance().BGMVolume = bgmSlider.value;
-        bgmValue.text = string.Format("{0:0.00}", bgmSlider.value);
 
     }
     public void OnChangedSEVolume()
