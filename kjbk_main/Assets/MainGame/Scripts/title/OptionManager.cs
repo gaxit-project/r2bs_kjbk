@@ -24,12 +24,14 @@ public class OptionManager : MonoBehaviour
 
     public void OnChangedBGMVolume()
     {
+        PlayerPrefs.SetFloat("BGM", bgmSlider.value);
         Audio.GetInstance().BGMVolume = bgmSlider.value;
         //bgmValue.text = string.Format("{0:0.00}", bgmSlider.value);
 
     }
     public void OnChangedSEVolume()
     {
+        PlayerPrefs.SetFloat("SE", seSlider.value);
         Audio.GetInstance().SEVolume = seSlider.value;
         //seValue.text = string.Format("{0:0.00}", seSlider.value);
     }

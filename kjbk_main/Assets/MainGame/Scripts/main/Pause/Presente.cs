@@ -31,39 +31,99 @@ public class Presente : MonoBehaviour
     int Rcnt = 0;
 
 
-    private void Start()
+    void Start()
     {
         OnChangedBGMVolume();
         OnChangedSEVolume();
+
+        //Audio初期化
+        //Audio初期化
+
+        bgmSlider.value = PlayerPrefs.GetFloat("BGM");
+        seSlider.value = PlayerPrefs.GetFloat("SE");
+
+        Audio.GetInstance().BGMVolume = PlayerPrefs.GetFloat("BGM");
+        bgmValue.text = string.Format("{0:0.00}", PlayerPrefs.GetFloat("BGM"));
+
+        Audio.GetInstance().SEVolume = PlayerPrefs.GetFloat("SE");
+        Audio.GetInstance().RoopSEVolume = PlayerPrefs.GetFloat("SE");
+        Audio.GetInstance().WALKVolume = PlayerPrefs.GetFloat("SE");
+        Audio.GetInstance().FireVolume1 = PlayerPrefs.GetFloat("SE");
+        Audio.GetInstance().FireVolume2 = PlayerPrefs.GetFloat("SE");
+        Audio.GetInstance().FireVolume3 = PlayerPrefs.GetFloat("SE");
+        Audio.GetInstance().FireVolume4 = PlayerPrefs.GetFloat("SE");
+        Audio.GetInstance().FireVolume5 = PlayerPrefs.GetFloat("SE");
+        Audio.GetInstance().FireVolume6 = PlayerPrefs.GetFloat("SE");
+        Audio.GetInstance().FireVolume7 = PlayerPrefs.GetFloat("SE");
+        seValue.text = string.Format("{0:0.00}", PlayerPrefs.GetFloat("SE"));
+
+        Debug.Log("SE" + seSlider.value);
+        Debug.Log("BGM" + bgmSlider.value);
+
+
+        Debug.Log("SE" + Audio.GetInstance().SEVolume);
+        Debug.Log("BGM" + Audio.GetInstance().BGMVolume);
+
+
 
         ConfigSta = false;
         TitleSta = false;
     }
 
-    private void Update()
+    private void OnEnable()
     {
-        Debug.Log("ふらぐおーーーーーん"+Goal.PauseFlag);
+        //Audio初期化
+        bgmSlider.value = PlayerPrefs.GetFloat("BGM");
+        seSlider.value = PlayerPrefs.GetFloat("SE");
+
+
+        Audio.GetInstance().BGMVolume = PlayerPrefs.GetFloat("BGM");
+        bgmValue.text = string.Format("{0:0.00}", PlayerPrefs.GetFloat("BGM"));
+
+        Audio.GetInstance().SEVolume = PlayerPrefs.GetFloat("SE");
+        Audio.GetInstance().RoopSEVolume = PlayerPrefs.GetFloat("SE");
+        Audio.GetInstance().WALKVolume = PlayerPrefs.GetFloat("SE");
+        Audio.GetInstance().FireVolume1 = PlayerPrefs.GetFloat("SE");
+        Audio.GetInstance().FireVolume2 = PlayerPrefs.GetFloat("SE");
+        Audio.GetInstance().FireVolume3 = PlayerPrefs.GetFloat("SE");
+        Audio.GetInstance().FireVolume4 = PlayerPrefs.GetFloat("SE");
+        Audio.GetInstance().FireVolume5 = PlayerPrefs.GetFloat("SE");
+        Audio.GetInstance().FireVolume6 = PlayerPrefs.GetFloat("SE");
+        Audio.GetInstance().FireVolume7 = PlayerPrefs.GetFloat("SE");
+        seValue.text = string.Format("{0:0.00}", PlayerPrefs.GetFloat("SE"));
+
+        Debug.Log("SE" + seSlider.value);
+        Debug.Log("BGM" + bgmSlider.value);
+
+
+    }
+
+    void Update()
+    {
+        //Debug.Log("ふらぐおーーーーーん"+Goal.PauseFlag);
     }
 
     public void OnChangedBGMVolume()
     {
-        Audio.GetInstance().BGMVolume = bgmSlider.value;
-        bgmValue.text = string.Format("{0:0.00}", bgmSlider.value);
+        PlayerPrefs.SetFloat("BGM", bgmSlider.value);
+        Audio.GetInstance().BGMVolume = PlayerPrefs.GetFloat("BGM");
+        bgmValue.text = string.Format("{0:0.00}", PlayerPrefs.GetFloat("BGM"));
 
     }
     public void OnChangedSEVolume()
     {
-        Audio.GetInstance().SEVolume = seSlider.value;
-        Audio.GetInstance().RoopSEVolume = seSlider.value;
-        Audio.GetInstance().WALKVolume = seSlider.value;
-        Audio.GetInstance().FireVolume1 = seSlider.value;
-        Audio.GetInstance().FireVolume2 = seSlider.value;
-        Audio.GetInstance().FireVolume3 = seSlider.value;
-        Audio.GetInstance().FireVolume4 = seSlider.value;
-        Audio.GetInstance().FireVolume5 = seSlider.value;
-        Audio.GetInstance().FireVolume6 = seSlider.value;
-        Audio.GetInstance().FireVolume7 = seSlider.value;
-        seValue.text = string.Format("{0:0.00}", seSlider.value);
+        PlayerPrefs.SetFloat("SE", seSlider.value);
+        Audio.GetInstance().SEVolume = PlayerPrefs.GetFloat("SE");
+        Audio.GetInstance().RoopSEVolume = PlayerPrefs.GetFloat("SE");
+        Audio.GetInstance().WALKVolume = PlayerPrefs.GetFloat("SE");
+        Audio.GetInstance().FireVolume1 = PlayerPrefs.GetFloat("SE");
+        Audio.GetInstance().FireVolume2 = PlayerPrefs.GetFloat("SE");
+        Audio.GetInstance().FireVolume3 = PlayerPrefs.GetFloat("SE");
+        Audio.GetInstance().FireVolume4 = PlayerPrefs.GetFloat("SE");
+        Audio.GetInstance().FireVolume5 = PlayerPrefs.GetFloat("SE");
+        Audio.GetInstance().FireVolume6 = PlayerPrefs.GetFloat("SE");
+        Audio.GetInstance().FireVolume7 = PlayerPrefs.GetFloat("SE");
+        seValue.text = string.Format("{0:0.00}", PlayerPrefs.GetFloat("SE"));
 
     }
 

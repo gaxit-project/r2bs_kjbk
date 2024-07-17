@@ -8,11 +8,24 @@ public class TitleManager : MonoBehaviour
     public GameObject TitleUI;
     public GameObject OptionUI;
 
+    [SerializeField] Slider bgmSlider;
+    [SerializeField] Slider seSlider;
+
 
     public Button OptionIcon2;
 
     void Start()
     {
+        PlayerPrefs.SetFloat("SE", 0.06f);
+        PlayerPrefs.SetFloat("BGM", 0.06f);
+
+        Audio.GetInstance().BGMVolume = PlayerPrefs.GetFloat("BGM");
+        Audio.GetInstance().SEVolume = PlayerPrefs.GetFloat("SE");
+
+        bgmSlider.value = PlayerPrefs.GetFloat("BGM");
+        seSlider.value = PlayerPrefs.GetFloat("SE");
+
+
         OptionUI.SetActive(false);
     }
     public void StartGame()
