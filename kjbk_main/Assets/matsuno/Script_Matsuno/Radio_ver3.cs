@@ -24,6 +24,7 @@ public class Radio_ver3 : MonoBehaviour
 
     [HideInInspector] public bool CollapseRadio = false;
     [HideInInspector] public bool FirstFlag = true;
+    [HideInInspector] public bool FirstFlag2 = true;
 
     [HideInInspector] public bool CollapseFlag = false;
     [HideInInspector] public bool RHintFlag = false;
@@ -91,6 +92,7 @@ public class Radio_ver3 : MonoBehaviour
             //Gauge.enabled = false;
             //Cont.enabled = false;
             ChatPanel.SetActive(true);
+            FirstFlag2 = true;
             if(JorE)
             {
                 RadioText.SetText("現場は学生寮だ！行方不明者の内10人を救うのが君の任務だ");
@@ -105,6 +107,7 @@ public class Radio_ver3 : MonoBehaviour
             //Invoke(nameof(FirstRadio2), 6f);
             Invoke(nameof(RadioOFF), EndTimer1);
             //Invoke(nameof(StartONOFF), EndTimer1);
+            Invoke(nameof(FirstFlag2OFF), EndTimer1);
             FirstFlag = false;
         }
         if (Input.GetKeyDown(KeyCode.V))
@@ -157,6 +160,10 @@ public class Radio_ver3 : MonoBehaviour
         }
     }
 
+    void FirstFlag2OFF()
+    {
+        FirstFlag2 = false;
+    }
     void RadioFlagONOFF()
     {
         RadioFlag = true;
@@ -793,6 +800,10 @@ public class Radio_ver3 : MonoBehaviour
         {
             if(!MapPresent)
             {
+                if(FirstFlag2)
+                {
+                    RadioOFF();
+                }
                 RadioText2.SetText("助かったよ！キッチンの\r\n奥の方で人が倒れてたの!");
                 MapPresent = true;
             }
