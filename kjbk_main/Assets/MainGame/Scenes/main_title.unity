@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748172, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -7695,6 +7695,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TitleUI: {fileID: 379847606}
   OptionUI: {fileID: 130918615048377824}
+  bgmSlider: {fileID: 4444962666459405664}
+  seSlider: {fileID: 3440724866490612736}
   OptionIcon2: {fileID: 4618286753280249593}
 --- !u!1 &1134206726
 GameObject:
