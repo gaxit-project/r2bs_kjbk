@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -17,7 +18,7 @@ public class ResultScore : MonoBehaviour
     float faileddisplay = 4.5f;
     float faileddisplay2 = 5f;
     float totaldisplay = 6f;
-    float display = 0.1f;
+    float rankdisplay = 7f;
     public GameObject ResultCanvas;
     private int score;
     private int hantei = SampleManager.hantei;
@@ -31,6 +32,7 @@ public class ResultScore : MonoBehaviour
     public Text textFailure;
     public Text textFailure2;
     public Text textTotal;
+    public Text textRank;
     private GameObject Clear;
     private GameObject Failed;
     private GameObject FireRoof;
@@ -54,9 +56,17 @@ public class ResultScore : MonoBehaviour
     bool clearflag;
     int failedtotal;
     int pt;
+    int point;
+    int i = 0;
 
     int RescueCnt;
     int random;
+    bool coutineFlag = true;
+    bool coutineFlag1 = true;
+    bool coutineFlag2= true;
+    bool coutineFlag4 = true;
+
+    bool RSFlag = false;
     void Start()
     {
         Time.timeScale = 1.0f;
@@ -71,6 +81,7 @@ public class ResultScore : MonoBehaviour
         textHP2 = GameObject.Find("HP2").GetComponent<Text>();
         textFailure = GameObject.Find("Failure").GetComponent<Text>();
         textFailure2 = GameObject.Find("Failure2").GetComponent<Text>();
+        textRank = GameObject.Find("Rank").GetComponent<Text>();
         Clear = GameObject.Find("Clear");
         Failed = GameObject.Find("Failed");
         FireRoof = GameObject.Find("FireRoof");
@@ -95,7 +106,7 @@ public class ResultScore : MonoBehaviour
     {
         total = (int)(people + timepoint + hppoint);
         countscore += Time.deltaTime;
-        displaytime += Time.deltaTime;
+        
         if(countscore >= injureddisplay)
         {
                 textPeople.text = "People:" + people.ToString();
@@ -104,7 +115,7 @@ public class ResultScore : MonoBehaviour
         }
         if (countscore >= injureddisplay2)
         {
-            textTotal.text = "Total:" + "0+" + people.ToString();
+            textTotal.text = "0+" + people.ToString();
         }
         if (countscore >= timedisplay)
         {
@@ -116,7 +127,7 @@ public class ResultScore : MonoBehaviour
         }
         if (countscore >= timedisplay2)
         {
-            textTotal.text = "Total:" + people.ToString() + "+" + timepoint.ToString();
+            textTotal.text = people.ToString() + "+" + timepoint.ToString();
         }
         if (countscore >= hpdisplay)
         {
@@ -128,7 +139,7 @@ public class ResultScore : MonoBehaviour
         if (countscore >= hpdisplay2)
         {
             pt = (int)(people + timepoint);
-            textTotal.text = "Total:" + pt.ToString() + "+" + hppoint.ToString();
+            textTotal.text = pt.ToString() + "+" + hppoint.ToString();
         }
         if (countscore >= faileddisplay)
         {
@@ -150,7 +161,7 @@ public class ResultScore : MonoBehaviour
             
             if (clearflag == false)
             {
-                textTotal.text = "Total:"+total.ToString() + "-500";
+                textTotal.text = total.ToString() + "-500";
             }
         }
 
@@ -163,19 +174,38 @@ public class ResultScore : MonoBehaviour
                 
                 if (failedtotal > 0)
                 {
-                    textTotal.text = "Total:" + failedtotal.ToString();
+                    textTotal.text = failedtotal.ToString();
                 }
                 else
                 {
-                    textTotal.text = "Total:" + total.ToString();
+                    textTotal.text = "0";
                 }
             }
             else if(clearflag == true)
             {
                 total = (int)(people + timepoint + hppoint);
-                textTotal.text = "Total:" + total.ToString();
+                textTotal.text = total.ToString();
             }
             
+        }
+        if(clearflag == true)
+        {
+            if(countscore >= rankdisplay)
+            {
+                if(total >= 2000)
+                {
+                    textRank.text = "S";
+                }else if(total >= 1700)
+                {
+                    textRank.text = "A";
+                }else if(total >= 1400)
+                {
+                    textRank.text = "B";
+                }else
+                {
+                    textRank.text = "C";
+                }
+            }
         }
     }
     public void Result(string str)
@@ -212,5 +242,25 @@ public class ResultScore : MonoBehaviour
     public void Quit()
     {
         Scene.Instance.EndGame();
+    }
+
+    public void ScoreText()
+    {
+        textTotal.text = i.ToString();
+    }
+
+    IEnumerator RandomScore()
+    {
+        int i,cnt=0;
+        for(i=0;i<10;i++)
+        {
+            cnt = Random.Range(0, 100);
+            //cntをテキストに入れる
+            textTotal.text = cnt.ToString();
+            yield return new WaitForSeconds(0.1f);
+        }
+        RSFlag = true;
+        coutineFlag = false;
+        Debug.Log("kakakakkakakakakakaka");
     }
 }
