@@ -50,8 +50,8 @@ public class GameFlag : MonoBehaviour
                 Rcnt = PlayerPrefs.GetInt("RescueCount");
                 Debug.Log("K");
 
-                //救助した人数が5人以上ならクリアへ移行
-                if (Rcnt >= 5)
+                //救助した人数が10人以上ならクリアへ移行
+                if (Rcnt >= 10)
                 {
                     PlayerPrefs.SetString("Result", "CLEAR");
                     Scene.Instance.GameResult();
