@@ -25,6 +25,7 @@ public class SwitchCamera : MonoBehaviour
     public GameObject MiniMAP;
     public GameObject MiniMAPOFF2;
     public GameObject AllButton;
+    private bool wasPaused;
 
     void Start()
     {
@@ -37,21 +38,31 @@ public class SwitchCamera : MonoBehaviour
         var pInput = GetComponent<PlayerInput>();
         var actionMap = pInput.currentActionMap;
         MapAction = actionMap["Map"];
+        wasPaused = pause.pause_status;
     }
 
     void Update()
     {
         bool Map = MapAction.triggered;
-
         if (CounterScript.getNum() == 1 && initialMapStatusActivated)
         {
             StartCoroutine(ActivateInitialMapStatusWithDelay(0f));
         }
 
         if(pause.pause_status){
+            AllButton.SetActive(false);
             map_status=false;
+            MAPOFF.SetActive(false);
+            if(!MapON){
+            MiniMAPOFF.SetActive(true);
+            MiniMAPOFF2.SetActive(true);
+            NiseMapON = false;
+            }
         }else{
-
+            if (wasPaused != pause.pause_status)
+            {
+                AllButton.SetActive(true);
+            }
         if (Map || Input.GetKeyDown(KeyCode.M))
         {
             if(MapON)
@@ -73,7 +84,9 @@ public class SwitchCamera : MonoBehaviour
                 MiniMAPOFF.SetActive(true);
                 MiniMAPOFF2.SetActive(true);
                 NiseMapON = false;
+                if(!pause.pause_status){
                 AllButton.SetActive(true);
+                }
             }
 
         }
@@ -93,7 +106,7 @@ public class SwitchCamera : MonoBehaviour
             miniMap.SetActive(true);
             Ui.SetActive(false);
             Mkey.SetActive(false);
-            if(MapON){
+            if(MapON && !pause.pause_status){
             AllButton.SetActive(true);
             }
         }
@@ -104,6 +117,7 @@ public class SwitchCamera : MonoBehaviour
             Ui_status = false;
             Ui.SetActive(false);
         }
+        wasPaused = pause.pause_status;
     }
 
     private IEnumerator ActivateInitialMapStatusWithDelay(float delay)

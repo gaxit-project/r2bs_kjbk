@@ -43,7 +43,6 @@ public class Presente : MonoBehaviour
         seSlider.value = PlayerPrefs.GetFloat("SE");
 
         Audio.GetInstance().BGMVolume = PlayerPrefs.GetFloat("BGM");
-        //bgmValue.text = string.Format("{0:0.00}", PlayerPrefs.GetFloat("BGM"));
 
         Audio.GetInstance().SEVolume = PlayerPrefs.GetFloat("SE");
         Audio.GetInstance().RoopSEVolume = PlayerPrefs.GetFloat("SE");
@@ -55,7 +54,6 @@ public class Presente : MonoBehaviour
         Audio.GetInstance().FireVolume5 = PlayerPrefs.GetFloat("SE");
         Audio.GetInstance().FireVolume6 = PlayerPrefs.GetFloat("SE");
         Audio.GetInstance().FireVolume7 = PlayerPrefs.GetFloat("SE");
-        //seValue.text = string.Format("{0:0.00}", PlayerPrefs.GetFloat("SE"));
 
         Debug.Log("SE" + seSlider.value);
         Debug.Log("BGM" + bgmSlider.value);
@@ -80,7 +78,8 @@ public class Presente : MonoBehaviour
     {
         PlayerPrefs.SetFloat("BGM", bgmSlider.value);
         Audio.GetInstance().BGMVolume = PlayerPrefs.GetFloat("BGM");
-        //bgmValue.text = string.Format("{0:0.00}", PlayerPrefs.GetFloat("BGM"));
+        Audio.GetInstance().BGMVolume = bgmSlider.value;
+
 
     }
     public void OnChangedSEVolume()
@@ -96,8 +95,6 @@ public class Presente : MonoBehaviour
         Audio.GetInstance().FireVolume5 = PlayerPrefs.GetFloat("SE");
         Audio.GetInstance().FireVolume6 = PlayerPrefs.GetFloat("SE");
         Audio.GetInstance().FireVolume7 = PlayerPrefs.GetFloat("SE");
-        //seValue.text = string.Format("{0:0.00}", PlayerPrefs.GetFloat("SE"));
-
     }
 
     public void Quit()

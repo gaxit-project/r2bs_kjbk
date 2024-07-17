@@ -54,8 +54,6 @@ public class Pause : MonoBehaviour
                 PauseCon();
             }
 
-        }else{
-        pause_status=false;
         }
     }
 
@@ -65,11 +63,13 @@ public class Pause : MonoBehaviour
         {
             pause.SetActive(!pause.activeSelf);
             Time.timeScale = 1.0f;
+            pause_status=false;
         }
         else
         {
             pause.SetActive(!pause.activeSelf);
             Time.timeScale = 0.0f;
+            pause_status=true;
         }
     }
 }
