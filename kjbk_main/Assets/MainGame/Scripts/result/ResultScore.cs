@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Experimental.Rendering;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 
 public class ResultScore : MonoBehaviour
 {
@@ -23,7 +24,7 @@ public class ResultScore : MonoBehaviour
     private int score;
     private int hantei = SampleManager.hantei;
     private Text textScore;
-    public  Text textPeople;
+    public Text textPeople;
     public Text textPeople2;
     public Text textTime;
     public Text textTime2;
@@ -36,6 +37,14 @@ public class ResultScore : MonoBehaviour
     private GameObject Clear;
     private GameObject Failed;
     private GameObject FireRoof;
+
+    [SerializeField] GameObject PeopleImage;
+    [SerializeField] GameObject TimeImage;
+    [SerializeField] GameObject HPImage;
+    [SerializeField] GameObject FailedImage;
+    [SerializeField] GameObject TotalImage;
+    [SerializeField] GameObject ClearImage;
+    [SerializeField] GameObject FalseImage;
 
     int Best;
     int Normal;
@@ -63,12 +72,15 @@ public class ResultScore : MonoBehaviour
     int random;
     bool coutineFlag = true;
     bool coutineFlag1 = true;
-    bool coutineFlag2= true;
+    bool coutineFlag2 = true;
     bool coutineFlag4 = true;
+
+    [SerializeField] private TMP_Text RankText;
 
     bool RSFlag = false;
     void Start()
     {
+        
         Time.timeScale = 1.0f;
         a = CollGauge.Collapse;
         hp = LIFE.HitPoint;
@@ -85,6 +97,13 @@ public class ResultScore : MonoBehaviour
         Clear = GameObject.Find("Clear");
         Failed = GameObject.Find("Failed");
         FireRoof = GameObject.Find("FireRoof");
+        PeopleImage.SetActive(false);
+        TimeImage.SetActive(false);
+        HPImage.SetActive(false);
+        FailedImage.SetActive(false);
+        FalseImage.SetActive(false);
+        TotalImage.SetActive(true);
+        ClearImage.SetActive(false);
         Failed.SetActive(false);
         Clear.SetActive(false);
         FireRoof.SetActive(false);
@@ -104,12 +123,23 @@ public class ResultScore : MonoBehaviour
     }
     private void Update()
     {
+        if(clearflag == true)
+        {
+            ClearImage.SetActive(true);
+            FalseImage.SetActive(false);
+        }
+        else
+        {
+            FalseImage.SetActive(true);
+            ClearImage.SetActive(false);
+        }
         total = (int)(people + timepoint + hppoint);
         countscore += Time.deltaTime;
         
         if(countscore >= injureddisplay)
         {
-                textPeople.text = "People:" + people.ToString();
+            PeopleImage.SetActive(true);
+                textPeople.text = people.ToString();
             textPeople2.text = "People\n" + people2.ToString();
             
         }
@@ -119,7 +149,8 @@ public class ResultScore : MonoBehaviour
         }
         if (countscore >= timedisplay)
         {
-                textTime.text = "Time:" + timepoint.ToString();
+            TimeImage.SetActive(true);
+                textTime.text = timepoint.ToString();
             textPeople2.text = "";
             textTime2.text = "Time\n" + timepoint2.ToString();
             
@@ -131,7 +162,8 @@ public class ResultScore : MonoBehaviour
         }
         if (countscore >= hpdisplay)
         {
-                textHP.text = "HP:" + hppoint.ToString();
+            HPImage.SetActive(true);
+                textHP.text = hppoint.ToString();
             textTime2.text = "";
             textHP2.text = "HP\n" + hppoint2.ToString();
             
@@ -143,16 +175,17 @@ public class ResultScore : MonoBehaviour
         }
         if (countscore >= faileddisplay)
         {
+            FailedImage.SetActive(true);
             textHP2.text = "";
             if (clearflag == false)
             {
-                textFailure.text = "Failed:-500";
+                textFailure.text = "-500";
                 textFailure2.text = "Failed\n-500";
                 
             }
             else
             {
-                textFailure.text = "Failed:0";
+                textFailure.text = "0";
             }
             
         }
@@ -167,6 +200,7 @@ public class ResultScore : MonoBehaviour
 
         if (countscore >= totaldisplay)
         {
+            TotalImage.SetActive(true);
             textFailure2.text = "";
             if (clearflag == false)
             {
@@ -188,25 +222,36 @@ public class ResultScore : MonoBehaviour
             }
             
         }
-        if(clearflag == true)
+        if (countscore >= rankdisplay)
         {
-            if(countscore >= rankdisplay)
+            if (clearflag == true)
             {
-                if(total >= 2000)
+
                 {
-                    textRank.text = "S";
-                }else if(total >= 1700)
-                {
-                    textRank.text = "A";
-                }else if(total >= 1400)
-                {
-                    textRank.text = "B";
-                }else
-                {
-                    textRank.text = "C";
+                    if (total >= 2000)
+                    {
+                        RankText.SetText("<sprite=0>");
+                    }
+                    else if (total >= 1700)
+                    {
+                        RankText.SetText("<sprite=1>");
+                    }
+                    else if (total >= 1400)
+                    {
+                        RankText.SetText("<sprite=2>");
+                    }
+                    else
+                    {
+                        RankText.SetText("<sprite=3>");
+                    }
                 }
             }
+            if(clearflag == false)
+            {
+                RankText.SetText("<sprite=4>");
+            }
         }
+        
     }
     public void Result(string str)
     {
