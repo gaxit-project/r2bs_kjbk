@@ -180,11 +180,11 @@ public class RescueNPC : MonoBehaviour
 
             if (IsItInGoal() && !IsItRescued() && Severe == true)   //救出地点に接触かつ未救出かつ重傷者
             {
-                gameManager.CallInoperable(2.0f); // 2 秒間　このスクリプトを無効にする（Inputできない）
+                //gameManager.CallInoperable(2.0f); // 2 秒間　このスクリプトを無効にする（Inputできない）
                 DiplicationScript.OffFlag();
                 SetText("");
                 SetFollow(false);
-                PlayerPrefs.SetInt("Lock", 1);
+                PlayerPrefs.SetInt("Lock", 0);//1ならロック
                 FFanimator.SetBool("Carry", false);
                 NPCanimator.SetBool("NPCCarry", false);
                 NPCCol.enabled = true;
@@ -193,7 +193,7 @@ public class RescueNPC : MonoBehaviour
                 SetRescued(true);
                 CountDestroy();   //一定時間後にオブジェクト削除
                 //CounterScript.SevereCount();   //救助者カウント
-                CounterScript.Count();
+                //CounterScript.Count();
                 r_num = CounterScript.getNum();
                 POP.PopR();
                 ArrowON = false;
@@ -240,7 +240,7 @@ public class RescueNPC : MonoBehaviour
             POP.HeavyR();
             Radio3.RPopFlag = true;
         }
-        Invoke("Destroy", 11f);
+        Invoke("Destroy", 1f);
     }
 
     private void Destroy()
@@ -248,6 +248,7 @@ public class RescueNPC : MonoBehaviour
         Destroy(this.gameObject);
         CounterScript.Count();   //救助者カウント
         r_num = CounterScript.getNum();
+
     }
     private void Count()
     {

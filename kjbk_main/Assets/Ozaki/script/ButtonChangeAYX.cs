@@ -64,12 +64,12 @@ public class ButtonChangeAYX : MonoBehaviour
                 case "DoorButton":
                     /*if (cnt == 1 && YDbutton != null) YDbutton.SetActive(true);
                     else if (cnt == 2 && YDTwobutton != null) YDTwobutton.SetActive(true);*/
-                    if (YDbutton != null) YDbutton.SetActive(true);
+                    if (Abutton != null) Abutton.SetActive(true);
                     break;
                 case "SyoukaButton":
                     /*if (cnt == 1 && YSbutton != null) YSbutton.SetActive(true);
                     else if (cnt == 2 && YSTwobutton != null) YSTwobutton.SetActive(true);*/
-                    if(YSbutton != null)YSbutton.SetActive(true);
+                    if(Abutton != null)Abutton.SetActive(true);
                     break;
                 case "AButton":
                     /*if (cnt == 1 && Abutton != null) Abutton.SetActive(true);

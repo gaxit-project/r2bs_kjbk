@@ -381,6 +381,17 @@
                 },
                 {
                     "name": "",
+                    "id": "bf80a1bb-b8a5-4f62-81c8-346b29f44c4b",
+                    "path": "<XInputController>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Take",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "d7f31f71-936e-466f-a11a-79b8cb19d4d8",
                     "path": "<XInputController>/leftShoulder",
                     "interactions": "",
