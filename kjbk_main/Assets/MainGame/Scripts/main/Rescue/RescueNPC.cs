@@ -240,7 +240,7 @@ public class RescueNPC : MonoBehaviour
             POP.HeavyR();
             Radio3.RPopFlag = true;
         }
-        Invoke("Destroy", 1f);
+        Invoke("Destroy", 0.01f);
     }
 
     private void Destroy()

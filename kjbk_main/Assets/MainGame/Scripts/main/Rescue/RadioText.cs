@@ -26,8 +26,8 @@ public class RadioText : MonoBehaviour
     {
         if (RescueFlag)
         {
-            Invoke("ActiveRadio", 10f);
-            Invoke("StopRadio", 13f);
+            Invoke("ActiveRadio", 1f);
+            Invoke("StopRadio", 2f);
             //SetActiveText(false);
             RescueFlag = false;
         }
