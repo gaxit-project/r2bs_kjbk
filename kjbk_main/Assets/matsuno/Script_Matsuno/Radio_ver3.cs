@@ -247,13 +247,6 @@ public class Radio_ver3 : MonoBehaviour
         RMessager();
         number1 = PlayerPrefs.GetInt("R_number");
 
-        if (RPeople2)
-        {
-            if (RPeople)
-            {
-                Invoke(nameof(RHint), 5f);
-            }
-        }
         Debug.Log("ナンバー軽症者：" + number1);
         if(number1 == 1)
         {
@@ -441,159 +434,6 @@ public class Radio_ver3 : MonoBehaviour
             {
                 if (!JorE)
                 {
-                    if (RCnt == 0)
-                    {
-                        if (rnd == 0)
-                        {
-                            RadioText.SetText("キッチンから声が聞こえたとの情報だ！至急向かってくれ！");
-                            Debug.Log("一人目の位置確定");
-                            StartCoroutine(Simple1());
-                            RPOP.ArrowONFlag = true;
-                            //無線表示
-                        }
-                        else
-                        {
-
-                        }
-                    }
-                    else
-                    {
-                        if (rnd == 1)
-                        {
-                            if (RCnt % 3 == 1)
-                            {
-                                RadioText.SetText("西の方に人が逃げていったとの情報だ");
-                                Debug.Log("1-1");
-                                StartCoroutine(Simple1());
-                                ChatFlag = false;
-                            }
-                            else if (RCnt % 3 == 2)
-                            {
-                                RadioText.SetText("西南方面に人影があったかもしれない一応向かってくれないか");
-                                StartCoroutine(Simple1());
-                                Debug.Log("1-2");
-                            }
-                            else if (RCnt % 3 == 0)
-                            {
-                                RadioText.SetText("バルコニーで人が倒れているとの情報だ");
-                                StartCoroutine(Simple1());
-                                Debug.Log("1-3");
-                                RPeople2 = false;
-                                RPOP.ArrowONFlag = true;
-                                //rnd1の無線
-                            }
-                        }
-                        else if (rnd == 2)
-                        {
-                            if (RCnt % 3 == 1)
-                            {
-                                RadioText.SetText("北側に人が向かっていったとの情報が入った");
-                                StartCoroutine(Simple1());
-                                Debug.Log("2-1");
-                                //rnd1の無線
-                            }
-                            else if (RCnt % 3 == 2)
-                            {
-                                RadioText.SetText("北西側から叫び声が聞こえたから向かってくれ");
-                                StartCoroutine(Simple1());
-                                Debug.Log("2-2");
-                                //rnd1の無線
-                            }
-                            else if (RCnt % 3 == 0)
-                            {
-                                RadioText.SetText("リビングで人が倒れているとの情報だ");
-                                StartCoroutine(Simple1());
-                                Debug.Log("2-3");
-                                RPeople2 = false;
-                                RPOP.ArrowONFlag = true;
-                                //rnd1の無線
-
-                            }
-                        }
-                        else if (rnd == 3)
-                        {
-                            if (RCnt % 3 == 1)
-                            {
-                                RadioText.SetText("北側に人が向かっていったとの情報が入った");
-                                StartCoroutine(Simple1());
-                                Debug.Log("3-1");
-                                //rnd1の無線
-                            }
-                            else if (RCnt % 3 == 2)
-                            {
-                                RadioText.SetText("俺はこの時間よくお風呂に入って...あ、無線を付けたままだった...");
-                                StartCoroutine(Simple1());
-                                Debug.Log("3-2");
-                                //rnd1の無線
-                            }
-                            else if (RCnt % 3 == 0)
-                            {
-                                RadioText.SetText("お風呂場にて滑って動けない人がいるとの情報だ");
-                                StartCoroutine(Simple1());
-                                Debug.Log("3-3");
-                                RPeople2 = false;
-                                RPOP.ArrowONFlag = true;
-                                //rnd1の無線
-
-                            }
-                        }
-                        else if (rnd == 4)
-                        {
-                            if (RCnt % 3 == 1)
-                            {
-                                RadioText.SetText("南側に人が向かっていったとの情報が入った");
-                                StartCoroutine(Simple1());
-                                Debug.Log("4-1");
-                                //rnd1の無線
-                            }
-                            else if (RCnt % 3 == 2)
-                            {
-                                RadioText.SetText("この服も煙まみれでもうそろそろ着替えたいぜ！");
-                                StartCoroutine(Simple1());
-                                Debug.Log("4-2");
-                                //rnd1の無線
-                            }
-                            else if (RCnt % 3 == 0)
-                            {
-                                RadioText.SetText("クローゼットにて物が倒れて動けない人がいるとの情報だ");
-                                StartCoroutine(Simple1());
-                                Debug.Log("4-3");
-                                RPeople2 = false;
-                                RPOP.ArrowONFlag = true;
-                                //rnd1の無線
-
-                            }
-                        }
-                        else if (rnd == 5)
-                        {
-                            if (RCnt % 3 == 1)
-                            {
-                                RadioText.SetText("西側に走って逃げる人がいたとの情報だ");
-                                StartCoroutine(Simple1());
-                                Debug.Log("5-1");
-                                //rnd1の無線
-                            }
-                            else if (RCnt % 3 == 2)
-                            {
-                                RadioText.SetText("まさかこんな状況で寝てるやつはいないよな...");
-                                StartCoroutine(Simple1());
-                                Debug.Log("5-2");
-                                //rnd1の無線
-                            }
-                            else if (RCnt % 3 == 0)
-                            {
-                                RadioText.SetText("寝室で全然起きない人がいるみたいだ！急いで起こしに行ってくれ");
-                                StartCoroutine(Simple1());
-                                Debug.Log("5-3");
-                                RPeople2 = false;
-                                RPOP.ArrowONFlag = true;
-                                //rnd1の無線
-
-                            }
-                        }
-                    }
-                    
-
                 }
                 else if (JorE)
                 {
@@ -631,7 +471,7 @@ public class Radio_ver3 : MonoBehaviour
                             }
                             else if (RCnt % 3 == 0)
                             {
-                                RadioText2.SetText("バルコニーで人が動けないってい叫んでたわ");
+                                RadioText2.SetText("<sprite=6>で人が動けないってい叫んでたわ");
                                 StartCoroutine(Simple1());
                                 Debug.Log("1-3");
                                 RPeople2 = false;
@@ -651,14 +491,14 @@ public class Radio_ver3 : MonoBehaviour
                             }
                             else if (RCnt % 3 == 2)
                             {
-                                RadioText2.SetText("さっきからリビング方面で叫び声が聞こえるの");
+                                RadioText2.SetText("さっきから<sprite=5>方面で叫び声が聞こえるの");
                                 StartCoroutine(Simple1());
                                 Debug.Log("2-2");
                                 //rnd1の無線
                             }
                             else if (RCnt % 3 == 0)
                             {
-                                RadioText2.SetText("リビングで人が倒れていたわ");
+                                RadioText2.SetText("<sprite=5>で人が倒れていたわ");
                                 StartCoroutine(Simple1());
                                 Debug.Log("2-3");
                                 RPeople2 = false;
@@ -685,7 +525,7 @@ public class Radio_ver3 : MonoBehaviour
                             }
                             else if (RCnt % 3 == 0)
                             {
-                                RadioText2.SetText("さっきお風呂に入った人がでてこないの...");
+                                RadioText2.SetText("さっき<sprite=2>に入った人がでてこないの...");
                                 StartCoroutine(Simple1());
                                 Debug.Log("3-3");
                                 RPeople2 = false;
@@ -712,7 +552,7 @@ public class Radio_ver3 : MonoBehaviour
                             }
                             else if (RCnt % 3 == 0)
                             {
-                                RadioText2.SetText("クローゼットで物が倒れて動けない人がいるの！");
+                                RadioText2.SetText("<sprite=3>で物が倒れて動けない人がいるの！");
                                 StartCoroutine(Simple1());
                                 Debug.Log("4-3");
                                 RPeople2 = false;
@@ -739,7 +579,7 @@ public class Radio_ver3 : MonoBehaviour
                             }
                             else if (RCnt % 3 == 0)
                             {
-                                RadioText2.SetText("寝室で酔っぱらったやつが寝てて起きないんだ！助けてやってくれ");
+                                RadioText2.SetText("<sprite=4>で酔っぱらったやつが寝てて起きないんだ！助けてやってくれ");
                                 StartCoroutine(Simple1());
                                 Debug.Log("5-3");
                                 RPeople2 = false;
@@ -748,9 +588,9 @@ public class Radio_ver3 : MonoBehaviour
 
                             }
                         }
-                        
+
                     }
-                    
+
                 }
             }
         }
@@ -804,7 +644,7 @@ public class Radio_ver3 : MonoBehaviour
                 {
                     RadioOFF();
                 }
-                RadioText2.SetText("助かったよ！キッチンの\r\n奥の方で人が倒れてたの!");
+                RadioText2.SetText("助かったよ！<sprite=1>の\r\n奥の方で人が倒れてたの!");
                 MapPresent = true;
             }
             else if (rndtext == 1)
@@ -828,7 +668,8 @@ public class Radio_ver3 : MonoBehaviour
                 RadioText2.SetText("生きて帰れる...！");
             }
         }
-         StartCoroutine(Simple1());
+        StartCoroutine(Simple1());
+        Invoke(nameof(RHint), 5f);
     }
 
 
