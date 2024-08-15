@@ -10,7 +10,7 @@ public class CollGauge : MonoBehaviour
 
     float CountTime = 0;            //時間計測
     public static int Collapse = 100;            //倒壊ゲージ
-    float Span = 4f;                 //Span秒に一回倒壊ゲージを1%減らす
+    float Span = 4.5f;                 //Span秒に一回倒壊ゲージを1%減らす
     public CollRadio Demoscript;        //Radio.csから関数もって来るやつ
     public CollDesign Design;  //CollapseDesign2.csから関数もって来るやつ
     public Sunaarashi_ON_OFF Suna;  //砂嵐をもってくる
@@ -27,7 +27,7 @@ public class CollGauge : MonoBehaviour
     //public SceneChange Over;        //SceneChange.csからゲームオーバーを持ってくる
     //public Sunaarashi_ON_OFF Suna;  //Sunaarashiから砂嵐を持ってくる
 
-    public Radio_ver3 Radio3;
+    public Radio_ver4 Radio4;
 
     // Use this for initialization
     void Start()
@@ -54,45 +54,34 @@ public class CollGauge : MonoBehaviour
             if (Collapse == 80)
             {
                 Design.EightHouse();             //家のデザインを出す
-                Suna.SunaONOFF();                //砂嵐を表示
-                Invoke(nameof(STOPFlagON), 2f);  //フラグを砂嵐後にONにする
-                R80();
-                Debug.Log("radioFlag="+Radio3.Radio80);
+                CollapseRadioON();
             }
 
             else if (Collapse == 60)
             {
                 Design.SixHouse();
-                Suna.SunaONOFF();
-                Invoke(nameof(STOPFlagON), 2f);
-                R60();
+                CollapseRadioON();
             }
 
             else if (Collapse == 40)
             {
                 Design.FourHouse();
-                Suna.SunaONOFF();
                 POP.Generate40 = true;
-                Invoke(nameof(STOPFlagON), 2f);
-                R40();
+                CollapseRadioON();
             }
 
             else if (Collapse == 20)
             {
                 Design.TwoHouse();
-                Suna.SunaONOFF();
                 POP.Generate20 = true;
-                Invoke(nameof(STOPFlagON), 2f);
-                R20();
+                CollapseRadioON();
             }
 
             else if (Collapse == 10)
             {
                 Design.OneHouse();
-                Suna.SunaONOFF();
                 POP.Generate10 = true;
-                Invoke(nameof(STOPFlagON), 2f);
-                R10();
+                CollapseRadioON();
             }
             else if (Collapse <= 0)
             {
@@ -104,8 +93,8 @@ public class CollGauge : MonoBehaviour
             if (STOP)
             {
                 //フラグが届いたら以下の通りに無線を実行
-                Radio3.CollapseFlag = true;
-                Radio3.CollapsePanel();
+                //Radio3.CollapseFlag = true;
+                //Radio3.CollapsePanel();
                 STOP = false;  //フラグをOFFに
             }
         }
@@ -124,26 +113,11 @@ public class CollGauge : MonoBehaviour
     {
         STOP = true;
     }
-    public void R80()
+    void CollapseRadioON()
     {
-        Radio3.Radio80 = true;
-    }
-
-    public void R60()
-    {
-        Radio3.Radio60 = true;
-    }
-    public void R40()
-    {
-        Radio3.Radio40 = true;
-    }
-    public void R20()
-    {
-        Radio3.Radio20 = true;
-    }
-    public void R10()
-    {
-        Radio3.Radio10 = true;
+        //Suna.SunaONOFF();
+        //Invoke(nameof(STOPFlagON), 2f);
+        Radio4.CollapseDialogue();
     }
     /////////////////////////////////////////////////////
 

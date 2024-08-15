@@ -58,7 +58,15 @@ public class RescuePOP : MonoBehaviour
 
     int cnt = 1;
 
-    [HideInInspector] public bool ArrowONFlag = false; 
+    [HideInInspector] public bool ArrowONFlag = false;
+
+    public int rndom;
+
+    //軽症者数
+    public int AllRCnt = 3;
+
+    //radio_ver4の呼び出し変数
+    public Radio_ver4 Radio4;
 
 
     void Start()
@@ -102,11 +110,8 @@ public class RescuePOP : MonoBehaviour
     //軽症者を救うとヒントの表示をする
     public void LightR()
     {
-        Debug.Log("aaaaaaa");
         MCnter();             //救った軽症者をカウントする関数
-        Debug.Log("bbbbbbbb");
         Radio.RHintStop();    //軽症者のヒントを送る
-        Debug.Log("ccccccc");
     }
 
 
@@ -114,6 +119,7 @@ public class RescuePOP : MonoBehaviour
     //重傷者を救うと新しい重傷者を湧かせたりする
     public void HeavyR()
     {
+        Radio4.BringDialogue();
         Radio.SymbolStop();   //無線を表示
         RndomONOFF = true;    //ランダムをできるようにする
         Rndom();              //ランダムに数値を入れる
@@ -221,28 +227,33 @@ public class RescuePOP : MonoBehaviour
     public void Rpop()
     {
         //ランダムの数値を受け取る
-        int rndom = Pop.Rnd;
+        rndom = Pop.Rnd;
         Debug.Log("ポップする際の受け取り:" + rndom);
 
         if (rndom == 1)
         {
             RBalcony.SetActive(true);
+            Radio4.Push();
         }
         else if (rndom == 2)
         {
             RKitchen.SetActive(true);
+            Radio4.Push();
         }
         else if (rndom == 3)
         {
             RBath.SetActive(true);
+            Radio4.Push();
         }
         else if (rndom == 4)
         {
             RCloset.SetActive(true);
+            Radio4.Push();
         }
         else if (rndom == 5)
         {
             RBedRoom.SetActive(true);
+            Radio4.Push();
         }
     }
 
@@ -256,6 +267,7 @@ public class RescuePOP : MonoBehaviour
             //ILOVENY1st.SetActive(true);
             //hito1_st.SetActive(true);
             FirstPop.SetActive(true);
+            AllRCnt = AllRCnt + 5;
         }
         else if (cnt == 2)
         {
@@ -263,6 +275,7 @@ public class RescuePOP : MonoBehaviour
             //JK2nd.SetActive(true);
             //kurohuku2nd.SetActive(true);
             SecondPop.SetActive(true);
+            AllRCnt = AllRCnt + 4;
         }
         else if (cnt == 3)
         {
@@ -270,6 +283,7 @@ public class RescuePOP : MonoBehaviour
             //JK3rd.SetActive(true);
             //hito3_2rd.SetActive(true);
             ThirdPop.SetActive(true);
+            AllRCnt = AllRCnt + 5;
         }
         else if (cnt == 4)
         {
@@ -277,6 +291,7 @@ public class RescuePOP : MonoBehaviour
             //ILOVENY4th.SetActive(true);
             // hito4th.SetActive(true);
             ForthPop.SetActive(true);
+            AllRCnt = AllRCnt + 4;
         }
         else if (cnt == 5)
         {
@@ -284,6 +299,7 @@ public class RescuePOP : MonoBehaviour
             //kurohuku5th.SetActive(true);
             //ILOVENY5th.SetActive(true);
             FifthPop.SetActive(true);
+            AllRCnt = AllRCnt + 3;
         }
         cnt++;
     }
