@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using TMPro;
@@ -28,29 +28,38 @@ public class Radio_ver4 : MonoBehaviour
     [HideInInspector] public bool Radio10;
 
 
-    //�Z���t������X�^�b�N
+    //セリフを入れるスタック
     public Stack<string> stackObj = new Stack<string>();
     public Stack<string> stackRadio = new Stack<string>();
     public Stack<string> stackBring = new Stack<string>();
 
-    //�Z���t���|�b�v�����Ƃ��ɓ����ϐ�
+    //セリフをポップしたときに入れる変数
     string NewText;
 
-    //�y�ǎ҂̕ϐ�������
+    //軽症者の変数を入れる
     public int number1 = 1;
-    //��ԍŏ��̃e�L�X�g���ǂ����̃t���O
+    //一番最初のテキストかどうかのフラグ
     public bool FirstFlag = true;
-    //�e�L�X�g���\������Ă��邩�̃t���O
+    //テキストが表示されているかのフラグ
     bool TextONFlag = false;
-    //�������҂���Ԃ��ǂ����̃t���O
+    //無線が待ち状態かどうかのフラグ
     bool CollapseDialogueFlag = false;
-    //�����̃A�C�R����\�����邩�̃t���O
+    //無線のアイコンを表示するかのフラグ
     bool CollapseIconFlag = false;
-    //��ԍŏ��̃e�L�X�g�̃t���O
+    //一番最初のテキストのフラグ
     bool FirstTextFlag = false;
+    //missionMapUI
+    public MissionMapUI MMUI;
 
-    //�R���[�`���̊m�F
+    //コルーチンの確認
     private Coroutine activeCoroutine;
+    
+    //missionマップに送る変数
+    public int MMcnt=0;
+    //missionマップのスタック
+    public Stack<string> stackMM = new Stack<string>();
+    //missionマップのスタックをポップしたときに入れる変数
+    string MMHint;
 
     // Start is called before the first frame update
     void Start()
@@ -63,135 +72,172 @@ public class Radio_ver4 : MonoBehaviour
         ChatPanel2.SetActive(false);
         ChatPanel3.SetActive(false);
         ChatR.SetActive(false);
-        //�X�^�b�N�̒��g������
-        stackObj.Push("���A�Ԏ�肪�킩��Ȃ�?\r\n�}�b�v�������邩��m�F���Ă݂�");
-        stackObj.Push("����������I<sprite=1>��\r\n���̕��Ől���|��Ă���!");
-        stackRadio.Push("�|�󐡑O����\r\n����������");
-        stackRadio.Push("�V�䂪����n�߂Ă邼\r\n�}���ł���");
-        stackRadio.Push("�h�΃V���b�^�[�����낵�ĉ��̉��Ă�h���ł�����");
-        stackRadio.Push("�q�r���g�債�Ă�����������������邼");
-        stackRadio.Push("���������Ƀq�r�������Ă��Ȃ����H");
-        stackRadio.Push("����͊w�������I�s���s���҂̓�10�l���~���̂��N�̔C����");
-        stackBring.Push("�d���҂͂������Ȃ��������I");
-        stackBring.Push("�܂��d���҂�����悤���I�������������𗊂ށI");
-        stackBring.Push("�܂��d���҂�����悤���I�������������𗊂ށI");
-        stackBring.Push("�܂��d���҂�����悤���I�������������𗊂ށI");
-        stackBring.Push("�܂��d���҂�����悤���I�������������𗊂ށI");
-        stackBring.Push("���̌����̍\������肵��\n\r���Њ��p���Ă݂Ă���");
+        //スタックの中身を入れる
+        stackObj.Push("え、間取りがわからない?\r\nマップをあげるから確認してみて");
+        stackObj.Push("助かったよ！<sprite=1>の\r\n奥の方で人が倒れてたの!");
+        stackMM.Push(" <sprite=1>の奥の方で\n　人が倒れている？");
+        stackRadio.Push("倒壊寸前だぞ\r\n速く逃げろ");
+        stackRadio.Push("天井が崩れ始めてるぞ\r\n急いでくれ");
+        stackRadio.Push("防火シャッターをおろして炎の延焼を防いでいくぞ");
+        stackRadio.Push("ヒビが拡大しているもしかしたら崩れるぞ");
+        stackRadio.Push("何か建物にヒビが入っていないか？");
+        stackRadio.Push("現場は学生寮だ！行方不明者の内10人を救うのが君の任務だ");
+        stackBring.Push("重傷者はもういなさそうだ！");
+        stackBring.Push("まだ重傷者がいるようだ！引き続き調査を頼む！");
+        stackBring.Push("まだ重傷者がいるようだ！引き続き調査を頼む！");
+        stackBring.Push("まだ重傷者がいるようだ！引き続き調査を頼む！");
+        stackBring.Push("まだ重傷者がいるようだ！引き続き調査を頼む！");
+        stackBring.Push("この建物の構造を入手した\n\rぜひ活用してみてくれ");
         FirstFlag = true;
-        //���[�������̃��W�I���o��
+        MMcnt = 0;
+        //ルール説明のラジオを出す
         CollapseDialogue();
     }
 
-    // �y�ǎ҂̃q���g���v�b�V������
+    // 軽症者のヒントをプッシュする
     public void Push()
     {
-        //�X�^�b�N�̒��g�����Z�b�g
+        //スタックの中身をリセット
         stackObj.Clear();
         int RandomText = RPOP.rndom;
+        //missionマップのリセット
+        MMcnt = 0;
+        MMUI.MissionUpgread("☐????????????????", MMcnt);
         if(RandomText == 1)
         {
-            stackObj.Push("<sprite=6>�Ől�������Ȃ����Ă�����ł���");
-            stackObj.Push("������ʂɐl�e����������������Ȃ��ꉞ�������Ă���Ȃ���");
-            stackObj.Push("���̕��ɐl�������Ă�������");
+            //軽症者テキストのヒント
+            stackObj.Push("<sprite=6>で人が動けないってい叫んでたわ");
+            stackObj.Push("西南方面に人影があったかもしれない一応向かってくれないか");
+            stackObj.Push("西の方に人が逃げていったぞ");
+            //missionマップのヒント
+            stackMM.Push(" <sprite=6>に人がいる？");
+            stackMM.Push("西南方面に人影あり");
+            stackMM.Push("西方面に人が逃げた");
         }
         else if(RandomText == 2)
         {
-            stackObj.Push("<sprite=5>�Ől���|��Ă�����");
-            stackObj.Push("����������<sprite=5>���ʂŋ��ѐ������������");
-            stackObj.Push("�k���ɐl�������Ă�������");
+            //軽症者テキストのヒント
+            stackObj.Push("<sprite=5>で人が倒れていたわ");
+            stackObj.Push("さっきから<sprite=5>方面で叫び声が聞こえるの");
+            stackObj.Push("北側に人が走っていったよ");
+            //missionマップのヒント
+            stackMM.Push(" <sprite=5>に人が倒れている？");
+            stackMM.Push(" <sprite=5>方面で叫び声？");
+            stackMM.Push("北側に人が逃げた");
         }
         else if(RandomText == 3)
         {
-            stackObj.Push("������<sprite=2>�ɓ������l���łĂ��Ȃ���...");
-            stackObj.Push("���Ŋ����~�܂�Ȃ���...�����C�ɓ��肽��...");
-            stackObj.Push("�������k���ɐl���������Ă�������");
+            //軽症者テキストのヒント
+            stackObj.Push("さっき<sprite=2>に入った人がでてこないの...");
+            stackObj.Push("炎で汗が止まらないわ...お風呂に入りたい...");
+            stackObj.Push("さっき北側に人が向かっていったぞ");
+            //missionマップのヒント
+            stackMM.Push(" <sprite=2>で人がでてこない？");
+            stackMM.Push("お風呂に入りたい？\n　家事場でのんきな奴だ");
+            stackMM.Push("北側に人が逃げた");
         }
         else if(RandomText == 4)
         {
-            stackObj.Push("<sprite=3>�ŕ����|��ē����Ȃ��l������́I");
-            stackObj.Push("�������܂݂�`�����������ւ������I");
-            stackObj.Push("�쑤�ɐl���������Ă�������");
+            //軽症者テキストのヒント
+            stackObj.Push("<sprite=3>で物が倒れて動けない人がいるの！");
+            stackObj.Push("服が煙まみれ～いち早く着替えたい！");
+            stackObj.Push("南側に人が向かっていったわ");
+            //missionマップのヒント
+            stackMM.Push(" <sprite=3>に重体者がいる？");
+            stackMM.Push("服が煙まみれか...\n　確かに早く着替えたいな");
+            stackMM.Push("南側に人が逃げた");
         }
         else if(RandomText == 5)
         {
-            stackObj.Push("<sprite=4>�Ő����ς��������Q�ĂċN���Ȃ��񂾁I�����Ă���Ă���");
-            stackObj.Push("�܂�������ȏ󋵂ŐQ�Ă��͂��Ȃ����...");
-            stackObj.Push("�����������ɑ����ē�����l��������");
+            //軽症者テキストのヒント
+            stackObj.Push("<sprite=4>で酔っぱらったやつが寝てて起きないんだ！助けてやってくれ");
+            stackObj.Push("まさかこんな状況で寝てるやつはいないよな...");
+            stackObj.Push("さっき西側に走って逃げる人がいたぞ");
+            //missionマップのヒント
+            stackMM.Push(" <sprite=4>で酔っぱらって\n　倒れた人がいる？");
+            stackMM.Push("火事場で寝てるやつは\n　いないだろ...");
+            stackMM.Push("西側に人が逃げた");
         }
     }
 
-    // �q���g���o�Ȃ��Ƃ��͂������烉���_���Ńe�L�X�g���o�͂���
+    // ヒントが出ないときはここからランダムでテキストを出力する
     void RandomDialugue()
     {
         int RndDialugue = Random.Range(1, 4);
         if(RndDialugue == 1)
         {
-            RadioText.SetText("�ق�Ƃ��ɏ���������I�N�͖��̉��l���I");
+            RadioText.SetText("ほんとうに助かったよ！君は命の恩人だ！");
         }
         else if(RndDialugue == 2)
         {
-            RadioText.SetText("���肪�Ƃ�...�����ċA���...");
+            RadioText.SetText("ありがとう...生きて帰れる...");
         }
         else if(RndDialugue == 3)
         {
-            RadioText.SetText("�Ȃ�Ă��΂炵���g�̂��Ȃ��Ȃ񂾁I���肪�Ƃ��I");
+            RadioText.SetText("なんてすばらしい身のこなしなんだ！ありがとう！");
         }
     }
 
-    //�Z���t��\������
+    //セリフを表示する
     public void Dialogue()
     {
-        //�e�L�X�g���Z�b�g
+        //テキストリセット
         TextPanelOFF();
         RPOP.AllRCnt--;
 
-        // ���݂̃R���[�`�������s���Ȃ��~����
+        // 現在のコルーチンが実行中なら停止する
         if (activeCoroutine != null)
         {
             StopCoroutine(activeCoroutine);
         }
 
         int RndHalf = Random.Range(1, 3);
-        //�X�^�b�N�̒��g���J���������烉���_���Ƀe�L�X�g������
+        //スタックの中身がカラだったらランダムにテキストを入れる
         if(stackObj.Count == 0)
         {
             RandomDialugue();
         }
-        //�X�^�b�N����|�b�v�����Ă��̃e�L�X�g������
+        //スタックからポップをしてそのテキストを入れる
         else if (RndHalf == 1 || FirstFlag)
         {
             NewText = stackObj.Pop();
             RadioText.SetText(NewText);
-
+            //missionマップにヒントを送る
+            MMHint = stackMM.Pop();
+            MMcnt++;
+            MMUI.MissionUpgread(MMHint,MMcnt);
             if(FirstFlag)
             {
                 FirstTextFlag = true;
             }
             FirstFlag = false;
         }
-        //�y�ǎҐ��ƃX�^�b�N�̒��g�������������͈ȉ��̏ꍇ�|�b�v���ăe�L�X�g�ɓ����
+        //軽症者数とスタックの中身が同数もしくは以下の場合ポップしてテキストに入れる
         else if(stackObj.Count >= RPOP.AllRCnt)
         {
             NewText = stackObj.Pop();
             RadioText.SetText(NewText);
+            //missionマップにヒントを送る
+            MMHint = stackMM.Pop();
+            MMcnt++;
+            MMUI.MissionUpgread(MMHint, MMcnt);
         }
-        //����ȊO�̓����_���Ńe�L�X�g�ɓ����
+        //それ以外はランダムでテキストに入れる
         else
         {
             RandomDialugue();
         }
-        // �V�����R���[�`�����J�n���A���̎Q�Ƃ�ۑ�����
+        // 新しいコルーチンを開始し、その参照を保存する
         activeCoroutine = StartCoroutine(Simple1());
         TextPanelON();
     }
 
 
-    //�R���v�X�Q�[�W��\������
+    //コラプスゲージを表示する
     public void CollapseDialogue()
     {
         CollapseDialogueFlag = true;
-        //�����e�L�X�g���o�Ă��Ȃ����
+        //もしテキストが出ていなければ
         if(!TextONFlag)
         {
             CollapseIconFlag = true;
@@ -199,7 +245,7 @@ public class Radio_ver4 : MonoBehaviour
             RadioText.SetText(NewText);
             TextPanelON();
             CollapseDialogueFlag = false;
-            // �V�����R���[�`�����J�n���A���̎Q�Ƃ�ۑ�����
+            // 新しいコルーチンを開始し、その参照を保存する
             activeCoroutine = StartCoroutine(Simple1());
         }
     }
@@ -207,7 +253,7 @@ public class Radio_ver4 : MonoBehaviour
     public void BringDialogue()
     {
         CollapseIconFlag = true;
-        // ���݂̃R���[�`�������s���Ȃ��~����
+        // 現在のコルーチンが実行中なら停止する
         if (activeCoroutine != null)
         {
             StopCoroutine(activeCoroutine);
@@ -215,7 +261,7 @@ public class Radio_ver4 : MonoBehaviour
         NewText = stackBring.Pop();
         RadioText.SetText(NewText);
         TextPanelON();
-        // �V�����R���[�`�����J�n���A���̎Q�Ƃ�ۑ�����
+        // 新しいコルーチンを開始し、その参照を保存する
         activeCoroutine = StartCoroutine(Simple1());
     }
 
@@ -226,9 +272,9 @@ public class Radio_ver4 : MonoBehaviour
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //�e�L�X�g����������v���O����
+    //テキストを処理するプログラム
 
-    //�e�L�X�g���ꕶ�����\������R�[�h
+    //テキストを一文字ずつ表示するコード
     private IEnumerator Simple1()
     {
         TextONFlag = true;
@@ -236,12 +282,12 @@ public class Radio_ver4 : MonoBehaviour
 
         for (var i = 0; i < RadioText2.text.Length; i++)
         {
-            //�����̒l�ύX����ƕb���ύX�\
+            //ここの値変更すると秒数変更可能
             yield return new WaitForSeconds(0.06f);
             RadioText2.maxVisibleCharacters = i + 1;
         }
 
-        //1�l�ڂ̋~���̎��݂̂̓���
+        //1人目の救助の時のみの動作
         if(FirstTextFlag)
         {
             yield return new WaitForSeconds(0.5f);
@@ -249,21 +295,21 @@ public class Radio_ver4 : MonoBehaviour
             {
                 StopCoroutine(activeCoroutine);
             }
-            //��ԍŏ��ɏd���҂��~�����Ƃ��̃Z���t���X�^�b�N����|�b�v����
+            //一番最初に重傷者を救ったときのセリフをスタックからポップする
             stackBring.Pop();
-            stackBring.Push("�܂��d���҂�����悤���I�������������𗊂ށI");
+            stackBring.Push("まだ重傷者がいるようだ！引き続き調査を頼む！");
             NewText = stackObj.Pop();
             RadioText.SetText(NewText);
             activeCoroutine = StartCoroutine(Simple1());
             FirstTextFlag = false;
         }
 
-        //�e�L�X�g�𐔕b��ɃI�t�ɂ���
+        //テキストを数秒後にオフにする
         yield return new WaitForSeconds(1.5f);
         TextPanelOFF();
         TextONFlag = false;
 
-        //�����R���v�X�Q�[�W�̖����̏��ԑ҂�������������s����
+        //もしコラプスゲージの無線の順番待ちがあったら実行する
         if(CollapseDialogueFlag)
         {
             yield return new WaitForSeconds(2.0f);
@@ -272,7 +318,7 @@ public class Radio_ver4 : MonoBehaviour
     }
 
 
-    //�e�L�X�g���\���ɂ���
+    //テキストを非表示にする
     private void TextPanelOFF()
     {
         ChatPanel.SetActive(false);
@@ -284,7 +330,7 @@ public class Radio_ver4 : MonoBehaviour
     }
 
 
-    //�e�L�X�g��\������
+    //テキストを表示する
     public void TextPanelON()
     {
         number1 = PlayerPrefs.GetInt("R_number");

@@ -13,6 +13,8 @@ public class RescueCount : MonoBehaviour
     public Radio ARadio;
     public CircleUI CirUI;  //サークルUI
 
+    //missionマップに変数を送る
+    public MissionMapUI MMUI;
 
     void Start()
     {
@@ -38,7 +40,7 @@ public class RescueCount : MonoBehaviour
         //{
         //    ARadio.AloneRadio();
         //}
-
+        
         //test
         Debug.Log("Best = " + PlayerPrefs.GetInt("ResCntBest"));
         Debug.Log("Normal = " + PlayerPrefs.GetInt("ResCntNormal"));
@@ -51,6 +53,10 @@ public class RescueCount : MonoBehaviour
         RescueNum++;
         Debug.Log(RescueNum);
         PlayerPrefs.SetInt("RescueCount", RescueNum); //セーブ
+        if (RescueNum >= 10)
+        {
+            MMUI.MissionUpgread("a", 10);
+        }
     }
 
     public int getNum()   //現在救助者数の取得
