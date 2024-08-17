@@ -64,17 +64,29 @@ public class ButtonChangeAYX : MonoBehaviour
                 case "DoorButton":
                     /*if (cnt == 1 && YDbutton != null) YDbutton.SetActive(true);
                     else if (cnt == 2 && YDTwobutton != null) YDTwobutton.SetActive(true);*/
+                    if(!x){
+                    DeactivateAllButtons();
                     if (YDbutton != null) YDbutton.SetActive(true);
+                    x=true;
+                    }
                     break;
                 case "SyoukaButton":
                     /*if (cnt == 1 && YSbutton != null) YSbutton.SetActive(true);
                     else if (cnt == 2 && YSTwobutton != null) YSTwobutton.SetActive(true);*/
+                    if(!x){
+                    DeactivateAllButtons();
                     if(YSbutton != null)YSbutton.SetActive(true);
+                    x=true;
+                    }
                     break;
                 case "AButton":
                     /*if (cnt == 1 && Abutton != null) Abutton.SetActive(true);
                     else if (cnt == 2 && ATwobutton != null) ATwobutton.SetActive(true);*/
+                    if(!x){
+                    DeactivateAllButtons();
                     if (Abutton != null) Abutton.SetActive(true);
+                    x=true;
+                    }
                     break;
                 case "XButton":
                     /*if (cnt == 1 && !Xb && Xbutton != null) Xbutton.SetActive(true);
@@ -136,6 +148,7 @@ public class ButtonChangeAYX : MonoBehaviour
         XTwobutton.SetActive(false);
         }*/
         }
+        x = false;
     }
 
     private void DeactivateButton(string buttonName)
@@ -144,14 +157,17 @@ public class ButtonChangeAYX : MonoBehaviour
         {
             case "DoorButton":
                 if (YDbutton != null) YDbutton.SetActive(false);
+                x=false;
                 /*if (YDTwobutton != null) YDTwobutton.SetActive(false);*/
                 break;
             case "SyoukaButton":
                 if (YSbutton != null) YSbutton.SetActive(false);
+                x=false;
                 /*if (YSTwobutton != null) YSTwobutton.SetActive(false);*/
                 break;
             case "AButton":
                 if (Abutton != null) Abutton.SetActive(false);
+                x=false;
                 /*if (ATwobutton != null) ATwobutton.SetActive(false);*/
                 break;
             case "XButton":
