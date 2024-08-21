@@ -6,7 +6,7 @@ public class CharacterNavitail : MonoBehaviour
 {
     private Renderer objRenderer;
     private float timer = 0f;
-    private float interval = 4f; // 5秒間隔
+    private float interval = 4.5f; // 5秒間隔
     // Start is called before the first frame update
     void Start()
     {

@@ -30,7 +30,7 @@ public class CharacterNavigation : MonoBehaviour
     private bool useGoalTarget = false;
     private bool NaviUp = false;
     private float stoppingDistance = 20.0f;
-
+    private Collider objectCollider;
     public Radio_ver4 radioVer4; // Reference to Radio_ver4
 
     void Start()
@@ -39,7 +39,7 @@ public class CharacterNavigation : MonoBehaviour
         rescueNPC = FindObjectOfType<RescueNPC>();
         rescueCount = FindObjectOfType<RescueCount>();
         DiplicationScript = Rescue.GetComponent<RescueDiplication>();
-        previousInjuryTarget = m_InjuryTarget; // 初期ターゲットを保存
+        previousInjuryTarget = m_InjuryTarget; // Save the initial target
         m_Agent = GetComponent<NavMeshAgent>();
         m_Agent.speed = constantSpeed;
         m_Agent.acceleration = 1000f;
@@ -47,7 +47,7 @@ public class CharacterNavigation : MonoBehaviour
         m_Agent.stoppingDistance = stoppingDistance;
         navigationObject.SetActive(false);
         SetInjuryTarget();
-
+        objectCollider = GetComponent<Collider>();
         StartCoroutine(NavigationLoop());
     }
 
@@ -86,7 +86,7 @@ public class CharacterNavigation : MonoBehaviour
                         yield return null;
                     }
 
-                    yield return new WaitForSeconds(0f); // 1秒待機
+                    yield return new WaitForSeconds(0f); // 1-second wait
                     isNavigatingToPlayer = true;
                 }
             }
@@ -111,13 +111,10 @@ public class CharacterNavigation : MonoBehaviour
                         yield return null;
                     }
 
-                    yield return new WaitForSeconds(0f); // 1秒待機
+                    yield return new WaitForSeconds(0f); // 1-second wait
                     isNavigatingToPlayer = true;
                 }
             }
-
-            // Check and update the visibility of the navigationObject
-            //CheckTextAndUpdateVisibility();
         }
     }
 
@@ -126,35 +123,49 @@ public class CharacterNavigation : MonoBehaviour
         if (target != null)
         {
             m_Agent.SetDestination(target.position);
+
+            // Enable or disable the collider based on the target
+            if (target == m_PlayerTarget)
+            {
+                objectCollider.enabled = false; // Disable the collider when navigating to the player
+            }
+            else
+            {
+                StartCoroutine(EnableColliderWithDelay()); // Enable the collider for other targets
+            }
         }
+    }
+
+    IEnumerator EnableColliderWithDelay()
+    {
+        yield return new WaitForSeconds(0.5f); // Wait for 1 second
+        objectCollider.enabled = true; // Enable the collider
     }
 
     void Update()
     {
         if(rescueCount.getNum()==30){
-            
-            DisableNavigationFunctionality(); // 機能を停止
-            
+            DisableNavigationFunctionality(); // Disable functionality
         }else{
-        RotateTowardsMovementDirection();
+            RotateTowardsMovementDirection();
 
-        if (rescueNPC.IsItFollow() && DiplicationScript.getFlag())
-        {
-            useGoalTarget = true; // goal_Targetを使用するように切り替え
-        }
+            if (rescueNPC.IsItFollow() && DiplicationScript.getFlag())
+            {
+                useGoalTarget = true; // Switch to using goal_Target
+            }
 
-        if (m_InjuryTarget == null)
-        {
-            SetInjuryTarget(); // m_InjuryTargetを再設定する
-            useGoalTarget = false;
-        }
+            if (m_InjuryTarget == null)
+            {
+                SetInjuryTarget(); // Reset m_InjuryTarget
+                useGoalTarget = false;
+            }
 
-        if (previousInjuryTarget != m_InjuryTarget)
-        {
-        NaviUp = false; // ターゲットが変更されたらNaviUpをfalseにする
-        previousInjuryTarget = m_InjuryTarget; // 現在のターゲットを保存
-        }
-        CheckTextAndUpdateVisibility();
+            if (previousInjuryTarget != m_InjuryTarget)
+            {
+                NaviUp = false; // Set NaviUp to false when the target changes
+                previousInjuryTarget = m_InjuryTarget; // Save the current target
+            }
+            CheckTextAndUpdateVisibility();
         }
     }
 
@@ -195,7 +206,7 @@ public class CharacterNavigation : MonoBehaviour
             else
             {
                 if(!NaviUp){
-                HideNavigationObject();
+                    HideNavigationObject();
                 }
             }
         }
@@ -242,10 +253,10 @@ public class CharacterNavigation : MonoBehaviour
 
     private void DisableNavigationFunctionality()
     {
-    StopAllCoroutines(); // すべてのコルーチンを停止
-    m_Agent.isStopped = true; // ナビゲーションを停止
-    m_Agent.enabled = false; // NavMeshAgentを無効化
-    navigationObject.SetActive(false); // navigationObjectを非表示
-    Destroy(gameObject);
+        StopAllCoroutines(); // Stop all coroutines
+        m_Agent.isStopped = true; // Stop navigation
+        m_Agent.enabled = false; // Disable NavMeshAgent
+        navigationObject.SetActive(false); // Hide navigationObject
+        Destroy(gameObject);
     }
 }
