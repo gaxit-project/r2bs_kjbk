@@ -8,7 +8,6 @@ public class PlayController : MonoBehaviour
 {
     public GameObject mainCamera;      //メインカメラ格納用
     public GameObject subCamera;       //サブカメラ格納用 
-
     private bool CameraStatus = false; //カメラの状態
     public float Speed, RunSpeed, Debuff; // 通常速度，ダッシュ速度
     float CurrentSpeed; // 現在速度
@@ -30,7 +29,7 @@ public class PlayController : MonoBehaviour
     private AudioSource audiosource;
 
     private InputAction MoveAction;
-
+    private SwitchCamera switchCamera;
     public static bool MoveInput;
 
     float Yvalue;
@@ -80,8 +79,7 @@ public class PlayController : MonoBehaviour
         //アクションマップからアクションを取得
         MoveAction = actionMap["Move"];
 
-
-
+        switchCamera = FindObjectOfType<SwitchCamera>();
     }
     void Update()
     {
@@ -102,7 +100,7 @@ public class PlayController : MonoBehaviour
             MoveInput = false;
         }
 
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Carry"))
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Carry") || switchCamera.map_status)
         {
             rb.velocity = Vector3.zero;
         }
@@ -115,7 +113,7 @@ public class PlayController : MonoBehaviour
 
         if (MoveInput)
         {
-            if (DesSystem.DesSystemStatus == true)
+            if (DesSystem.DesSystemStatus == true || switchCamera.map_status) // マップ表示時はプレイヤーは動けなくする
             {
                 rb.velocity = Vector3.zero;
                 animator.SetBool("Walk", false);

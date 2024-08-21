@@ -6,12 +6,14 @@ public class CharacterNavitail : MonoBehaviour
 {
     private Renderer objRenderer;
     private float timer = 0f;
+    private SwitchCamera switchCamera;
     private float interval = 4.5f; // 5秒間隔
     // Start is called before the first frame update
     void Start()
     {
         // Rendererコンポーネントを取得
         objRenderer = GetComponent<Renderer>();
+        switchCamera = FindObjectOfType<SwitchCamera>();
 
         // オブジェクトを非表示にする
         objRenderer.enabled = false;
@@ -24,12 +26,14 @@ public class CharacterNavitail : MonoBehaviour
         timer += Time.deltaTime;
 
         // 5秒ごとにレンダラーをオフにする
-        if (timer >= interval)
-        {
+        /*if (timer >= interval)
+        {*/
+            if(!switchCamera.map_status){
             objRenderer.enabled = false;
             SetChildrenRenderersEnabled(false);
             timer = 0f; // タイマーをリセット
-        }
+            }
+        //}
     }
 
     // Update is called once per frame

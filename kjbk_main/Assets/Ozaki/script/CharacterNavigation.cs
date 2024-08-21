@@ -32,6 +32,7 @@ public class CharacterNavigation : MonoBehaviour
     private float stoppingDistance = 20.0f;
     private Collider objectCollider;
     public Radio_ver4 radioVer4; // Reference to Radio_ver4
+    private SwitchCamera switchCameraScript; // Reference to SwitchCamera
 
     void Start()
     {
@@ -46,8 +47,10 @@ public class CharacterNavigation : MonoBehaviour
         m_Agent.autoBraking = false;
         m_Agent.stoppingDistance = stoppingDistance;
         navigationObject.SetActive(false);
-        SetInjuryTarget();
         objectCollider = GetComponent<Collider>();
+        switchCameraScript = FindObjectOfType<SwitchCamera>(); // Find the SwitchCamera script
+
+        SetInjuryTarget();
         StartCoroutine(NavigationLoop());
     }
 
@@ -64,57 +67,28 @@ public class CharacterNavigation : MonoBehaviour
     {
         while (true)
         {
-            if (!useGoalTarget)
+            if (switchCameraScript.map_status)
             {
-                if (isNavigatingToPlayer && m_PlayerTarget != null)
-                {
-                    MoveToTarget(m_PlayerTarget);
-
-                    while (!HasReachedDestination())
-                    {
-                        yield return null;
-                    }
-
-                    isNavigatingToPlayer = false;
-                }
-                else if (!isNavigatingToPlayer && m_InjuryTarget != null)
-                {
-                    MoveToTarget(m_InjuryTarget);
-
-                    while (!HasReachedDestination())
-                    {
-                        yield return null;
-                    }
-
-                    yield return new WaitForSeconds(0f); // 1-second wait
-                    isNavigatingToPlayer = true;
-                }
-            }
-            else
-            {
-                if (isNavigatingToPlayer && goal_Target != null)
+                if (useGoalTarget && goal_Target != null)
                 {
                     MoveToTarget(goal_Target);
-
-                    while (!HasReachedDestination())
-                    {
-                        yield return null;
-                    }
-                    isNavigatingToPlayer = false;
                 }
-                else if (!isNavigatingToPlayer && m_InjuryTarget != null)
+                else if (m_InjuryTarget != null)
                 {
                     MoveToTarget(m_InjuryTarget);
-
-                    while (!HasReachedDestination())
-                    {
-                        yield return null;
-                    }
-
-                    yield return new WaitForSeconds(0f); // 1-second wait
-                    isNavigatingToPlayer = true;
                 }
             }
+            else if (m_PlayerTarget != null)
+            {
+                MoveToTarget(m_PlayerTarget);
+            }
+
+            while (!HasReachedDestination())
+            {
+                yield return null;
+            }
+
+            yield return new WaitForSeconds(0f); // Add any required wait time here
         }
     }
 
@@ -124,46 +98,48 @@ public class CharacterNavigation : MonoBehaviour
         {
             m_Agent.SetDestination(target.position);
 
-            // Enable or disable the collider based on the target
             if (target == m_PlayerTarget)
             {
-                objectCollider.enabled = false; // Disable the collider when navigating to the player
+                objectCollider.enabled = false;
             }
             else
             {
-                StartCoroutine(EnableColliderWithDelay()); // Enable the collider for other targets
+                StartCoroutine(EnableColliderWithDelay());
             }
         }
     }
 
     IEnumerator EnableColliderWithDelay()
     {
-        yield return new WaitForSeconds(0.5f); // Wait for 1 second
-        objectCollider.enabled = true; // Enable the collider
+        yield return new WaitForSeconds(0.5f);
+        objectCollider.enabled = true;
     }
 
     void Update()
     {
-        if(rescueCount.getNum()==30){
-            DisableNavigationFunctionality(); // Disable functionality
-        }else{
+        if(rescueCount.getNum() == 30)
+        {
+            DisableNavigationFunctionality();
+        }
+        else
+        {
             RotateTowardsMovementDirection();
 
             if (rescueNPC.IsItFollow() && DiplicationScript.getFlag())
             {
-                useGoalTarget = true; // Switch to using goal_Target
+                useGoalTarget = true;
             }
 
             if (m_InjuryTarget == null)
             {
-                SetInjuryTarget(); // Reset m_InjuryTarget
+                SetInjuryTarget();
                 useGoalTarget = false;
             }
 
             if (previousInjuryTarget != m_InjuryTarget)
             {
-                NaviUp = false; // Set NaviUp to false when the target changes
-                previousInjuryTarget = m_InjuryTarget; // Save the current target
+                NaviUp = false;
+                previousInjuryTarget = m_InjuryTarget;
             }
             CheckTextAndUpdateVisibility();
         }
@@ -201,11 +177,12 @@ public class CharacterNavigation : MonoBehaviour
             if (IsTargetText(currentText))
             {
                 ShowNavigationObject();
-                NaviUp=true;
+                NaviUp = true;
             }
             else
             {
-                if(!NaviUp){
+                if (!NaviUp)
+                {
                     HideNavigationObject();
                 }
             }
@@ -218,8 +195,8 @@ public class CharacterNavigation : MonoBehaviour
 
     private bool IsTargetText(string text)
     {
-        return !string.IsNullOrEmpty(text) && 
-        (text.Contains("助かったよ！<sprite=1>の\r\n奥の方で人が倒れてたの!")||
+        return !string.IsNullOrEmpty(text) &&
+        (text.Contains("助かったよ！<sprite=1>の\r\n奥の方で人が倒れてたの!") ||
         text.Contains("<sprite=6>で人が動けないってい叫んでたわ") ||
         text.Contains("<sprite=5>で人が倒れていたわ") ||
         text.Contains("さっき<sprite=2>に入った人がでてこないの...") ||
@@ -253,10 +230,10 @@ public class CharacterNavigation : MonoBehaviour
 
     private void DisableNavigationFunctionality()
     {
-        StopAllCoroutines(); // Stop all coroutines
-        m_Agent.isStopped = true; // Stop navigation
-        m_Agent.enabled = false; // Disable NavMeshAgent
-        navigationObject.SetActive(false); // Hide navigationObject
+        StopAllCoroutines();
+        m_Agent.isStopped = true;
+        m_Agent.enabled = false;
+        navigationObject.SetActive(false);
         Destroy(gameObject);
     }
 }
