@@ -30,7 +30,7 @@ public class OpenDoor : MonoBehaviour
     {
         bool Take = TakeAction.triggered;
 
-        if ((Input.GetKeyDown(KeyCode.F) || Take) && Near)
+        if ( Near)
         {
             doorCollider.enabled = false;
             animator.SetBool("Open", true);

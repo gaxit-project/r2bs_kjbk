@@ -370,17 +370,6 @@
                 },
                 {
                     "name": "",
-                    "id": "f6308914-5262-46db-87f9-84831ee5fd75",
-                    "path": "<XInputController>/buttonNorth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Take",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "bf80a1bb-b8a5-4f62-81c8-346b29f44c4b",
                     "path": "<XInputController>/buttonSouth",
                     "interactions": "",

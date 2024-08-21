@@ -61,15 +61,15 @@ public class ButtonChangeAYX : MonoBehaviour
             switch (other.gameObject.name)
             {
                 
-                case "DoorButton":
-                    /*if (cnt == 1 && YDbutton != null) YDbutton.SetActive(true);
-                    else if (cnt == 2 && YDTwobutton != null) YDTwobutton.SetActive(true);*/
+                /*case "DoorButton":
+                    if (cnt == 1 && YDbutton != null) YDbutton.SetActive(true);
+                    else if (cnt == 2 && YDTwobutton != null) YDTwobutton.SetActive(true);
                     if(!x){
                     DeactivateAllButtons();
                     if (YDbutton != null) YDbutton.SetActive(true);
                     x=true;
                     }
-                    break;
+                    break;*/
                 case "SyoukaButton":
                     /*if (cnt == 1 && YSbutton != null) YSbutton.SetActive(true);
                     else if (cnt == 2 && YSTwobutton != null) YSTwobutton.SetActive(true);*/
