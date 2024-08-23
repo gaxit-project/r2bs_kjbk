@@ -59,6 +59,8 @@ public class Radio_ver4 : MonoBehaviour
 
     //マップを与える関数を呼び出す変数
     public SwitchCamera SCame;
+    //最初にプレイヤーを止めるフラグ
+    public bool FirstStopPlayer = false;
 
     [SerializeField] GameObject FirstRescueWall;
 
@@ -216,6 +218,7 @@ public class Radio_ver4 : MonoBehaviour
             //もし1人目の時
             if(FirstFlag)
             {
+                FirstStopPlayer = true;
                 SCame.MapON = true;
                 FirstTextFlag = true;
                 FirstRescueWall.SetActive(false);

@@ -35,6 +35,9 @@ public class PlayController : MonoBehaviour
     float Yvalue;
     float Xvalue;
 
+    //Radio_ver4から変数を持ってくる
+    public Radio_ver4 Radio4;
+
     // PlayerInput側から呼ばれるコールバック
     public void OnRun(InputAction.CallbackContext context)
     {
@@ -100,7 +103,7 @@ public class PlayController : MonoBehaviour
             MoveInput = false;
         }
 
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Carry") || switchCamera.map_status)
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Carry") || switchCamera.map_status || Radio4.FirstStopPlayer)
         {
             rb.velocity = Vector3.zero;
         }
@@ -113,7 +116,7 @@ public class PlayController : MonoBehaviour
 
         if (MoveInput)
         {
-            if (DesSystem.DesSystemStatus == true || switchCamera.map_status /*|| switchCamera.NiseMapON*/) // マップ表示時はプレイヤーは動けなくする
+            if (DesSystem.DesSystemStatus == true || switchCamera.map_status || Radio4.FirstStopPlayer/*|| switchCamera.NiseMapON*/) // マップ表示時はプレイヤーは動けなくする
             {
                 rb.velocity = Vector3.zero;
                 animator.SetBool("Walk", false);

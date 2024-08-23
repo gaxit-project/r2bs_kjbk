@@ -27,6 +27,7 @@ public class SwitchCamera : MonoBehaviour
     public GameObject AllButton;
     public GameObject MissionMap;
     private bool wasPaused;
+    public Radio_ver4 Radio4;
 
     void Start()
     {
@@ -149,13 +150,14 @@ public class SwitchCamera : MonoBehaviour
             MiniMAPOFF2.SetActive(true);
             MissionMap.SetActive(true);
             initialMapStatusActivated = false;
-            yield return new WaitForSeconds(delay);
+        yield return new WaitForSeconds(delay);
             if (hat1 != null)
             {
                 Ui_status = true;
                 Ui.SetActive(true);
                 map_status = true;
             }
-        }
+        Radio4.FirstStopPlayer = false;
+    }
 }
 
