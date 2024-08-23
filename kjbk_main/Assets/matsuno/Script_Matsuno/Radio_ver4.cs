@@ -162,7 +162,6 @@ public class Radio_ver4 : MonoBehaviour
         }
         if(FirstFlag)
         {
-            SCame.NiseMapON = true;
             SCame.MapON = true;
             FirstFlag = false;
         }
@@ -217,7 +216,6 @@ public class Radio_ver4 : MonoBehaviour
             //もし1人目の時
             if(FirstFlag)
             {
-                SCame.NiseMapON = true;
                 SCame.MapON = true;
                 FirstTextFlag = true;
                 FirstRescueWall.SetActive(false);

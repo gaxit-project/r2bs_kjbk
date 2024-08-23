@@ -25,18 +25,20 @@ public class CharacterNavigation : MonoBehaviour
     private GameObject Rescue;
     private RescueDiplication DiplicationScript;
     private RescueCount rescueCount;
-    private float constantSpeed = 70f;
+    private float constantSpeed = 60f;
     private bool isNavigatingToPlayer = true;
     private bool useGoalTarget = false;
-    private bool NaviUp = false;
+    public bool NaviUp = false;
     private float stoppingDistance = 20.0f;
     private Collider objectCollider;
     public Radio_ver4 radioVer4; // Reference to Radio_ver4
     private SwitchCamera switchCameraScript; // Reference to SwitchCamera
+    private CharacterNavitail characterNavitail;
 
     void Start()
     {
         Rescue = GameObject.Find("Rescue");
+        characterNavitail = FindObjectOfType<CharacterNavitail>();
         rescueNPC = FindObjectOfType<RescueNPC>();
         rescueCount = FindObjectOfType<RescueCount>();
         DiplicationScript = Rescue.GetComponent<RescueDiplication>();
@@ -67,7 +69,7 @@ public class CharacterNavigation : MonoBehaviour
     {
         while (true)
         {
-            if (switchCameraScript.map_status)
+            if (switchCameraScript.map_status || switchCameraScript.NiseMapON)
             {
                 if (useGoalTarget && goal_Target != null)
                 {
@@ -100,13 +102,20 @@ public class CharacterNavigation : MonoBehaviour
 
             if (target == m_PlayerTarget)
             {
-                objectCollider.enabled = false;
+                //characterNavitail.DisableRenderers();
+                StartCoroutine(NotEnableColliderWithDelay());
             }
             else
             {
                 StartCoroutine(EnableColliderWithDelay());
             }
         }
+    }
+
+    IEnumerator NotEnableColliderWithDelay()
+    {
+        yield return new WaitForSeconds(0.5f);
+        objectCollider.enabled = false;
     }
 
     IEnumerator EnableColliderWithDelay()
@@ -128,6 +137,8 @@ public class CharacterNavigation : MonoBehaviour
             if (rescueNPC.IsItFollow() && DiplicationScript.getFlag())
             {
                 useGoalTarget = true;
+            }else{
+                useGoalTarget = false;
             }
 
             if (m_InjuryTarget == null)

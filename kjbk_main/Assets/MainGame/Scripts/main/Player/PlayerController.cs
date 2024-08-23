@@ -113,8 +113,11 @@ public class PlayController : MonoBehaviour
 
         if (MoveInput)
         {
-            if (DesSystem.DesSystemStatus == true || switchCamera.map_status) // マップ表示時はプレイヤーは動けなくする
+            if (DesSystem.DesSystemStatus == true || switchCamera.map_status /*|| switchCamera.NiseMapON*/) // マップ表示時はプレイヤーは動けなくする
             {
+                rb.velocity = Vector3.zero;
+                animator.SetBool("Walk", false);
+            }else if(!switchCamera.MapON && switchCamera.NiseMapON){
                 rb.velocity = Vector3.zero;
                 animator.SetBool("Walk", false);
             }

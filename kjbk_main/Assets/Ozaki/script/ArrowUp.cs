@@ -11,22 +11,23 @@ public class ArrowUp : MonoBehaviour
     int num = 1;
     [SerializeField, Tooltip("人数最大値")]
     private int maxnum;
-
+    private CharacterNavigation CharacterNavigation;
     public RescuePOP RPOP;
     // Start is called before the first frame update
     void Start()
     {
         CounterScript = FindObjectOfType<RescueCount>();
+        CharacterNavigation = FindObjectOfType<CharacterNavigation>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(RPOP.ArrowONFlag)
+        if(RPOP.ArrowONFlag || CharacterNavigation.NaviUp)
         {
             Arrow.SetActive(true);
         }
-        else if(!RPOP.ArrowONFlag)
+        else if(!RPOP.ArrowONFlag || !CharacterNavigation.NaviUp)
         {
             Arrow.SetActive(false);
         }
@@ -34,7 +35,7 @@ public class ArrowUp : MonoBehaviour
         //{
         //    Arrow.SetActive(true);
         //}
-        if(CounterScript.getNum() == maxnum)
+        if(CounterScript.getNum() == 30)
         {
             Arrow.SetActive(false);
         }

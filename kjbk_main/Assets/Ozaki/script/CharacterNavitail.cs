@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CharacterNavitail : MonoBehaviour
 {
-    private Renderer objRenderer;
+    public Renderer objRenderer;
     private float timer = 0f;
     private SwitchCamera switchCamera;
     private float interval = 4.5f; // 5秒間隔
@@ -53,6 +53,12 @@ public class CharacterNavitail : MonoBehaviour
             SetChildrenRenderersEnabled(false);
         }
     }
+
+    public void DisableRenderers()
+{
+    objRenderer.enabled = false;
+    SetChildrenRenderersEnabled(false);
+}
 
     private void SetChildrenRenderersEnabled(bool isEnabled)
     {
