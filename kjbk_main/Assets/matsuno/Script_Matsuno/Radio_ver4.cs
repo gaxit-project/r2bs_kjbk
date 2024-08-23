@@ -21,11 +21,7 @@ public class Radio_ver4 : MonoBehaviour
     [SerializeField] private TMP_Text RadioText2;
 
     public RescuePOP RPOP;
-    [HideInInspector] public bool Radio80;
-    [HideInInspector] public bool Radio60;
-    [HideInInspector] public bool Radio40;
-    [HideInInspector] public bool Radio20;
-    [HideInInspector] public bool Radio10;
+    
 
 
     //セリフを入れるスタック
@@ -61,6 +57,11 @@ public class Radio_ver4 : MonoBehaviour
     //missionマップのスタックをポップしたときに入れる変数
     string MMHint;
 
+    //マップを与える関数を呼び出す変数
+    public SwitchCamera SCame;
+
+    [SerializeField] GameObject FirstRescueWall;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -92,6 +93,7 @@ public class Radio_ver4 : MonoBehaviour
         MMcnt = 0;
         //ルール説明のラジオを出す
         CollapseDialogue();
+        FirstRescueWall.SetActive(true);
     }
 
     // 軽症者のヒントをプッシュする
@@ -158,6 +160,12 @@ public class Radio_ver4 : MonoBehaviour
             stackMM.Push("火事場で寝てるやつは\n　いないだろ...");
             stackMM.Push("西側に人が逃げた");
         }
+        if(FirstFlag)
+        {
+            SCame.NiseMapON = true;
+            SCame.MapON = true;
+            FirstFlag = false;
+        }
     }
 
     // ヒントが出ないときはここからランダムでテキストを出力する
@@ -206,9 +214,13 @@ public class Radio_ver4 : MonoBehaviour
             MMHint = stackMM.Pop();
             MMcnt++;
             MMUI.MissionUpgread(MMHint,MMcnt);
+            //もし1人目の時
             if(FirstFlag)
             {
+                SCame.NiseMapON = true;
+                SCame.MapON = true;
                 FirstTextFlag = true;
+                FirstRescueWall.SetActive(false);
             }
             FirstFlag = false;
         }
