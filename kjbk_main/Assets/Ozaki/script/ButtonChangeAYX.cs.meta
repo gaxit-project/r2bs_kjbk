@@ -3,7 +3,12 @@ guid: d4106c44ec2b8e142a36081cc5dc408e
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - _holdLong: {fileID: -3554569850053161991, guid: 9b79f5239ca6e42439af60050aa2e456, type: 3}
+  - YDbutton: {instanceID: 0}
+  - YSbutton: {instanceID: 0}
+  - Abutton: {instanceID: 0}
+  - Xbutton: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

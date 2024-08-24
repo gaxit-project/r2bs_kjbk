@@ -1,9 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class ButtonChangeAYX : MonoBehaviour
 {
+    [SerializeField] private InputActionReference _holdLong;
+
+    private InputAction _holdLongAction;
+
     public GameObject YDbutton;
     public GameObject YSbutton;
     public GameObject Abutton;
@@ -18,6 +23,14 @@ public class ButtonChangeAYX : MonoBehaviour
     private bool Xb = false;
     private bool x=false;
     public int cnt = 0;
+
+    private void Awake()
+    {
+        if (_holdLong == null) return;
+
+        _holdLongAction = _holdLong.action;
+        _holdLongAction.Enable();
+    }
 
     void Start()
     {
@@ -35,22 +48,22 @@ public class ButtonChangeAYX : MonoBehaviour
     void Update()
     {
 
+        if (_holdLongAction == null) return;
+
         if (rescueNPC.IsItFollow())
         {
-            
-            Xb = true;
-            if(Xbutton != null){
-            Xbutton.SetActive(false);        
+            var progress = _holdLongAction.GetTimeoutCompletionPercentage();
+
+            if(progress > 0)
+            {
+                if (Xbutton != null) Xbutton.SetActive(true);
             }
-            /*if(XTwobutton != null){
-            XTwobutton.SetActive(false);
-            }*/
-            
+            else
+            {
+                if (Xbutton != null) Xbutton.SetActive(false);
+            }
         }
-        else
-        {
-            Xb = false;
-        }
+        
     }
 
     void OnTriggerEnter(Collider other)

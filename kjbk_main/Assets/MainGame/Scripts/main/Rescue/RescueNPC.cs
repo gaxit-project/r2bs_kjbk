@@ -22,6 +22,7 @@ public class RescueNPC : MonoBehaviour
     [SerializeField] public NPCAI NPCAI;   //NPCÇÃAIÉXÉNÉäÉvÉg
     [SerializeField] public RadioText RadioText;   //ñ≥ê¸êßå‰
     [SerializeField] public RescuePOP POP;
+    [SerializeField] HoldGauge HoldGauge;
     private GameObject Rescue;
     private GameObject ResCounter;
     private PlayController PlayCon;
@@ -124,9 +125,37 @@ public class RescueNPC : MonoBehaviour
         Vector3 TargetPosition = target.position;
         if (IsItInZone())
         {
-            if (ResTalk && Severe == true && !IsItInGoal())   //èdèùé“Ç…ãﬂÇ√Ç¢ÇΩÇ∆Ç´
+            if ( Severe && !IsItInGoal())   //èdèùé“Ç…ãﬂÇ√Ç¢ÇΩÇ∆Ç´
             {
-                if (!IsItFollow() && !DiplicationScript.getFlag())   //îÒí«è]éû
+                if(HoldGauge != null && HoldGauge.gaugeStatus)//ã~èïì¸óÕ
+                {
+                    if (!IsItFollow() && !DiplicationScript.getFlag())   //îÒí«è]éû
+                    {
+                        DiplicationScript.OnFlag();
+                        StopNPC();
+                        SetFollow(true);
+                        PlayerPrefs.SetInt("Lock", 1);
+                        FFanimator.SetBool("Walk", false);
+                        FFanimator.SetBool("Carry", true);
+                        NPCanimator.SetBool("NPCCarry", true);
+                        NPCCol.enabled = false;
+                        Invoke(nameof(MoveLock), 2f);
+                    }
+                    else   //í«è]éû
+                    {
+                        DiplicationScript.OffFlag();
+                        SetFollow(false);
+                        PlayerPrefs.SetInt("Lock", 1);
+                        FFanimator.SetBool("Walk", false);
+                        FFanimator.SetBool("Carry", false);
+                        NPCanimator.SetBool("NPCCarry", false);
+                        NPCCol.enabled = true;
+                        PutVectorNPC(TargetPosition.x, TargetPosition.y, TargetPosition.z);
+                        Invoke(nameof(MoveLock), 2f);
+                    }
+                }
+
+                /*if (!IsItFollow() && !DiplicationScript.getFlag())   //îÒí«è]éû
                 {
                     DiplicationScript.OnFlag();
                     StopNPC();
@@ -149,7 +178,7 @@ public class RescueNPC : MonoBehaviour
                     NPCCol.enabled = true;
                     PutVectorNPC(TargetPosition.x, TargetPosition.y, TargetPosition.z);
                     Invoke(nameof(MoveLock), 2f);
-                }
+                }*/
             }
 
             //åyèùé“è¡ñ≈óp

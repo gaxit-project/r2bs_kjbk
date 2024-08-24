@@ -137,7 +137,6 @@ GameObject:
   - component: {fileID: 491592661}
   - component: {fileID: 491592660}
   - component: {fileID: 491592665}
-  - component: {fileID: 491592666}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -270,23 +269,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 491592658}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19f1d9fbf6a8e1a48992ccd690c3674c, type: 3}
+  m_Script: {fileID: 11500000, guid: eeb877d449060d244bb31d769b768165, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hold: {fileID: -4092949748817351170, guid: 9b79f5239ca6e42439af60050aa2e456, type: 3}
---- !u!114 &491592666
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 491592658}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4df581c2ab670a442a0271b1b2074ba2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _hold: {fileID: -4092949748817351170, guid: 9b79f5239ca6e42439af60050aa2e456, type: 3}
+  HoldGauge: {fileID: 834441406}
+  cube: {fileID: 491592658}
 --- !u!1 &686342950
 GameObject:
   m_ObjectHideFlags: 0
@@ -615,6 +602,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _hold: {fileID: -4092949748817351170, guid: 9b79f5239ca6e42439af60050aa2e456, type: 3}
   _gaugeImage: {fileID: 834441407}
+  cube: {fileID: 491592658}
 --- !u!114 &834441407
 MonoBehaviour:
   m_ObjectHideFlags: 0
