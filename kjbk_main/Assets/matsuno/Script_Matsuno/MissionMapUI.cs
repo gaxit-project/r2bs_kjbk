@@ -16,7 +16,7 @@ public class MissionMapUI : MonoBehaviour
     void Start()
     {
         MainMission = "☐10人以上人を助けろ！";
-        Hint1 = "☐????????????????";
+        Hint1 = "<sprite=1>の奥の方で\n　人が倒れている？";
         Hint2 = "☐????????????????";
         Hint3 = "☐????????????????";
         Situation = "多くの人を救え！";
@@ -40,7 +40,9 @@ public class MissionMapUI : MonoBehaviour
     //テキストを更新する
     public void MissionUpgread(string Text,int cnt)
     {
-        if(cnt == 0)
+        Debug.Log("こんばんちくわ：" + cnt);
+        Debug.Log("こんばんちくわ：" + Text);
+        if (cnt == 0)
         {
             Hint1 = Text;
             Hint2 = Text;
@@ -48,7 +50,7 @@ public class MissionMapUI : MonoBehaviour
         }
         else if(cnt == 1)
         {
-            Hint1 = "■"+Text;
+            Hint1 = "■" + Text;
         }
         else if(cnt == 2)
         {
@@ -63,6 +65,8 @@ public class MissionMapUI : MonoBehaviour
             MainMission = "■10人以上人を助ける！\n☐出口へ迎おう！";
             Situation = "時間の許す限り人を\n救って脱出しよう！";
         }
+        Debug.Log("こんばんちくわ：" + Text);
+        Debug.Log("ｓｈふぃおあｆｌｋ：" + Hint1);
         MissionMAPText.SetText("<size=60>MISSION</size>\n" +
                                    "<size=40>" + MainMission + "</size>" + "\n\n\r"
                                + "<size=60>HINT</size>\n" +
@@ -71,5 +75,6 @@ public class MissionMapUI : MonoBehaviour
                                "<size=40>" + Hint3 + "</size>\n\n\r" +
                                "<size=60>SITUATION</size>\n" +
                                "<size=40>" + Situation + "</size>");
+        Debug.Log("ｓｈふぃおあｆｌｋ：" + Hint1);
     }
 }
