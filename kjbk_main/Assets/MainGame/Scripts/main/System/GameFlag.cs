@@ -6,94 +6,68 @@ using UnityEngine.UI;
 
 public class GameFlag : MonoBehaviour
 {
-    public RescueCount_verMatsuno Cnt;
-    int Rcnt = 0;
+    [SerializeField] private InputActionReference _hold;
+    [SerializeField] private Image _gaugeImage;
 
-    [SerializeField] GameObject EscapeON;
-    [SerializeField] GameObject EscapeOFF;
-    private bool GJonoff = true;
+    private InputAction _holdAction;
 
-    public GoalJudgement Goal;
+    private bool ExitStatus = false;
 
-    private InputAction ExitAction;
-    private InputAction NotExitAction;
+    private int Rcnt = 0;
+
+    public int RescueBorder = 10;
 
 
-    // Start is called before the first frame update
+    private void Awake()
+    {
+        if (_hold == null) return;
+
+        _holdAction = _hold.action;
+        _holdAction.Enable();
+    }
+
     void Start()
     {
-        EscapeON.SetActive(false);
-        EscapeOFF.SetActive(false);
-
-        var pInput = GetComponent<PlayerInput>();
-        //現在のアクションマップを取得
-        var actionMap = pInput.currentActionMap;
-
-        //アクションマップからアクションを取得
-        ExitAction = actionMap["Exit"];
-
-        //アクションマップからアクションを取得
-        NotExitAction = actionMap["NotExit"];
+        Rcnt = 0;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        bool Exit = ExitAction.triggered;
-        bool NotExit = NotExitAction.triggered;
-        //脱出ボタンが表示されている時
-        if(Goal.EscStatus() == false)
+        if (_holdAction == null) return;
+
+        // 長押しの進捗を取得
+        var progress = _holdAction.GetTimeoutCompletionPercentage();
+
+        // 進捗をゲージに反映
+        _gaugeImage.fillAmount = progress;
+
+        Rcnt = PlayerPrefs.GetInt("RescueCount");
+
+        if (progress >= 1)
         {
-            //Kを押せば脱出する
-            if (Exit || Input.GetKeyDown(KeyCode.K))
+            ExitStatus = true; // ExitStatusをtrueにする
+            _gaugeImage.fillAmount = 0;
+            _holdAction.Disable();  // Actionを一旦無効化
+            _holdAction.Enable();   // すぐに有効化して次の入力に備える
+
+            //救助した人数がRescueBorder人以上ならクリアへ移行
+            if (Rcnt >= RescueBorder)
             {
-                Rcnt = PlayerPrefs.GetInt("RescueCount");
-                Debug.Log("K");
-
-                //救助した人数が10人以上ならクリアへ移行
-                if (Rcnt >= 10)
-                {
-                    PlayerPrefs.SetString("Result", "CLEAR");
-                    Scene.Instance.GameResult();
-                    //Scene.Instance.GameClear();
-                }
-
-                //違うならゲームオーバーに移行
-                else
-                {
-                    PlayerPrefs.SetString("Result", "GAMEOVER");
-                    Scene.Instance.GameResult();
-                    //Scene.Instance.GameOver();
-                }
+                PlayerPrefs.SetString("Result", "CLEAR");
+                Scene.Instance.GameResult();
             }
 
-            //Lを押せば非表示にする
-            if (NotExit || Input.GetKeyDown(KeyCode.L))
+            //違うならゲームオーバーに移行
+            else
             {
-                Debug.Log("L");
-                Goal.EscapeONOFF();
-                Time.timeScale = 1;
-                Invoke(nameof(FlagONOFF), 5);
-                //EscapeON.SetActive(false);
-                //EscapeOFF.SetActive(false);
+                PlayerPrefs.SetString("Result", "GAMEOVER");
+                Scene.Instance.GameResult();
             }
-
         }
-    }
-
-    public void FlagONOFF()
-    {
-        Goal.JudgeFlag = true;
-    }
-
-    public void EscapeONOFF()
-    {
-        EscapeON.SetActive(false);
-        EscapeOFF.SetActive(false);
-    }
-
-    public void EscapeUI()
-    {
-        Goal.EscapeONOFF();
+        else
+        {
+            // ExitStatusをfalseにリセット
+            ExitStatus = false;
+        }
     }
 }

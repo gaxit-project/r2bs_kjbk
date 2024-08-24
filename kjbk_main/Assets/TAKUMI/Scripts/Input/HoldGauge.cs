@@ -32,7 +32,7 @@ internal class HoldGauge : MonoBehaviour
         _gaugeImage.fillAmount = progress;
 
         // i’»‚ª1ˆÈã‚É‚È‚Á‚½‚Æ‚«‚Ìˆ—
-        if (progress >= 0.97)
+        if (progress >= 1)
         {
             gaugeStatus = true; // aa‚ðtrue‚É‚·‚é
 

@@ -47,12 +47,7 @@ public class Pause : MonoBehaviour
         {
             ResumeIcon.Select();
             pause_status=true;
-            if(!Goal.PauseFlag)
-            {
-                
-                EscapeON.SetActive(false);
-                PauseCon();
-            }
+
 
         }
     }

@@ -116,11 +116,9 @@ public class Presente : MonoBehaviour
         TitleUI.SetActive(false);
         //PauseUI.SetActive(false);
         //Time.timeScale = 1.0f;
-        Invoke(nameof(FlagONOFF), 5);
         BackToTheTitle.SetActive(true);
         SoundSetting.SetActive(true);
         PauseScript.PauseCon();
-        Goal.PauseFlag = false;
         //PauseScript.pause_status = false;
     }
     public void Title()
@@ -169,13 +167,5 @@ public class Presente : MonoBehaviour
             Scene.Instance.GameResult();
             //Scene.Instance.GameOver();
         }
-    }
-    public void NoEscape()
-    {
-
-    }
-    public void FlagONOFF()
-    {
-        Goal.JudgeFlag = true;
     }
 }

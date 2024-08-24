@@ -32,7 +32,6 @@ public class GoalOFF : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.L))
         {
             Debug.Log("L");
-            Goal.EscapeONOFF();
             //EscapeON.SetActive(false);
             //EscapeOFF.SetActive(false);
         }
