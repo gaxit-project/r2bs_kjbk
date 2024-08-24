@@ -25,7 +25,7 @@ public class CharacterNavigation : MonoBehaviour
     private GameObject Rescue;
     private RescueDiplication DiplicationScript;
     private RescueCount rescueCount;
-    private float constantSpeed = 60f;
+    private float constantSpeed = 50f;
     private bool isNavigatingToPlayer = true;
     private bool useGoalTarget = false;
     public bool NaviUp = false;
@@ -136,6 +136,8 @@ public class CharacterNavigation : MonoBehaviour
 
             if (rescueNPC.IsItFollow() && DiplicationScript.getFlag())
             {
+                NaviUp=true;
+                ShowNavigationObject();
                 useGoalTarget = true;
             }else{
                 useGoalTarget = false;
