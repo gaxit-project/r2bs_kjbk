@@ -61,16 +61,10 @@ public class PlayController : MonoBehaviour
     }
     void Start()
     {
+        #region 取得・読み込み
         //メインカメラとサブカメラをそれぞれ取得
         GameObject mainCamera = GameObject.Find("Main Camera");
         GameObject subCamera = GameObject.Find("FPSCamera");
-
-        //サブカメラを非アクティブにする
-        mainCamera.SetActive(true);
-        subCamera.SetActive(false);
-
-        MoveInput = true;
-        PlayerPrefs.SetInt("Lock", 0);
 
         //アニメーション読み込み
         animator = GetComponent<Animator>();
@@ -83,6 +77,19 @@ public class PlayController : MonoBehaviour
         MoveAction = actionMap["Move"];
 
         switchCamera = FindObjectOfType<SwitchCamera>();
+        #endregion
+
+        #region 変数初期化
+        //メインカメラをアクティブにする
+        mainCamera.SetActive(true);
+        //サブカメラを非アクティブにする
+        subCamera.SetActive(false);
+
+        //移動入力受付状態
+        MoveInput = true;
+        //入力ロック　0 = 許可: 1 = 拒否
+        PlayerPrefs.SetInt("Lock", 0);
+        #endregion
     }
     void Update()
     {
