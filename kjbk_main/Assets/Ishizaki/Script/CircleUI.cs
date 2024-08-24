@@ -12,9 +12,10 @@ public class CircleUI : MonoBehaviour
     private int ColorFlag; //色変更用フラグ
     private Image ImgCircle; //CircleProgressのImage取得用
     private float PassedTime; //経過時間
-    private GameObject Rescue;
-    public RescueNPC resNPC;
+    private GameObject Rescue; //Rescue参照用
+    public RescueNPC resNPC; //RescueNPC参照用
 
+    //スコア用：各状態で何回救出したか
     public static int ResNumBest;
     public static int ResNumNormal;
     public static int ResNumBad;
@@ -43,7 +44,7 @@ public class CircleUI : MonoBehaviour
         ImgCircle.fillAmount = 1 - amount;
     }
 
-    //重傷者カウント用
+    //重傷者カウント
     public void SevereCount()
     {
         ResNum++;
@@ -95,15 +96,6 @@ public class CircleUI : MonoBehaviour
         if (resNPC.IsItInGoal() && !resNPC.IsItRescued() && resNPC.Severe == true)
         {
             SevereCount();
-
-        }
-
-        //テスト用
-        if ((Input.GetKeyDown(KeyCode.N)))
-        {
-            Debug.Log("Best = " + PlayerPrefs.GetInt("ResCntBest") + "Cnt = " + ResNumBest +
-                "Normal = " + PlayerPrefs.GetInt("ResCntNormal") + "Cnt = " + ResNumNormal +
-                "Bad = " + PlayerPrefs.GetInt("ResCntBad") + "Cnt = " + ResNumBad);
         }
     }
 }

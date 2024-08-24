@@ -5,7 +5,7 @@ using UnityEngine;
 //NavMeshAgent使うときに必要
 using UnityEngine.AI;
 
-public class RandomWalk : MonoBehaviour
+public class testWalk : MonoBehaviour
 {
     //MAPの中心の位置
     public Transform central;
@@ -52,12 +52,6 @@ public class RandomWalk : MonoBehaviour
     
     void Update()
     {
-        bool Encount = rescueNPC.IsItFirstContact();
-        if (Encount)
-        {
-            //NavMeshAgentを止める
-            agent.isStopped = true;
-        }
         //待ち時間を数える
         time += Time.deltaTime;
 
