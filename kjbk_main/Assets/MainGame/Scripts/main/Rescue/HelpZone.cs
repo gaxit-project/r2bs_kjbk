@@ -15,39 +15,6 @@ public class HelpZone : MonoBehaviour
         RescueNPC.SetText("");   //NPCに近づいていない時のテキスト
 
     }
-    /*
-    //接触判定(接触した瞬間)
-    void OnCollisionStay(UnityEngine.Collision collision)
-    {
-        if ((collision.gameObject.name == "Player" || collision.gameObject.CompareTag("Player")) && !RescueNPC.IsItRescued() && !RescueNPC.IsItNPCrun())
-        {
-            if (!RescueDiplication.instance.getFlag())
-            {
-                RescueNPC.SetInZone(true);
-                RescueNPC.SetText(RescueNPC.text);   //近づいたときにtextを表示
-            }
-            else
-            {
-                RescueNPC.SetText("");
-            }
-        }
-
-        if (collision.gameObject.name == "RescuePoint")   //NPCが救出地点にいるとき
-        {
-            RescueNPC.SetInGoal(true);   //救出地点に接触
-        }
-    }
-
-    //接触判定(接触後離れたとき)
-    void OnCollisionExit(Collision collision)
-    {
-        if (collision.gameObject.name == "Player" || collision.gameObject.CompareTag("Player"))   //Playerが離れたとき
-        {
-            RescueNPC.SetInZone(false);
-            RescueNPC.SetText("");
-        }
-    }
-    */
     //接触判定(接触した瞬間)
     void OnTriggerStay(UnityEngine.Collider collider)
     {
@@ -55,7 +22,6 @@ public class HelpZone : MonoBehaviour
         {
             RescueNPC.SetInZone(true);
             RescueNPC.SetText(RescueNPC.text);   //近づいたときにtextを表示
-            Debug.Log("zoneに入っていいる");
         }
 
         if (collider.gameObject.name == "RescuePoint")   //NPCが救出地点にいるとき

@@ -40,8 +40,7 @@ public class MissionMapUI : MonoBehaviour
     //テキストを更新する
     public void MissionUpgread(string Text,int cnt)
     {
-        Debug.Log("こんばんちくわ：" + cnt);
-        Debug.Log("こんばんちくわ：" + Text);
+
         if (cnt == 0)
         {
             Hint1 = Text;
@@ -65,8 +64,6 @@ public class MissionMapUI : MonoBehaviour
             MainMission = "■10人以上人を助ける！\n☐出口へ迎おう！";
             Situation = "時間の許す限り人を\n救って脱出しよう！";
         }
-        Debug.Log("こんばんちくわ：" + Text);
-        Debug.Log("ｓｈふぃおあｆｌｋ：" + Hint1);
         MissionMAPText.SetText("<size=60>MISSION</size>\n" +
                                    "<size=40>" + MainMission + "</size>" + "\n\n\r"
                                + "<size=60>HINT</size>\n" +
@@ -75,6 +72,5 @@ public class MissionMapUI : MonoBehaviour
                                "<size=40>" + Hint3 + "</size>\n\n\r" +
                                "<size=60>SITUATION</size>\n" +
                                "<size=40>" + Situation + "</size>");
-        Debug.Log("ｓｈふぃおあｆｌｋ：" + Hint1);
     }
 }

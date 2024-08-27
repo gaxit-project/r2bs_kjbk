@@ -55,12 +55,7 @@ public class Presente : MonoBehaviour
         Audio.GetInstance().FireVolume6 = PlayerPrefs.GetFloat("SE");
         Audio.GetInstance().FireVolume7 = PlayerPrefs.GetFloat("SE");
 
-        Debug.Log("SE" + seSlider.value);
-        Debug.Log("BGM" + bgmSlider.value);
 
-
-        Debug.Log("SE" + Audio.GetInstance().SEVolume);
-        Debug.Log("BGM" + Audio.GetInstance().BGMVolume);
 
 
 
@@ -68,11 +63,6 @@ public class Presente : MonoBehaviour
         TitleSta = false;
     }
 
-
-    void Update()
-    {
-        //Debug.Log("ふらぐおーーーーーん"+Goal.PauseFlag);
-    }
 
     public void OnChangedBGMVolume()
     {
@@ -114,12 +104,9 @@ public class Presente : MonoBehaviour
     {
         SoundOptionUI.SetActive(false);
         TitleUI.SetActive(false);
-        //PauseUI.SetActive(false);
-        //Time.timeScale = 1.0f;
         BackToTheTitle.SetActive(true);
         SoundSetting.SetActive(true);
         PauseScript.PauseCon();
-        //PauseScript.pause_status = false;
     }
     public void Title()
     {
@@ -157,7 +144,6 @@ public class Presente : MonoBehaviour
         {
             PlayerPrefs.SetString("Result", "CLEAR");
             Scene.Instance.GameResult();
-            //Scene.Instance.GameClear();
         }
 
         //違うならゲームオーバーに移行
@@ -165,7 +151,6 @@ public class Presente : MonoBehaviour
         {
             PlayerPrefs.SetString("Result", "GAMEOVER");
             Scene.Instance.GameResult();
-            //Scene.Instance.GameOver();
         }
     }
 }

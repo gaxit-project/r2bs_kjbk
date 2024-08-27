@@ -30,7 +30,6 @@ public class Inferno : MonoBehaviour
         ran = UnityEngine.Random.Range(0f, 90f);
         myTransform = this.transform;
 
-        //audiosource = GetComponent<AudioSource>();
 
     }
 
@@ -38,7 +37,6 @@ public class Inferno : MonoBehaviour
     {
         rand = Random.Range(0, len);
         ran = UnityEngine.Random.Range(0f, 90f);
-        //Debug.Log(rand);
         ArtalSet(rand);
         // ワールド座標基準で、現在の回転量へ加算する
         myTransform.Rotate(0f, ran, 0f, Space.World);
@@ -67,12 +65,12 @@ public class Inferno : MonoBehaviour
         //当たっている火の子オブジェクトの取得
         GameObject BlazeR1 = this.transform.GetChild(0).gameObject;
 
-        Debug.Log("消化中");
+        //消火中
         script.P_O_Fire = true;
         AratalCap -= 4f * Time.deltaTime * 100;
         if (AratalCap <= 0f)// && BY1_MinMaxCurve.constant <= 0f
         {
-            Debug.Log("消化されました");
+            //消火された
             audiosource.Play();
             DesBlaze = true;
         }

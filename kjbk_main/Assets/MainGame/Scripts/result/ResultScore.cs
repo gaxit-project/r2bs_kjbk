@@ -84,10 +84,6 @@ public class ResultScore : MonoBehaviour
         Time.timeScale = 1.0f;
         a = CollGauge.Collapse;
         hp = LIFE.HitPoint;
-        //textPeople = GameObject.Find("People").GetComponent<Text>();
-        //textTime = GameObject.Find("Time").GetComponent<Text>();
-        //textHP = GameObject.Find("HP").GetComponent<Text>();
-        //textTotal = GameObject.Find("Total").GetComponent<Text>();
         textPeople2 = GameObject.Find("People2").GetComponent<Text>();
         textTime2 = GameObject.Find("Time2").GetComponent<Text>();
         textHP2 = GameObject.Find("HP2").GetComponent<Text>();
@@ -276,8 +272,6 @@ public class ResultScore : MonoBehaviour
 
         score = Best * 200 + Normal * 100 + Bad * 50;
 
-        //デバッグ
-        Debug.Log(Best + "," + Normal + "," + Bad + " Score:" + score);
     }
 
     public void ToTitle()
@@ -306,6 +300,5 @@ public class ResultScore : MonoBehaviour
         }
         RSFlag = true;
         coutineFlag = false;
-        Debug.Log("kakakakkakakakakakaka");
     }
 }

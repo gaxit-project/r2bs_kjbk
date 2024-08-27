@@ -95,7 +95,6 @@ public class PlayController : MonoBehaviour
     {
         Follow = RescueNPC.Follow;
 
-        print($"isPressed = {IsPressedRun}");
 
         Rigidbody rb = this.transform.GetComponent<Rigidbody>();
 
@@ -176,16 +175,11 @@ public class PlayController : MonoBehaviour
                     if (House || Follow)
                     {
                         DebuffSpeed = Debuff;
-                        UnityEngine.Debug.Log("デバフ");
                     }
                     else
                     {
                         DebuffSpeed = 1;
                     }
-
-                    //垂直方向と水平方向の入力を取得
-                    //float Xvalue = Input.GetAxisRaw("Horizontal");
-                    //float Yvalue = Input.GetAxisRaw("Vertical");
 
                     MoveStatus = true;
 

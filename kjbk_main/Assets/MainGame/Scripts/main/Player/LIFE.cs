@@ -8,8 +8,6 @@ public class LIFE : MonoBehaviour
 {
     public static int HitPoint = 3;            //プレイヤーのHP
 
-    //public Collider_On_Off FireColOff;  //Collider_On_OffからFireOffを持ってくる
-    //public Collider_On_Off FireColOn;   //Collider_On_OffからFireOnを持ってくる
 
     public LIFE_Bar BarHP;
 
@@ -48,7 +46,6 @@ public class LIFE : MonoBehaviour
         if (isInvincible)
         {
             //ここに無敵状態のときの処理を書く
-            Debug.Log("無敵状態");
 
 
             //毎フレームタイマー変数にTime.deltaTimeを足す
@@ -57,8 +54,7 @@ public class LIFE : MonoBehaviour
             //タイマーが無敵時間(10秒)を超えたとき
             if (invincibilityTimer >= invincibilityDuration)
             {
-                Debug.Log("無敵状態終わり");
-
+                //無敵終わり
                 //無敵状態フラグをFalseにする
                 isInvincible = false;
                 //タイマーを0.0秒にリセットする
@@ -67,14 +63,7 @@ public class LIFE : MonoBehaviour
         }
     }
 
-    //public void HPminus2()
-    //{
-    //    HitPoint--;                  //HPを減らす
-    //}
 
-    /// <summary>
-    /// ///////////////////////////////////////////////////////////////////////////
-    /// </summary>
     /// <param name="Hit"></param>
     //触れた瞬間HPを1減らす
     private void OnCollisionEnter(Collision Hit)
@@ -89,15 +78,11 @@ public class LIFE : MonoBehaviour
             {
                 HitPoint--;
                 GetStar();
-                //animator.SetBool("FallDown", true);
                 Update();        //無敵付与(多分意味なし！！)
                 StartCoroutine(Blink());     //点滅開始
 
                 BarHP.HPBar();
-                //FireColOff.FireOff();        //炎のコライダーをオフに
-                //FireColOn.FireOn();          //炎のコライダーをオンに
 
-                Debug.Log("HP=" + HitPoint);
 
 
                 StartCoroutine(Blink());     //点滅開始
@@ -116,11 +101,6 @@ public class LIFE : MonoBehaviour
     }
 
 
-
-    /// <summary>
-    /// /////////////////////////////////////////////////////////////////////////
-    /// </summary>
-    /// <returns></returns>
     //当たった時の点滅
     IEnumerator Blink()
     {

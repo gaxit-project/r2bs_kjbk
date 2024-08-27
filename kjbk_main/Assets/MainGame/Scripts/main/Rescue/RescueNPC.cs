@@ -112,8 +112,6 @@ public class RescueNPC : MonoBehaviour
         SecondContact = false;   //会話回数の判定
         Lock = false;
 
-        //FFanimator.SetBool("Carry", false);
-        //NPCanimator.SetBool("NPCCarry", false);
     }
 
     void Update()
@@ -155,39 +153,13 @@ public class RescueNPC : MonoBehaviour
                     }
                 }
 
-                /*if (!IsItFollow() && !DiplicationScript.getFlag())   //非追従時
-                {
-                    DiplicationScript.OnFlag();
-                    StopNPC();
-                    SetFollow(true);
-                    PlayerPrefs.SetInt("Lock", 1);
-                    FFanimator.SetBool("Walk", false);
-                    FFanimator.SetBool("Carry", true);
-                    NPCanimator.SetBool("NPCCarry", true);
-                    NPCCol.enabled = false;
-                    Invoke(nameof(MoveLock), 2f);
-                }
-                else   //追従時
-                {
-                    DiplicationScript.OffFlag();
-                    SetFollow(false);
-                    PlayerPrefs.SetInt("Lock", 1);
-                    FFanimator.SetBool("Walk", false);
-                    FFanimator.SetBool("Carry", false);
-                    NPCanimator.SetBool("NPCCarry", false);
-                    NPCCol.enabled = true;
-                    PutVectorNPC(TargetPosition.x, TargetPosition.y, TargetPosition.z);
-                    Invoke(nameof(MoveLock), 2f);
-                }*/
             }
 
             //軽傷者消滅用
             if (Talk && Severe == false)   //軽症者に近づいたとき
             {
-                Debug.Log("しゃべったーーーーーーーーーーーーーーーー");
                 if (!IsItFirstContact())
                 {
-                    //RescuedText.RescuedFlagONOFF();
                     ComentON();// オブジェクト削除
                     SetActiveIcon(true);
                     StopNPC();
@@ -196,7 +168,6 @@ public class RescueNPC : MonoBehaviour
                     RescuedVectorNPC(TargetPosition.x, TargetPosition.y, TargetPosition.z);   //NPCを救出したときのVector
                     SetRescued(true);
                     NPCanimator.SetBool("Walk", false);
-                    //CounterScript.Count();
                     CountDestroy();   //一定時間後にオブジェクト削除
                 }
             }
@@ -210,7 +181,6 @@ public class RescueNPC : MonoBehaviour
 
             if (IsItInGoal() && !IsItRescued() && Severe == true)   //救出地点に接触かつ未救出かつ重傷者
             {
-                //gameManager.CallInoperable(2.0f); // 2 秒間　このスクリプトを無効にする（Inputできない）
                 DiplicationScript.OffFlag();
                 SetText("");
                 SetFollow(false);
@@ -222,12 +192,9 @@ public class RescueNPC : MonoBehaviour
                 RescuedVectorNPC(TargetPosition.x, TargetPosition.y, TargetPosition.z);   //NPCを救出したときのVector
                 SetRescued(true);
                 CountDestroy();   //一定時間後にオブジェクト削除
-                //CounterScript.SevereCount();   //救助者カウント
-                //CounterScript.Count();
                 r_num = CounterScript.getNum();
                 POP.PopR();
                 ArrowON = false;
-                Debug.Log("ArrowFlag:" + ArrowON);
             }
 
             if (IsItInGoal() && !IsItRescued() && Severe == false)   //救出地点に接触かつ未救出かつ軽症者
@@ -268,7 +235,6 @@ public class RescueNPC : MonoBehaviour
         if (Severe)//重傷者の時
         {
             POP.HeavyR();
-            //Radio3.RPopFlag = true;
         }
         Invoke("Destroy", 0.01f);
     }

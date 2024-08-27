@@ -381,6 +381,17 @@
                 },
                 {
                     "name": "",
+                    "id": "538c17fd-5fa4-49d1-b274-349a20b2ae18",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Take",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "d7f31f71-936e-466f-a11a-79b8cb19d4d8",
                     "path": "<XInputController>/leftShoulder",
                     "interactions": "",
@@ -397,6 +408,17 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
+                    "action": "Map",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5b6371a6-9326-4464-a549-7f70263ea7b2",
+                    "path": "<Keyboard>/m",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
                     "action": "Map",
                     "isComposite": false,
                     "isPartOfComposite": false

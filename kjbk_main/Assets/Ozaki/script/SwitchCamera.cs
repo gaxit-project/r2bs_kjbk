@@ -71,7 +71,7 @@ public class SwitchCamera : MonoBehaviour
             {
                 AllButton.SetActive(true);
             }
-            if (Map || Input.GetKeyDown(KeyCode.M))
+            if (Map)
             {
                 if (MapON)
                 {

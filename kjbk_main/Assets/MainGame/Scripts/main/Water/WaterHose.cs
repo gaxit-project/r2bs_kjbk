@@ -31,7 +31,6 @@ public class WaterHose : MonoBehaviour
 
     private void OnEnable()
     {
-        Debug.Log("aaaa");
         WaterStatus = false;
         Hold = false;
         audiosource = GetComponent<AudioSource>();
@@ -52,7 +51,6 @@ public class WaterHose : MonoBehaviour
                 // ボタンが押された時の処理
                 FF.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
                 Hold = true;
-                Debug.Log("押してます(コントローラ)");
                 break;
 
             case InputActionPhase.Canceled:
@@ -100,7 +98,6 @@ public class WaterHose : MonoBehaviour
 
         if (PlayerRayCast.HosuStatus == true)
         {
-            Debug.Log("ホースは持っている");
             if (Hold)
             {
                 if (!isOnes)
@@ -144,7 +141,6 @@ public class WaterHose : MonoBehaviour
             }
             Child.SetActive(true);
             capacity -= 10 * Time.deltaTime;
-            //Debug.Log("capacity = " + capacity);
         }
         else
         {

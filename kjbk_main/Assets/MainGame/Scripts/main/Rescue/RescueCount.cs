@@ -36,22 +36,12 @@ public class RescueCount : MonoBehaviour
         {
             RescueAll = true;
         }
-        // if(RescueAll)
-        //{
-        //    ARadio.AloneRadio();
-        //}
-        
-        //test
-        Debug.Log("Best = " + PlayerPrefs.GetInt("ResCntBest"));
-        Debug.Log("Normal = " + PlayerPrefs.GetInt("ResCntNormal"));
-        Debug.Log("Bad = " + PlayerPrefs.GetInt("ResCntBad"));
+
     }
 
     public void Count()   //現在救助者数のカウント
     {
-        Debug.Log("count");
         RescueNum++;
-        Debug.Log(RescueNum);
         PlayerPrefs.SetInt("RescueCount", RescueNum); //セーブ
         if (RescueNum >= 10)
         {
@@ -61,7 +51,6 @@ public class RescueCount : MonoBehaviour
 
     public int getNum()   //現在救助者数の取得
     {
-        Debug.Log("callNum");
         return RescueNum;
     }
 

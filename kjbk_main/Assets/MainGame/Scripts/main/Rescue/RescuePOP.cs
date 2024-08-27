@@ -100,8 +100,7 @@ public class RescuePOP : MonoBehaviour
                 Radio.RPeople = true;
             }
             Radio.RPeople2 = true;
-
-            Debug.Log("重傷者を救った：" + Radio.RPeople);
+            //重傷者を救った
         }
     }
 
@@ -137,7 +136,7 @@ public class RescuePOP : MonoBehaviour
         Radio.RPeople2 = true;
         ArrowONFlag = false;
 
-        Debug.Log("重傷者を救った：" + Radio.RPeople);
+        //重傷者を救った
     }
 
 
@@ -145,35 +144,13 @@ public class RescuePOP : MonoBehaviour
     public int MCnter()
     {
         MCnt++;
-        Debug.Log("軽症者の救助人数:" + MCnt);
         return MCnt;
     }
 
 
     public int Rndom() //ランダムの数を入れる関数
     {
-        //bool R;
-        //Rnd = 1;
-        //Rnd = Random.Range(1, 6);   //1～5までの数をランダムに入れる
 
-
-        //for (int i = 0; i < RandomArray.Length; i++)
-        //{
-        //    if (RandomArray[i] == Rnd)
-        //    {
-        //        Rnd = Random.Range(1, 6);
-        //        Debug.Log("nnnnnnnnnnnnnnnn");
-        //        i = 0;
-        //    }
-        //}
-        //RandomArray[cnt] = Rnd;
-        //Debug.Log("ランダムに入れた数:" + Rnd);
-        //cnt++;
-
-        //for (int i = 0; i < RandomArray.Length; i++)
-        //{
-        //    Debug.Log(RandomArray[i]);
-        //}
         while (RndomONOFF)             //もしフラグがオンならランダムに数値を入れる
         {
             if (!R1 && !R2 && !R3 && !R4 && !R5)  //全員救助されてたら下の処理を無視する
@@ -184,7 +161,6 @@ public class RescuePOP : MonoBehaviour
             else
             {
                 Rnd = Random.Range(1, 6);      //1～5の値の中でランダムに1つ入れる
-                Debug.Log(Rnd);
 
                 //ランダムが重複にならないような処理
                 if (Rnd == 1 && R1 || Rnd == 2 && R2 || Rnd == 3 && R3 || Rnd == 4 && R4 || Rnd == 5 && R5)
@@ -228,7 +204,6 @@ public class RescuePOP : MonoBehaviour
     {
         //ランダムの数値を受け取る
         rndom = Pop.Rnd;
-        Debug.Log("ポップする際の受け取り:" + rndom);
 
         if (rndom == 1)
         {
@@ -261,43 +236,31 @@ public class RescuePOP : MonoBehaviour
     {
         if (cnt == 1)
         {
-            //hito1st.SetActive(true);
-            //JK1st.SetActive(true);
-            //kurohuku1st.SetActive(true);
-            //ILOVENY1st.SetActive(true);
-            //hito1_st.SetActive(true);
+
             FirstPop.SetActive(true);
             AllRCnt = AllRCnt + 5;
         }
         else if (cnt == 2)
         {
-            //hito2nd.SetActive(true);
-            //JK2nd.SetActive(true);
-            //kurohuku2nd.SetActive(true);
+
             SecondPop.SetActive(true);
             AllRCnt = AllRCnt + 4;
         }
         else if (cnt == 3)
         {
-            //hito3rd.SetActive(true);
-            //JK3rd.SetActive(true);
-            //hito3_2rd.SetActive(true);
+
             ThirdPop.SetActive(true);
             AllRCnt = AllRCnt + 5;
         }
         else if (cnt == 4)
         {
-            //kurohuku4th.SetActive(true);
-            //ILOVENY4th.SetActive(true);
-            // hito4th.SetActive(true);
+
             ForthPop.SetActive(true);
             AllRCnt = AllRCnt + 4;
         }
         else if (cnt == 5)
         {
-            //JK5th.SetActive(true);
-            //kurohuku5th.SetActive(true);
-            //ILOVENY5th.SetActive(true);
+
             FifthPop.SetActive(true);
             AllRCnt = AllRCnt + 3;
         }

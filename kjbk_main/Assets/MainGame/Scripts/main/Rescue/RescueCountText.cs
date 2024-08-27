@@ -26,9 +26,7 @@ public class RescueCountText : MonoBehaviour
     private void Awake()
     {
         Cnt = PlayerPrefs.GetInt("RescueCount");
-        Debug.Log("こんちくわ:" + Cnt);
-        //Cnt = RCounter.RescueNum;
-        //RCount.SetText(Cnt + "");
+        
     }
     void Start()
     {
@@ -43,14 +41,9 @@ public class RescueCountText : MonoBehaviour
 
     void Update()
     {
-        //テスト用
-        // if ((Input.GetKeyDown(KeyCode.I)))
-        // {
-        //     Cnt2++;
-        // }
+
 
         Cnt = PlayerPrefs.GetInt("RescueCount");
-        Debug.Log("--------------------RCT50:" + Rcounter1.getNum());
         if (Cnt >= 10)
         {
             number10 = Cnt / 10 % 10;
@@ -65,7 +58,6 @@ public class RescueCountText : MonoBehaviour
             RCount.color = new Color(1.0f, 0.0f, 0.0f, 1.0f);
             RCount.SetText("<sprite=" + Cnt + ">");
 
-            //text.text = Cnt.ToString();
         }
         
     }

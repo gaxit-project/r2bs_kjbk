@@ -58,17 +58,7 @@ public class FireSpread : MonoBehaviour
         boostNum = Data.Boost;
         AntiBlazeTag = Data.Tag;
 
-        if (FirstAction)
-        {
-            Debug.Log("=============================================");
-            Debug.Log("Blazeは以下のタグのオブジェクトを無視します。");
-            for (int i = 0; i < AntiBlazeTag.Length; i++)
-            {
-                Debug.Log("Tag: " + AntiBlazeTag[i]);
-            }
-            Debug.Log("=============================================");
-            FirstAction = false;
-        }
+
     }
 
     // Update is called once per frame
@@ -306,7 +296,6 @@ public class FireSpread : MonoBehaviour
 
     void OnCollisionEnter(Collision col)
     {
-        Debug.Log(col.gameObject.tag);
         if (col.gameObject.tag == "Wall")
         {
             StopCoroutine("SpreadFire");

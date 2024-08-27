@@ -5,7 +5,6 @@ using UnityEngine;
 public class blazescaning : MonoBehaviour
 {
     private AudioSource audiosource;
-    // Start is called before the first frame update
     void Start()
     {
         
@@ -15,7 +14,7 @@ public class blazescaning : MonoBehaviour
     {
         audiosource = GetComponent<AudioSource>();
     }
-    // Update is called once per frame
+
     void Update()
     {
         
@@ -25,7 +24,6 @@ public class blazescaning : MonoBehaviour
     {
         if(t.gameObject.tag == "Blaze")
         {
-            Debug.Log("‰Š‚ ‚è");
             if (!audiosource.isPlaying)
             {
                 audiosource.Play();

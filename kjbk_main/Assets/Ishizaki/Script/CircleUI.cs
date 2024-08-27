@@ -21,7 +21,6 @@ public class CircleUI : MonoBehaviour
     public static int ResNumBad;
     public static int ResNum;
 
-    // Start is called before the first frame update
     void Start()
     {
         //CircleProgressのImageコンポーネント取得
@@ -67,7 +66,6 @@ public class CircleUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("スコアは" + ScoreFlag);
 
         if (ColorFlag != 0)
         {

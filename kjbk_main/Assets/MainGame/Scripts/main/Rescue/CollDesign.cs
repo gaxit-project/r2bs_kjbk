@@ -34,7 +34,6 @@ public class CollDesign : MonoBehaviour
     /// 倒壊ゲージのデザインを表示する
     public void EightHouse()
     {
-        Debug.Log("EightHouse");
         //追加コード
         TenDesign.SetActive(false);        //80%の時の倒壊デザインを非表示
         EightDesign.SetActive(true);          //80%の時倒壊デザインを表示
@@ -42,28 +41,24 @@ public class CollDesign : MonoBehaviour
 
     public void SixHouse()
     {
-        Debug.Log("SixHouse");
         EightDesign.SetActive(false);        //80%の時の倒壊デザインを非表示
         SixDesign.SetActive(true);           //60%の時倒壊デザインを表示
     }
 
     public void FourHouse()
     {
-        Debug.Log("FourHouse");
         SixDesign.SetActive(false);          //60%の時の倒壊デザインを非表示
         FourDesign.SetActive(true);          //40%の時倒壊デザインを表示
     }
 
     public void TwoHouse()
     {
-        Debug.Log("TwoHouse");
         FourDesign.SetActive(false);         //40%の時の倒壊デザインを非表示
         TwoDesign.SetActive(true);           //20%の時倒壊デザインを表示
     }
 
     public void OneHouse()
     {
-        Debug.Log("OneHouse");
         TwoDesign.SetActive(false);          //20%の時の倒壊デザインを非表示
         OneDesign.SetActive(true);           //10%の時倒壊デザインを表示
     }
