@@ -85,13 +85,6 @@ public class WaterHose : MonoBehaviour
             HoldLock = true;
         }
 
-        /*
-        if (Hold)
-        {
-            Debug.Log("Hold");
-        }
-        */
-
         if(HoldLock)
         {
             Hold = false;

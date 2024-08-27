@@ -43,10 +43,11 @@ public class Pause : MonoBehaviour
         pause1 = presenter.ConfigSta;
         pause2 = presenter.TitleSta;
         bool pause = PauseAction.triggered;
-        if ((Input.GetKeyDown(KeyCode.Tab) || pause) && (!pause1 && !pause2))
+        if (pause && (!pause1 && !pause2))
         {
+            PauseCon();
             ResumeIcon.Select();
-            pause_status=true;
+
 
 
         }
