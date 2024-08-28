@@ -5,7 +5,6 @@ using UnityEngine.AI;
 
 public class AutoWalk : MonoBehaviour
 {
-    //吉田スクリプト
     public Transform Target;   //ナビゲーション目的地のTransform
     private NavMeshAgent m_Agent;   //NavMeshAgent
     public NavMeshPath path;
@@ -24,8 +23,6 @@ public class AutoWalk : MonoBehaviour
     float posX;
     float posZ;
 
-
-    //石崎スクリプト
     //MAPの中心の位置
     public Transform central;
 
@@ -40,27 +37,16 @@ public class AutoWalk : MonoBehaviour
     //待機時間数える用
     [SerializeField] float time = 0;
 
-
-
     bool Encount = false;
-
-
 
     // Start is called before the first frame update
     void Start()
     {
-        //吉田スクリプト
         m_Agent = GetComponent<NavMeshAgent>();   //NavMeshAgentの取得
-        //StopAgent();   //脱出行動がOFFの場合ナビゲーションを停止
 
         surface = GameObject.Find("yuka");   //NavMeshSurfaceをアタッチしたオブジェクト名
         BuildScript = surface.GetComponent<NavMeshBuild>();   //NavMesh_Buildのスクリプト
 
-        //軽症者に変化する判定
-        //StartCoroutine("Distance");
-
-
-        // 石崎スクリプト
         rescueNPC = GetComponent<RescueNPC>();
 
         //目標地点に近づいても速度を落とさない
@@ -74,7 +60,6 @@ public class AutoWalk : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        //石崎スクリプト
         bool Encount = rescueNPC.IsItFirstContact();
         if (Input.GetKeyDown("y"))
         {
@@ -88,12 +73,6 @@ public class AutoWalk : MonoBehaviour
             m_Agent.destination = Target.position;
             //m_Agent.isStopped = false;
             OnAuto();
-
-            //プレイヤーの方を向く
-            //var NPCpos = transform.position;
-            //var Diff = (PlayerPos.potision - NPCpos);
-            //transform.rotation = Quaternion.LookRotation(Diff);
-
         }
         //待ち時間を数える
         time += Time.deltaTime;
@@ -114,8 +93,6 @@ public class AutoWalk : MonoBehaviour
 
     }
 
-
-    //吉田スクリプト
     IEnumerator Distance()   //WaitSecondで指定している秒数
     {　　　　　　　　　　　　//同じ座標の場合ナビゲーション停止
         Vector3 prePosition = transform.position;
@@ -168,7 +145,6 @@ public class AutoWalk : MonoBehaviour
         Auto = true;
         if (!corFlag)
         {
-            //StartCoroutine("Distance");
             corFlag = true;
         }
     }
@@ -178,16 +154,6 @@ public class AutoWalk : MonoBehaviour
         Auto = false;
     }
 
-    /*private void OnCollisionStay(Collision collision)   //炎に触れた際重傷者化
-    {
-        if (collision.gameObject.name == "Blaze" && !Severe)
-        {
-            Debug.Log("重傷者化");
-            Severe = true;
-        }
-    }*/
-
-    //石崎スクリプト
     void GotoNextPoint()
     {
         //目標地点のX軸、Z軸をランダムで決める
