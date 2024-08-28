@@ -193,13 +193,11 @@ public class RescuePOP : MonoBehaviour
 
 
         }
-
-
-
-
         return Rnd;
     }
-    //重傷者を救ったらこれを起動する
+
+
+    //新たな重傷者の設置＋重傷者ヒントをスタックへプッシュ
     public void Rpop()
     {
         //ランダムの数値を受け取る
@@ -232,6 +230,8 @@ public class RescuePOP : MonoBehaviour
         }
     }
 
+
+    //新たな軽症者の設置
     public void PopR()
     {
         if (cnt == 1)

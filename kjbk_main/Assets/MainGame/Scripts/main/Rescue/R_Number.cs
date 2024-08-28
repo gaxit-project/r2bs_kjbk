@@ -18,6 +18,7 @@ public class R_Number : MonoBehaviour
         
     }
 
+    //ŒyÇÒ‚ğ¯•Ê‚·‚é•Ï”
     public void RNumber()
     {
         PlayerPrefs.SetInt("R_number", Number);

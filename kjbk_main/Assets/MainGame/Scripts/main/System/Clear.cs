@@ -13,7 +13,6 @@ public class Clear : MonoBehaviour
     {
         sr = GetComponent < MeshRenderer >();
         sr.material.color = sr.material.color - new Color32(0,0,0,255);
-        
     }
 
     // Update is called once per frame

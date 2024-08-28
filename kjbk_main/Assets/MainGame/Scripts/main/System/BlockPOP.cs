@@ -34,22 +34,25 @@ public class BlockPOP : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //障害物が生成される場所に誰もいないなら
+        //障害物が生成される場所に誰もいないときに障害物を設置
         if(Judge)
         {
+            //コラプスゲージが40%のときに障害物設置
             if (Generate40)
             {
                 Corridor1.SetActive(true);
                 Generate40 = false;
             }
-            else if(Generate20)
+            //コラプスゲージが20%のときに障害物設置
+            else if (Generate20)
             {
                 Corridor2.SetActive(true);
                 Corridor3.SetActive(true);
                 Wall1.SetActive(false);
                 Generate20 = false;
             }
-            else if(Generate10)
+            //コラプスゲージが10%のときに障害物設置
+            else if (Generate10)
             {
                 Corridor4.SetActive(true);
                 Wall2.SetActive(false);

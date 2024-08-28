@@ -33,6 +33,8 @@ public class RadioText : MonoBehaviour
         }
     }
 
+
+    //‹~•‚Éƒ‰ƒ“ƒ_ƒ€‚Å‰æ‘œ‚ğ•\¦‚·‚é
     public void ActiveRadio()
     {
         Tmp = Random.Range(0,2);
@@ -52,6 +54,7 @@ public class RadioText : MonoBehaviour
         
     }
 
+    //‹~•‚Ì‰æ‘œ‚ğ”ñ•\¦‚É‚·‚é
     public void StopRadio()
     {
         TMP.SetText("");

@@ -214,6 +214,7 @@ public class Radio_ver4 : MonoBehaviour
             //missionマップにヒントを送る
             MMHint = stackMM.Pop();
             MMcnt++;
+            Debug.Log("こんちくわ：" + MMcnt);
             MMUI.MissionUpgread(MMHint,MMcnt);
             //もし1人目の時
             if(FirstFlag)

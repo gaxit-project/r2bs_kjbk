@@ -52,7 +52,7 @@ public class RescueCountText : MonoBehaviour
             Rcount.SetActive(false);
             RsuccessCount.SetActive(true);
         }
-        //もし救助した人数が5未満なら赤く表示
+        //もし救助した人数が10未満なら赤く表示
         else
         {
             RCount.color = new Color(1.0f, 0.0f, 0.0f, 1.0f);
