@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class RescuePOP : MonoBehaviour
 {
-
-    public CollRadio Radio;
     public RescuePOP Pop;
 
     //重傷者をこれらに入れる
@@ -69,40 +67,6 @@ public class RescuePOP : MonoBehaviour
     public Radio_ver4 Radio4;
 
 
-    void Start()
-    {
-
-    }
-
-    void Update()
-    {
-        //軽症者を救ったことにする開発キー
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            MCnter();
-            Radio.RHintStop();
-        }
-        //重傷者を救ったことにする開発キー
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            Radio.SymbolStop();
-            RndomONOFF = true;
-            Rndom();
-            Rpop();
-            if (First)
-            {
-                Radio.RPeople = false;
-            }
-            First = true;
-
-            if (!Radio.RPeople2)
-            {
-                Radio.RPeople = true;
-            }
-            Radio.RPeople2 = true;
-            //重傷者を救った
-        }
-    }
 
 
     //軽症者を救ったときに呼び出す関数
@@ -110,7 +74,6 @@ public class RescuePOP : MonoBehaviour
     public void LightR()
     {
         MCnter();             //救った軽症者をカウントする関数
-        Radio.RHintStop();    //軽症者のヒントを送る
     }
 
 
@@ -119,24 +82,10 @@ public class RescuePOP : MonoBehaviour
     public void HeavyR()
     {
         Radio4.BringDialogue();
-        Radio.SymbolStop();   //無線を表示
         RndomONOFF = true;    //ランダムをできるようにする
         Rndom();              //ランダムに数値を入れる
         Rpop();               //上ので出た値の重傷者を湧かせる
-        if (First)
-        {
-            Radio.RPeople = false;  //ラジオの方のフラグをオフ
-        }
-        First = true;
-
-        if (!Radio.RPeople2)        //ラジオの方のフラグ
-        {
-            Radio.RPeople = true;   //ラジオの方のフラグをオン
-        }
-        Radio.RPeople2 = true;
         ArrowONFlag = false;
-
-        //重傷者を救った
     }
 
 
@@ -155,7 +104,6 @@ public class RescuePOP : MonoBehaviour
         {
             if (!R1 && !R2 && !R3 && !R4 && !R5)  //全員救助されてたら下の処理を無視する
             {
-
                 break;
             }
             else
@@ -190,8 +138,6 @@ public class RescuePOP : MonoBehaviour
                     break;
                 }
             }
-
-
         }
         return Rnd;
     }

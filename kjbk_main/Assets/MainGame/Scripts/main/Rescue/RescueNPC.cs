@@ -56,9 +56,7 @@ public class RescueNPC : MonoBehaviour
 
     public static int r_num = 0;
     [HideInInspector] public int MCnt = 0;  //軽傷者のカウント，MCntが3になったら0に戻してカウントをし直す
-    public CollRadio RadioM;
 
-    public Radio_ver3 Radio3;
     public Radio_ver4 Radio4;
 
     public R_Number number;
@@ -227,7 +225,6 @@ public class RescueNPC : MonoBehaviour
         number.RNumber();
         Radio4.Dialogue();
         POP.LightR();
-        //Radio3.RHintFlag = true;
         RText.RescueFlag = true;
     }
     public void CountDestroy()//オブジェクトの破壊

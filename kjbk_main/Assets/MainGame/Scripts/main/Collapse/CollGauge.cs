@@ -11,9 +11,7 @@ public class CollGauge : MonoBehaviour
     float CountTime = 0;            //時間計測
     public static int Collapse = 100;            //倒壊ゲージ
     float Span = 4.5f;                 //Span秒に一回倒壊ゲージを1%減らす
-    public CollRadio Demoscript;        //Radio.csから関数もって来るやつ
     public CollDesign Design;  //CollapseDesign2.csから関数もって来るやつ
-    public Sunaarashi_ON_OFF Suna;  //砂嵐をもってくる
     private bool STOP = false;      //無線のフラグ
     int a = 5;                      //無線の種類分け
 
@@ -22,12 +20,10 @@ public class CollGauge : MonoBehaviour
     int number1 = 0;
     int persent = 10;
 
+    
+    public BlockPOP POP;  //障害物を設置するコードから変数を持ってくる
 
-    public BlockPOP POP;
-    //public SceneChange Over;        //SceneChange.csからゲームオーバーを持ってくる
-    //public Sunaarashi_ON_OFF Suna;  //Sunaarashiから砂嵐を持ってくる
-
-    public Radio_ver4 Radio4;
+    public Radio_ver4 Radio4;  //無線から変数を持ってくる
 
     // Use this for initialization
     void Start()
@@ -93,8 +89,6 @@ public class CollGauge : MonoBehaviour
             if (STOP)
             {
                 //フラグが届いたら以下の通りに無線を実行
-                //Radio3.CollapseFlag = true;
-                //Radio3.CollapsePanel();
                 STOP = false;  //フラグをOFFに
             }
         }
@@ -115,8 +109,6 @@ public class CollGauge : MonoBehaviour
     }
     void CollapseRadioON()
     {
-        //Suna.SunaONOFF();
-        //Invoke(nameof(STOPFlagON), 2f);
         Radio4.CollapseDialogue();
     }
     /////////////////////////////////////////////////////
