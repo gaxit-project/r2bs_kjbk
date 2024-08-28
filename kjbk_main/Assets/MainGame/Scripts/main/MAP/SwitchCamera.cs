@@ -7,7 +7,7 @@ public class SwitchCamera : MonoBehaviour
 {
     private RescueCount CounterScript;
     public Camera mainCamera; //メインカメラ
-    public Camera subCamera; //くそでかマップのカメラ
+    public Camera subCamera; //ビックマップのカメラ
     public bool map_status = false; //マップのボタンの処理用変数
     public bool initialMapStatusActivated = true; 
     public bool Ui_status = false;

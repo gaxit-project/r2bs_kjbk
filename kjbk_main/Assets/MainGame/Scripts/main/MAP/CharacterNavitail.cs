@@ -5,9 +5,7 @@ using UnityEngine;
 public class CharacterNavitail : MonoBehaviour
 {
     public Renderer objRenderer;
-    private float timer = 0f;
     private SwitchCamera switchCamera;
-    private float interval = 4.5f; // 5秒間隔
     // Start is called before the first frame update
     void Start()
     {
@@ -22,30 +20,20 @@ public class CharacterNavitail : MonoBehaviour
 
     void Update()
     {
-        // タイマーを更新
-        timer += Time.deltaTime;
-
-        // 5秒ごとにレンダラーをオフにする
-        /*if (timer >= interval)
-        {*/
-            if(!switchCamera.map_status){
+        if(!switchCamera.map_status)
+        {
             objRenderer.enabled = false;
             SetChildrenRenderersEnabled(false);
-            timer = 0f; // タイマーをリセット
-            }
-        //}
+        }
     }
 
     // Update is called once per frame
     void OnTriggerEnter(Collider other)
     {
-        // �Փ˂����I�u�W�F�N�g���v���C���[�ł���ꍇ
         if (other.CompareTag("NaviSystem"))
         {
-            
             SetChildrenRenderersEnabled(true);
             objRenderer.enabled = false;
-            timer = 0f; // タイマーをリセットしてすぐにオフにならないようにする
         }
         if (other.CompareTag("Player"))
         {
@@ -55,10 +43,10 @@ public class CharacterNavitail : MonoBehaviour
     }
 
     public void DisableRenderers()
-{
+    {
     objRenderer.enabled = false;
     SetChildrenRenderersEnabled(false);
-}
+    }
 
     private void SetChildrenRenderersEnabled(bool isEnabled)
     {

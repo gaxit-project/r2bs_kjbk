@@ -36,6 +36,7 @@ public class BadRescueNavi : MonoBehaviour
     {
         if (rescueNPC.IsItFollow() && DiplicationScript.getFlag())
         {
+            //出口の方へのナビ開始
             currentTarget = goal.transform;
         }
         else
@@ -76,7 +77,9 @@ public class BadRescueNavi : MonoBehaviour
             RescueNPC npc = target.GetComponent<RescueNPC>();
             if (npc != null && npc.Severe)
             {
+                // ターゲットとの距離を計算
                 float distance = Vector3.Distance(target.transform.position, currentPos);
+                // 最も近いターゲットを更新
                 if (distance < minDistance)
                 {
                     closest = target;
@@ -84,7 +87,7 @@ public class BadRescueNavi : MonoBehaviour
                 }
             }
         }
-
+        // 最も近いターゲットのTransformを返す
         return closest?.transform;
     }
 }

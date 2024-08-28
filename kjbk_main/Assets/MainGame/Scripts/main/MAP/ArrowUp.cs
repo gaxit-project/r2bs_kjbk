@@ -23,18 +23,17 @@ public class ArrowUp : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //ナビが開始中は表示
         if(RPOP.ArrowONFlag || CharacterNavigation.NaviUp)
         {
             Arrow.SetActive(true);
         }
+        //ナビが停止中は非表示
         else if(!RPOP.ArrowONFlag || !CharacterNavigation.NaviUp)
         {
             Arrow.SetActive(false);
         }
-        //if(CounterScript.getNum() == 1)
-        //{
-        //    Arrow.SetActive(true);
-        //}
+
         if(CounterScript.getNum() == 30)
         {
             Arrow.SetActive(false);

@@ -19,7 +19,7 @@ public class CharacterNavigation : MonoBehaviour
     private Transform goal_Target;
 
     [SerializeField]
-    private GameObject navigationObject; // Reference to the navigation object
+    private GameObject navigationObject; 
 
     private RescueNPC rescueNPC;
     private GameObject Rescue;
@@ -31,8 +31,8 @@ public class CharacterNavigation : MonoBehaviour
     public bool NaviUp = false;
     private float stoppingDistance = 20.0f;
     private Collider objectCollider;
-    public Radio_ver4 radioVer4; // Reference to Radio_ver4
-    private SwitchCamera switchCameraScript; // Reference to SwitchCamera
+    public Radio_ver4 radioVer4; 
+    private SwitchCamera switchCameraScript; 
     private CharacterNavitail characterNavitail;
 
     void Start()
@@ -42,7 +42,7 @@ public class CharacterNavigation : MonoBehaviour
         rescueNPC = FindObjectOfType<RescueNPC>();
         rescueCount = FindObjectOfType<RescueCount>();
         DiplicationScript = Rescue.GetComponent<RescueDiplication>();
-        previousInjuryTarget = m_InjuryTarget; // Save the initial target
+        previousInjuryTarget = m_InjuryTarget;
         m_Agent = GetComponent<NavMeshAgent>();
         m_Agent.speed = constantSpeed;
         m_Agent.acceleration = 1000f;
@@ -50,8 +50,7 @@ public class CharacterNavigation : MonoBehaviour
         m_Agent.stoppingDistance = stoppingDistance;
         navigationObject.SetActive(false);
         objectCollider = GetComponent<Collider>();
-        switchCameraScript = FindObjectOfType<SwitchCamera>(); // Find the SwitchCamera script
-
+        switchCameraScript = FindObjectOfType<SwitchCamera>();
         SetInjuryTarget();
         StartCoroutine(NavigationLoop());
     }
@@ -90,7 +89,7 @@ public class CharacterNavigation : MonoBehaviour
                 yield return null;
             }
 
-            yield return new WaitForSeconds(0f); // Add any required wait time here
+            yield return new WaitForSeconds(0f); 
         }
     }
 
@@ -102,7 +101,6 @@ public class CharacterNavigation : MonoBehaviour
 
             if (target == m_PlayerTarget)
             {
-                //characterNavitail.DisableRenderers();
                 StartCoroutine(NotEnableColliderWithDelay());
             }
             else
@@ -200,10 +198,6 @@ public class CharacterNavigation : MonoBehaviour
                 }
             }
         }
-        else
-        {
-            Debug.LogWarning("Radio_ver4 is not assigned.");
-        }
     }
 
     private bool IsTargetText(string text)
@@ -223,10 +217,6 @@ public class CharacterNavigation : MonoBehaviour
         {
             navigationObject.SetActive(true);
         }
-        else
-        {
-            Debug.LogWarning("NavigationObject is not assigned.");
-        }
     }
 
     private void HideNavigationObject()
@@ -234,10 +224,6 @@ public class CharacterNavigation : MonoBehaviour
         if (navigationObject != null)
         {
             navigationObject.SetActive(false);
-        }
-        else
-        {
-            Debug.LogWarning("NavigationObject is not assigned.");
         }
     }
 

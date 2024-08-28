@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class CameraFixed : MonoBehaviour
 {
-    // Start is called before the first frame update
     //ミニマップカメラにつける
     private GameObject player;//FFを読み込む
     private Vector3 offset;
