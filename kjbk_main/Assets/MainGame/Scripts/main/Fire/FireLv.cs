@@ -1,23 +1,25 @@
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-//using static UnityEditor.PlayerSettings;
 
 public class FireLv : MonoBehaviour
 {
-    private float LvUpSecond;   //レベル上昇間隔(秒)
-    private float LvUpProbability;   //レベル上昇の確率
-    private float LvUpSize;   //レベル上昇時のエフェクトサイズの増大数値
-    private float Size = 1;   //エフェクトのサイズ
+    #region 変数定義
+    private float LvUpSecond;   // レベル上昇間隔(秒)
+    private float LvUpProbability;   // レベル上昇の確率
+    private float LvUpSize;   // レベル上昇時のエフェクトサイズの増大数値
+    private float Size = 1;   // エフェクトのサイズ
 
-    public int FireLvel;   //レベル
+    public int FireLvel;   // レベル
+    #endregion
 
-    private GameObject Blaze;
-    private Blaze_Maneger m_Blaze;
-    Transform BlazePos;
-    Vector3 pos;
+    #region 参照オブジェクト
+    private GameObject Blaze;   // Blazeオブジェクト
+    private Blaze_Maneger m_Blaze;   // Blaze_Manegerの参照
+    Transform BlazePos;   // Blazeの位置
+    Vector3 pos;   // Blazeの位置ベクトル
+    #endregion
 
+    #region 初期化
     private void Awake()
     {
         Blaze = GameObject.Find("BlazeManeger");
@@ -28,7 +30,6 @@ public class FireLv : MonoBehaviour
         LvUpSize = Data.Size;
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         FireLvel = 1;
@@ -39,19 +40,15 @@ public class FireLv : MonoBehaviour
         BlazePos.position = pos;
         StartCoroutine("LvUp");
     }
+    #endregion
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
+    #region コルーチン
     IEnumerator LvUp()
     {
         float PreSize = Size;
         while (true)
         {
-            if (FireLvel == 3) break;
+            if (FireLvel == 3) break;   // レベルが3で停止
             yield return new WaitForSeconds(LvUpSecond);
 
             int probability = Random.Range(0, 100);
@@ -60,9 +57,10 @@ public class FireLv : MonoBehaviour
                 PreSize += LvUpSize;
                 this.transform.localScale = new Vector3(PreSize, PreSize, PreSize);
                 FireLvel++;
-                pos.y =4.2f;
+                pos.y = 4.2f;
                 BlazePos.position = pos;
             }
         }
     }
+    #endregion
 }

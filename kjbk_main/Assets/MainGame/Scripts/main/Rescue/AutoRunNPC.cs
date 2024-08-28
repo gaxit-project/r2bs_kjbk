@@ -5,36 +5,57 @@ using UnityEngine.AI;
 
 public class AutoRunNPC : MonoBehaviour
 {
-    public Transform Target;   //ナビゲーション目的地のTransform
-    private NavMeshAgent m_Agent;   //NavMeshAgent
+    #region 変数宣言
+    // ナビゲーション目的地のTransform
+    public Transform Target;
+
+    // NavMeshAgent
+    private NavMeshAgent m_Agent;
+
+    // NavMeshPath
     public NavMeshPath path;
 
+    // NavMeshSurfaceをアタッチしたオブジェクト
     private GameObject surface;
+
+    // NavMesh_Buildのスクリプト
     private NavMeshBuild BuildScript;
 
-    [SerializeField] private bool AutoRun = false;   //救助者脱出行動のON/OFF
-    [SerializeField] private bool Severe;   //重傷者判別
+    // 救助者脱出行動のON/OFF
+    [SerializeField] private bool AutoRun = false;
+
+    // 重傷者判別
+    [SerializeField] private bool Severe;
+
+    // WaitSecondで指定している秒数
     [SerializeField] private float WaitSecond;
 
-    public bool corFlag = false;   //コルーチン制御用のフラグ
+    // コルーチン制御用のフラグ
+    public bool corFlag = false;
+    #endregion
 
-    // Start is called before the first frame update
+    #region Startメソッド
+    // Startは最初のフレームの前に1度呼び出されます
     void Start()
     {
-        m_Agent = GetComponent<NavMeshAgent>();   //NavMeshAgentの取得
-        m_Agent.SetDestination(Target.position);   //ナビゲーション目的地の設定
-        //StopAgent();   //脱出行動がOFFの場合ナビゲーションを停止
+        #region オブジェクトの取得と初期化
+        m_Agent = GetComponent<NavMeshAgent>();   // NavMeshAgentの取得
+        m_Agent.SetDestination(Target.position);   // ナビゲーション目的地の設定
 
-        surface = GameObject.Find("yuka");   //NavMeshSurfaceをアタッチしたオブジェクト名
-        BuildScript = surface.GetComponent<NavMeshBuild>();   //NavMesh_Buildのスクリプト
+        surface = GameObject.Find("yuka");   // NavMeshSurfaceをアタッチしたオブジェクト名
+        BuildScript = surface.GetComponent<NavMeshBuild>();   // NavMesh_Buildのスクリプト取得
 
-        //軽症者に変化する判定
+        // 軽症者に変化する判定
         StartCoroutine("Distance");
+        #endregion
     }
+    #endregion
 
-    // Update is called once per frame
+    #region Updateメソッド
+    // Updateはフレームごとに1度呼び出されます
     void Update()
     {
+        #region 自動移動と停止の制御
         if (AutoRun && !Severe && m_Agent.isStopped)
         {
             MoveAgent();
@@ -44,17 +65,20 @@ public class AutoRunNPC : MonoBehaviour
             StopAgent();
             OffAuto();
         }
+        #endregion
     }
+    #endregion
 
-    IEnumerator Distance()   //WaitSecondで指定している秒数
-    {　　　　　　　　　　　　//同じ座標の場合ナビゲーション停止
+    #region コルーチン
+    // WaitSecondで指定している秒数、同じ座標の場合ナビゲーション停止
+    IEnumerator Distance()
+    {
         Vector3 prePosition = transform.position;
         while (true)
         {
             yield return new WaitForSeconds(WaitSecond);
             if (Compare(prePosition))
             {
-                //BuildScript.Build();   //新規MeshのBake
                 yield return new WaitForSeconds(WaitSecond);
                 if (Compare(prePosition))
                 {
@@ -69,11 +93,14 @@ public class AutoRunNPC : MonoBehaviour
             prePosition = transform.position;
         }
     }
+    #endregion
 
-    bool Compare(Vector3 pre)   //一定時間前の座標と現在座標の比較
+    #region 関数
+    // 一定時間前の座標と現在座標の比較
+    bool Compare(Vector3 pre)
     {
-        if (Mathf.Ceil(pre.x) == Mathf.Ceil(transform.position.x) &&    //座標が同じ場合true
-                Mathf.Ceil(pre.z) == Mathf.Ceil(transform.position.z))
+        if (Mathf.Ceil(pre.x) == Mathf.Ceil(transform.position.x) &&
+            Mathf.Ceil(pre.z) == Mathf.Ceil(transform.position.z))
         {
             return true;
         }
@@ -83,17 +110,20 @@ public class AutoRunNPC : MonoBehaviour
         }
     }
 
-    void MoveAgent()   //ナビゲーションON
+    // ナビゲーションON
+    void MoveAgent()
     {
         m_Agent.isStopped = false;
     }
 
-    void StopAgent()   //ナビゲーションOFF
+    // ナビゲーションOFF
+    void StopAgent()
     {
         m_Agent.isStopped = true;
     }
 
-    public void OnAuto()   //脱出行動ON
+    // 脱出行動ON
+    public void OnAuto()
     {
         AutoRun = true;
         if (!corFlag)
@@ -103,12 +133,14 @@ public class AutoRunNPC : MonoBehaviour
         }
     }
 
-    void OffAuto()   //脱出行動OFF
+    // 脱出行動OFF
+    void OffAuto()
     {
         AutoRun = false;
     }
 
-    private void OnCollisionStay(Collision collision)   //炎に触れた際重傷者化
+    // 炎に触れた際重傷者化
+    private void OnCollisionStay(Collision collision)
     {
         if (collision.gameObject.name == "Blaze" && !Severe)
         {
@@ -116,4 +148,5 @@ public class AutoRunNPC : MonoBehaviour
             Severe = true;
         }
     }
+    #endregion
 }

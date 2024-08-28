@@ -4,23 +4,24 @@ using UnityEngine;
 
 public class R_Number : MonoBehaviour
 {
-    // Start is called before the first frame update
-
+    #region éŒ¾
+    // ŒyÇÒ¯•Ê‚Ì‚½‚ß‚Ì•Ï”
     public int Number;
+    #endregion
+
+    #region ‰Šú‰»
     void Start()
     {
         PlayerPrefs.SetInt("R_number", 0);
     }
+    #endregion
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
-    //ŒyÇÒ‚ğ¯•Ê‚·‚é•Ï”
+    #region ŠÖ”
+    // ŒyÇÒ‚ğ¯•Ê‚·‚é‚½‚ß‚ÌŠÖ”
     public void RNumber()
     {
         PlayerPrefs.SetInt("R_number", Number);
     }
+    #endregion
 }

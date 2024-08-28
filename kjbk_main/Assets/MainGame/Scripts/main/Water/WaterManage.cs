@@ -4,20 +4,27 @@ using UnityEngine;
 
 public class WaterManage : MonoBehaviour
 {
-    public GameObject Water;
+    #region フィールド宣言
+    [SerializeField] private GameObject Water; // 水オブジェクトへの参照
+    #endregion
 
-    // Start is called before the first frame update
+    #region 初期化
     void Start()
     {
+        // 水オブジェクトを非表示にする
         Water.SetActive(false);
     }
+    #endregion
 
-    // Update is called once per frame
+    #region 更新処理
     void Update()
     {
+        // PlayerRayCastのHosuStatusがtrueの場合
         if (PlayerRayCast.HosuStatus == true)
         {
+            // 水オブジェクトを表示する
             Water.SetActive(true);
         }
     }
+    #endregion
 }

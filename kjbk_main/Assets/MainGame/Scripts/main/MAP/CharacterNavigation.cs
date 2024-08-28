@@ -1,13 +1,23 @@
 using UnityEngine;
 using UnityEngine.AI;
 using System.Collections;
-using System.Collections.Generic;
 
 [RequireComponent(typeof(NavMeshAgent))]
 public class CharacterNavigation : MonoBehaviour
 {
+    #region 宣言: コンポーネントの参照
     private NavMeshAgent m_Agent;
+    private RescueNPC rescueNPC;
+    private GameObject Rescue;
+    private RescueDiplication DiplicationScript;
+    private RescueCount rescueCount;
+    private Collider objectCollider;
+    private SwitchCamera switchCameraScript;
+    private CharacterNavitail characterNavitail;
+    public Radio_ver4 radioVer4;
+    #endregion
 
+    #region 宣言: アタッチ/取得用の変数
     [SerializeField]
     private Transform m_PlayerTarget;
 
@@ -19,22 +29,18 @@ public class CharacterNavigation : MonoBehaviour
     private Transform goal_Target;
 
     [SerializeField]
-    private GameObject navigationObject; 
+    private GameObject navigationObject;
+    #endregion
 
-    private RescueNPC rescueNPC;
-    private GameObject Rescue;
-    private RescueDiplication DiplicationScript;
-    private RescueCount rescueCount;
+    #region 宣言: 定数やフラグ
     private float constantSpeed = 50f;
     private bool isNavigatingToPlayer = true;
     private bool useGoalTarget = false;
     public bool NaviUp = false;
     private float stoppingDistance = 20.0f;
-    private Collider objectCollider;
-    public Radio_ver4 radioVer4; 
-    private SwitchCamera switchCameraScript; 
-    private CharacterNavitail characterNavitail;
+    #endregion
 
+    #region 初期化: Startメソッド
     void Start()
     {
         Rescue = GameObject.Find("Rescue");
@@ -54,7 +60,9 @@ public class CharacterNavigation : MonoBehaviour
         SetInjuryTarget();
         StartCoroutine(NavigationLoop());
     }
+    #endregion
 
+    #region 関数: 目的地設定
     void SetInjuryTarget()
     {
         GameObject injuryTargetObject = GameObject.FindGameObjectWithTag("SeriousInjuries");
@@ -89,7 +97,7 @@ public class CharacterNavigation : MonoBehaviour
                 yield return null;
             }
 
-            yield return new WaitForSeconds(0f); 
+            yield return new WaitForSeconds(0f);
         }
     }
 
@@ -121,10 +129,12 @@ public class CharacterNavigation : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         objectCollider.enabled = true;
     }
+    #endregion
 
+    #region 更新: Updateメソッド
     void Update()
     {
-        if(rescueCount.getNum() == 30)
+        if (rescueCount.getNum() == 30)
         {
             DisableNavigationFunctionality();
         }
@@ -134,10 +144,12 @@ public class CharacterNavigation : MonoBehaviour
 
             if (rescueNPC.IsItFollow() && DiplicationScript.getFlag())
             {
-                NaviUp=true;
+                NaviUp = true;
                 ShowNavigationObject();
                 useGoalTarget = true;
-            }else{
+            }
+            else
+            {
                 useGoalTarget = false;
             }
 
@@ -155,7 +167,9 @@ public class CharacterNavigation : MonoBehaviour
             CheckTextAndUpdateVisibility();
         }
     }
+    #endregion
 
+    #region 回転と移動関連の関数
     void RotateTowardsMovementDirection()
     {
         if (m_Agent.velocity.sqrMagnitude > Mathf.Epsilon)
@@ -178,7 +192,9 @@ public class CharacterNavigation : MonoBehaviour
         }
         return false;
     }
+    #endregion
 
+    #region ナビゲーションオブジェクトの表示/非表示管理
     private void CheckTextAndUpdateVisibility()
     {
         if (radioVer4 != null)
@@ -226,7 +242,9 @@ public class CharacterNavigation : MonoBehaviour
             navigationObject.SetActive(false);
         }
     }
+    #endregion
 
+    #region ナビゲーション機能の無効化
     private void DisableNavigationFunctionality()
     {
         StopAllCoroutines();
@@ -235,4 +253,5 @@ public class CharacterNavigation : MonoBehaviour
         navigationObject.SetActive(false);
         Destroy(gameObject);
     }
+    #endregion
 }

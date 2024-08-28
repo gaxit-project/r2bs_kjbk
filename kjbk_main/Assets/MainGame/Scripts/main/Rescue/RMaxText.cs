@@ -9,10 +9,9 @@ public class RMaxText : MonoBehaviour
 
     
 
-    // Start is called before the first frame update
     void Start()
     {
-        //RMax.SetText("/ 13");
+        //‹~•‰Â”\Å‘ål”‚Ì•\¦
         RMax.SetText("<sprite=3><sprite=0>");
     }
 }

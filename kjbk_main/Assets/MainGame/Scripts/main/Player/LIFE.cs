@@ -1,71 +1,60 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static Unity.IO.LowLevel.Unsafe.AsyncReadManagerMetrics;
-
 
 public class LIFE : MonoBehaviour
 {
-    public static int HitPoint = 3;            //プレイヤーのHP
+    #region 宣言
+    // プレイヤーのHP
+    public static int HitPoint = 3;
 
-
+    // LIFE_Bar の参照
     public LIFE_Bar BarHP;
 
+    // アニメーターコンポーネント
     private Animator Anim;
 
-
-    //無敵時間関連の者たち
+    // 無敵時間関連の変数
     public float invincibilityDuration = 5.0f; // 無敵時間（秒）
-    private float invincibilityTimer = 0.0f;   // 経過時間を格納するタイマー変数(初期値0秒)
-    private bool isInvincible = false;         // 無敵状態かどうかのフラグ
+    private float invincibilityTimer = 0.0f;   // 経過時間を格納するタイマー変数
+    private bool isInvincible = false;         // 無敵状態フラグ
 
-
-    //点滅関連の者たち
+    // 点滅関連の変数
     bool flag = true;
     [SerializeField] private Renderer renderComponent1;
     [SerializeField] private Renderer renderComponent2;
     [SerializeField] private Renderer renderComponent3;
+    #endregion
 
-
+    #region 初期化
     void Start()
     {
+        // HP を初期化
         HitPoint = 3;
+        // アニメーターコンポーネントを取得
         Anim = GetComponent<Animator>();
     }
+    #endregion
 
-    public void GetStar()
+    #region 更新処理
+    void Update()
     {
-        //スターを取ったときに無敵状態フラグをTrueにする
-        isInvincible = true;
-    }
-
-    // Update is called once per frame
-    public void Update()
-    {
-
         if (isInvincible)
         {
-            //ここに無敵状態のときの処理を書く
-
-
-            //毎フレームタイマー変数にTime.deltaTimeを足す
+            // 無敵状態の処理
             invincibilityTimer += Time.deltaTime;
 
-            //タイマーが無敵時間(10秒)を超えたとき
             if (invincibilityTimer >= invincibilityDuration)
             {
-                //無敵終わり
-                //無敵状態フラグをFalseにする
+                // 無敵状態を終了
                 isInvincible = false;
-                //タイマーを0.0秒にリセットする
                 invincibilityTimer = 0.0f;
             }
         }
     }
+    #endregion
 
-
-    /// <param name="Hit"></param>
-    //触れた瞬間HPを1減らす
+    #region コリジョン処理
     private void OnCollisionEnter(Collision Hit)
     {
         if (Hit.gameObject.tag == "Blaze")
@@ -76,32 +65,38 @@ public class LIFE : MonoBehaviour
             }
             else
             {
+                // HP を減らす
                 HitPoint--;
+                // スターを取ったときの処理
                 GetStar();
-                Update();        //無敵付与(多分意味なし！！)
-                StartCoroutine(Blink());     //点滅開始
-
+                // HPバーを更新
                 BarHP.HPBar();
 
+                // 点滅処理を開始
+                StartCoroutine(Blink());
 
-
-                StartCoroutine(Blink());     //点滅開始
-                if (HitPoint <= 0)            //もしHPが尽きたら以下の処理を行う
+                if (HitPoint <= 0)
                 {
+                    // HP が尽きた場合の処理
                     Anim.SetBool("CarryWalk", false);
                     Anim.SetBool("Carry", false);
                     PlayerPrefs.SetString("Result", "GAMEOVER");
                     Scene.Instance.GameResult();
                 }
             }
-
         }
-
-
     }
+    #endregion
 
+    #region 無敵状態処理
+    public void GetStar()
+    {
+        // スターを取ったときに無敵状態フラグを True にする
+        isInvincible = true;
+    }
+    #endregion
 
-    //当たった時の点滅
+    #region 点滅処理
     IEnumerator Blink()
     {
         if (flag)
@@ -121,5 +116,5 @@ public class LIFE : MonoBehaviour
             flag = true;
         }
     }
-
+    #endregion
 }

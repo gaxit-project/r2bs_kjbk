@@ -5,45 +5,63 @@ using UnityEngine.UI;
 
 public class CircleUI : MonoBehaviour
 {
-    public float LimitTime1 = 5.0f; //タイマーの設定時間1
-    public float LimitTime2 = 8.0f; //タイマーの設定時間2
-    public GameObject CircleProgress; //円タイプのプログレスバー
-    public string ScoreFlag = "Best"; // スコア用フラグ
-    private int ColorFlag; //色変更用フラグ
-    private Image ImgCircle; //CircleProgressのImage取得用
-    private float PassedTime; //経過時間
-    private GameObject Rescue; //Rescue参照用
-    public RescueNPC resNPC; //RescueNPC参照用
+    #region 宣言部
+    // タイマーの設定時間1
+    public float LimitTime1 = 5.0f;
+    // タイマーの設定時間2
+    public float LimitTime2 = 8.0f;
+    // 円タイプのプログレスバー
+    public GameObject CircleProgress;
+    // スコア用フラグ
+    public string ScoreFlag = "Best";
 
-    //スコア用：各状態で何回救出したか
+    // 色変更用フラグ
+    private int ColorFlag;
+    // CircleProgressのImage取得用
+    private Image ImgCircle;
+    // 経過時間
+    private float PassedTime;
+    // Rescue参照用
+    private GameObject Rescue;
+    // RescueNPC参照用
+    public RescueNPC resNPC;
+
+    // スコア用：各状態で何回救出したか
     public static int ResNumBest;
     public static int ResNumNormal;
     public static int ResNumBad;
     public static int ResNum;
+    #endregion
 
+    #region 初期化
     void Start()
     {
-        //CircleProgressのImageコンポーネント取得
+        // CircleProgressのImageコンポーネント取得
         ImgCircle = CircleProgress.GetComponent<Image>();
 
-        //タイマースタート
+        // タイマースタート
         ColorFlag = 1;
 
-        ResNum = 0;   //救助者数
+        // 救助者数を初期化
+        ResNum = 0;
     }
+    #endregion
 
-    //塗りつぶし
+    #region 塗りつぶし処理
+    // 塗りつぶし処理
     private void Paint(float LimitTime)
     {
-        //経過時間から塗りつぶし量を計算
+        // 経過時間から塗りつぶし量を計算
         PassedTime += Time.deltaTime;
         float amount = PassedTime / LimitTime;
 
-        //塗りつぶし量を代入する
+        // 塗りつぶし量を代入する
         ImgCircle.fillAmount = 1 - amount;
     }
+    #endregion
 
-    //重傷者カウント
+    #region 重傷者カウント処理
+    // 重傷者カウント
     public void SevereCount()
     {
         ResNum++;
@@ -60,28 +78,31 @@ public class CircleUI : MonoBehaviour
             PlayerPrefs.SetInt("ResCntBad", ResNum);
         }
 
+        // カウントをリセット
         ResNum = 0;
     }
+    #endregion
 
-    // Update is called once per frame
+    #region 更新処理
     void Update()
     {
-
         if (ColorFlag != 0)
         {
             if (ColorFlag == 1)
             {
+                // タイマー1の塗りつぶし処理
                 Paint(LimitTime1);
                 if (LimitTime1 < PassedTime)
                 {
                     ColorFlag = 2;
-                    ImgCircle.color = new Color32(233, 6, 4, 255);
+                    ImgCircle.color = new Color32(233, 6, 4, 255); // 色変更
                     PassedTime = 0f;
                     ScoreFlag = "Normal";
                 }
             }
             else if (ColorFlag == 2)
             {
+                // タイマー2の塗りつぶし処理
                 Paint(LimitTime2);
                 if (LimitTime2 < PassedTime)
                 {
@@ -91,9 +112,11 @@ public class CircleUI : MonoBehaviour
             }
         }
 
+        // 重傷者がゴールに到達して未救出かつ重傷ならカウント
         if (resNPC.IsItInGoal() && !resNPC.IsItRescued() && resNPC.Severe == true)
         {
             SevereCount();
         }
     }
+    #endregion
 }

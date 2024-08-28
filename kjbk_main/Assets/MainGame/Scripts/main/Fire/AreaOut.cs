@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class AreaOut : MonoBehaviour
 {
+    #region 炎がマップ外に出たら破壊
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Blaze"))
@@ -19,4 +20,5 @@ public class AreaOut : MonoBehaviour
             Destroy(other.gameObject);
         }
     }
+    #endregion
 }

@@ -6,22 +6,20 @@ using UnityEngine.AI;
 
 public class NavMeshBuild : MonoBehaviour
 {
+
+    #region NavMeshSurfaceの取得
+    // NavMeshSurfaceコンポーネントの参照
     [SerializeField] private NavMeshSurface surface;
+    #endregion
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    #region Build関数
+    // NavMeshをビルドする関数
     public void Build()
     {
+        // NavMeshをビルド
         surface.BuildNavMesh();
     }
+    #endregion
+
 }

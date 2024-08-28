@@ -5,62 +5,89 @@ using UnityEngine.AI;
 
 public class AutoWalk : MonoBehaviour
 {
-    public Transform Target;   //ナビゲーション目的地のTransform
-    private NavMeshAgent m_Agent;   //NavMeshAgent
+
+    #region アタッチされるオブジェクトとコンポーネントの参照
+    // ナビゲーション目的地のTransform
+    public Transform Target;
+    // NavMeshAgentコンポーネント
+    private NavMeshAgent m_Agent;
+    // NavMeshPathの参照
     public NavMeshPath path;
-
+    // NavMeshSurfaceをアタッチしたオブジェクト
     private GameObject surface;
+    // NavMesh_Buildのスクリプト
     private NavMeshBuild BuildScript;
-
-    [SerializeField] private bool Auto = true;   //救助者脱出行動のON/OFF
-    [SerializeField] private bool Severe;   //重傷者判別
-    [SerializeField] private float WaitSecond;
-
-    public bool corFlag = false;   //コルーチン制御用のフラグ
-
-    private Animator NPCanimator;
-
-    float posX;
-    float posZ;
-
-    //MAPの中心の位置
-    public Transform central;
-
+    // RescueNPCスクリプトの参照
     private RescueNPC rescueNPC;
+    // NPCのアニメーターコンポーネント
+    private Animator NPCanimator;
+    #endregion
 
-    //ランダムで決めるx軸の最大値
+    #region 設定や状態管理の変数
+    // 救助者脱出行動のON/OFF
+    [SerializeField] private bool Auto = true;
+    // 重傷者判別
+    [SerializeField] private bool Severe;
+    // コルーチン制御用のフラグ
+    public bool corFlag = false;
+    // 待機時間
+    [SerializeField] private float WaitSecond;
+    #endregion
+
+    #region ランダム目標地点設定用の変数
+    // MAPの中心の位置
+    public Transform central;
+    // ランダムで決めるx軸の最大値
     [SerializeField] float Xradius = 10;
-    //ランダムで決めるz軸の最大値
+    // ランダムで決めるz軸の最大値
     [SerializeField] float Zradius = 10;
-    //設定した待機時間
+    // 設定した待機時間
     [SerializeField] float waitTime = 5;
-    //待機時間数える用
+    // 待機時間数える用
     [SerializeField] float time = 0;
+    #endregion
 
+    #region その他の変数
+    // 目標地点のx軸の位置
+    float posX;
+    // 目標地点のz軸の位置
+    float posZ;
+    // エンカウントのフラグ
     bool Encount = false;
+    #endregion
 
-    // Start is called before the first frame update
+
+    #region 初期化
     void Start()
     {
-        m_Agent = GetComponent<NavMeshAgent>();   //NavMeshAgentの取得
-
-        surface = GameObject.Find("yuka");   //NavMeshSurfaceをアタッチしたオブジェクト名
-        BuildScript = surface.GetComponent<NavMeshBuild>();   //NavMesh_Buildのスクリプト
-
+        #region オブジェクトとコンポーネントの取得
+        // NavMeshAgentの取得
+        m_Agent = GetComponent<NavMeshAgent>();
+        // NavMeshSurfaceをアタッチしたオブジェクトを探す
+        surface = GameObject.Find("yuka");
+        // NavMesh_Buildのスクリプトを取得
+        BuildScript = surface.GetComponent<NavMeshBuild>();
+        // RescueNPCスクリプトの取得
         rescueNPC = GetComponent<RescueNPC>();
-
-        //目標地点に近づいても速度を落とさない
-        m_Agent.autoBraking = false;
-        //目標地点を決める
-        GotoNextPoint();
-
+        // NPCのアニメーターコンポーネントの取得
         NPCanimator = this.GetComponent<Animator>();
-    }
+        #endregion
 
-    // Update is called once per frame
+        #region 初期設定
+        // 目標地点に近づいても速度を落とさない
+        m_Agent.autoBraking = false;
+        // 目標地点を決める
+        GotoNextPoint();
+        #endregion
+    }
+    #endregion
+
+    #region 更新処理
     void FixedUpdate()
     {
-        bool Encount = rescueNPC.IsItFirstContact();
+        #region エンカウント判定
+        // 初接触判定
+        Encount = rescueNPC.IsItFirstContact();
         if (Input.GetKeyDown("y"))
         {
             Encount = true;
@@ -69,20 +96,22 @@ public class AutoWalk : MonoBehaviour
         {
             m_Agent.ResetPath();
             Debug.Log("encount" + Encount);
-            //自動脱出を開始する
+            // 自動脱出を開始する
             m_Agent.destination = Target.position;
-            //m_Agent.isStopped = false;
             OnAuto();
         }
-        //待ち時間を数える
+        #endregion
+
+        #region 目標地点設定と移動
+        // 待ち時間を数える
         time += Time.deltaTime;
 
-        //待ち時間が設定された数値を超えると発動
+        // 待ち時間が設定された数値を超えると発動
         if (time > waitTime && !Encount)
         {
-            //目標地点を設定し直す
+            // 目標地点を設定し直す
             GotoNextPoint();
-            //ここにキャラ移動アニメーション
+            // キャラ移動アニメーション
             NPCanimator.SetBool("Walk", true);
             time = 0;
         }
@@ -90,11 +119,14 @@ public class AutoWalk : MonoBehaviour
         {
             NPCanimator.SetBool("Walk", false);
         }
-
+        #endregion
     }
+    #endregion
 
-    IEnumerator Distance()   //WaitSecondで指定している秒数
-    {　　　　　　　　　　　　//同じ座標の場合ナビゲーション停止
+    #region ナビゲーション制御メソッド
+    // WaitSecondで指定している秒数後、同じ座標の場合ナビゲーション停止
+    IEnumerator Distance()
+    {
         Vector3 prePosition = transform.position;
         while (true)
         {
@@ -117,10 +149,10 @@ public class AutoWalk : MonoBehaviour
         }
     }
 
-    bool Compare(Vector3 pre)   //一定時間前の座標と現在座標の比較
+    // 一定時間前の座標と現在座標の比較
+    bool Compare(Vector3 pre)
     {
-        if (Mathf.Ceil(pre.x) == Mathf.Ceil(transform.position.x) &&    //座標が同じ場合true
-                Mathf.Ceil(pre.z) == Mathf.Ceil(transform.position.z))
+        if (Mathf.Ceil(pre.x) == Mathf.Ceil(transform.position.x) && Mathf.Ceil(pre.z) == Mathf.Ceil(transform.position.z))
         {
             return true;
         }
@@ -130,17 +162,20 @@ public class AutoWalk : MonoBehaviour
         }
     }
 
-    void MoveAgent()   //ナビゲーションON
+    // ナビゲーションON
+    void MoveAgent()
     {
         m_Agent.isStopped = false;
     }
 
-    void StopAgent()   //ナビゲーションOFF
+    // ナビゲーションOFF
+    void StopAgent()
     {
         m_Agent.isStopped = true;
     }
 
-    void OnAuto()   //脱出行動ON
+    // 脱出行動ON
+    void OnAuto()
     {
         Auto = true;
         if (!corFlag)
@@ -149,26 +184,31 @@ public class AutoWalk : MonoBehaviour
         }
     }
 
-    void OffAuto()   //脱出行動OFF
+    // 脱出行動OFF
+    void OffAuto()
     {
         Auto = false;
     }
+    #endregion
 
+    #region 目標地点設定メソッド
+    // 目標地点を設定する
     void GotoNextPoint()
     {
-        //目標地点のX軸、Z軸をランダムで決める
+        // 目標地点のX軸、Z軸をランダムで決める
         posX = Random.Range(-1 * Xradius, Xradius);
         posZ = Random.Range(-1 * Zradius, Zradius);
 
-        //CentralPointの位置にPosXとPosZを足す
+        // CentralPointの位置にPosXとPosZを足す
         Vector3 pos = central.position;
         pos.x += posX;
         pos.z += posZ;
 
-        //NavMeshAgentに目標地点を設定する
+        // NavMeshAgentに目標地点を設定する
         m_Agent.destination = pos;
     }
 
+    // 目標地点に到達したかの判定
     bool GotoNextPointGoal()
     {
         Vector3 NPCpos = this.transform.position;
@@ -177,7 +217,7 @@ public class AutoWalk : MonoBehaviour
         pos.x += posX;
         pos.z += posZ;
 
-        if(NPCpos.x == pos.x && NPCpos.z == pos.z)
+        if (NPCpos.x == pos.x && NPCpos.z == pos.z)
         {
             return true;
         }
@@ -185,6 +225,6 @@ public class AutoWalk : MonoBehaviour
         {
             return false;
         }
-
     }
+    #endregion
 }

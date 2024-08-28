@@ -5,19 +5,22 @@ using System;
 
 public class Clear : MonoBehaviour
 {
+    #region 変数宣言
+    // MeshRendererコンポーネント
+    private MeshRenderer sr;
+    #endregion
 
-    MeshRenderer sr;
-
-    // Start is called before the first frame update
+    #region 初期化処理
     void Start()
     {
-        sr = GetComponent < MeshRenderer >();
-        sr.material.color = sr.material.color - new Color32(0,0,0,255);
-    }
+        #region コンポーネントの取得
+        sr = GetComponent<MeshRenderer>(); // MeshRendererコンポーネントの取得
+        #endregion
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        #region 色の変更
+        // 色を黒に近づける処理（Color32のアルファ値255で黒に）
+        sr.material.color = sr.material.color - new Color32(0, 0, 0, 255);
+        #endregion
     }
+    #endregion
 }

@@ -64,9 +64,9 @@ public class Radio_ver4 : MonoBehaviour
 
     [SerializeField] GameObject FirstRescueWall;
 
-    // Start is called before the first frame update
     void Start()
     {
+        #region 初期化
         stackObj.Clear();
         stackRadio.Clear();
         stackBring.Clear();
@@ -75,6 +75,9 @@ public class Radio_ver4 : MonoBehaviour
         ChatPanel2.SetActive(false);
         ChatPanel3.SetActive(false);
         ChatR.SetActive(false);
+        #endregion
+
+        #region スタックに無線テキストをpush
         //スタックの中身を入れる
         stackObj.Push("え、間取りがわからない?\r\nマップをあげるから確認してみて");
         stackObj.Push("助かったよ！<sprite=1>の\r\n奥の方で人が倒れてたの!");
@@ -91,6 +94,8 @@ public class Radio_ver4 : MonoBehaviour
         stackBring.Push("まだ重傷者がいるようだ！引き続き調査を頼む！");
         stackBring.Push("まだ重傷者がいるようだ！引き続き調査を頼む！");
         stackBring.Push("この建物の構造を入手した\n\rぜひ活用してみてくれ");
+        #endregion
+
         FirstFlag = true;
         MMcnt = 0;
         //ルール説明のラジオを出す
@@ -98,6 +103,7 @@ public class Radio_ver4 : MonoBehaviour
         FirstRescueWall.SetActive(true);
     }
 
+    #region ヒント
     // 軽症者のヒントをプッシュする
     public void Push()
     {
@@ -168,7 +174,9 @@ public class Radio_ver4 : MonoBehaviour
             FirstFlag = false;
         }
     }
+    #endregion
 
+    #region ヒント無し時のランダムテキスト
     // ヒントが出ないときはここからランダムでテキストを出力する
     void RandomDialugue()
     {
@@ -186,7 +194,9 @@ public class Radio_ver4 : MonoBehaviour
             RadioText.SetText("なんてすばらしい身のこなしなんだ！ありがとう！");
         }
     }
+    #endregion
 
+    #region セリフの表示
     //セリフを表示する
     public void Dialogue()
     {
@@ -244,8 +254,9 @@ public class Radio_ver4 : MonoBehaviour
         activeCoroutine = StartCoroutine(Simple1());
         TextPanelON();
     }
+    #endregion
 
-
+    #region コラプスゲージ表示
     //コラプスゲージを表示する
     public void CollapseDialogue()
     {
@@ -262,7 +273,9 @@ public class Radio_ver4 : MonoBehaviour
             activeCoroutine = StartCoroutine(Simple1());
         }
     }
+    #endregion
 
+    #region コルーチン
     public void BringDialogue()
     {
         CollapseIconFlag = true;
@@ -277,16 +290,12 @@ public class Radio_ver4 : MonoBehaviour
         // 新しいコルーチンを開始し、その参照を保存する
         activeCoroutine = StartCoroutine(Simple1());
     }
+    #endregion
 
-
-
-
-
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    #region テキスト処理
     //テキストを処理するプログラム
 
+    #region テキストを1文字ずつ表示
     //テキストを一文字ずつ表示するコード
     private IEnumerator Simple1()
     {
@@ -301,7 +310,7 @@ public class Radio_ver4 : MonoBehaviour
         }
 
         //1人目の救助の時のみの動作
-        if(FirstTextFlag)
+        if (FirstTextFlag)
         {
             yield return new WaitForSeconds(0.5f);
             if (activeCoroutine != null)
@@ -323,12 +332,13 @@ public class Radio_ver4 : MonoBehaviour
         TextONFlag = false;
 
         //もしコラプスゲージの無線の順番待ちがあったら実行する
-        if(CollapseDialogueFlag)
+        if (CollapseDialogueFlag)
         {
             yield return new WaitForSeconds(2.0f);
             CollapseDialogue();
         }
     }
+    #endregion
 
 
     //テキストを非表示にする
@@ -347,27 +357,29 @@ public class Radio_ver4 : MonoBehaviour
     public void TextPanelON()
     {
         number1 = PlayerPrefs.GetInt("R_number");
-        if(CollapseIconFlag)
+        if (CollapseIconFlag)
         {
             ChatPanel.SetActive(true);
             CollapseIconFlag = false;
         }
-        else if(number1 == 1)
+        else if (number1 == 1)
         {
             ChatPanel1.SetActive(true);
         }
-        else if(number1 == 2)
+        else if (number1 == 2)
         {
             ChatPanel2.SetActive(true);
         }
-        else if(number1 == 3)
+        else if (number1 == 3)
         {
             ChatPanel3.SetActive(true);
         }
-        else if(number1 == 4)
+        else if (number1 == 4)
         {
             ChatPanel4.SetActive(true);
         }
         ChatR.SetActive(true);
     }
+    #endregion
+
 }

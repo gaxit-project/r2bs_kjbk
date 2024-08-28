@@ -4,16 +4,19 @@ using UnityEngine;
 
 public class RescuePOP : MonoBehaviour
 {
+    #region 変数の宣言
+
+    // RescuePOPオブジェクトの参照
     public RescuePOP Pop;
 
-    //重傷者をこれらに入れる
+    // 重傷者用のゲームオブジェクト
     [SerializeField] GameObject RBalcony;
     [SerializeField] GameObject RKitchen;
     [SerializeField] GameObject RBath;
     [SerializeField] GameObject RCloset;
     [SerializeField] GameObject RBedRoom;
 
-
+    // 軽症者用のゲームオブジェクト
     [SerializeField] GameObject hito1st;
     [SerializeField] GameObject JK1st;
     [SerializeField] GameObject kurohuku1st;
@@ -32,19 +35,19 @@ public class RescuePOP : MonoBehaviour
     [SerializeField] GameObject kurohuku5th;
     [SerializeField] GameObject ILOVENY5th;
 
+    // ポップアップ用のゲームオブジェクト
     [SerializeField] GameObject FirstPop;
-    [SerializeField] GameObject SecondPop; 
+    [SerializeField] GameObject SecondPop;
     [SerializeField] GameObject ThirdPop;
     [SerializeField] GameObject ForthPop;
     [SerializeField] GameObject FifthPop;
 
-    //ランダムの値を入れる
+    // ランダムな値や軽症者の人数を格納する変数
     [HideInInspector] public int Rnd = 0;
-
-    //軽症者の人数を入れる
     [HideInInspector] public int MCnt = -1;
     int a = 0;
 
+    // 状態管理用のフラグ
     bool First = false;
     bool RndomONOFF = true;
 
@@ -60,79 +63,67 @@ public class RescuePOP : MonoBehaviour
 
     public int rndom;
 
-    //軽症者数
+    // 軽症者数
     public int AllRCnt = 3;
 
-    //radio_ver4の呼び出し変数
+    // Radio_ver4の参照
     public Radio_ver4 Radio4;
 
+    #endregion
 
-
-
-    //軽症者を救ったときに呼び出す関数
-    //軽症者を救うとヒントの表示をする
+    #region 軽症者を救った時の処理
+    // 軽症者を救ったときに呼び出す関数
     public void LightR()
     {
-        MCnter();             //救った軽症者をカウントする関数
+        MCnter();  // 救った軽症者をカウントする関数
     }
+    #endregion
 
-
-    //重傷者を救ったときに呼び出す関数
-    //重傷者を救うと新しい重傷者を湧かせたりする
+    #region 重傷者を救った時の処理
+    // 重傷者を救ったときに呼び出す関数
     public void HeavyR()
     {
-        Radio4.BringDialogue();
-        RndomONOFF = true;    //ランダムをできるようにする
-        Rndom();              //ランダムに数値を入れる
-        Rpop();               //上ので出た値の重傷者を湧かせる
+        Radio4.BringDialogue(); // ダイアログを表示
+        RndomONOFF = true;      // ランダム処理を有効化
+        Rndom();                // ランダムに数値を生成
+        Rpop();                 // 新しい重傷者をポップアップ
         ArrowONFlag = false;
     }
+    #endregion
 
-
-    //救った軽症者の人数をカウント
+    #region 軽症者数のカウント
+    // 救った軽症者の人数をカウント
     public int MCnter()
     {
         MCnt++;
         return MCnt;
     }
+    #endregion
 
-
-    public int Rndom() //ランダムの数を入れる関数
+    #region ランダム処理
+    // ランダムの数を入れる関数
+    public int Rndom()
     {
-
-        while (RndomONOFF)             //もしフラグがオンならランダムに数値を入れる
+        while (RndomONOFF)
         {
-            if (!R1 && !R2 && !R3 && !R4 && !R5)  //全員救助されてたら下の処理を無視する
+            if (!R1 && !R2 && !R3 && !R4 && !R5)  // 全員救助された場合
             {
                 break;
             }
             else
             {
-                Rnd = Random.Range(1, 6);      //1～5の値の中でランダムに1つ入れる
+                Rnd = Random.Range(1, 6);  // 1～5の値の中でランダムに1つ生成
 
-                //ランダムが重複にならないような処理
-                if (Rnd == 1 && R1 || Rnd == 2 && R2 || Rnd == 3 && R3 || Rnd == 4 && R4 || Rnd == 5 && R5)
+                // ランダム値の重複チェック
+                if ((Rnd == 1 && R1) || (Rnd == 2 && R2) || (Rnd == 3 && R3) || (Rnd == 4 && R4) || (Rnd == 5 && R5))
                 {
-
-                    if (Rnd == 1)
+                    switch (Rnd)
                     {
-                        R1 = false;
-                    }
-                    else if (Rnd == 2)
-                    {
-                        R2 = false;
-                    }
-                    else if (Rnd == 3)
-                    {
-                        R3 = false;
-                    }
-                    else if (Rnd == 4)
-                    {
-                        R4 = false;
-                    }
-                    else if (Rnd == 5)
-                    {
-                        R5 = false;
+                        case 1: R1 = false; break;
+                        case 2: R2 = false; break;
+                        case 3: R3 = false; break;
+                        case 4: R4 = false; break;
+                        case 5: R5 = false; break;
                     }
                     RndomONOFF = false;
                     break;
@@ -141,75 +132,69 @@ public class RescuePOP : MonoBehaviour
         }
         return Rnd;
     }
+    #endregion
 
-
-    //新たな重傷者の設置＋重傷者ヒントをスタックへプッシュ
+    #region 新たな重傷者の設置
+    // 新たな重傷者の設置＋重傷者ヒントをスタックへプッシュ
     public void Rpop()
     {
-        //ランダムの数値を受け取る
+        // ランダムの数値を受け取る
         rndom = Pop.Rnd;
 
-        if (rndom == 1)
+        switch (rndom)
         {
-            RBalcony.SetActive(true);
-            Radio4.Push();
-        }
-        else if (rndom == 2)
-        {
-            RKitchen.SetActive(true);
-            Radio4.Push();
-        }
-        else if (rndom == 3)
-        {
-            RBath.SetActive(true);
-            Radio4.Push();
-        }
-        else if (rndom == 4)
-        {
-            RCloset.SetActive(true);
-            Radio4.Push();
-        }
-        else if (rndom == 5)
-        {
-            RBedRoom.SetActive(true);
-            Radio4.Push();
+            case 1:
+                RBalcony.SetActive(true);
+                Radio4.Push();
+                break;
+            case 2:
+                RKitchen.SetActive(true);
+                Radio4.Push();
+                break;
+            case 3:
+                RBath.SetActive(true);
+                Radio4.Push();
+                break;
+            case 4:
+                RCloset.SetActive(true);
+                Radio4.Push();
+                break;
+            case 5:
+                RBedRoom.SetActive(true);
+                Radio4.Push();
+                break;
         }
     }
+    #endregion
 
-
-    //新たな軽症者の設置
+    #region 新たな軽症者の設置
+    // 新たな軽症者の設置
     public void PopR()
     {
-        if (cnt == 1)
+        switch (cnt)
         {
-
-            FirstPop.SetActive(true);
-            AllRCnt = AllRCnt + 5;
-        }
-        else if (cnt == 2)
-        {
-
-            SecondPop.SetActive(true);
-            AllRCnt = AllRCnt + 4;
-        }
-        else if (cnt == 3)
-        {
-
-            ThirdPop.SetActive(true);
-            AllRCnt = AllRCnt + 5;
-        }
-        else if (cnt == 4)
-        {
-
-            ForthPop.SetActive(true);
-            AllRCnt = AllRCnt + 4;
-        }
-        else if (cnt == 5)
-        {
-
-            FifthPop.SetActive(true);
-            AllRCnt = AllRCnt + 3;
+            case 1:
+                FirstPop.SetActive(true);
+                AllRCnt += 5;
+                break;
+            case 2:
+                SecondPop.SetActive(true);
+                AllRCnt += 4;
+                break;
+            case 3:
+                ThirdPop.SetActive(true);
+                AllRCnt += 5;
+                break;
+            case 4:
+                ForthPop.SetActive(true);
+                AllRCnt += 4;
+                break;
+            case 5:
+                FifthPop.SetActive(true);
+                AllRCnt += 3;
+                break;
         }
         cnt++;
     }
+    #endregion
 }

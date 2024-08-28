@@ -6,37 +6,63 @@ using UnityEngine;
 
 public class HelpZone : MonoBehaviour
 {
-    public GameObject NPC;   //NPCのGameObject
+
+    #region アタッチされるオブジェクトとコンポーネントの参照
+    // NPCのGameObject
+    public GameObject NPC;
+    // RescueNPCの参照
     public RescueNPC RescueNPC;
+    #endregion
 
-
+    #region 初期化
     void Start()
     {
-        RescueNPC.SetText("");   //NPCに近づいていない時のテキスト
-
+        #region 初期設定
+        // NPCに近づいていない時のテキストを設定
+        RescueNPC.SetText("");
+        #endregion
     }
-    //接触判定(接触した瞬間)
+    #endregion
+
+    #region トリガーイベント
+    // 接触判定(接触した瞬間)
     void OnTriggerStay(UnityEngine.Collider collider)
     {
-        if ((collider.gameObject.name == "Player" || collider.gameObject.CompareTag("Player")) && !RescueNPC.IsItRescued() && !RescueNPC.IsItNPCrun())
+        #region プレイヤーがNPCに近づいたとき
+        // プレイヤーが接触し、NPCが救助されておらず、NPCが移動中でない場合
+        if ((collider.gameObject.name == "Player" || collider.gameObject.CompareTag("Player")) &&
+            !RescueNPC.IsItRescued() && !RescueNPC.IsItNPCrun())
         {
+            // NPCが救助ゾーンに入ったことを設定
             RescueNPC.SetInZone(true);
-            RescueNPC.SetText(RescueNPC.text);   //近づいたときにtextを表示
+            // 近づいたときにテキストを表示
+            RescueNPC.SetText(RescueNPC.text);
         }
+        #endregion
 
-        if (collider.gameObject.name == "RescuePoint")   //NPCが救出地点にいるとき
+        #region NPCが救出地点にいるとき
+        // NPCが救出地点にいるとき
+        if (collider.gameObject.name == "RescuePoint")
         {
-            RescueNPC.SetInGoal(true);   //救出地点に接触
+            // 救出地点に接触したことを設定
+            RescueNPC.SetInGoal(true);
         }
+        #endregion
     }
 
-    //接触判定(接触後離れたとき)
+    // 接触判定(接触後離れたとき)
     void OnTriggerExit(Collider collider)
     {
-        if (collider.gameObject.name == "Player" || collider.gameObject.CompareTag("Player"))   //Playerが離れたとき
+        #region プレイヤーがNPCから離れたとき
+        // プレイヤーが離れたとき
+        if (collider.gameObject.name == "Player" || collider.gameObject.CompareTag("Player"))
         {
+            // NPCが救助ゾーンから出たことを設定
             RescueNPC.SetInZone(false);
+            // テキストを空に設定
             RescueNPC.SetText("");
         }
+        #endregion
     }
+    #endregion
 }

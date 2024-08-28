@@ -10,6 +10,7 @@ using UnityEngine.InputSystem;
 
 public class RescueNPC : MonoBehaviour
 {
+    #region 変数
     //入力
     [SerializeField] public bool Severe;
     [SerializeField] int NpcUp;   //NPCを運搬するときにプレイヤーの頭上のどれだけ上に追従するかの数値
@@ -68,9 +69,11 @@ public class RescueNPC : MonoBehaviour
 
     public RadioText RText;
     public bool ArrowON = false;
-    //public RescuedText RescuedText;
+    #endregion
+
     void Start()
     {
+        #region 取得・読み込み
         mesh = GetComponent<MeshRenderer>();
         Rescue = GameObject.Find("Rescue");
         ResCounter = GameObject.Find("Rcounter");
@@ -92,12 +95,14 @@ public class RescueNPC : MonoBehaviour
 
         NPCCol = this.GetComponent<BoxCollider>();
 
-        //初期化
-        r_num = 0;
-
         gameManagerObj = GameObject.Find("Manager");
         gameManager = gameManagerObj.GetComponent<GameManager>(); // スクリプトを取得
+        #endregion
 
+        #region 初期化
+
+        //初期化
+        r_num = 0;
 
         //////////////////////////////////
         Follow = false;   //NPCの追従 true = 追従 : false = 待機
@@ -109,7 +114,7 @@ public class RescueNPC : MonoBehaviour
         FirstContact = false;   //会話回数の判定
         SecondContact = false;   //会話回数の判定
         Lock = false;
-
+        #endregion
     }
 
     void Update()
@@ -119,11 +124,13 @@ public class RescueNPC : MonoBehaviour
 
         Transform target = Player.transform;   //PlayerのTransform
         Vector3 TargetPosition = target.position;
+        #region 救助範囲に入っている
         if (IsItInZone())
         {
+            #region 重傷者
             if ( Severe && !IsItInGoal())   //重傷者に近づいたとき
             {
-                if(HoldGauge != null && HoldGauge.gaugeStatus)//救助入力
+                if (HoldGauge != null && HoldGauge.gaugeStatus)//救助入力
                 {
                     if (!IsItFollow() && !DiplicationScript.getFlag())   //非追従時
                     {
@@ -152,7 +159,9 @@ public class RescueNPC : MonoBehaviour
                 }
 
             }
+            #endregion
 
+            #region 軽傷者
             //軽傷者消滅用
             if (Talk && Severe == false)   //軽症者に近づいたとき
             {
@@ -169,14 +178,17 @@ public class RescueNPC : MonoBehaviour
                     CountDestroy();   //一定時間後にオブジェクト削除
                 }
             }
+            #endregion
 
-
+            #region 重傷者を担いでいるとき
             if (IsItFollow() && !IsItInGoal() && Severe == true)   //追従時
             {
                 FollowVectorNPC(TargetPosition.x, TargetPosition.y + NpcUp, TargetPosition.z);   //NPCを運搬する時のVector
                 SetText("[E]Put");
             }
+            #endregion
 
+            #region 重傷者を救助地点にふれた時
             if (IsItInGoal() && !IsItRescued() && Severe == true)   //救出地点に接触かつ未救出かつ重傷者
             {
                 DiplicationScript.OffFlag();
@@ -194,7 +206,9 @@ public class RescueNPC : MonoBehaviour
                 POP.PopR();
                 ArrowON = false;
             }
+            #endregion
 
+            #region 軽傷者が救助地点にふれた時
             if (IsItInGoal() && !IsItRescued() && Severe == false)   //救出地点に接触かつ未救出かつ軽症者
             {
                 RescuedVectorNPC(TargetPosition.x, TargetPosition.y, TargetPosition.z);   //NPCを救出したときのVector
@@ -203,9 +217,12 @@ public class RescueNPC : MonoBehaviour
                 CountDestroy();   //一定時間後にオブジェクト削除
                 CounterScript.Count();
             }
+            #endregion
         }
+        #endregion
     }
 
+    #region 関数
     //関数
     public bool ArrowONOFF()
     {
@@ -379,4 +396,5 @@ public class RescueNPC : MonoBehaviour
     {
         PlayerPrefs.SetInt("Lock", 0);
     }
+    #endregion
 }

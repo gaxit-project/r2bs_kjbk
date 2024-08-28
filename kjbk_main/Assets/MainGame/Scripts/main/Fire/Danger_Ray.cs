@@ -4,42 +4,46 @@ using UnityEngine;
 
 public class Danger_Ray : MonoBehaviour
 {
-    [SerializeField] float reacDistance = 0.45f;
+    #region 変数定義
+    [SerializeField] private float reacDistance = 0.45f;  // リアクションの発生距離
 
-    private Vector3 Xp;
-    private Vector3 Zp;
-    private Vector3 Xm;
-    private Vector3 Zm;
+    private Vector3 Xp;  // 右方向のベクトル
+    private Vector3 Zp;  // 前方向のベクトル
+    private Vector3 Xm;  // 左方向のベクトル
+    private Vector3 Zm;  // 後方向のベクトル
 
-    private Ray rayXp;
-    private Ray rayZp;
-    private Ray rayXm;
-    private Ray rayZm;
+    private Ray rayXp;  // 右方向のRay
+    private Ray rayZp;  // 前方向のRay
+    private Ray rayXm;  // 左方向のRay
+    private Ray rayZm;  // 後方向のRay
 
-    private RaycastHit XpHit;
-    private RaycastHit ZpHit;
-    private RaycastHit XmHit;
-    private RaycastHit ZmHit;
+    private RaycastHit XpHit;  // 右方向のヒット情報
+    private RaycastHit ZpHit;  // 前方向のヒット情報
+    private RaycastHit XmHit;  // 左方向のヒット情報
+    private RaycastHit ZmHit;  // 後方向のヒット情報
 
-    [System.NonSerialized] public bool Up = false;
-    [System.NonSerialized] public bool Under = false;
-    [System.NonSerialized] public bool Left = false;
-    [System.NonSerialized] public bool Right = false;
+    [System.NonSerialized] public bool Up = false;    // 前方向の危険状態
+    [System.NonSerialized] public bool Under = false; // 後方向の危険状態
+    [System.NonSerialized] public bool Left = false;  // 左方向の危険状態
+    [System.NonSerialized] public bool Right = false; // 右方向の危険状態
 
-    [System.NonSerialized] public float XpDistance = 100;
-    [System.NonSerialized] public float ZpDistance = 100;
-    [System.NonSerialized] public float XmDistance = 100;
-    [System.NonSerialized] public float ZmDistance = 100;
+    [System.NonSerialized] public float XpDistance = 100;  // 右方向の距離
+    [System.NonSerialized] public float ZpDistance = 100;  // 前方向の距離
+    [System.NonSerialized] public float XmDistance = 100;  // 左方向の距離
+    [System.NonSerialized] public float ZmDistance = 100;  // 後方向の距離
+    #endregion
 
-
+    #region 初期化処理
     // Start is called before the first frame update
     void Start()
     {
-
+        // 初期化処理はありませんが、必要に応じてここに追加できます
     }
+    #endregion
 
-    // Update is called once per frame
-    void Update()
+    #region Rayの設定
+    // 各方向のRayの設定を行う
+    private void SetRayDirections()
     {
         Xp = Vector3.right;
         Zp = Vector3.forward;
@@ -48,117 +52,52 @@ public class Danger_Ray : MonoBehaviour
 
         Vector3 t = new Vector3(this.transform.position.x, 5f, this.transform.position.z);
 
-        Ray rayXp = new Ray(t, Xp);
-        Ray rayZp = new Ray(t, Zp);
-        Ray rayXm = new Ray(t, Xm);
-        Ray rayZm = new Ray(t, Zm);
+        rayXp = new Ray(t, Xp);
+        rayZp = new Ray(t, Zp);
+        rayXm = new Ray(t, Xm);
+        rayZm = new Ray(t, Zm);
+    }
+    #endregion
 
-        /*
-        Debug.DrawRay(rayXp.origin, rayXp.direction * 100, Color.red, 1, false);
-        Debug.DrawRay(rayZp.origin, rayZp.direction * 100, Color.red, 1, false);
-        Debug.DrawRay(rayXm.origin, rayXm.direction * 100, Color.red, 1, false);
-        Debug.DrawRay(rayZm.origin, rayZm.direction * 100, Color.red, 1, false);
-        */
+    #region Ray判定処理
+    // 各方向のRayによる判定を行う
+    private void CheckRaycast()
+    {
+        CheckRayDirection(rayXp, ref XpHit, ref XpDistance, ref Right);
+        CheckRayDirection(rayZp, ref ZpHit, ref ZpDistance, ref Up);
+        CheckRayDirection(rayXm, ref XmHit, ref XmDistance, ref Left);
+        CheckRayDirection(rayZm, ref ZmHit, ref ZmDistance, ref Under);
+    }
 
-
-        if (Physics.Raycast(rayXp, out XpHit, 100))
+    // 単一の方向に対するRay判定処理
+    private void CheckRayDirection(Ray ray, ref RaycastHit hit, ref float distance, ref bool directionFlag)
+    {
+        if (Physics.Raycast(ray, out hit, 100))
         {
-            if (XpHit.collider.CompareTag("Blaze"))
+            if (hit.collider.CompareTag("Blaze"))
             {
-                float Xpdistance = Vector3.Distance(XpHit.transform.position, transform.position);
-                XpDistance = Xpdistance / 100;
-                if(XpDistance > reacDistance)
-                {
-                    Right = false;
-                }
-                else
-                {
-                    Right = true;
-                }
+                float dist = Vector3.Distance(hit.transform.position, transform.position);
+                distance = dist / 100;
+                directionFlag = distance <= reacDistance;
             }
             else
             {
-                Right = false;
+                directionFlag = false;
             }
         }
         else
         {
-            Right = false;
-        }
-
-        if (Physics.Raycast(rayZp, out ZpHit, 100))
-        {
-            if (ZpHit.collider.CompareTag("Blaze"))
-            {
-                float Zpdistance = Vector3.Distance(ZpHit.transform.position, transform.position);
-                ZpDistance = Zpdistance / 100;
-                if (ZpDistance > reacDistance)
-                {
-                    Up = false;
-                }
-                else
-                {
-                    Up = true;
-                }
-            }
-            else
-            {
-                Up = false;
-            }
-        }
-        else
-        {
-            Up = false;
-        }
-
-        if (Physics.Raycast(rayXm, out XmHit, 100))
-        {
-            if (XmHit.collider.CompareTag("Blaze"))
-            {
-                float Xmdistance = Vector3.Distance(XmHit.transform.position, transform.position);
-                XmDistance = Xmdistance / 100;
-                if (XmDistance > reacDistance)
-                {
-                    Left = false;
-                }
-                else
-                {
-                    Left = true;
-                }
-            }
-            else
-            {
-                Left = false;
-            }
-        }
-        else
-        {
-            Left = false;
-        }
-
-        if (Physics.Raycast(rayZm, out ZmHit, 100))
-        {
-            if (ZmHit.collider.CompareTag("Blaze"))
-            {
-                float Zmdistance = Vector3.Distance(ZmHit.transform.position, transform.position);
-                ZmDistance = Zmdistance / 100;
-                if (ZmDistance > reacDistance)
-                {
-                    Under = false;
-                }
-                else
-                {
-                    Under = true;
-                }
-            }
-            else
-            {
-                Under = false;
-            }
-        }
-        else
-        {
-            Under = false;
+            directionFlag = false;
         }
     }
+    #endregion
+
+    #region 更新処理
+    // Update is called once per frame
+    void Update()
+    {
+        SetRayDirections();  // Rayの設定
+        CheckRaycast();      // Ray判定処理
+    }
+    #endregion
 }

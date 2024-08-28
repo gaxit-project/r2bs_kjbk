@@ -6,38 +6,58 @@ using UnityEngine.InputSystem;
 
 public class PlayController : MonoBehaviour
 {
-    public GameObject mainCamera;      //メインカメラ格納用
-    public GameObject subCamera;       //サブカメラ格納用 
-    private bool CameraStatus = false; //カメラの状態
-    public float Speed, RunSpeed, Debuff; // 通常速度，ダッシュ速度
-    float CurrentSpeed; // 現在速度
-    float RotateSpeed = 15f; // 回転速度
+    #region 宣言
+    // メインカメラ格納用
+    public GameObject mainCamera;
+    // サブカメラ格納用
+    public GameObject subCamera;
+    // カメラの状態
+    private bool CameraStatus = false;
+    // 通常速度，ダッシュ速度
+    public float Speed, RunSpeed, Debuff;
+    // 現在速度
+    float CurrentSpeed;
+    // 回転速度
+    float RotateSpeed = 15f;
 
-    float DebuffSpeed;//移動速度低下割合
+    // 移動速度低下割合
+    float DebuffSpeed;
 
+    // プレイヤーの状態
     bool House = PlayerRayCast.HosuStatus;
     bool Follow = RescueNPC.Follow;
 
+    // 現在の進行方向
     public static Vector3 CurrentForward;
 
-    public static bool MoveStatus = false; //移動しているか
+    // 移動しているか
+    public static bool MoveStatus = false;
 
+    // アニメーターコンポーネント
     private Animator animator;
 
-    private bool IsPressedRun; // ボタンの押下状態
+    // ボタンの押下状態
+    private bool IsPressedRun;
 
+    // オーディオソース
     private AudioSource audiosource;
 
+    // 入力アクション
     private InputAction MoveAction;
+    // カメラスイッチの参照
     private SwitchCamera switchCamera;
+    // 移動入力の状態
     public static bool MoveInput;
 
+    // 入力値
     float Yvalue;
     float Xvalue;
 
-    //Radio_ver4から変数を持ってくる
+    // Radio_ver4の参照
     public Radio_ver4 Radio4;
+    #endregion
 
+    #region PlayerInputコールバック
     // PlayerInput側から呼ばれるコールバック
     public void OnRun(InputAction.CallbackContext context)
     {
@@ -54,43 +74,50 @@ public class PlayController : MonoBehaviour
                 break;
         }
     }
+    #endregion
 
+    #region 初期化
     private void Awake()
     {
+        // オーディオソースを取得
         audiosource = GetComponent<AudioSource>();
     }
+
     void Start()
     {
         #region 取得・読み込み
-        //メインカメラとサブカメラをそれぞれ取得
-        GameObject mainCamera = GameObject.Find("Main Camera");
-        GameObject subCamera = GameObject.Find("FPSCamera");
+        // メインカメラとサブカメラをそれぞれ取得
+        mainCamera = GameObject.Find("Main Camera");
+        subCamera = GameObject.Find("FPSCamera");
 
-        //アニメーション読み込み
+        // アニメーターコンポーネントを取得
         animator = GetComponent<Animator>();
 
         var pInput = GetComponent<PlayerInput>();
-        //現在のアクションマップを取得
+        // 現在のアクションマップを取得
         var actionMap = pInput.currentActionMap;
 
-        //アクションマップからアクションを取得
+        // アクションマップからアクションを取得
         MoveAction = actionMap["Move"];
 
+        // SwitchCameraの参照を取得
         switchCamera = FindObjectOfType<SwitchCamera>();
         #endregion
 
         #region 変数初期化
-        //メインカメラをアクティブにする
+        // メインカメラをアクティブにする
         mainCamera.SetActive(true);
-        //サブカメラを非アクティブにする
+        // サブカメラを非アクティブにする
         subCamera.SetActive(false);
 
-        //移動入力受付状態
+        // 移動入力受付状態
         MoveInput = true;
-        //入力ロック　0 = 許可: 1 = 拒否
+        // 入力ロック　0 = 許可: 1 = 拒否
         PlayerPrefs.SetInt("Lock", 0);
         #endregion
     }
+    #endregion
+
     void Update()
     {
         Follow = RescueNPC.Follow;
@@ -100,7 +127,8 @@ public class PlayController : MonoBehaviour
 
         Vector3 posi = this.transform.position;
 
-        if(0 == PlayerPrefs.GetInt("Lock"))
+        #region Lockが0の時入力許可
+        if (0 == PlayerPrefs.GetInt("Lock"))
         {
             MoveInput = true;
         }
@@ -108,6 +136,7 @@ public class PlayController : MonoBehaviour
         {
             MoveInput = false;
         }
+        #endregion
 
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Carry") || switchCamera.map_status || Radio4.FirstStopPlayer)
         {
@@ -119,17 +148,22 @@ public class PlayController : MonoBehaviour
             Xvalue = Input.GetAxisRaw("Horizontal");
             Yvalue = Input.GetAxisRaw("Vertical");
         }
-
+        #region 移動入力状態許可
         if (MoveInput)
         {
+            #region MAP使用時等で動けなくする
             if (DesSystem.DesSystemStatus == true || switchCamera.map_status || Radio4.FirstStopPlayer/*|| switchCamera.NiseMapON*/) // マップ表示時はプレイヤーは動けなくする
             {
                 rb.velocity = Vector3.zero;
                 animator.SetBool("Walk", false);
-            }else if(!switchCamera.MapON && switchCamera.NiseMapON){
+            }
+            else if (!switchCamera.MapON && switchCamera.NiseMapON)
+            {
                 rb.velocity = Vector3.zero;
                 animator.SetBool("Walk", false);
             }
+            #endregion
+            #region 消火器使用時
             else if (WaterHose.Hold)
             {
 
@@ -143,8 +177,10 @@ public class PlayController : MonoBehaviour
                 transform.forward = Vector3.Slerp(transform.forward, MoveDir, Time.deltaTime * RotateSpeed);
                 CurrentForward = transform.forward;
             }
+            #endregion
             else
             {
+                #region 入力がないとき
                 if (Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0)
                 {
                     rb.velocity = Vector3.zero;
@@ -159,27 +195,19 @@ public class PlayController : MonoBehaviour
                     }
 
                 }
+                #endregion
                 else
+                #region 入力がある時
                 {
+                    #region ダッシュ状態判定
                     // ダッシュ状態判定
-                    if (IsPressedRun)
-                    {
-                        CurrentSpeed = RunSpeed;
-                    }
-                    else
-                    {
-                        CurrentSpeed = Speed;
-                    }
+                    CurrentSpeed = IsPressedRun ? RunSpeed : Speed;
+                    #endregion
 
-                    //移動速度にデバフがかかるかどうかを判定
-                    if (House || Follow)
-                    {
-                        DebuffSpeed = Debuff;
-                    }
-                    else
-                    {
-                        DebuffSpeed = 1;
-                    }
+                    #region デバフ時移動倍率
+                    // 移動速度にデバフがかかるかどうかを判定
+                    DebuffSpeed = House || Follow ? Debuff : 1;
+                    #endregion
 
                     MoveStatus = true;
 
@@ -203,7 +231,9 @@ public class PlayController : MonoBehaviour
                     transform.forward = Vector3.Slerp(transform.forward, MoveDir, Time.deltaTime * RotateSpeed);
                     CurrentForward = transform.forward;
                 }
+                #endregion
             }
         }
+        #endregion
     }
 }

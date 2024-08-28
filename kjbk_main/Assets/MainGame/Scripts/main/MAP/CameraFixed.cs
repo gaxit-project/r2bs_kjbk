@@ -4,24 +4,27 @@ using UnityEngine;
 
 public class CameraFixed : MonoBehaviour
 {
-    //ミニマップカメラにつける
-    private GameObject player;//FFを読み込む
-    private Vector3 offset;
+    #region 宣言: 変数
+    private GameObject player; // プレイヤーのゲームオブジェクト
+    private Vector3 offset; // プレイヤーとの相対位置
+    #endregion
 
-    // Start is called before the first frame update
+    #region 初期化: Startメソッド
     void Start()
     {
-        //プレイヤーのオブジェクト情報を格納
+        // プレイヤーのオブジェクト情報を格納
         this.player = GameObject.Find("FF");
-        
-        //初期のポジション保存
+
+        // 初期のポジション保存
         offset = transform.position - player.transform.position;
     }
+    #endregion
 
-    // Update is called once per frame
+    #region 更新: Updateメソッド
     void Update()
     {
-        //追従
+        // プレイヤーの位置に追従
         transform.position = this.player.transform.position + offset;
     }
+    #endregion
 }

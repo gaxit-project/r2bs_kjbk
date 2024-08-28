@@ -6,111 +6,116 @@ using TMPro;
 
 public class CollGauge : MonoBehaviour
 {
+    #region フィールドの定義
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// 倒壊ゲージの設定と他のスクリプトの参照
+    ///
     [SerializeField] TextMeshProUGUI CGauge;
 
-    float CountTime = 0;            //時間計測
-    public static int Collapse = 100;            //倒壊ゲージ
-    float Span = 4.5f;                 //Span秒に一回倒壊ゲージを1%減らす
-    public CollDesign Design;  //CollapseDesign2.csから関数もって来るやつ
-    private bool STOP = false;      //無線のフラグ
-    int a = 5;                      //無線の種類分け
+    float CountTime = 0;            // 時間計測用の変数
+    public static int Collapse = 100; // 倒壊ゲージの初期値
+    float Span = 4.5f;               // Span秒ごとに倒壊ゲージを1%減少させる
+    public CollDesign Design;        // CollDesignスクリプトの参照
+    private bool STOP = false;       // 無線のフラグ
+    int a = 5;                       // 無線の種類分け用変数
 
     int number100 = 1;
     int number10 = 0;
     int number1 = 0;
     int persent = 10;
 
-    
-    public BlockPOP POP;  //障害物を設置するコードから変数を持ってくる
+    public BlockPOP POP;             // 障害物を設置するコードから変数を持ってくる
 
-    public Radio_ver4 Radio4;  //無線から変数を持ってくる
+    public Radio_ver4 Radio4;        // 無線スクリプトから変数を持ってくる
+    #endregion
 
+    #region 初期化メソッド
     // Use this for initialization
     void Start()
     {
+        // 倒壊ゲージの初期表示を設定
         CGauge.SetText("<sprite=" + number100 + ">" + "<sprite=" + number10 + ">" + "<sprite=" + number1 + ">" + "<sprite=" + persent + ">");
-        Collapse = 100;
+        Collapse = 100; // 倒壊ゲージを100にリセット
     }
+    #endregion
 
+    #region 更新メソッド
     // Update is called once per frame
     void Update()
     {
-        // 倒壊ゲージカウント
-        CountTime += Time.deltaTime;   //秒数カウント
-        if (CountTime >= Span)          //倒壊ゲージが1%減の秒数
+        // 時間のカウント
+        CountTime += Time.deltaTime;
+
+        // 倒壊ゲージの更新
+        if (CountTime >= Span)
         {
-            Collapse--;                //倒壊ゲージ-1%
-            CountTime = 0;             //秒数カウントリセット
+            Collapse--;            // 倒壊ゲージを1%減少
+            CountTime = 0;          // 秒数カウントをリセット
             number10 = Collapse / 10 % 10;
             number1 = Collapse % 10;
 
-
             ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            //倒壊ゲージの無線通知＋倒壊ゲージのデザイン表示
+            // 倒壊ゲージが特定の値に達した際の処理
             if (Collapse == 80)
             {
-                Design.EightHouse();             //家のデザインを出す
-                CollapseRadioON();
+                Design.EightHouse();             // 80%時の家のデザインを表示
+                CollapseRadioON();               // 無線をオンにする
             }
-
             else if (Collapse == 60)
             {
-                Design.SixHouse();
-                CollapseRadioON();
+                Design.SixHouse();               // 60%時の家のデザインを表示
+                CollapseRadioON();               // 無線をオンにする
             }
-
             else if (Collapse == 40)
             {
-                Design.FourHouse();
-                POP.Generate40 = true;
-                CollapseRadioON();
+                Design.FourHouse();              // 40%時の家のデザインを表示
+                POP.Generate40 = true;           // 障害物生成フラグをオン
+                CollapseRadioON();               // 無線をオンにする
             }
-
             else if (Collapse == 20)
             {
-                Design.TwoHouse();
-                POP.Generate20 = true;
-                CollapseRadioON();
+                Design.TwoHouse();               // 20%時の家のデザインを表示
+                POP.Generate20 = true;           // 障害物生成フラグをオン
+                CollapseRadioON();               // 無線をオンにする
             }
-
             else if (Collapse == 10)
             {
-                Design.OneHouse();
-                POP.Generate10 = true;
-                CollapseRadioON();
+                Design.OneHouse();               // 10%時の家のデザインを表示
+                POP.Generate10 = true;           // 障害物生成フラグをオン
+                CollapseRadioON();               // 無線をオンにする
             }
             else if (Collapse <= 0)
             {
-                PlayerPrefs.SetString("Result", "GAMEOVER");
-                Scene.Instance.GameResult();
+                PlayerPrefs.SetString("Result", "GAMEOVER"); // ゲームオーバー時の処理
+                Scene.Instance.GameResult();                 // ゲーム結果画面へ遷移
             }
 
-            //特定のゲージ時に無線を出すようにする
+            // 無線フラグが立っている場合の処理
             if (STOP)
             {
-                //フラグが届いたら以下の通りに無線を実行
-                STOP = false;  //フラグをOFFに
+                STOP = false;  // フラグをリセット
             }
         }
 
-        if(Collapse < 100)
+        // 倒壊ゲージが100未満の時の表示更新
+        if (Collapse < 100)
         {
-            // 倒壊ゲージの表示
             CGauge.SetText("<sprite=" + number10 + ">" + "<sprite=" + number1 + ">" + "<sprite=" + persent + ">");
         }
-
     }
+    #endregion
 
-
-    //無線のフラグ
+    #region 無線関連のメソッド
+    // 無線のフラグをオンにする
     void STOPFlagON()
     {
         STOP = true;
     }
+
+    // 倒壊無線をオンにする
     void CollapseRadioON()
     {
         Radio4.CollapseDialogue();
     }
-    /////////////////////////////////////////////////////
-
+    #endregion
 }

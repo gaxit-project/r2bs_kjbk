@@ -3,97 +3,108 @@ using UnityEngine.UI;
 
 public class Presente : MonoBehaviour
 {
-    [SerializeField] Slider bgmSlider;
-    [SerializeField] Slider seSlider;
-    [SerializeField] Text bgmValue;
-    [SerializeField] Text seValue;
+    #region 宣言: 変数
+    // スライダーの参照
+    [SerializeField] Slider bgmSlider; // BGMボリューム調整スライダー
+    [SerializeField] Slider seSlider; // SEボリューム調整スライダー
 
-    public GameObject PauseUI;
-    public GameObject SoundOptionUI;
-    public GameObject TitleUI;
+    // テキストの参照
+    [SerializeField] Text bgmValue; // BGMボリューム表示テキスト
+    [SerializeField] Text seValue; // SEボリューム表示テキスト
 
-    public GameObject BackToTheTitle;
-    public GameObject SoundSetting;
+    // UIオブジェクトの参照
+    public GameObject PauseUI; // ポーズ画面のUI
+    public GameObject SoundOptionUI; // サウンド設定のUI
+    public GameObject TitleUI; // タイトル画面のUI
+    public GameObject BackToTheTitle; // タイトル画面に戻るボタン
+    public GameObject SoundSetting; // サウンド設定ボタン
 
-    public Button a;
-    public Button TitleIcon;
-    public Button TitlePIcon;
-    public Button SoundPIcon;
+    // ボタンの参照
+    public Button a; // サウンド設定ボタン
+    public Button TitleIcon; // タイトルアイコンボタン
+    public Button TitlePIcon; // タイトル戻るアイコンボタン
+    public Button SoundPIcon; // サウンド設定戻るアイコンボタン
 
-    public bool ConfigSta;
-    public bool TitleSta;
+    // ステータスフラグ
+    public bool ConfigSta; // 設定中フラグ
+    public bool TitleSta; // タイトル中フラグ
 
-    public GoalJudgement Goal;
+    // ゲームロジックの参照
+    public GoalJudgement Goal; // ゴール判定スクリプト
+    public Pause PauseScript; // ポーズスクリプト
 
+    // ゲーム進行カウンター
+    int Rcnt = 0; // 救助カウント
+    #endregion
 
-    public Pause PauseScript;
-
-    int Rcnt = 0;
-
-
+    #region 初期化: Startメソッド
     void Start()
     {
+        // 音量スライダーの初期設定
         OnChangedBGMVolume();
         OnChangedSEVolume();
 
-        //Audio初期化
-        //Audio初期化
-
+        // スライダーの値を保存から読み込む
         bgmSlider.value = PlayerPrefs.GetFloat("BGM");
         seSlider.value = PlayerPrefs.GetFloat("SE");
 
-        Audio.GetInstance().BGMVolume = PlayerPrefs.GetFloat("BGM");
+        // Audioインスタンスの音量設定
+        var audio = Audio.GetInstance();
+        audio.BGMVolume = PlayerPrefs.GetFloat("BGM");
+        audio.SEVolume = PlayerPrefs.GetFloat("SE");
+        audio.RoopSEVolume = PlayerPrefs.GetFloat("SE");
+        audio.WALKVolume = PlayerPrefs.GetFloat("SE");
+        audio.FireVolume1 = PlayerPrefs.GetFloat("SE");
+        audio.FireVolume2 = PlayerPrefs.GetFloat("SE");
+        audio.FireVolume3 = PlayerPrefs.GetFloat("SE");
+        audio.FireVolume4 = PlayerPrefs.GetFloat("SE");
+        audio.FireVolume5 = PlayerPrefs.GetFloat("SE");
+        audio.FireVolume6 = PlayerPrefs.GetFloat("SE");
+        audio.FireVolume7 = PlayerPrefs.GetFloat("SE");
 
-        Audio.GetInstance().SEVolume = PlayerPrefs.GetFloat("SE");
-        Audio.GetInstance().RoopSEVolume = PlayerPrefs.GetFloat("SE");
-        Audio.GetInstance().WALKVolume = PlayerPrefs.GetFloat("SE");
-        Audio.GetInstance().FireVolume1 = PlayerPrefs.GetFloat("SE");
-        Audio.GetInstance().FireVolume2 = PlayerPrefs.GetFloat("SE");
-        Audio.GetInstance().FireVolume3 = PlayerPrefs.GetFloat("SE");
-        Audio.GetInstance().FireVolume4 = PlayerPrefs.GetFloat("SE");
-        Audio.GetInstance().FireVolume5 = PlayerPrefs.GetFloat("SE");
-        Audio.GetInstance().FireVolume6 = PlayerPrefs.GetFloat("SE");
-        Audio.GetInstance().FireVolume7 = PlayerPrefs.GetFloat("SE");
-
-
-
-
-
+        // ステータスフラグの初期化
         ConfigSta = false;
         TitleSta = false;
     }
+    #endregion
 
-
+    #region 音量変更: スライダーの値変更
     public void OnChangedBGMVolume()
     {
+        // BGM音量の保存と適用
         PlayerPrefs.SetFloat("BGM", bgmSlider.value);
-        Audio.GetInstance().BGMVolume = PlayerPrefs.GetFloat("BGM");
-        Audio.GetInstance().BGMVolume = bgmSlider.value;
-
-
+        var audio = Audio.GetInstance();
+        audio.BGMVolume = bgmSlider.value;
     }
+
     public void OnChangedSEVolume()
     {
+        // SE音量の保存と適用
         PlayerPrefs.SetFloat("SE", seSlider.value);
-        Audio.GetInstance().SEVolume = PlayerPrefs.GetFloat("SE");
-        Audio.GetInstance().RoopSEVolume = PlayerPrefs.GetFloat("SE");
-        Audio.GetInstance().WALKVolume = PlayerPrefs.GetFloat("SE");
-        Audio.GetInstance().FireVolume1 = PlayerPrefs.GetFloat("SE");
-        Audio.GetInstance().FireVolume2 = PlayerPrefs.GetFloat("SE");
-        Audio.GetInstance().FireVolume3 = PlayerPrefs.GetFloat("SE");
-        Audio.GetInstance().FireVolume4 = PlayerPrefs.GetFloat("SE");
-        Audio.GetInstance().FireVolume5 = PlayerPrefs.GetFloat("SE");
-        Audio.GetInstance().FireVolume6 = PlayerPrefs.GetFloat("SE");
-        Audio.GetInstance().FireVolume7 = PlayerPrefs.GetFloat("SE");
+        var audio = Audio.GetInstance();
+        audio.SEVolume = seSlider.value;
+        audio.RoopSEVolume = seSlider.value;
+        audio.WALKVolume = seSlider.value;
+        audio.FireVolume1 = seSlider.value;
+        audio.FireVolume2 = seSlider.value;
+        audio.FireVolume3 = seSlider.value;
+        audio.FireVolume4 = seSlider.value;
+        audio.FireVolume5 = seSlider.value;
+        audio.FireVolume6 = seSlider.value;
+        audio.FireVolume7 = seSlider.value;
     }
+    #endregion
 
+    #region ボタン操作: UI操作メソッド
     public void Quit()
     {
+        // ゲーム終了処理
         Scene.GetInstance().EndGame();
     }
 
     public void Option()
     {
+        // サウンド設定UIを表示し、ポーズUIを非表示にする
         SoundOptionUI.SetActive(true);
         PauseUI.SetActive(false);
         a.Select();
@@ -102,55 +113,64 @@ public class Presente : MonoBehaviour
 
     public void PauseBack()
     {
+        // ポーズ画面に戻る処理
         SoundOptionUI.SetActive(false);
         TitleUI.SetActive(false);
         BackToTheTitle.SetActive(true);
         SoundSetting.SetActive(true);
         PauseScript.PauseCon();
     }
+
     public void Title()
     {
+        // タイトル画面に遷移する処理
         Scene.GetInstance().Title();
     }
+
     public void GoTitleUI()
     {
+        // タイトルUIを表示し、ポーズUIを非表示にする
         TitleUI.SetActive(true);
         PauseUI.SetActive(false);
         TitleIcon.Select();
         TitleSta = true;
     }
+
     public void TitleBack()
     {
+        // ポーズUIに戻る処理
         TitleUI.SetActive(false);
         PauseUI.SetActive(true);
         TitlePIcon.Select();
         TitleSta = false;
     }
+
     public void SoundBack()
     {
+        // サウンド設定UIに戻る処理
         SoundOptionUI.SetActive(false);
         PauseUI.SetActive(true);
         SoundPIcon.Select();
         ConfigSta = false;
     }
+
     public void Escape()
     {
+        // 救助人数に応じてゲーム結果を決定する処理
         Rcnt = PlayerPrefs.GetInt("RescueCount");
         Debug.Log("K");
 
         Time.timeScale = 1;
-        //救助した人数が5人以上ならクリアへ移行
         if (Rcnt >= 5)
         {
             PlayerPrefs.SetString("Result", "CLEAR");
             Scene.Instance.GameResult();
         }
-
-        //違うならゲームオーバーに移行
         else
         {
             PlayerPrefs.SetString("Result", "GAMEOVER");
             Scene.Instance.GameResult();
         }
     }
+    #endregion
 }

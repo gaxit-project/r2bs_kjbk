@@ -5,46 +5,55 @@ using UnityEngine.InputSystem;
 
 public class PlayerRayCast : MonoBehaviour
 {
+    #region 取得・アタッチ
     [SerializeField] GameObject     fpsCam;             // カメラ
     [SerializeField] float      distance = 3f;    // 検出可能な距離
 
+    public GameObject Hosu;//ホースのオブジェクトを格納
+
+    private Animator animator;
+
+    private InputAction TakeAction;
+    #endregion
+
+    #region Tag
     // オブジェクトのTag
     string Blaze = "Blaze"; // 火のTag
     string WaterPoint = "WaterPoint"; // 消火栓のTag
     string DesObj = "DesObj"; // 破壊可能のTag
+    #endregion
 
-    
+    #region フラグ
     public static bool HosuStatus = false;//ホースを持っているか
-
-    
-    public GameObject Hosu;//ホースのオブジェクトを格納
-    //public GameObject HosuObj;//ホースのオブジェクトを格納
-
-    //破壊システム
-    public GameObject DesSystemUI; //破壊システムのUI
 
     //消火器用
     public static bool SHold = false; //長押し判定
 
-    private Animator animator;
-
     bool isCalledOnce = false;
+    #endregion
+
+    #region 変数宣言
 
     float MaxWater = 100f;
     float capacity = 0f;
-
-    private InputAction TakeAction;
+    #endregion
 
 
     void Start ()
     {
+        #region 初期化
         HosuStatus = false;
         if (HosuStatus == false)
         {
             Hosu.SetActive(HosuStatus);
         }
 
-         fpsCam = GameObject.Find("FPSCamera");
+        capacity = 0f;
+        PlayerPrefs.SetFloat("capacity", capacity);
+        #endregion
+
+        #region 取得・読み込み
+        fpsCam = GameObject.Find("FPSCamera");
 
         //アニメーション読み込み
         animator = GetComponent<Animator>();
@@ -55,16 +64,14 @@ public class PlayerRayCast : MonoBehaviour
 
         //アクションマップからアクションを取得
         TakeAction = actionMap["Take"];
-
-        capacity = 0f;
-
-        PlayerPrefs.SetFloat("capacity", capacity);
+        #endregion
     }
 
     void Update()
     {
         bool Take = TakeAction.triggered;
 
+        #region Rayを飛ばしてオブジェクトを取得
         // Rayはカメラの位置からとばす
         var rayStartPosition   = fpsCam.transform.position;
         // Rayはカメラが向いてる方向にとばす
@@ -75,41 +82,23 @@ public class PlayerRayCast : MonoBehaviour
 
         // Rayを飛ばす（out raycastHit でHitしたオブジェクトを取得する）
         var isHit = Physics.Raycast(rayStartPosition, rayDirection, out raycastHit, distance);
-        
-        // Debug.DrawRay (Vector3 start(rayを開始する位置), Vector3 dir(rayの方向と長さ), Color color(ラインの色));
-        Debug.DrawRay(rayStartPosition, rayDirection * distance, Color.red);
-        
+        #endregion
+
+        #region 検出したら
         // なにかを検出したら
         if (isHit)
         {
             // LogにHitしたオブジェクト名を出力
             // HitしたオブジェクトのTag何か判定
-
-            if(raycastHit.collider.gameObject.CompareTag(DesObj)){
-                Debug.Log("破壊可能オブジェクト");
-                if(Input.GetKeyDown("g")){
-                    DesSystem.DesSystemStatus = true;
-                    DesSystemUI.SetActive(true);
-                }
-                if(DesSystem.DesSystemStatus == false)
-                {
-                    if(DesSystem.DesSystemInput == true)
-                    {
-                        Destroy(raycastHit.collider.gameObject);
-                    }
-                    DesSystemUI.SetActive(false);
-                    DesSystem.DesSystemInput = false;
-                    DesSystem.DesSystemStatus = false;
-                }
-
-            }
-            if(raycastHit.collider.gameObject.CompareTag(WaterPoint)){
+            #region Hitしたものが消火器BOXの時
+            if (raycastHit.collider.gameObject.CompareTag(WaterPoint)){
                 //消火器用スクリプト
                 if (Take )
                 {
 
                     if (HosuStatus == false)
                     {
+                        #region 初回取得時
                         if (!isCalledOnce)
                         {
                             isCalledOnce = true;
@@ -121,15 +110,18 @@ public class PlayerRayCast : MonoBehaviour
                         //消火栓使用中
                         HosuStatus = true;
                         Hosu.SetActive(HosuStatus);
+                        #endregion
                     }
                     else
                     {
+                        #region 2回目以降(消火器補給)
                         if (isCalledOnce)
                         {
                             isCalledOnce = false;
                             animator.SetBool("take", isCalledOnce);
                         }
                         PlayerPrefs.SetFloat("capacity", MaxWater);
+                        #endregion
 
                     }
                     SHold = true;
@@ -137,12 +129,17 @@ public class PlayerRayCast : MonoBehaviour
 
 
             }
+            #endregion
         }
+        #endregion
     }
 
+    #region 遅延処理
+    //遅延処理
     void DelayMethod()
     {
         isCalledOnce = false;
         animator.SetBool("take", isCalledOnce);
     }
+    #endregion
 }
