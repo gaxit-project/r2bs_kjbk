@@ -283,6 +283,15 @@ public class RescueNPC : MonoBehaviour
     void PutVectorNPC(float x, float y, float z)
     {
         transform.position = new Vector3(x, y, z);
+        int ran = UnityEngine.Random.Range(0, 2); // ƒ‰ƒ“ƒ_ƒ€¶¬
+        if (ran == 0)
+        {
+            this.transform.Rotate(-90f, 0f, 0f); // ƒ‰ƒ“ƒ_ƒ€‚ÈŠp“x‚Å‰ñ“]
+        }
+        else
+        {
+            this.transform.Rotate(90f, 0f, 0f); // ƒ‰ƒ“ƒ_ƒ€‚ÈŠp“x‚Å‰ñ“]
+        }
     }
 
     public void StopNPC()   //NPC_AI‚Ì’â~
