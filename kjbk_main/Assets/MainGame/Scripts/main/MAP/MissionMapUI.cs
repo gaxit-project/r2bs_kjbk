@@ -19,17 +19,17 @@ public class MissionMapUI : MonoBehaviour
     {
         #region 初期テキスト設定
         MainMission = "☐10人以上人を助けろ！";
-        Hint1 = "<sprite=1>の奥の方で\n　人が倒れている？";
+        Hint1 = "■<sprite=1>の奥の方で\n　人が倒れている？";
         Hint2 = "☐????????????????";
         Hint3 = "☐????????????????";
         Situation = "多くの人を救え！";
-        MissionMAPText.SetText("<size=60>MISSION</size>\n" +
+        MissionMAPText.SetText("<size=55>MISSION</size>\n" +
                                "<size=40>" + MainMission + "</size>" + "\n\n\r" +
-                               "<size=60>HINT</size>\n" +
+                               "<size=55>HINT</size>\n" +
                                "<size=40>" + Hint1 + "</size>\n" +
                                "<size=40>" + Hint2 + "</size>\n" +
                                "<size=40>" + Hint3 + "</size>\n\n\r" +
-                               "<size=60>SITUATION</size>\n" +
+                               "<size=55>SITUATION</size>\n" +
                                "<size=40>" + Situation + "</size>");
         #endregion
     }
@@ -70,13 +70,13 @@ public class MissionMapUI : MonoBehaviour
         #endregion
 
         #region UIテキストの更新
-        MissionMAPText.SetText("<size=60>MISSION</size>\n" +
+        MissionMAPText.SetText("<size=55>MISSION</size>\n" +
                                "<size=40>" + MainMission + "</size>" + "\n\n\r" +
-                               "<size=60>HINT</size>\n" +
+                               "<size=55>HINT</size>\n" +
                                "<size=40>" + Hint1 + "</size>\n" +
                                "<size=40>" + Hint2 + "</size>\n" +
                                "<size=40>" + Hint3 + "</size>\n\n\r" +
-                               "<size=60>SITUATION</size>\n" +
+                               "<size=55>SITUATION</size>\n" +
                                "<size=40>" + Situation + "</size>");
         #endregion
     }

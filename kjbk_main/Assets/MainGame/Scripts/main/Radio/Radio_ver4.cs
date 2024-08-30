@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using System.Threading;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -14,6 +15,7 @@ public class Radio_ver4 : MonoBehaviour
     [SerializeField] GameObject ChatPanel2;
     [SerializeField] GameObject ChatPanel3;
     [SerializeField] GameObject ChatPanel4;
+    [SerializeField] GameObject FirstChatPanel;
     [SerializeField] GameObject ChatR;
 
 
@@ -74,6 +76,8 @@ public class Radio_ver4 : MonoBehaviour
         ChatPanel1.SetActive(false);
         ChatPanel2.SetActive(false);
         ChatPanel3.SetActive(false);
+        ChatPanel4.SetActive(false);
+        FirstChatPanel.SetActive(false);
         ChatR.SetActive(false);
         #endregion
 
@@ -228,6 +232,7 @@ public class Radio_ver4 : MonoBehaviour
             //もし1人目の時
             if(FirstFlag)
             {
+                StartCoroutine(FirstTenmetsu());
                 FirstStopPlayer = true;
                 SCame.MapON = true;
                 FirstTextFlag = true;
@@ -336,6 +341,18 @@ public class Radio_ver4 : MonoBehaviour
         {
             yield return new WaitForSeconds(2.0f);
             CollapseDialogue();
+        }
+    }
+
+    //最初のテキストの強調表示
+    private IEnumerator FirstTenmetsu()
+    {
+        for(int FTcnt = 0; FTcnt <5; FTcnt++)
+        {
+            FirstChatPanel.SetActive(true);
+            yield return new WaitForSeconds(0.5f);
+            FirstChatPanel.SetActive(false);
+            yield return new WaitForSeconds(0.5f);
         }
     }
     #endregion
