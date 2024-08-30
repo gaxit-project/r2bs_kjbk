@@ -17,6 +17,16 @@ public class PlayController : MonoBehaviour
     public float Speed, RunSpeed, Debuff;
     // 現在速度
     float CurrentSpeed;
+
+    //現在のスタミナ
+    float Stamina = 1f;//0～1で最大スタミナが1
+    //スタミナ消費量
+    public float StaminaDownSpeed = 5f;//5秒かけて無くなる
+    //スタミナ回復猟
+    public float StaminaUpSpeed = 10f;//110秒賭けて回復
+    //スタミナ切れを起こしたか
+    bool RunOut = false;
+
     // 回転速度
     float RotateSpeed = 15f;
 
@@ -110,6 +120,14 @@ public class PlayController : MonoBehaviour
         // サブカメラを非アクティブにする
         subCamera.SetActive(false);
 
+        //スタミナ初期化
+        Stamina = 1f;
+        PlayerPrefs.SetFloat("Stamina", Stamina);
+        RunOut = false;
+        PlayerPrefs.SetInt("RunOut", RunOut ? 1 : 0);//起こったなら1
+
+        PlayerPrefs.SetInt("Map", 0);
+
         // 移動入力受付状態
         MoveInput = true;
         // 入力ロック　0 = 許可: 1 = 拒否
@@ -121,6 +139,10 @@ public class PlayController : MonoBehaviour
     void Update()
     {
         Follow = RescueNPC.Follow;
+
+        PlayerPrefs.SetInt("Map", 0);
+
+        UnityEngine.Debug.Log("RunOut : " + RunOut);
 
 
         Rigidbody rb = this.transform.GetComponent<Rigidbody>();
@@ -141,6 +163,7 @@ public class PlayController : MonoBehaviour
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Carry") || switchCamera.map_status || Radio4.FirstStopPlayer)
         {
             rb.velocity = Vector3.zero;
+            PlayerPrefs.SetInt("Map", 1);
         }
         else
         {
@@ -148,6 +171,37 @@ public class PlayController : MonoBehaviour
             Xvalue = Input.GetAxisRaw("Horizontal");
             Yvalue = Input.GetAxisRaw("Vertical");
         }
+
+        #region スタミナ切れ回復
+        if (Stamina >= 1f)
+        {
+            RunOut = false;
+        }
+        else if (Stamina <= 0f)
+        {
+            RunOut = true;
+        }
+        #endregion
+
+        #region 移動がないときのスタミナ回復
+        if (Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0)
+        {
+            if (Stamina <= 1)
+            {
+                Stamina += Time.deltaTime / (StaminaUpSpeed = Follow ? 10f : 7f);
+            }
+            else//1に揃える
+            {
+                Stamina = 1f;
+            }
+            PlayerPrefs.SetFloat("Stamina", Stamina);
+        }
+        #endregion
+
+        #region スタミナ切れが起こったか
+        PlayerPrefs.SetInt("RunOut", RunOut ? 1 : 0);//起こったなら1
+        #endregion
+
         #region 移動入力状態許可
         if (MoveInput)
         {
@@ -156,11 +210,13 @@ public class PlayController : MonoBehaviour
             {
                 rb.velocity = Vector3.zero;
                 animator.SetBool("Walk", false);
+                PlayerPrefs.SetInt("Map", 1);
             }
             else if (!switchCamera.MapON && switchCamera.NiseMapON)
             {
                 rb.velocity = Vector3.zero;
                 animator.SetBool("Walk", false);
+                PlayerPrefs.SetInt("Map", 1);
             }
             #endregion
             #region 消火器使用時
@@ -202,11 +258,13 @@ public class PlayController : MonoBehaviour
                     #region ダッシュ状態判定
                     // ダッシュ状態判定
                     CurrentSpeed = IsPressedRun ? RunSpeed : Speed;
+                    CurrentSpeed = RunOut ? Speed : CurrentSpeed;
+
                     #endregion
 
                     #region デバフ時移動倍率
                     // 移動速度にデバフがかかるかどうかを判定
-                    DebuffSpeed = House || Follow ? Debuff : 1;
+                    DebuffSpeed = House || Follow || RunOut ? Debuff : 1;
                     #endregion
 
                     MoveStatus = true;
@@ -218,13 +276,83 @@ public class PlayController : MonoBehaviour
                         audiosource.Play();
                     }
                     rb.velocity = MoveDir;
-                    if (Follow)
+
+
+                    if (Follow)//重傷者を背負っている
                     {
                         animator.SetBool("CarryWalk", true);
+                        #region 背負い時のスタミナの増減
+                        //背負い時のスタミナ消費量
+                        StaminaDownSpeed = 3f;//3秒かけて消費
+                        //背負い時のスタミナ回復量
+                        StaminaUpSpeed = 13f;//13秒かけて回復
+                        if (CurrentSpeed == Speed)//歩き
+                        {
+                            #region 背負い歩き時のスタミナ
+                            if (Stamina <= 1)
+                            {
+                                Stamina += Time.deltaTime / StaminaUpSpeed;
+                            }
+                            else//1に揃える
+                            {
+                                Stamina = 1f;
+                            }
+                            PlayerPrefs.SetFloat("Stamina", Stamina);
+                            #endregion
+                        }
+                        else//ダッシュ
+                        {
+                            #region 背負いダッシュ時のスタミナ
+                            if (Stamina >= 0)
+                            {
+                                Stamina -= Time.deltaTime / StaminaDownSpeed;
+                            }
+                            else//0に揃える
+                            {
+                                Stamina = 0f;
+                            }
+                            PlayerPrefs.SetFloat("Stamina", Stamina);
+                            #endregion
+                        }
+                        #endregion
                     }
-                    else
+                    else//重傷者を背負っていない
                     {
                         animator.SetBool("Walk", true);
+                        #region 平常時のスタミナの増減
+                        //スタミナ消費量
+                        StaminaDownSpeed = 5f;//5秒かけて無くなる
+                        //スタミナ回復猟
+                        StaminaUpSpeed = 8f;//8秒賭けて回復
+                        if (CurrentSpeed == Speed)//歩き
+                        {
+                            #region 平常歩き時のスタミナ
+                            if (Stamina <= 1)
+                            {
+                                Stamina += Time.deltaTime / StaminaUpSpeed;
+                            }
+                            else//1に揃える
+                            {
+                                Stamina = 1f;
+                            }
+                            PlayerPrefs.SetFloat("Stamina", Stamina);
+                            #endregion
+                        }
+                        else//ダッシュ
+                        {
+                            #region 平常ダッシュ時のスタミナ
+                            if (Stamina >= 0)
+                            {
+                                Stamina -= Time.deltaTime / StaminaDownSpeed;
+                            }
+                            else//0に揃える
+                            {
+                                Stamina = 0f;
+                            }
+                            PlayerPrefs.SetFloat("Stamina", Stamina);
+                            #endregion
+                        }
+                        #endregion
                     }
 
                     //進行方向を向く
