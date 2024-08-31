@@ -8,7 +8,7 @@ public class SwitchCamera : MonoBehaviour
     #region 変数宣言
     private RescueCount CounterScript; // 救助カウントスクリプト
     public Camera mainCamera; // メインカメラ
-    public Camera subCamera; // ビックマップのカメラ
+    public GameObject subCamera; // ビックマップのカメラ
     public bool map_status = false; // マップのボタンの処理用変数
     public bool initialMapStatusActivated = true; // 初期マップステータス
     public bool Ui_status = false; // UIステータス
@@ -115,7 +115,7 @@ public class SwitchCamera : MonoBehaviour
             #region マップステータス処理
             if (map_status)
             {
-                subCamera.enabled = true;
+                subCamera.SetActive(true);
                 miniMap.SetActive(false);
                 Ui.SetActive(Ui_status);
                 Mkey.SetActive(true);
@@ -124,7 +124,7 @@ public class SwitchCamera : MonoBehaviour
             }
             else
             {
-                subCamera.enabled = false;
+                subCamera.SetActive(false);
                 miniMap.SetActive(true);
                 Ui.SetActive(false);
                 Mkey.SetActive(false);
