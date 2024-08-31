@@ -26,7 +26,7 @@ public class SwitchCamera : MonoBehaviour
     public GameObject MiniMAP; // ミニマップオブジェクト
     public GameObject MiniMAPOFF2; // ミニマップOFFオブジェクト2
     public GameObject AllButton; // 全ボタンオブジェクト
-    public GameObject MissionMap; // ミッションマップ
+    //public GameObject MissionMap; // ミッションマップ
     private bool wasPaused; // ポーズ状態フラグ
     public Radio_ver4 Radio4; // ラジオスクリプト
     #endregion
@@ -36,7 +36,7 @@ public class SwitchCamera : MonoBehaviour
     {
         MAPOFF.SetActive(false);
         MiniMAP.SetActive(false);
-        MissionMap.SetActive(false);
+        //MissionMap.SetActive(false);
         mainCamera = Camera.main;
         pause = FindObjectOfType<Pause>();
         CounterScript = FindObjectOfType<RescueCount>();
@@ -95,7 +95,7 @@ public class SwitchCamera : MonoBehaviour
                     MiniMAPOFF2.SetActive(false);
                     NiseMapON = true;
                     AllButton.SetActive(false);
-                    MissionMap.SetActive(true);
+                    //MissionMap.SetActive(true);
                 }
                 else
                 {
@@ -103,7 +103,7 @@ public class SwitchCamera : MonoBehaviour
                     MiniMAPOFF.SetActive(true);
                     MiniMAPOFF2.SetActive(true);
                     NiseMapON = false;
-                    MissionMap.SetActive(false);
+                    //MissionMap.SetActive(false);
                     if (!pause.pause_status)
                     {
                         AllButton.SetActive(true);
@@ -120,7 +120,7 @@ public class SwitchCamera : MonoBehaviour
                 Ui.SetActive(Ui_status);
                 Mkey.SetActive(true);
                 AllButton.SetActive(false);
-                MissionMap.SetActive(true);
+                //MissionMap.SetActive(true);
             }
             else
             {
@@ -130,7 +130,7 @@ public class SwitchCamera : MonoBehaviour
                 Mkey.SetActive(false);
                 if (MapON)
                 {
-                    MissionMap.SetActive(false);
+                    //MissionMap.SetActive(false);
                 }
                 if (MapON && !pause.pause_status)
                 {
@@ -161,7 +161,7 @@ public class SwitchCamera : MonoBehaviour
         MiniMAP.SetActive(true);
         MAPOFF.SetActive(false);
         MiniMAPOFF2.SetActive(true);
-        MissionMap.SetActive(true);
+        //MissionMap.SetActive(true);
         initialMapStatusActivated = false;
         yield return new WaitForSeconds(delay);
         if (hat1 != null)
