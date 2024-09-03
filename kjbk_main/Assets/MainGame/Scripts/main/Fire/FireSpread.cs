@@ -7,24 +7,24 @@ using UnityEngine;
 
 public class FireSpread : MonoBehaviour
 {
-    // ‰„Ä‚ÉŠÖ‚·‚é•Ï”
-    #region ‰„ÄŠÖ˜A‚Ì•Ï”
-    private float SpreadSecond;   // ‰„ÄŠÔŠu(•b)
-    private float SpreadProbability;   // ‰„ÄŠm—§(%)
-    private int LvSpreadProbability;   // ‰ŠƒŒƒxƒ‹‚É‚æ‚éŠm—¦‚Ìã¸(Šm—¦‚É”’l*(Lv-1)ƒvƒ‰ƒX)
-    private float SpreadRange;   // ‰„Ä‚ÌˆÚ“®‹——£
+    // ï¿½ï¿½ï¿½Ä‚ÉŠÖ‚ï¿½ï¿½ï¿½Ïï¿½
+    #region ï¿½ï¿½ï¿½ÄŠÖ˜Aï¿½Ì•Ïï¿½
+    private float SpreadSecond;   // ï¿½ï¿½ï¿½ÄŠÔŠu(ï¿½b)
+    private float SpreadProbability;   // ï¿½ï¿½ï¿½ÄŠmï¿½ï¿½(%)
+    private int LvSpreadProbability;   // ï¿½ï¿½ï¿½ï¿½ï¿½xï¿½ï¿½ï¿½É‚ï¿½ï¿½mï¿½ï¿½ï¿½Ìã¸(ï¿½mï¿½ï¿½ï¿½Éï¿½ï¿½l*(Lv-1)ï¿½vï¿½ï¿½ï¿½X)
+    private float SpreadRange;   // ï¿½ï¿½ï¿½Äï¿½ï¿½ÌˆÚ“ï¿½ï¿½ï¿½ï¿½ï¿½
     private float PosY;
     private string[] AntiBlazeTag;
     #endregion
 
-    // ‹~•‚â‰ŠŠÖ˜A‚Ì•Ï”
-    #region ‹~•‚Æ‰ŠŠÖ˜A‚Ì•Ï”
+    // ï¿½~ï¿½ï¿½ï¿½â‰Šï¿½Ö˜Aï¿½Ì•Ïï¿½
+    #region ï¿½~ï¿½ï¿½ï¿½Æ‰ï¿½ï¿½Ö˜Aï¿½Ì•Ïï¿½
     private GameObject Rescue;
     RescueCount Counter;
     public static bool FirstAction = true;
     private int boostNum;
     private bool boost = false;
-    private bool FireXp = false;   // ‰ŠüˆÍ4ƒ}ƒX‚Ì‰Š”»’è
+    private bool FireXp = false;   // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½4ï¿½}ï¿½Xï¿½Ì‰ï¿½ï¿½ï¿½ï¿½ï¿½
     private bool FireZp = false;
     private bool FireXm = false;
     private bool FireZm = false;
@@ -34,22 +34,24 @@ public class FireSpread : MonoBehaviour
     public FireLv Fire_Lv1;
     private GameObject Blaze;
     private Blaze_Maneger m_Blaze;
+    private int blazeThreshold = 20;  // é–¾å€¤
+    private bool isWeakened = false; // ç«ã®åºƒãŒã‚ŠãŒå¼±ããªã£ã¦ã„ã‚‹ã‹ã©ã†ã‹ã‚’åˆ¤å®šã™ã‚‹ãƒ•ãƒ©ã‚°
     #endregion
 
-    // ƒXƒ^[ƒg‚Ìˆ—
-    #region ƒXƒ^[ƒgˆ—
+    // ï¿½Xï¿½^ï¿½[ï¿½gï¿½ï¿½ï¿½Ìï¿½ï¿½ï¿½
+    #region ï¿½Xï¿½^ï¿½[ï¿½gï¿½ï¿½ï¿½ï¿½
     void Start()
     {
-        // ‹~•ƒIƒuƒWƒFƒNƒg‚Ìæ“¾
+        // ï¿½~ï¿½ï¿½ï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½Ìæ“¾
         Rescue = GameObject.Find("Rcounter");
         Counter = Rescue.GetComponent<RescueCount>();
 
-        // SpreadRange‚ª5ˆÈ‰º‚Ìê‡‚Í5‚É‚·‚é
+        // SpreadRangeï¿½ï¿½5ï¿½È‰ï¿½ï¿½Ìê‡ï¿½ï¿½5ï¿½É‚ï¿½ï¿½ï¿½
         if (SpreadRange < 5) SpreadRange = 5;
 
         StartCoroutine("SpreadFire");
 
-        // BlazeManager‚Ìƒf[ƒ^æ“¾
+        // BlazeManagerï¿½Ìƒfï¿½[ï¿½^ï¿½æ“¾
         Blaze = GameObject.Find("BlazeManeger");
         m_Blaze = Blaze.GetComponent<Blaze_Maneger>();
         var Data = m_Blaze.getSpreadData();
@@ -60,15 +62,33 @@ public class FireSpread : MonoBehaviour
         PosY = Data.Pos;
         boostNum = Data.Boost;
         AntiBlazeTag = Data.Tag;
+
+        Debug.Log("å…ƒã®åºƒãŒã‚ŠãŒ: " + SpreadProbability + "%");
     }
     #endregion
 
-    // –ˆƒtƒŒ[ƒ€‚Ìˆ—
-    #region –ˆƒtƒŒ[ƒ€‚Ìˆ—
+    // ï¿½ï¿½ï¿½tï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½Ìï¿½ï¿½ï¿½
+    #region ï¿½ï¿½ï¿½tï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½Ìï¿½ï¿½ï¿½
     void Update()
     {
-        #region Á‰»ˆ—
-        // Á‰Î‚³‚ê‚½ê‡‚Ìˆ—
+         // Blazeã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®æ•°ã‚’å–å¾—
+        int activeBlazeCount = GetBlazeChildCount();
+        Debug.Log($"BlazeCount: {activeBlazeCount}. ");
+        // Blazeã®æ•°ã«å¿œã˜ã¦ç«ã®åºƒãŒã‚Šã®ç¢ºç‡ã‚’èª¿æ•´
+        if (activeBlazeCount >= blazeThreshold && !isWeakened)
+        {
+            SpreadProbability *= 0.5f; // ç«ã®åºƒãŒã‚Šã‚’å¼±ã‚ã‚‹
+            isWeakened = true;
+            Debug.Log("ç«ã®åºƒãŒã‚ŠãŒå¼±ããªã‚Šã¾ã—ãŸ: " + SpreadProbability + "%");
+        }
+        else if (activeBlazeCount < blazeThreshold && isWeakened)
+        {
+            SpreadProbability *= 2.0f; // ç«ã®åºƒãŒã‚Šã‚’å…ƒã«æˆ»ã™
+            isWeakened = false;
+            Debug.Log("ç«ã®åºƒãŒã‚ŠãŒå…ƒã«æˆ»ã‚Šã¾ã—ãŸ: " + SpreadProbability + "%");
+        }
+        #region ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        // ï¿½ï¿½ï¿½Î‚ï¿½ï¿½ê‚½ï¿½ê‡ï¿½Ìï¿½ï¿½ï¿½
         if (inferno.DesBlaze)
         {
             StopCoroutine("SpreadFire");
@@ -77,8 +97,8 @@ public class FireSpread : MonoBehaviour
         }
         #endregion
 
-        #region ‰„Ä‘¬“x‚Ìƒu[ƒXƒg
-        // ‰„Ä‘¬“x‚Ìƒu[ƒXƒg
+        #region ï¿½ï¿½ï¿½Ä‘ï¿½ï¿½xï¿½Ìƒuï¿½[ï¿½Xï¿½g
+        // ï¿½ï¿½ï¿½Ä‘ï¿½ï¿½xï¿½Ìƒuï¿½[ï¿½Xï¿½g
         if (Counter.getNum() >= boostNum && !boost)
         {
             SpreadSecond = SpreadSecond * 0.5f;
@@ -87,21 +107,38 @@ public class FireSpread : MonoBehaviour
         #endregion
     }
     #endregion
+    #region Blazeã®æ•°ã‚’ã‚«ã‚¦ãƒ³ãƒˆã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
+    private int GetBlazeChildCount()
+    {
+        int count = 0;
+        GameObject[] allBlazes = GameObject.FindGameObjectsWithTag("Blaze");
 
-    // ‰„Äˆ—‚ÌƒRƒ‹[ƒ`ƒ“
-    #region ‰„Äˆ—
+        foreach (GameObject blaze in allBlazes)
+        {
+            if (blaze.activeInHierarchy)
+            {
+                count++;
+            }
+        }
+
+        return count;
+    }
+    #endregion
+
+    // ï¿½ï¿½ï¿½Äï¿½ï¿½ï¿½ï¿½ÌƒRï¿½ï¿½ï¿½[ï¿½`ï¿½ï¿½
+    #region ï¿½ï¿½ï¿½Äï¿½ï¿½ï¿½
     IEnumerator SpreadFire()
     {
-        // ‰„Ä•ûŒü‚ÌƒxƒNƒgƒ‹İ’è
+        // ï¿½ï¿½ï¿½Ä•ï¿½ï¿½ï¿½ï¿½Ìƒxï¿½Nï¿½gï¿½ï¿½ï¿½İ’ï¿½
         Vector3 Xp = Vector3.right;
         Vector3 Zp = Vector3.forward;
         Vector3 Xm = Vector3.left;
         Vector3 Zm = Vector3.back;
 
-        // ‰ŠúˆÊ’u‚Ìİ’è
+        // ï¿½ï¿½ï¿½ï¿½ï¿½Ê’uï¿½Ìİ’ï¿½
         Vector3 t = new Vector3(this.transform.position.x, 0.1f, this.transform.position.z);
 
-        // Ray‚Ìİ’è
+        // Rayï¿½Ìİ’ï¿½
         Ray rayXp = new Ray(t, Xp);
         Ray rayZp = new Ray(t, Zp);
         Ray rayXm = new Ray(t, Xm);
@@ -120,8 +157,8 @@ public class FireSpread : MonoBehaviour
     }
     #endregion
 
-    // Ray‚Ì“–‚½‚è”»’èˆ—
-    #region Ray”»’è
+    // Rayï¿½Ì“ï¿½ï¿½ï¿½ï¿½è”»ï¿½èˆï¿½ï¿½
+    #region Rayï¿½ï¿½ï¿½ï¿½
     private void decision(Ray rayXp, Ray rayZp, Ray rayXm, Ray rayZm)
     {
         FireNum = 0;
@@ -196,8 +233,8 @@ public class FireSpread : MonoBehaviour
     }
     #endregion
 
-    // ƒ_ƒCƒXƒ[ƒ‹ˆ—
-    #region ƒ_ƒCƒXˆ—
+    // ï¿½_ï¿½Cï¿½Xï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    #region ï¿½_ï¿½Cï¿½Xï¿½ï¿½ï¿½ï¿½
     private int dice()
     {
         int d = 0;
@@ -238,8 +275,8 @@ public class FireSpread : MonoBehaviour
     }
     #endregion
 
-    // ‰Š‚Ì¶¬ˆ—
-    #region ‰Š‚Ì¶¬ˆ—
+    // ï¿½ï¿½ï¿½Ìï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    #region ï¿½ï¿½ï¿½Ìï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     private void Plane()
     {
         Vector3 prefabXp = new Vector3(this.transform.position.x + SpreadRange, PosY, this.transform.position.z);
@@ -271,16 +308,16 @@ public class FireSpread : MonoBehaviour
     }
     #endregion
 
-    // ‰Š‚ª‚·‚×‚Ä–„‚Ü‚Á‚Ä‚¢‚é‚©Šm”F‚·‚éˆ—
-    #region ‰Š‚ÌŠm”Fˆ—
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×‚Ä–ï¿½ï¿½Ü‚ï¿½ï¿½Ä‚ï¿½ï¿½é‚©ï¿½mï¿½Fï¿½ï¿½ï¿½éˆï¿½ï¿½
+    #region ï¿½ï¿½ï¿½ÌŠmï¿½Fï¿½ï¿½ï¿½ï¿½
     private bool FireEmpty()
     {
         return !(FireXp && FireZp && FireXm && FireZm);
     }
     #endregion
 
-    // Õ“Ë
-    #region ‰Š‚Ì•ÇÕ“Ë
+    // ï¿½Õ“ï¿½
+    #region ï¿½ï¿½ï¿½Ì•ÇÕ“ï¿½
     void OnCollisionEnter(Collision col)
     {
         if (col.gameObject.tag == "Wall")
