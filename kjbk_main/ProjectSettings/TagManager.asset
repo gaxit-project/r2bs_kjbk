@@ -14,6 +14,8 @@ TagManager:
   - Plane
   - Scanner
   - ButtonAYX
+  - NaviSystem
+  - Item
   layers:
   - Default
   - TransparentFX
