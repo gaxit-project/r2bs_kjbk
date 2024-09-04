@@ -5,6 +5,7 @@ using System.Threading;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using static Unity.IO.LowLevel.Unsafe.AsyncReadManagerMetrics;
 
@@ -66,6 +67,24 @@ public class Radio_ver4 : MonoBehaviour
 
     [SerializeField] GameObject FirstRescueWall;
 
+    //アイテムのフラグ
+    [HideInInspector] public bool Item1 = false;
+    [HideInInspector] public bool Item2 = false;
+    [HideInInspector] public bool Item3 = false;
+    [HideInInspector] public bool Item4 = false;
+    [HideInInspector] public bool Item5 = false;
+    [HideInInspector] public bool Item6 = false;
+    [HideInInspector] public bool Item7 = false;
+    [HideInInspector] public bool Item8 = false;
+    [HideInInspector] public bool Item9 = false;
+    [HideInInspector] public bool ItemOff = false;
+    //アイテムの配列
+    int[] ItemCountArray = {1,2,3,4,5,6,7,8,9};
+    //アイテム用のカウント
+    int ItemCnt = 3;
+    //救助者人数を送ってくる
+    public RescueCount RCnt;
+
     void Start()
     {
         #region 初期化
@@ -79,6 +98,16 @@ public class Radio_ver4 : MonoBehaviour
         ChatPanel4.SetActive(false);
         FirstChatPanel.SetActive(false);
         ChatR.SetActive(false);
+        Item1 = false;
+        Item2 = false;
+        Item3 = false;
+        Item4 = false;
+        Item5 = false;
+        Item6 = false;
+        Item7 = false;
+        Item8 = false;
+        Item9 = false;
+        ItemOff = false;
         #endregion
 
         #region スタックに無線テキストをpush
@@ -105,6 +134,20 @@ public class Radio_ver4 : MonoBehaviour
         //ルール説明のラジオを出す
         CollapseDialogue();
         FirstRescueWall.SetActive(true);
+        #region　アイテムの設定
+        //配列の中身をランダムにする
+        for (int i=0;i< ItemCountArray.Length; i++)
+        {
+            int temp = ItemCountArray[i];
+            int RndIndex = Random.Range(0, ItemCountArray.Length);
+            ItemCountArray[i] = ItemCountArray[RndIndex];
+            ItemCountArray[RndIndex] = temp;
+        }
+        for (int i = 0; i < ItemCountArray.Length; i++)
+        {
+            Debug.Log("配列の中身:" + ItemCountArray[i]);
+        }
+        #endregion
     }
 
     #region ヒント
@@ -184,18 +227,45 @@ public class Radio_ver4 : MonoBehaviour
     // ヒントが出ないときはここからランダムでテキストを出力する
     void RandomDialugue()
     {
-        int RndDialugue = Random.Range(1, 4);
-        if(RndDialugue == 1)
+        int RndDialugue;
+        //アイテムが出きってなければアイテムを含んだランダム
+        if (!ItemOff)
         {
-            RadioText.SetText("ほんとうに助かったよ！君は命の恩人だ！");
+            RndDialugue = Random.Range(1, 9);
+            if (RndDialugue == 1 || RndDialugue == 2)
+            {
+                RadioText.SetText("ほんとうに助かったよ！君は命の恩人だ！");
+            }
+            else if (RndDialugue == 3 || RndDialugue == 4)
+            {
+                RadioText.SetText("ありがとう...生きて帰れる...");
+            }
+            else if (RndDialugue == 5 || RndDialugue == 6)
+            {
+                RadioText.SetText("なんてすばらしい身のこなしなんだ！ありがとう！");
+            }
+            //25%の確率でアイテムを出現させる
+            else if (RndDialugue == 7 || RndDialugue == 8)
+            {
+                ItemRandom();
+            }
         }
-        else if(RndDialugue == 2)
+        else
         {
-            RadioText.SetText("ありがとう...生きて帰れる...");
-        }
-        else if(RndDialugue == 3)
-        {
-            RadioText.SetText("なんてすばらしい身のこなしなんだ！ありがとう！");
+            Debug.Log("アイテムもうないよ");
+            RndDialugue = Random.Range(1, 4);
+            if (RndDialugue == 1)
+            {
+                RadioText.SetText("ほんとうに助かったよ！君は命の恩人だ！");
+            }
+            else if (RndDialugue == 2)
+            {
+                RadioText.SetText("ありがとう...生きて帰れる...");
+            }
+            else if (RndDialugue == 3)
+            {
+                RadioText.SetText("なんてすばらしい身のこなしなんだ！ありがとう！");
+            }
         }
     }
     #endregion
@@ -207,11 +277,19 @@ public class Radio_ver4 : MonoBehaviour
         //テキストリセット
         TextPanelOFF();
         RPOP.AllRCnt--;
+        int ResCnt = RCnt.getNum();
+        int StackCnt = stackObj.Count;
 
         // 現在のコルーチンが実行中なら停止する
         if (activeCoroutine != null)
         {
             StopCoroutine(activeCoroutine);
+        }
+
+        //もしアイテムの数と残り軽傷者数+ヒントの数が同じならアイテム出現をする
+        if(30-ResCnt-StackCnt == ItemCnt)
+        {
+            ItemRandom();
         }
 
         int RndHalf = Random.Range(1, 3);
@@ -232,7 +310,7 @@ public class Radio_ver4 : MonoBehaviour
             //もし1人目の時
             if(FirstFlag)
             {
-                StartCoroutine(FirstTenmetsu());
+                //StartCoroutine(FirstTenmetsu());
                 FirstStopPlayer = true;
                 SCame.MapON = true;
                 FirstTextFlag = true;
@@ -276,6 +354,63 @@ public class Radio_ver4 : MonoBehaviour
             CollapseDialogueFlag = false;
             // 新しいコルーチンを開始し、その参照を保存する
             activeCoroutine = StartCoroutine(Simple1());
+        }
+    }
+    #endregion
+
+
+    #region　アイテムの表示
+    void ItemRandom()
+    {
+        if (ItemCountArray[ItemCnt] == 0)
+        {
+            Item1 = true;
+            Debug.Log("アイテム1フラグオン：" + Item1);
+        }
+        else if (ItemCountArray[ItemCnt] == 1)
+        {
+            Item2 = true;
+            Debug.Log("アイテム2フラグオン：" + Item2);
+        }
+        else if (ItemCountArray[ItemCnt] == 2)
+        {
+            Item3 = true;
+            Debug.Log("アイテム3フラグオン：" + Item3);
+        }
+        else if (ItemCountArray[ItemCnt] == 3)
+        {
+            Item4 = true;
+            Debug.Log("アイテム4フラグオン：" + Item4);
+        }
+        else if (ItemCountArray[ItemCnt] == 4)
+        {
+            Item5 = true;
+            Debug.Log("アイテム5フラグオン：" + Item5);
+        }
+        else if (ItemCountArray[ItemCnt] == 5)
+        {
+            Item6 = true;
+            Debug.Log("アイテム6フラグオン：" + Item6);
+        }
+        else if (ItemCountArray[ItemCnt] == 6)
+        {
+            Item7 = true;
+            Debug.Log("アイテム7フラグオン：" + Item7);
+        }
+        else if (ItemCountArray[ItemCnt] == 7)
+        {
+            Item8 = true;
+            Debug.Log("アイテム8フラグオン：" + Item8);
+        }
+        else if (ItemCountArray[ItemCnt] == 8)
+        {
+            Item9 = true;
+            Debug.Log("アイテム9フラグオン：" + Item9);
+        }
+        ItemCnt--;
+        if(ItemCnt==0)
+        {
+            ItemOff = true;
         }
     }
     #endregion
