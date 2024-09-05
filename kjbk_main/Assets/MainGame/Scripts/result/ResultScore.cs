@@ -98,7 +98,7 @@ public class ResultScore : MonoBehaviour
         HPImage.SetActive(false);
         FailedImage.SetActive(false);
         FalseImage.SetActive(false);
-        TotalImage.SetActive(true);
+        TotalImage.SetActive(false);
         ClearImage.SetActive(false);
         Failed.SetActive(false);
         Clear.SetActive(false);
@@ -134,7 +134,7 @@ public class ResultScore : MonoBehaviour
         
         if(countscore >= injureddisplay)
         {
-            PeopleImage.SetActive(true);
+            //PeopleImage.SetActive(true);
                 textPeople.text = people.ToString();
             textPeople2.text = "People\n" + people2.ToString();
             
@@ -145,7 +145,7 @@ public class ResultScore : MonoBehaviour
         }
         if (countscore >= timedisplay)
         {
-            TimeImage.SetActive(true);
+            //TimeImage.SetActive(true);
                 textTime.text = timepoint.ToString();
             textPeople2.text = "";
             textTime2.text = "Time\n" + timepoint2.ToString();
@@ -158,7 +158,7 @@ public class ResultScore : MonoBehaviour
         }
         if (countscore >= hpdisplay)
         {
-            HPImage.SetActive(true);
+            //HPImage.SetActive(true);
                 textHP.text = hppoint.ToString();
             textTime2.text = "";
             textHP2.text = "HP\n" + hppoint2.ToString();
@@ -171,7 +171,7 @@ public class ResultScore : MonoBehaviour
         }
         if (countscore >= faileddisplay)
         {
-            FailedImage.SetActive(true);
+            //FailedImage.SetActive(true);
             textHP2.text = "";
             if (clearflag == false)
             {
@@ -196,7 +196,7 @@ public class ResultScore : MonoBehaviour
 
         if (countscore >= totaldisplay)
         {
-            TotalImage.SetActive(true);
+            //TotalImage.SetActive(true);
             textFailure2.text = "";
             if (clearflag == false)
             {
