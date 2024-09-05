@@ -2,11 +2,17 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MissionMapUI : MonoBehaviour
 {
     #region 変数の宣言
     [SerializeField] public TMP_Text MissionMAPText; // UIに表示するテキスト
+
+    [SerializeField] Scrollbar Scroll; // UIに表示するテキスト
+
+    float ScrollValue = 0;
+    float Yvalue;
 
     string MainMission; // メインミッションの内容
     string Hint1; // ヒント1の内容
@@ -41,6 +47,34 @@ public class MissionMapUI : MonoBehaviour
                                "<size=40>" + SubMission3 + "</size>\n\n\r" +
                                "<size=55>SITUATION</size>\n" +
                                "<size=40>" + Situation + "</size>");
+        #endregion
+    }
+
+    private void Update()
+    {
+        #region スクロールバーの更新
+        Yvalue = Input.GetAxisRaw("Vertical");
+
+        if (Yvalue > 0)
+        {
+            ScrollValue += Yvalue / 10;
+            if (ScrollValue > 1)
+            {
+                ScrollValue = 1;
+            }
+            Scroll.value = ScrollValue;
+        }
+        else if (ScrollValue < 0)
+        {
+            ScrollValue += Yvalue / 10;
+            if (ScrollValue < 0)
+            {
+                ScrollValue = 0;
+            }
+            Scroll.value = ScrollValue;
+        }
+
+
         #endregion
     }
 
