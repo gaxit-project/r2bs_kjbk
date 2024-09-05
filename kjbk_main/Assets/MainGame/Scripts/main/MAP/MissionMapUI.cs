@@ -97,40 +97,19 @@ public class MissionMapUI : MonoBehaviour
         #endregion
     }
     #region サブミッションの更新
-    public void MissionUpgread(string Text, int SMTCnt, int Success)
+    public void MissionUpgread(string Text, int SMTCnt,int a)
     {
         if(SMTCnt == 3)
         {
-            if(Success == 1)
-            {
-                SubMission1 = Text;
-            }
-            else if(Success == 2)
-            {
-                SubMission1 = Text;
-            }
+            SubMission1 = Text;
         }
         else if (SMTCnt == 2)
         {
-            if (Success == 1)
-            {
-                SubMission2 = Text;
-            }
-            else if (Success == 2)
-            {
-                SubMission2 = Text;
-            }
+            SubMission1 = Text;
         }
         else if (SMTCnt == 1)
         {
-            if (Success == 1)
-            {
-                SubMission3 = Text;
-            }
-            else if (Success == 2)
-            {
-                SubMission3 = Text;
-            }
+            SubMission1 = Text;
         }
         #region UIテキストの更新
         MissionMAPText.SetText("<size=55>MISSION</size>\n" +
