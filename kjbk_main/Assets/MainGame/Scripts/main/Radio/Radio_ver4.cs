@@ -11,6 +11,7 @@ using static Unity.IO.LowLevel.Unsafe.AsyncReadManagerMetrics;
 
 public class Radio_ver4 : MonoBehaviour
 {
+    #region 変数の宣言
     [SerializeField] GameObject ChatPanel;
     [SerializeField] GameObject ChatPanel1;
     [SerializeField] GameObject ChatPanel2;
@@ -84,6 +85,22 @@ public class Radio_ver4 : MonoBehaviour
     int ItemCnt = 3;
     //救助者人数を送ってくる
     public RescueCount RCnt;
+
+    //アイテムを列挙
+    enum Item 
+    {
+        Kitchen = 0,
+        Dining,
+        Shower,
+        Datsui,
+        Toire,
+        PC,
+        Bed,
+        Omotya,
+        Soto,
+    };
+
+    #endregion
 
     void Start()
     {
@@ -360,52 +377,63 @@ public class Radio_ver4 : MonoBehaviour
 
 
     #region　アイテムの表示
+    /// <summary>アイテムを表示</summary>
     void ItemRandom()
     {
-        if (ItemCountArray[ItemCnt] == 0)
+        if (ItemCountArray[ItemCnt] == (int)Item.Kitchen)
         {
             Item1 = true;
-            Debug.Log("アイテム1フラグオン：" + Item1);
+            RadioText.SetText("どうしよう...");
+            MMUI.MissionUpgread("☐〇を持って帰ってくる",ItemCnt,1);
+
         }
-        else if (ItemCountArray[ItemCnt] == 1)
+        else if (ItemCountArray[ItemCnt] == (int)Item.Dining)
         {
             Item2 = true;
-            Debug.Log("アイテム2フラグオン：" + Item2);
+            RadioText.SetText("どうしよう...");
+            MMUI.MissionUpgread("☐〇を持って帰ってくる", ItemCnt, 1);
         }
-        else if (ItemCountArray[ItemCnt] == 2)
+        else if (ItemCountArray[ItemCnt] == (int)Item.Shower)
         {
             Item3 = true;
-            Debug.Log("アイテム3フラグオン：" + Item3);
+            RadioText.SetText("どうしよう...");
+            MMUI.MissionUpgread("☐〇を持って帰ってくる", ItemCnt, 1);
         }
-        else if (ItemCountArray[ItemCnt] == 3)
+        else if (ItemCountArray[ItemCnt] == (int)Item.Datsui)
         {
             Item4 = true;
-            Debug.Log("アイテム4フラグオン：" + Item4);
+            RadioText.SetText("どうしよう...");
+            MMUI.MissionUpgread("☐〇を持って帰ってくる", ItemCnt, 1);
         }
-        else if (ItemCountArray[ItemCnt] == 4)
+        else if (ItemCountArray[ItemCnt] == (int)Item.Toire)
         {
             Item5 = true;
-            Debug.Log("アイテム5フラグオン：" + Item5);
+            RadioText.SetText("どうしよう...");
+            MMUI.MissionUpgread("☐〇を持って帰ってくる", ItemCnt, 1);
         }
-        else if (ItemCountArray[ItemCnt] == 5)
+        else if (ItemCountArray[ItemCnt] == (int)Item.PC)
         {
             Item6 = true;
-            Debug.Log("アイテム6フラグオン：" + Item6);
+            RadioText.SetText("どうしよう...");
+            MMUI.MissionUpgread("☐〇を持って帰ってくる", ItemCnt, 1);
         }
-        else if (ItemCountArray[ItemCnt] == 6)
+        else if (ItemCountArray[ItemCnt] == (int)Item.Bed)
         {
             Item7 = true;
-            Debug.Log("アイテム7フラグオン：" + Item7);
+            RadioText.SetText("どうしよう...");
+            MMUI.MissionUpgread("☐〇を持って帰ってくる", ItemCnt, 1);
         }
-        else if (ItemCountArray[ItemCnt] == 7)
+        else if (ItemCountArray[ItemCnt] == (int)Item.Omotya)
         {
             Item8 = true;
-            Debug.Log("アイテム8フラグオン：" + Item8);
+            RadioText.SetText("どうしよう...");
+            MMUI.MissionUpgread("☐〇を持って帰ってくる", ItemCnt, 1);
         }
-        else if (ItemCountArray[ItemCnt] == 8)
+        else if (ItemCountArray[ItemCnt] == (int)Item.Soto)
         {
             Item9 = true;
-            Debug.Log("アイテム9フラグオン：" + Item9);
+            RadioText.SetText("どうしよう...");
+            MMUI.MissionUpgread("☐〇を持って帰ってくる", ItemCnt, 1);
         }
         ItemCnt--;
         if(ItemCnt==0)

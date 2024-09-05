@@ -12,6 +12,9 @@ public class MissionMapUI : MonoBehaviour
     string Hint1; // ヒント1の内容
     string Hint2; // ヒント2の内容
     string Hint3; // ヒント3の内容
+    string SubMission1; //サブミッション1の内容
+    string SubMission2; //サブミッション2の内容
+    string SubMission3; //サブミッション3の内容
     string Situation; // 現在の状況
     #endregion
 
@@ -22,6 +25,9 @@ public class MissionMapUI : MonoBehaviour
         Hint1 = "☐????????????????";
         Hint2 = "☐????????????????";
         Hint3 = "☐????????????????";
+        SubMission1 = "☐????????????????";
+        SubMission2 = "☐????????????????";
+        SubMission3 = "☐????????????????";
         Situation = "多くの人を救え！";
         MissionMAPText.SetText("<size=55>MISSION</size>\n" +
                                "<size=40>" + MainMission + "</size>" + "\n\n\r" +
@@ -29,6 +35,10 @@ public class MissionMapUI : MonoBehaviour
                                "<size=40>" + Hint1 + "</size>\n" +
                                "<size=40>" + Hint2 + "</size>\n" +
                                "<size=40>" + Hint3 + "</size>\n\n\r" +
+                               "<size=55>SUBMISSION</size>\n" +
+                               "<size=40>" + SubMission1 + "</size>\n" +
+                               "<size=40>" + SubMission2 + "</size>\n" +
+                               "<size=40>" + SubMission3 + "</size>\n\n\r" +
                                "<size=55>SITUATION</size>\n" +
                                "<size=40>" + Situation + "</size>");
         #endregion
@@ -37,7 +47,9 @@ public class MissionMapUI : MonoBehaviour
 
 
     #region ミッションの更新
-    // テキストを更新する
+    /// <summary>テキストを更新する</summary>
+    /// <param name="Text">文字を受け取る</param>
+    /// <param name="cnt">数値を受け取る</param>
     public void MissionUpgread(string Text, int cnt)
     {
         #region ヒント更新処理
@@ -76,9 +88,65 @@ public class MissionMapUI : MonoBehaviour
                                "<size=40>" + Hint1 + "</size>\n" +
                                "<size=40>" + Hint2 + "</size>\n" +
                                "<size=40>" + Hint3 + "</size>\n\n\r" +
+                               "<size=55>SUBMISSION</size>\n" +
+                               "<size=40>" + SubMission1 + "</size>\n" +
+                               "<size=40>" + SubMission2 + "</size>\n" +
+                               "<size=40>" + SubMission3 + "</size>\n\n\r" +
                                "<size=55>SITUATION</size>\n" +
                                "<size=40>" + Situation + "</size>");
         #endregion
     }
+    #region サブミッションの更新
+    public void MissionUpgread(string Text, int SMTCnt, int Success)
+    {
+        if(SMTCnt == 3)
+        {
+            if(Success == 1)
+            {
+                SubMission1 = Text;
+            }
+            else if(Success == 2)
+            {
+                SubMission1 = Text;
+            }
+        }
+        else if (SMTCnt == 2)
+        {
+            if (Success == 1)
+            {
+                SubMission2 = Text;
+            }
+            else if (Success == 2)
+            {
+                SubMission2 = Text;
+            }
+        }
+        else if (SMTCnt == 1)
+        {
+            if (Success == 1)
+            {
+                SubMission3 = Text;
+            }
+            else if (Success == 2)
+            {
+                SubMission3 = Text;
+            }
+        }
+        #region UIテキストの更新
+        MissionMAPText.SetText("<size=55>MISSION</size>\n" +
+                               "<size=40>" + MainMission + "</size>" + "\n\n\r" +
+                               "<size=55>HINT</size>\n" +
+                               "<size=40>" + Hint1 + "</size>\n" +
+                               "<size=40>" + Hint2 + "</size>\n" +
+                               "<size=40>" + Hint3 + "</size>\n\n\r" +
+                               "<size=55>SUBMISSION</size>\n" +
+                               "<size=40>" + SubMission1 + "</size>\n" +
+                               "<size=40>" + SubMission2 + "</size>\n" +
+                               "<size=40>" + SubMission3 + "</size>\n\n\r" +
+                               "<size=55>SITUATION</size>\n" +
+                               "<size=40>" + Situation + "</size>");
+        #endregion
+    }
+    #endregion
     #endregion
 }
