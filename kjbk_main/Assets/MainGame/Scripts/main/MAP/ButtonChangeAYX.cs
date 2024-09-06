@@ -154,7 +154,7 @@ public class ButtonChangeAYX : MonoBehaviour
 
     #region ボタンの非アクティブ化: DeactivateAllButtonsメソッド
     // 全てのボタンを非アクティブにする
-    private void DeactivateAllButtons()
+    public void DeactivateAllButtons()
     {
         if (YDbutton != null) YDbutton.SetActive(false);
         if (YSbutton != null) YSbutton.SetActive(false);

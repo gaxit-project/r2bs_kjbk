@@ -6,7 +6,8 @@ using UnityEngine.InputSystem;
 public class ItemTake : MonoBehaviour
 {
     bool[] ItemFlag = new bool[9];
-    int ItemCount = 3;
+    bool[] GetItem = new bool[9];
+    public static int ItemCount = 3;
     bool ItemGetFlag = false;
 
     public SubMissionItem SMI;
@@ -26,16 +27,30 @@ public class ItemTake : MonoBehaviour
 
 
         FlagReset();
+
+        ItemCount = 3;
         
     }
 
 
     void Update()
     {
+
+        //デバッグ
+        if (Input.GetKeyDown("k"))
+        {
+            int rnd = Random.Range(0, 9);
+            ItemSet(rnd);
+        }
+
+
+
+
+
         bool Take = TakeAction.triggered;
         if(ItemGetFlag)
         {
-            if (ItemFlag[0] && Take)
+            if (ItemFlag[0] && Take && GetItem[0])
             {
                 //
                 SMI.ItemActive(0);
@@ -43,7 +58,7 @@ public class ItemTake : MonoBehaviour
                 ItemCount--;
                 FlagReset();
             }
-            else if (ItemFlag[1] && Take)
+            else if (ItemFlag[1] && Take && GetItem[1])
             {
                 //
                 SMI.ItemActive(1);
@@ -51,7 +66,7 @@ public class ItemTake : MonoBehaviour
                 ItemCount--;
                 FlagReset();
             }
-            else if (ItemFlag[2] && Take)
+            else if (ItemFlag[2] && Take && GetItem[2])
             {
                 //
                 SMI.ItemActive(2);
@@ -59,7 +74,7 @@ public class ItemTake : MonoBehaviour
                 ItemCount--;
                 FlagReset();
             }
-            else if (ItemFlag[3] && Take)
+            else if (ItemFlag[3] && Take && GetItem[3])
             {
                 //
                 SMI.ItemActive(3);
@@ -67,7 +82,7 @@ public class ItemTake : MonoBehaviour
                 ItemCount--;
                 FlagReset();
             }
-            else if (ItemFlag[4] && Take)
+            else if (ItemFlag[4] && Take && GetItem[4])
             {
                 //
                 SMI.ItemActive(4);
@@ -75,7 +90,7 @@ public class ItemTake : MonoBehaviour
                 ItemCount--;
                 FlagReset();
             }
-            else if (ItemFlag[5] && Take)
+            else if (ItemFlag[5] && Take && GetItem[5])
             {
                 //
                 SMI.ItemActive(5);
@@ -83,7 +98,7 @@ public class ItemTake : MonoBehaviour
                 ItemCount--;
                 FlagReset();
             }
-            else if (ItemFlag[6] && Take)
+            else if (ItemFlag[6] && Take && GetItem[6])
             {
                 //
                 SMI.ItemActive(6);
@@ -91,7 +106,7 @@ public class ItemTake : MonoBehaviour
                 ItemCount--;
                 FlagReset();
             }
-            else if (ItemFlag[7] && Take)
+            else if (ItemFlag[7] && Take && GetItem[7])
             {
                 //
                 SMI.ItemActive(7);
@@ -99,7 +114,7 @@ public class ItemTake : MonoBehaviour
                 ItemCount--;
                 FlagReset();
             }
-            else if (ItemFlag[8] && Take)
+            else if (ItemFlag[8] && Take && GetItem[8])
             {
                 //
                 SMI.ItemActive(8);
@@ -116,6 +131,7 @@ public class ItemTake : MonoBehaviour
         for (int i = 0; i < ItemFlag.Length; i++)
         {
             ItemFlag[i] = false;
+            GetItem[i] = false;
         }
     }
     public void ItemSet(int num)
@@ -129,9 +145,10 @@ public class ItemTake : MonoBehaviour
         }
     }
 
-    public void ItemFlagSet(bool Flag)
+    public void ItemFlagSet(bool Flag, int num)
     {
         ItemGetFlag = Flag;
+        GetItem[num] = true;
     }
 
 

@@ -9,6 +9,7 @@ public class MissionItem : MonoBehaviour
 
     public ItemTake ItemTakeSc;
 
+    public int ItemNum;
 
 
 
@@ -17,7 +18,7 @@ public class MissionItem : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             ItemGet = true;
-            ItemTakeSc.ItemFlagSet(ItemGet);
+            ItemTakeSc.ItemFlagSet(ItemGet, ItemNum);
             Debug.Log("ItemGet ; " + ItemGet);
         }
     }
@@ -27,7 +28,7 @@ public class MissionItem : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             ItemGet = false;
-            ItemTakeSc.ItemFlagSet(ItemGet);
+            ItemTakeSc.ItemFlagSet(ItemGet, ItemNum);
             Debug.Log("ItemGet ; " + ItemGet);
         }
     }

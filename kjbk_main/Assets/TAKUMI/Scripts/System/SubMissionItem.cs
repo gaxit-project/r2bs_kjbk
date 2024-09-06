@@ -9,6 +9,8 @@ public class SubMissionItem : MonoBehaviour
 
     public BlendSahder[] ShaderScripts = new BlendSahder[9];
 
+    public ButtonChangeAYX ButtonAXY;
+
     void Start()
     {
         for (int i = 0; i < subItem.Length; i++)
@@ -24,6 +26,9 @@ public class SubMissionItem : MonoBehaviour
     {
         if (0 <= num && num <= 9)
         {
+            Debug.Log("Item ; " + num + "を消去");
+            subItemButton[num].SetActive(false);
+            ButtonAXY.DeactivateAllButtons();
             subItem[num].SetActive(false);
         }
     }
