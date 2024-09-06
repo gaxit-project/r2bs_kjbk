@@ -16,10 +16,12 @@ public class ResultScore : MonoBehaviour
     float timedisplay2 = 3f;
     float hpdisplay = 3.5f;
     float hpdisplay2 = 4f;
-    float faileddisplay = 4.5f;
-    float faileddisplay2 = 5f;
-    float totaldisplay = 6f;
-    float rankdisplay = 7f;
+    float ItemDisplay = 4.5f;
+    float ItemDisplay2 = 5f;
+    float faileddisplay = 5.5f;
+    float faileddisplay2 = 6f;
+    float totaldisplay = 7f;
+    float rankdisplay = 8f;
     public GameObject ResultCanvas;
     private int score;
     private int hantei = SampleManager.hantei;
@@ -30,6 +32,8 @@ public class ResultScore : MonoBehaviour
     public Text textTime2;
     public Text textHP;
     public Text textHP2;
+    public Text textItem;
+    public Text textItem2;
     public Text textFailure;
     public Text textFailure2;
     public Text textTotal;
@@ -59,6 +63,8 @@ public class ResultScore : MonoBehaviour
     int people2;
     int timepoint2;
     int hppoint2;
+    int ItemPoint;
+    int ItemPoint2;
     int failedpeople;
     int failedtime;
     int failedhp;
@@ -114,7 +120,10 @@ public class ResultScore : MonoBehaviour
         timepoint2 = timepoint;
         hppoint = hp * 100;
         hppoint2 = hppoint;
-        
+
+        ItemPoint = (3-ItemTake.ItemCount) * 500;
+        ItemPoint2 = ItemPoint;
+
         Result(PlayerPrefs.GetString("Result"));
     }
     private void Update()
@@ -129,7 +138,7 @@ public class ResultScore : MonoBehaviour
             FalseImage.SetActive(true);
             ClearImage.SetActive(false);
         }
-        total = (int)(people + timepoint + hppoint);
+        total = (int)(people + timepoint + hppoint + ItemPoint);
         countscore += Time.deltaTime;
         
         if(countscore >= injureddisplay)
@@ -169,10 +178,27 @@ public class ResultScore : MonoBehaviour
             pt = (int)(people + timepoint);
             textTotal.text = pt.ToString() + "+" + hppoint.ToString();
         }
+
+
+        if (countscore >= ItemDisplay)
+        {
+            //HPImage.SetActive(true);
+            textItem.text = ItemPoint.ToString();
+            textHP2.text = "";
+            textItem2.text = "Item\n" + ItemPoint2.ToString();
+
+        }
+        if (countscore >= ItemDisplay2)
+        {
+            pt = (int)(people + timepoint + hppoint);
+            textTotal.text = pt.ToString() + "+" + ItemPoint.ToString();
+        }
+
+
         if (countscore >= faileddisplay)
         {
             //FailedImage.SetActive(true);
-            textHP2.text = "";
+            textItem2.text = "";
             if (clearflag == false)
             {
                 textFailure.text = "-500";
@@ -200,7 +226,7 @@ public class ResultScore : MonoBehaviour
             textFailure2.text = "";
             if (clearflag == false)
             {
-                failedtotal = (int)(people + timepoint + hppoint) - 500;
+                failedtotal = (int)(people + timepoint + hppoint + ItemPoint) - 500;
                 
                 if (failedtotal > 0)
                 {
@@ -213,7 +239,7 @@ public class ResultScore : MonoBehaviour
             }
             else if(clearflag == true)
             {
-                total = (int)(people + timepoint + hppoint);
+                total = (int)(people + timepoint + hppoint + ItemPoint);
                 textTotal.text = total.ToString();
             }
             
@@ -224,15 +250,15 @@ public class ResultScore : MonoBehaviour
             {
 
                 {
-                    if (total >= 2000)
+                    if (total >= 2500)
                     {
                         RankText.SetText("<sprite=0>");
                     }
-                    else if (total >= 1700)
+                    else if (total >= 2000)
                     {
                         RankText.SetText("<sprite=1>");
                     }
-                    else if (total >= 1400)
+                    else if (total >= 1500)
                     {
                         RankText.SetText("<sprite=2>");
                     }
