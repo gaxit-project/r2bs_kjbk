@@ -13,6 +13,7 @@ public class ButtonChangeAYX : MonoBehaviour
     public GameObject YDbutton; // YDボタン
     public GameObject YSbutton; // YSボタン
     public GameObject Abutton; // Aボタン
+    public GameObject AbuttonSub; // Aボタンサブ
     public GameObject Xbutton; // Xボタン
 
     private RescueNPC rescueNPC; // RescueNPCのインスタンス
@@ -102,6 +103,16 @@ public class ButtonChangeAYX : MonoBehaviour
                     }
                     break;
                 #endregion
+                #region サブミッション時の表示ボタン
+                case "AButtonSub":
+                    if (!x)
+                    {
+                        DeactivateAllButtons();
+                        if (AbuttonSub != null) AbuttonSub.SetActive(true);
+                        x = true;
+                    }
+                    break;
+                #endregion
                 #region 担ぐ時の表示ボタン
                 case "XButton":
                     if (!Xb && Xbutton != null) Xbutton.SetActive(true);
@@ -148,6 +159,7 @@ public class ButtonChangeAYX : MonoBehaviour
         if (YDbutton != null) YDbutton.SetActive(false);
         if (YSbutton != null) YSbutton.SetActive(false);
         if (Abutton != null) Abutton.SetActive(false);
+        if (AbuttonSub != null) AbuttonSub.SetActive(false);
         if (!Xb && Xbutton != null) Xbutton.SetActive(false);
         x = false;
     }
@@ -169,6 +181,10 @@ public class ButtonChangeAYX : MonoBehaviour
                 break;
             case "AButton":
                 if (Abutton != null) Abutton.SetActive(false);
+                x = false;
+                break;
+            case "AButtonSub":
+                if (AbuttonSub != null) AbuttonSub.SetActive(false);
                 x = false;
                 break;
             case "XButton":

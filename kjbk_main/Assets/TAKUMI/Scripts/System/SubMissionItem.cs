@@ -5,25 +5,33 @@ using UnityEngine;
 public class SubMissionItem : MonoBehaviour
 {
     [SerializeField] public GameObject[] subItem = new GameObject[9];
+    [SerializeField] public GameObject[] subItemButton = new GameObject[9];
 
     public BlendSahder[] ShaderScripts = new BlendSahder[9];
+
     void Start()
     {
         for (int i = 0; i < subItem.Length; i++)
         {
-            Debug.Log("ここまで　1");
-            //ShaderScripts[i] = subItem[i].GetComponent<BlendSahder>();
-            Debug.Log("ここまで　2");
+            subItemButton[i].SetActive(false);
             ShaderScripts[i].enabled = false;
-            Debug.Log("ここまで　3");
+
         }
     }
+
 
     public void ItemActive(int num)
     {
         if (0 <= num && num <= 9)
         {
             subItem[num].SetActive(false);
+        }
+    }
+    public void ItemButtonActive(int num)
+    {
+        if (0 <= num && num <= 9)
+        {
+            subItemButton[num].SetActive(true);
         }
     }
 

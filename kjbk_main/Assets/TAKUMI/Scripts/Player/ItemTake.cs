@@ -7,11 +7,13 @@ public class ItemTake : MonoBehaviour
 {
     bool[] ItemFlag = new bool[9];
     int ItemCount = 3;
-    bool ItemGet = false;
+    bool ItemGetFlag = false;
 
     public SubMissionItem SMI;
 
     public MissionMapUI MMUI;
+
+
     private InputAction TakeAction;
     void Start()
     {
@@ -31,7 +33,7 @@ public class ItemTake : MonoBehaviour
     void Update()
     {
         bool Take = TakeAction.triggered;
-        if(ItemGet)
+        if(ItemGetFlag)
         {
             if (ItemFlag[0] && Take)
             {
@@ -122,22 +124,15 @@ public class ItemTake : MonoBehaviour
         {
             ItemFlag[num] = true;
             SMI.ShaderOn(num);
+            SMI.ItemButtonActive(num);
+            Debug.Log("アイテムセット　" + num);
         }
     }
 
-    private void OnTriggerStay(Collider other)
+    public void ItemFlagSet(bool Flag)
     {
-        if (other.gameObject.CompareTag("Item"))
-        {
-            ItemGet = true;
-        }
+        ItemGetFlag = Flag;
     }
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.CompareTag("Item"))
-        {
-            ItemGet = false;
-        }
-    }
+
 }
