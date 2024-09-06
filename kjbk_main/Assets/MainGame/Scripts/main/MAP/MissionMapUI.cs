@@ -48,6 +48,8 @@ public class MissionMapUI : MonoBehaviour
                                "<size=55>SITUATION</size>\n" +
                                "<size=40>" + Situation + "</size>");
         #endregion
+
+
     }
 
     private void Update()
@@ -55,20 +57,27 @@ public class MissionMapUI : MonoBehaviour
         #region スクロールバーの更新
         Yvalue = Input.GetAxisRaw("Vertical");
 
-        ScrollValue += Yvalue / 100;
-        if (ScrollValue > 1)
+        if(Yvalue != 0)
         {
-            ScrollValue = 1;
-        }
-        if (ScrollValue < 0)
-        {
-            ScrollValue = 0;
-        }
-        Scroll.value = ScrollValue;
+            ScrollValue += Yvalue / 100;
+            if (ScrollValue > 1)
+            {
+                ScrollValue = 1;
+            }
+            if (ScrollValue < 0)
+            {
+                ScrollValue = 0;
+            }
+            Scroll.value = ScrollValue;
 
-        Yvalue = 0;
-
+            Yvalue = 0;
+        }
         #endregion
+    }
+
+    private void OnEnable()
+    {
+        Scroll.value = 1;
     }
 
 
