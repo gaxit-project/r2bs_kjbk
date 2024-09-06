@@ -11,7 +11,6 @@ public class testWalk : MonoBehaviour
     public Transform central;
 
     private NavMeshAgent agent;
-    private RescueNPC rescueNPC;
 
     //ランダムで決めるx軸の最大値
     [SerializeField] float Xradius = 10;
@@ -27,7 +26,6 @@ public class testWalk : MonoBehaviour
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        rescueNPC = GetComponent<RescueNPC>();
 
         //目標地点に近づいても速度を落とさない
         agent.autoBraking = false;
@@ -49,7 +47,16 @@ public class testWalk : MonoBehaviour
         //NavMeshAgentに目標地点を設定する
         agent.destination = pos;
     }
-    
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Blaze"))
+        {
+            Debug.Log("hit");
+            agent.isStopped = true;
+        }
+    }
+
     void Update()
     {
         //待ち時間を数える
@@ -58,6 +65,10 @@ public class testWalk : MonoBehaviour
         //待ち時間が設定された数値を超えると発動
         if (time > waitTime)
         {
+            if (agent.isStopped)
+            {
+                agent.isStopped = false;
+            }
             //目標地点を設定し直す
             GotoNextPoint();
             time = 0;
