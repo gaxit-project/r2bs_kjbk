@@ -11,7 +11,7 @@ public class MissionMapUI : MonoBehaviour
 
     [SerializeField] Scrollbar Scroll; // UIに表示するテキスト
 
-    float ScrollValue = 0;
+    float ScrollValue = 1;
     float Yvalue;
 
     string MainMission; // メインミッションの内容
@@ -26,9 +26,10 @@ public class MissionMapUI : MonoBehaviour
 
     void Start()
     {
+
         #region 初期テキスト設定
         MainMission = "☐10人以上人を助けろ！";
-        Hint1 = "☐????????????????";
+        Hint1 = "<sprite=1>の奥の方で\n　人が倒れている？";
         Hint2 = "☐????????????????";
         Hint3 = "☐????????????????";
         SubMission1 = "☐????????????????";
@@ -55,9 +56,9 @@ public class MissionMapUI : MonoBehaviour
     private void Update()
     {
         #region スクロールバーの更新
-        Yvalue = Input.GetAxisRaw("Vertical");
+        float Yvalue = Input.GetAxisRaw("Vertical");
 
-        if(Yvalue != 0)
+        if (Yvalue != 0)
         {
             ScrollValue += Yvalue / 100;
             if (ScrollValue > 1)
@@ -69,15 +70,15 @@ public class MissionMapUI : MonoBehaviour
                 ScrollValue = 0;
             }
             Scroll.value = ScrollValue;
-
-            Yvalue = 0;
         }
         #endregion
     }
 
+
     private void OnEnable()
     {
-        Scroll.value = 1;
+        ScrollValue = 1;
+        Scroll.value = ScrollValue;
     }
 
 
@@ -141,11 +142,11 @@ public class MissionMapUI : MonoBehaviour
         }
         else if (SMTCnt == 2)
         {
-            SubMission1 = Text;
+            SubMission2 = Text;
         }
         else if (SMTCnt == 1)
         {
-            SubMission1 = Text;
+            SubMission3 = Text;
         }
         #region UIテキストの更新
         MissionMAPText.SetText("<size=55>MISSION</size>\n" +

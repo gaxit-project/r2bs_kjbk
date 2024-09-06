@@ -101,7 +101,6 @@ public class Radio_ver4 : MonoBehaviour
         Omotya,
         Soto,
     };
-
     #endregion
 
     void Start()
@@ -150,6 +149,7 @@ public class Radio_ver4 : MonoBehaviour
 
         FirstFlag = true;
         MMcnt = 0;
+        ItemCnt = 3;
         //ルール説明のラジオを出す
         CollapseDialogue();
         FirstRescueWall.SetActive(true);
@@ -168,6 +168,8 @@ public class Radio_ver4 : MonoBehaviour
         }
         #endregion
     }
+
+
 
     #region ヒント
     // 軽症者のヒントをプッシュする
@@ -387,7 +389,7 @@ public class Radio_ver4 : MonoBehaviour
             Item1 = true;
             itemTake.ItemSet(0);
             RadioText.SetText("友人と買ったマグカップを持ってきてほしいの...");
-            MMUI.MissionUpgread("☐マグカップを持って帰る", ItemCnt,1);
+            MMUI.MissionUpgread("☐マグカップを探せ！", ItemCnt,1);
 
         }
         else if (ItemCountArray[ItemCnt] == (int)Item.Dining)
@@ -395,56 +397,56 @@ public class Radio_ver4 : MonoBehaviour
             Item2 = true;
             itemTake.ItemSet(1);
             RadioText.SetText("スマホが見つからない...\n\rどこに落としちゃったんだ...");
-            MMUI.MissionUpgread("☐スマホを持って帰る", ItemCnt, 1);
+            MMUI.MissionUpgread("☐スマホを探せ！", ItemCnt, 1);
         }
         else if (ItemCountArray[ItemCnt] == (int)Item.Shower)
         {
             Item3 = true;
             itemTake.ItemSet(2);
             RadioText.SetText("限定品のシャンプーを\n\r持ってきてほしいの...");
-            MMUI.MissionUpgread("☐シャンプーを持って帰る", ItemCnt, 1);
+            MMUI.MissionUpgread("☐シャンプーを探せ！", ItemCnt, 1);
         }
         else if (ItemCountArray[ItemCnt] == (int)Item.Datsui)
         {
             Item4 = true;
             itemTake.ItemSet(3);
             RadioText.SetText("お気に入りのTシャツを\n\r持って帰ってきてほしい...");
-            MMUI.MissionUpgread("☐Tシャツを持って帰る", ItemCnt, 1);
+            MMUI.MissionUpgread("☐Tシャツを探せ！", ItemCnt, 1);
         }
         else if (ItemCountArray[ItemCnt] == (int)Item.Toire)
         {
             Item5 = true;
             itemTake.ItemSet(4);
             RadioText.SetText("思い出の絵画を取ってくれ...");
-            MMUI.MissionUpgread("☐絵画を持って帰る", ItemCnt, 1);
+            MMUI.MissionUpgread("☐絵画を探せ！", ItemCnt, 1);
         }
         else if (ItemCountArray[ItemCnt] == (int)Item.PC)
         {
             Item6 = true;
             itemTake.ItemSet(5);
             RadioText.SetText("私の命より大事な\n\rゲーム機を取ってきてほしいの...");
-            MMUI.MissionUpgread("☐ゲーム機を持って帰る", ItemCnt, 1);
+            MMUI.MissionUpgread("☐ゲーム機を探せ！", ItemCnt, 1);
         }
         else if (ItemCountArray[ItemCnt] == (int)Item.Bed)
         {
             Item7 = true;
             itemTake.ItemSet(6);
             RadioText.SetText("家族との写真を持って帰ってきてほしい...");
-            MMUI.MissionUpgread("☐写真を持って帰る", ItemCnt, 1);
+            MMUI.MissionUpgread("☐写真を探せ！", ItemCnt, 1);
         }
         else if (ItemCountArray[ItemCnt] == (int)Item.Omotya)
         {
             Item8 = true;
             itemTake.ItemSet(7);
             RadioText.SetText("子供のころから一緒に過ごしていた\n\rくまのぬいぐるみも助けてほしいの！");
-            MMUI.MissionUpgread("☐くまのぬいぐるみを持って帰る", ItemCnt, 1);
+            MMUI.MissionUpgread("☐くまのぬいぐるみを\n　探せ！", ItemCnt, 1);
         }
         else if (ItemCountArray[ItemCnt] == (int)Item.Soto)
         {
             Item9 = true;
             itemTake.ItemSet(8);
-            RadioText.SetText("大切に育てた花が燃えてしまう...1輪でもいいから持ってきてほしい...");
-            MMUI.MissionUpgread("☐花を持って帰る", ItemCnt, 1);
+            RadioText.SetText("大切に育てた花が燃えてしまう...\n\r1輪でもいいから持ってきてほしい...");
+            MMUI.MissionUpgread("☐花を探せ！", ItemCnt, 1);
         }
         ItemCnt--;
         if(ItemCnt==0)

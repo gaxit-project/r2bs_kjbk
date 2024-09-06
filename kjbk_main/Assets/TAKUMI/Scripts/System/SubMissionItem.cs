@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class SubMissionItem : MonoBehaviour
@@ -11,8 +12,14 @@ public class SubMissionItem : MonoBehaviour
 
     public ButtonChangeAYX ButtonAXY;
 
+    //アイテムテキスト関連
+    string ItemText;
+    [SerializeField] public TMP_Text ItemTextMeshPro;
+    public GameObject ItemTextObject;
+
     void Start()
     {
+        ItemTextObject.SetActive(false);
         for (int i = 0; i < subItem.Length; i++)
         {
             subItemButton[i].SetActive(false);
@@ -29,7 +36,11 @@ public class SubMissionItem : MonoBehaviour
             Debug.Log("Item ; " + num + "を消去");
             subItemButton[num].SetActive(false);
             ButtonAXY.DeactivateAllButtons();
-            subItem[num].SetActive(false);
+            subItem[num].SetActive(false); 
+            ItemText = "アイテムを取得した";
+            ItemTextMeshPro.SetText(ItemText);
+            ItemTextObject.SetActive(true);
+            StartCoroutine(TextStop());
         }
     }
     public void ItemButtonActive(int num)
@@ -46,6 +57,12 @@ public class SubMissionItem : MonoBehaviour
         {
             ShaderScripts[num].enabled = true;
         }
+    }
+
+    private IEnumerator TextStop()
+    {
+        yield return new WaitForSeconds(2f);
+        ItemTextObject.SetActive(false);
     }
 
 }

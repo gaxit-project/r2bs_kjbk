@@ -283,7 +283,7 @@ public class PlayController : MonoBehaviour
                         animator.SetBool("CarryWalk", true);
                         #region 背負い時のスタミナの増減
                         //背負い時のスタミナ消費量
-                        StaminaDownSpeed = 3f;//3秒かけて消費
+                        StaminaDownSpeed = 6f;//3秒かけて消費
                         //背負い時のスタミナ回復量
                         StaminaUpSpeed = 13f;//13秒かけて回復
                         if (CurrentSpeed == Speed)//歩き
@@ -321,7 +321,7 @@ public class PlayController : MonoBehaviour
                         animator.SetBool("Walk", true);
                         #region 平常時のスタミナの増減
                         //スタミナ消費量
-                        StaminaDownSpeed = 5f;//5秒かけて無くなる
+                        StaminaDownSpeed = 10f;//10秒かけて無くなる
                         //スタミナ回復猟
                         StaminaUpSpeed = 8f;//8秒賭けて回復
                         if (CurrentSpeed == Speed)//歩き
