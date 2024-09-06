@@ -55,25 +55,18 @@ public class MissionMapUI : MonoBehaviour
         #region スクロールバーの更新
         Yvalue = Input.GetAxisRaw("Vertical");
 
-        if (Yvalue > 0)
+        ScrollValue += Yvalue / 100;
+        if (ScrollValue > 1)
         {
-            ScrollValue += Yvalue / 10;
-            if (ScrollValue > 1)
-            {
-                ScrollValue = 1;
-            }
-            Scroll.value = ScrollValue;
+            ScrollValue = 1;
         }
-        else if (ScrollValue < 0)
+        if (ScrollValue < 0)
         {
-            ScrollValue += Yvalue / 10;
-            if (ScrollValue < 0)
-            {
-                ScrollValue = 0;
-            }
-            Scroll.value = ScrollValue;
+            ScrollValue = 0;
         }
+        Scroll.value = ScrollValue;
 
+        Yvalue = 0;
 
         #endregion
     }
