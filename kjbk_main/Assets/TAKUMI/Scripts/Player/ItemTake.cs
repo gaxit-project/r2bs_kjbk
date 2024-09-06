@@ -130,29 +130,28 @@ public class ItemTake : MonoBehaviour
     }
     public void ItemSet(int num)
     {
-        if(0 <= num && num <= 9)
+        if(0 <= num && num <= 8)
         {
             ItemFlag[num] = true;
             SMI.ShaderOn(num);
             SMI.ItemButtonActive(num);
             Debug.Log("アイテムセット　" + num);
             Item[ItemCount - 1] = num;
+            Debug.Log("ItemCount ; " + ItemCount + "にItemNumber ; " + num + "をセット");
             ItemCount--;
         }
     }
 
     public int ItemID(int num)
     {
-        for(int i = 0; i < Item.Length; i++)
+        for (int i = Item.Length - 1; i >= 0; i--)
         {
             if (Item[i] == num)
             {
+                Debug.Log("ItemNumber ; " + num + " をItemID ; " + i + " で返却");
                 return i + 1;
             }
-            else
-            {
-                return -1;//エラー
-            }
+
         }
         return -1;//エラー
     }
