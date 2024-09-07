@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using TMPro;
+using Unity.Burst.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -101,6 +102,14 @@ public class Radio_ver4 : MonoBehaviour
         Omotya,
         Soto,
     };
+
+    //状況説明用のテキスト
+    //アイテムテキスト関連
+    string ItemText;
+    [SerializeField] public TMP_Text ItemTextMeshPro;
+    public GameObject ItemTextObject;
+    private Coroutine ActiveCoroutine2;
+
     #endregion
 
     void Start()
@@ -268,6 +277,7 @@ public class Radio_ver4 : MonoBehaviour
             //25%の確率でアイテムを出現させる
             else if (RndDialugue == 7 || RndDialugue == 8)
             {
+                HMIUI(2);
                 ItemRandom();
             }
         }
@@ -310,6 +320,7 @@ public class Radio_ver4 : MonoBehaviour
         //もしアイテムの数と残り軽傷者数+ヒントの数が同じならアイテム出現をする
         if(30-ResCnt-StackCnt == ItemCnt)
         {
+            HMIUI(2);
             ItemRandom();
         }
 
@@ -328,8 +339,9 @@ public class Radio_ver4 : MonoBehaviour
             MMHint = stackMM.Pop();
             MMcnt++;
             MMUI.MissionUpgread(MMHint,MMcnt);
+            HMIUI(1);
             //もし1人目の時
-            if(FirstFlag)
+            if (FirstFlag)
             {
                 //StartCoroutine(FirstTenmetsu());
                 FirstStopPlayer = true;
@@ -348,6 +360,7 @@ public class Radio_ver4 : MonoBehaviour
             MMHint = stackMM.Pop();
             MMcnt++;
             MMUI.MissionUpgread(MMHint, MMcnt);
+            HMIUI(1);
         }
         //それ以外はランダムでテキストに入れる
         else
@@ -453,6 +466,41 @@ public class Radio_ver4 : MonoBehaviour
         {
             ItemOff = true;
         }
+    }
+    #endregion
+
+    #region ミッションやヒントを受け取った際の処理
+    public void HMIUI(int HMICnt)
+    {
+        // 現在のコルーチンが実行中なら停止する
+        if (ActiveCoroutine2 != null)
+        {
+            StopCoroutine(ActiveCoroutine2);
+        }
+        //ヒントを受け取ったときの処理
+        if (HMICnt == 1)
+        {
+            ItemText = "ヒントを入手";
+        }
+        //サブミッションを受け取ったときの処理
+        else if (HMICnt == 2)
+        {
+            ItemText = "サブミッションを開始";
+        }
+        //サブミッションを達成したときの処理
+        else if (HMICnt == 3)
+        {
+            ItemText = "アイテムを取得";
+        }
+        ItemTextMeshPro.SetText(ItemText);
+        ItemTextObject.SetActive(true);
+        ActiveCoroutine2 = StartCoroutine(TextStop());
+    }
+
+    private IEnumerator TextStop()
+    {
+        yield return new WaitForSeconds(2f);
+        ItemTextObject.SetActive(false);
     }
     #endregion
 

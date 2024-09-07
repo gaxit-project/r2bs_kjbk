@@ -17,6 +17,8 @@ public class SubMissionItem : MonoBehaviour
     [SerializeField] public TMP_Text ItemTextMeshPro;
     public GameObject ItemTextObject;
 
+    public Radio_ver4 Radio4;
+
     void Start()
     {
         ItemTextObject.SetActive(false);
@@ -36,11 +38,8 @@ public class SubMissionItem : MonoBehaviour
             Debug.Log("Item ; " + num + "を消去");
             subItemButton[num].SetActive(false);
             ButtonAXY.DeactivateAllButtons();
-            subItem[num].SetActive(false); 
-            ItemText = "アイテムを取得した";
-            ItemTextMeshPro.SetText(ItemText);
-            ItemTextObject.SetActive(true);
-            StartCoroutine(TextStop());
+            subItem[num].SetActive(false);
+            Radio4.HMIUI(3);
         }
     }
     public void ItemButtonActive(int num)
@@ -57,12 +56,6 @@ public class SubMissionItem : MonoBehaviour
         {
             ShaderScripts[num].enabled = true;
         }
-    }
-
-    private IEnumerator TextStop()
-    {
-        yield return new WaitForSeconds(2f);
-        ItemTextObject.SetActive(false);
     }
 
 }
