@@ -16,6 +16,7 @@ TagManager:
   - ButtonAYX
   - NaviSystem
   - Item
+  - Collider
   layers:
   - Default
   - TransparentFX

@@ -118,6 +118,7 @@ public class AutoWalk : MonoBehaviour
         // 待ち時間が設定された数値を超えると発動
         if (time > waitTime && !Encount)
         {
+            //navmeshAgentの停止解除
             if (m_Agent.isStopped)
             {
                 m_Agent.isStopped = false;
@@ -134,10 +135,12 @@ public class AutoWalk : MonoBehaviour
     }
     #endregion
 
-    void OnCollisionEnter(Collision collision)
+    void OnTriggerStay(Collider other)
     {
-        if (collision.gameObject.CompareTag("Blaze"))
+        //接触しているオブジェクトのタグが"Collider"のとき
+        if (other.CompareTag("Collider"))
         {
+            //navmeshAgent停止
             m_Agent.isStopped = true;
         }
     }
