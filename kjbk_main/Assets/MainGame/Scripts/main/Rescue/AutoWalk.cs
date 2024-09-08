@@ -109,6 +109,10 @@ public class AutoWalk : MonoBehaviour
         // 待ち時間が設定された数値を超えると発動
         if (time > waitTime && !Encount)
         {
+            if (m_Agent.isStopped)
+            {
+                m_Agent.isStopped = false;
+            }
             // 目標地点を設定し直す
             GotoNextPoint();
             // キャラ移動アニメーション
@@ -122,6 +126,15 @@ public class AutoWalk : MonoBehaviour
         #endregion
     }
     #endregion
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Blaze"))
+        {
+            m_Agent.isStopped = true;
+            NPCanimator.SetBool("Walk", false);
+        }
+    }
 
     #region ナビゲーション制御メソッド
     // WaitSecondで指定している秒数後、同じ座標の場合ナビゲーション停止
