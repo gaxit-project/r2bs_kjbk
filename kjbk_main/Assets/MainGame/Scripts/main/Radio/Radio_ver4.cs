@@ -566,7 +566,11 @@ public class Radio_ver4 : MonoBehaviour
         TextONFlag = false;
         
         //NPCとキャラ停止
-        NPCStop = true; 
+        if(CharStop)
+        {
+            NPCStop = true;
+        }
+        
         CharStop = false;
 
         //もしコラプスゲージの無線の順番待ちがあったら実行する
