@@ -159,6 +159,7 @@ public class RescueNPC : MonoBehaviour
                         NPCCol.enabled = false;
                         Invoke(nameof(MoveLock), 2f);
                     }
+                    
                     else   //追従時
                     {
                         DiplicationScript.OffFlag();
@@ -233,7 +234,7 @@ public class RescueNPC : MonoBehaviour
                 Invoke(nameof(MoveLock), 2f);
                 RescuedVectorNPC(TargetPosition.x, TargetPosition.y, TargetPosition.z);   //NPCを救出したときのVector
                 SetRescued(true);
-                CountDestroy();   //一定時間後にオブジェクト削除
+                CountDestroy2();   //一定時間後にオブジェクト削除
                 r_num = CounterScript.getNum();
                 POP.PopR();
                 ArrowON = false;
@@ -284,6 +285,15 @@ public class RescueNPC : MonoBehaviour
         }
         //Invoke("Destroy", 5f);
     }
+    public void CountDestroy2()//オブジェクトの破壊
+    {
+        if (Severe)//重傷者の時
+        {
+            POP.HeavyR();
+        }
+        Invoke("Destroy", 0f);
+    }
+
 
     private void Destroy()
     {
