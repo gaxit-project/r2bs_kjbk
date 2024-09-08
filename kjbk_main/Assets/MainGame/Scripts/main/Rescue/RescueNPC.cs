@@ -147,6 +147,7 @@ public class RescueNPC : MonoBehaviour
             {
                 if (HoldGauge != null && HoldGauge.gaugeStatus)//ã~èïì¸óÕ
                 {
+                    Debug.Log("Follow ; " + IsItFollow() + "\nDiplication ; " + DiplicationScript.getFlag());
                     if (!IsItFollow() && !DiplicationScript.getFlag())   //îÒí«è]éû
                     {
                         DiplicationScript.OnFlag();
@@ -159,9 +160,10 @@ public class RescueNPC : MonoBehaviour
                         NPCCol.enabled = false;
                         Invoke(nameof(MoveLock), 2f);
                     }
-                    
+                    /*
                     else   //í«è]éû
                     {
+                        
                         DiplicationScript.OffFlag();
                         SetFollow(false);
                         PlayerPrefs.SetInt("Lock", 1);
@@ -172,6 +174,7 @@ public class RescueNPC : MonoBehaviour
                         PutVectorNPC(TargetPosition.x, TargetPosition.y, TargetPosition.z);
                         Invoke(nameof(MoveLock), 2f);
                     }
+                    */
                 }
 
             }
