@@ -35,7 +35,7 @@ public class PlayController : MonoBehaviour
 
     // プレイヤーの状態
     bool House = PlayerRayCast.HosuStatus;
-    bool Follow = RescueNPC.Follow;
+    public static bool Follow;
 
     // 現在の進行方向
     public static Vector3 CurrentForward;
@@ -139,6 +139,8 @@ public class PlayController : MonoBehaviour
     void Update()
     {
         Follow = RescueNPC.Follow;
+
+        PlayerPrefs.SetInt("Follow", Follow ? 1 : 0);
 
         PlayerPrefs.SetInt("Map", 0);
 
@@ -257,7 +259,14 @@ public class PlayController : MonoBehaviour
                 {
                     #region ダッシュ状態判定
                     // ダッシュ状態判定
-                    CurrentSpeed = IsPressedRun ? RunSpeed : Speed;
+                    if(Follow)
+                    {
+                        CurrentSpeed = IsPressedRun ? RunSpeed : Speed;
+                    }
+                    else
+                    {
+                        CurrentSpeed = RunSpeed;
+                    }
                     CurrentSpeed = RunOut ? Speed : CurrentSpeed;
 
                     #endregion
@@ -319,40 +328,6 @@ public class PlayController : MonoBehaviour
                     else//重傷者を背負っていない
                     {
                         animator.SetBool("Walk", true);
-                        #region 平常時のスタミナの増減
-                        //スタミナ消費量
-                        StaminaDownSpeed = 10f;//10秒かけて無くなる
-                        //スタミナ回復猟
-                        StaminaUpSpeed = 8f;//8秒賭けて回復
-                        if (CurrentSpeed == Speed)//歩き
-                        {
-                            #region 平常歩き時のスタミナ
-                            if (Stamina <= 1)
-                            {
-                                Stamina += Time.deltaTime / StaminaUpSpeed;
-                            }
-                            else//1に揃える
-                            {
-                                Stamina = 1f;
-                            }
-                            PlayerPrefs.SetFloat("Stamina", Stamina);
-                            #endregion
-                        }
-                        else//ダッシュ
-                        {
-                            #region 平常ダッシュ時のスタミナ
-                            if (Stamina >= 0)
-                            {
-                                Stamina -= Time.deltaTime / StaminaDownSpeed;
-                            }
-                            else//0に揃える
-                            {
-                                Stamina = 0f;
-                            }
-                            PlayerPrefs.SetFloat("Stamina", Stamina);
-                            #endregion
-                        }
-                        #endregion
                     }
 
                     //進行方向を向く

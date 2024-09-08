@@ -14,8 +14,6 @@ public class StaminaUI : MonoBehaviour
 
     float Stamina;
 
-    float time;
-
     public Color color_1, color_2, color_3, color_4;
 
     #endregion
@@ -31,20 +29,15 @@ public class StaminaUI : MonoBehaviour
         #region スタミナUI処理
         Stamina = PlayerPrefs.GetFloat("Stamina");
 
-        #region スタミナが満タン時に1秒経過で非表示
-        //スタミナが満タン時に1秒経過で非表示
-        if (Stamina >= 1f)
+        #region 平常時に非表示
+        if (0 == PlayerPrefs.GetInt("Follow"))
         {
-            time += Time.deltaTime;
-            if(time >= 1f)
-            {
-                StaminaGauge.SetActive(false);
-            }
+
+            StaminaGauge.SetActive(false);
             
         }
         else
         {
-            time = 0f;
             StaminaGauge.SetActive(true);
         }
         #endregion

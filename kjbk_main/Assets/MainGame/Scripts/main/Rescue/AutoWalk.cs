@@ -85,6 +85,13 @@ public class AutoWalk : MonoBehaviour
     #region 更新処理
     void FixedUpdate()
     {
+        #region 速度でのアニメーション制御
+        float speed  = m_Agent.velocity.magnitude;
+        NPCanimator.SetFloat("NPCspeed", speed);
+        #endregion
+
+
+
         #region エンカウント判定
         // 初接触判定
         Encount = rescueNPC.IsItFirstContact();
@@ -116,12 +123,10 @@ public class AutoWalk : MonoBehaviour
             // 目標地点を設定し直す
             GotoNextPoint();
             // キャラ移動アニメーション
-            NPCanimator.SetBool("Walk", true);
             time = 0;
         }
         if (GotoNextPointGoal())
         {
-            NPCanimator.SetBool("Walk", false);
         }
         #endregion
     }
@@ -132,7 +137,6 @@ public class AutoWalk : MonoBehaviour
         if (collision.gameObject.CompareTag("Blaze"))
         {
             m_Agent.isStopped = true;
-            NPCanimator.SetBool("Walk", false);
         }
     }
 
