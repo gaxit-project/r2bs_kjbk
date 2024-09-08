@@ -63,7 +63,7 @@ public class ButtonChangeAYX : MonoBehaviour
             if (progress > 0)
             {
                 // Xボタンを表示
-                if (Xbutton != null) Xbutton.SetActive(true);
+                if (Xbutton != null) Xbutton.SetActive(false);
             }
             else
             {
