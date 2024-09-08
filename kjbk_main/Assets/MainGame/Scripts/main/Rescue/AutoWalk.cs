@@ -6,6 +6,8 @@ using UnityEngine.AI;
 public class AutoWalk : MonoBehaviour
 {
 
+    //aa
+
     #region アタッチされるオブジェクトとコンポーネントの参照
     // ナビゲーション目的地のTransform
     public Transform Target;
