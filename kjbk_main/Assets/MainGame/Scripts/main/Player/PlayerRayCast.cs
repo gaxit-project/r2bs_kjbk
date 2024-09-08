@@ -91,7 +91,7 @@ public class PlayerRayCast : MonoBehaviour
             // LogにHitしたオブジェクト名を出力
             // HitしたオブジェクトのTag何か判定
             #region Hitしたものが消火器BOXの時
-            if (raycastHit.collider.gameObject.CompareTag(WaterPoint)){
+            if (raycastHit.collider.gameObject.CompareTag(WaterPoint) || 1 == PlayerPrefs.GetInt("YS")){
                 //消火器用スクリプト
                 if (Take )
                 {
@@ -126,7 +126,6 @@ public class PlayerRayCast : MonoBehaviour
                     }
                     SHold = true;
                 }
-
 
             }
             #endregion

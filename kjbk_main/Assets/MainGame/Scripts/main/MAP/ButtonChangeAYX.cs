@@ -21,7 +21,7 @@ public class ButtonChangeAYX : MonoBehaviour
     private GameObject Rescue; // Rescueオブジェクト
     private bool Xb = false; // Xボタンの表示状態
     private bool x = false; // 他のボタンの表示状態
-    public int cnt = 0; // ボタンのカウント
+    public static int cnt = 0; // ボタンのカウント
     #endregion
 
     #region 初期化: Awakeメソッド
@@ -71,6 +71,13 @@ public class ButtonChangeAYX : MonoBehaviour
                 if (Xbutton != null) Xbutton.SetActive(false);
             }
         }
+
+        if(100f == PlayerPrefs.GetFloat("capacity"))
+        {
+            if (YSbutton != null) YSbutton.SetActive(false);
+        }
+
+
     }
     #endregion
 
@@ -85,7 +92,8 @@ public class ButtonChangeAYX : MonoBehaviour
             {
                 #region 消火器接近時の表示ボタン
                 case "SyoukaButton":
-                    if (!x)
+                    PlayerPrefs.SetInt("YS", 1);
+                    if (!x && 100f != PlayerPrefs.GetFloat("capacity"))
                     {
                         DeactivateAllButtons();
                         if (YSbutton != null) YSbutton.SetActive(true);
@@ -130,6 +138,10 @@ public class ButtonChangeAYX : MonoBehaviour
     {
         if (other.CompareTag("ButtonAYX"))
         {
+            if(other.gameObject.name == "SyoukaButton")
+            {
+                PlayerPrefs.SetInt("YS", 0);
+            }
             cnt = cnt - 1;
             DeactivateButton(other.gameObject.name);
         }
