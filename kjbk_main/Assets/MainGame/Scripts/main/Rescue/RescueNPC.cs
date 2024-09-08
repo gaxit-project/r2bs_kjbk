@@ -16,6 +16,7 @@ public class RescueNPC : MonoBehaviour
     [SerializeField] int NpcUp;   //NPCを運搬するときにプレイヤーの頭上のどれだけ上に追従するかの数値
     [SerializeField] public string text;   //NPCに近づいたときに表示されるtext
 
+
     //アタッチ
     public GameObject Player;   //PlayerのGameObject
     public GameObject Zone;   //救出判定のGameObject
@@ -69,11 +70,18 @@ public class RescueNPC : MonoBehaviour
 
     public RadioText RText;
     public bool ArrowON = false;
+
+    public static bool FirstFlag = false;
+
+    bool RescueStopButtom = true;
+
+    private NavMeshAgent navAgent;
     #endregion
 
     void Start()
     {
         #region 取得・読み込み
+        navAgent = GetComponent<NavMeshAgent>();  // NavMeshAgentのコンポーネントを取得
         mesh = GetComponent<MeshRenderer>();
         Rescue = GameObject.Find("Rescue");
         ResCounter = GameObject.Find("Rcounter");
@@ -97,6 +105,8 @@ public class RescueNPC : MonoBehaviour
 
         gameManagerObj = GameObject.Find("Manager");
         gameManager = gameManagerObj.GetComponent<GameManager>(); // スクリプトを取得
+
+
         #endregion
 
         #region 初期化
@@ -127,6 +137,11 @@ public class RescueNPC : MonoBehaviour
         #region 救助範囲に入っている
         if (IsItInZone())
         {
+            if(Radio_ver4.NPCStop)
+            {
+                Invoke("Destroy", 0.1f);
+                Radio_ver4.NPCStop = false;
+            }
             #region 重傷者
             if ( Severe && !IsItInGoal())   //重傷者に近づいたとき
             {
@@ -163,15 +178,32 @@ public class RescueNPC : MonoBehaviour
 
             #region 軽傷者
             //軽傷者消滅用
-            if (Talk && Severe == false)   //軽症者に近づいたとき
+            if (Talk && Severe == false && RescueStopButtom)   //軽症者に近づいたとき
             {
                 if (!IsItFirstContact())
                 {
+                    RescueStopButtom = false;
                     ComentON();// オブジェクト削除
                     SetActiveIcon(true);
                     StopNPC();
+                    RotateToPlayer();  // 軽傷者をプレイヤーの方向に向ける
                     RadioText.SetActiveText(true);
                     AudioManager.GetComponent<Audio>().PlaySound(2);    //大地変更点
+
+                    // AutoWalkスクリプトを無効化
+                    AutoWalk autoWalkScript = GetComponent<AutoWalk>();
+                    if (autoWalkScript != null)
+                    {
+                        autoWalkScript.enabled = false;  // AutoWalkスクリプトを無効化
+                    }
+                    //// ナビメッシュエージェントを無効化
+                    if (navAgent != null)
+                    {
+                        navAgent.enabled = false;  // NavMeshAgentを無効化
+                    }
+
+                    StartCoroutine(StopAutoWalk());
+
                     RescuedVectorNPC(TargetPosition.x, TargetPosition.y, TargetPosition.z);   //NPCを救出したときのVector
                     SetRescued(true);
                     NPCanimator.SetBool("Walk", false);
@@ -250,7 +282,7 @@ public class RescueNPC : MonoBehaviour
         {
             POP.HeavyR();
         }
-        Invoke("Destroy", 0.01f);
+        //Invoke("Destroy", 5f);
     }
 
     private void Destroy()
@@ -275,9 +307,14 @@ public class RescueNPC : MonoBehaviour
 
     void RescuedVectorNPC(float x, float y, float z)//NPC救出時の動作
     {
-        Vector3 NowPosition = new Vector3(x, y, z);
-        Vector3 HelpPosition = new Vector3(x, y, z - 30);
-        transform.position = Vector3.MoveTowards(NowPosition, HelpPosition, 12f);
+        Vector3 NowPosition = transform.position;  // 現在の位置
+        Vector3 TargetPosition = new Vector3(x, y, z);  // 目標位置
+
+        // 現在位置と目標位置が大きく離れている場合にのみ移動
+        if (Vector3.Distance(NowPosition, TargetPosition) > 0.1f)
+        {
+            transform.position = Vector3.MoveTowards(NowPosition, TargetPosition, 0f);  // 速度を2fに変更して移動速度を緩やかに
+        }
     }
 
     void PutVectorNPC(float x, float y, float z)
@@ -323,7 +360,36 @@ public class RescueNPC : MonoBehaviour
             yield return new WaitForSeconds(0.07f);
         }
         Destroy();
+        RescueStopButtom = true;
     }
+
+    IEnumerator StopAutoWalk()
+    {
+        yield return new WaitForSeconds(4f);
+    }
+
+    void RotateToPlayer()
+    {
+        // プレイヤーの位置を取得
+        Vector3 directionToPlayer = Player.transform.position - transform.position;
+
+        // 高さ（y座標）を無視して水平方向にのみ向くようにする
+        directionToPlayer.y = 0;
+
+        // 方向ベクトルがゼロでない場合にのみ回転
+        if (directionToPlayer != Vector3.zero)
+        {
+            // NPCがプレイヤーの方向を向くための回転を計算
+            Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
+
+            // 即座に回転させる
+            transform.rotation = targetRotation;
+        }
+    }
+
+
+
+
 
     //bool判定
     public bool IsItFollow()

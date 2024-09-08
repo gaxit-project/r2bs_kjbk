@@ -110,6 +110,9 @@ public class Radio_ver4 : MonoBehaviour
     public GameObject ItemTextObject;
     private Coroutine ActiveCoroutine2;
 
+    public static bool NPCStop = false;
+    public static bool CharStop = false;
+
     #endregion
 
     void Start()
@@ -310,6 +313,8 @@ public class Radio_ver4 : MonoBehaviour
         RPOP.AllRCnt--;
         int ResCnt = RCnt.getNum();
         int StackCnt = stackObj.Count;
+
+        CharStop = true;
 
         // 現在のコルーチンが実行中なら停止する
         if (activeCoroutine != null)
@@ -559,6 +564,10 @@ public class Radio_ver4 : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         TextPanelOFF();
         TextONFlag = false;
+        
+        //NPCとキャラ停止
+        NPCStop = true; 
+        CharStop = false;
 
         //もしコラプスゲージの無線の順番待ちがあったら実行する
         if (CollapseDialogueFlag)
@@ -591,6 +600,7 @@ public class Radio_ver4 : MonoBehaviour
         ChatPanel3.SetActive(false);
         ChatPanel4.SetActive(false);
         ChatR.SetActive(false);
+        
     }
 
 

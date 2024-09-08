@@ -54,7 +54,7 @@ public class SwitchCamera : MonoBehaviour
         bool Map = MapAction.triggered;
         if (CounterScript.getNum() == 1 && initialMapStatusActivated)
         {
-            StartCoroutine(ActivateInitialMapStatusWithDelay(5f));
+            StartCoroutine(ActivateInitialMapStatusWithDelay(0.1f));
         }
         #endregion
 
