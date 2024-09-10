@@ -372,13 +372,14 @@ public class RescueNPC : MonoBehaviour
             mesh.material.color = mesh.material.color - new Color32(0, 0, 0, 5);
             yield return new WaitForSeconds(0.07f);
         }
-        Destroy();
+        //Destroy();
         RescueStopButtom = true;
     }
 
     IEnumerator StopAutoWalk()
     {
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(5f); 
+        RescueStopButtom = true;
     }
 
     void RotateToPlayer()
