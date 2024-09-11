@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class Scene : MonoBehaviour
 {
     public static Scene Instance = null;
-
+    public FadeSceneLoader fadeSceneLoader;
     public static Scene GetInstance()
     {
         if (Instance == null)
@@ -23,40 +23,44 @@ public class Scene : MonoBehaviour
             Destroy(this.gameObject);
             return;
         }
-        DontDestroyOnLoad(this.gameObject);
+        //DontDestroyOnLoad(this.gameObject);
     }
 
-    public void Title() //ƒ^ƒCƒgƒ‹
+    public void Title() //ã‚¿ã‚¤ãƒˆãƒ«
     {
         Time.timeScale = 1.0f;
-        UnityEngine.SceneManagement.SceneManager.LoadScene("main_title");
+        fadeSceneLoader.CallCoroutine("main_title");
+        
+        //UnityEngine.SceneManagement.SceneManager.LoadScene("main_title");
     }
 
-    public void GamePlay() //ƒQ[ƒ€‰æ–Ê
+    public void GamePlay() //ãƒ¡ã‚¤ãƒ³ã‚²ãƒ¼ãƒ 
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("main");
+        fadeSceneLoader.CallCoroutine("main");
+        //UnityEngine.SceneManagement.SceneManager.LoadScene("maino");
     }
 
-    public void GameOver() //ƒQ[ƒ€ƒI[ƒo[‰æ–Ê
+    public void GameOver() 
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene("main_gameover");
     }
 
-    public void GameClear() //ƒNƒŠƒA‰æ–Ê
+    public void GameClear() //ï¿½Nï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene("main_clear");
     }
-    public void GameResult() //ƒNƒŠƒA‰æ–Ê
+    public void GameResult() //ãƒªã‚¶ãƒ«ãƒˆ
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("main_result");
+        fadeSceneLoader.CallCoroutine("main_result");
+        //UnityEngine.SceneManagement.SceneManager.LoadScene("main_result");
     }
 
 
-    public void EndGame() //ƒQ[ƒ€I—¹
+    public void EndGame() //Quit
     {
-#if UNITY_EDITOR //unity“à‚ÅƒQ[ƒ€
+#if UNITY_EDITOR //unityï¿½ï¿½ï¿½ÅƒQï¿½[ï¿½ï¿½ï¿½ï¿½
         UnityEditor.EditorApplication.isPlaying = false;
-#else //ƒrƒ‹ƒh‚³‚ê‚½ƒQ[ƒ€‚Ì
+#else //ï¿½rï¿½ï¿½ï¿½hï¿½ï¿½ï¿½ê‚½ï¿½Qï¿½[ï¿½ï¿½ï¿½Ìï¿½
             Application.Quit();
 #endif
     }

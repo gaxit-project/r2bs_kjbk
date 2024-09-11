@@ -58,7 +58,8 @@ public class PlayController : MonoBehaviour
     private SwitchCamera switchCamera;
     // 移動入力の状態
     public static bool MoveInput;
-
+    //フェードアウトシーン移動
+    private FadeSceneLoader FadeSceneLoader;
     // 入力値
     float Yvalue;
     float Xvalue;
@@ -112,6 +113,8 @@ public class PlayController : MonoBehaviour
 
         // SwitchCameraの参照を取得
         switchCamera = FindObjectOfType<SwitchCamera>();
+        //FadeSceneLoaderの参照を取得
+        FadeSceneLoader = FindObjectOfType<FadeSceneLoader>();
         #endregion
 
         #region 変数初期化
@@ -162,7 +165,7 @@ public class PlayController : MonoBehaviour
         }
         #endregion
 
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Carry") || switchCamera.map_status || Radio4.FirstStopPlayer)
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Carry") || switchCamera.map_status || Radio4.FirstStopPlayer || FadeSceneLoader.getScene()=="main_result")
         {
             rb.velocity = Vector3.zero;
             PlayerPrefs.SetInt("Map", 1);
