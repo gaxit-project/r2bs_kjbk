@@ -138,6 +138,9 @@ public class Radio_ver4 : MonoBehaviour
         Item8 = false;
         Item9 = false;
         ItemOff = false;
+
+        CharStop = false;
+        NPCStop = false;
         #endregion
 
         #region スタックに無線テキストをpush

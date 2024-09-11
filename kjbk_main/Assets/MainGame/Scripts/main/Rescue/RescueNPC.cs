@@ -1,4 +1,5 @@
 using JetBrains.Annotations;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Net.Security;
@@ -7,6 +8,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
+using static Unity.IO.LowLevel.Unsafe.AsyncReadManagerMetrics;
 
 public class RescueNPC : MonoBehaviour
 {
@@ -75,6 +77,8 @@ public class RescueNPC : MonoBehaviour
 
     bool RescueStopButtom = true;
 
+    bool FirstResFlag = true;
+
     private NavMeshAgent navAgent;
     #endregion
 
@@ -105,6 +109,9 @@ public class RescueNPC : MonoBehaviour
 
         gameManagerObj = GameObject.Find("Manager");
         gameManager = gameManagerObj.GetComponent<GameManager>(); // スクリプトを取得
+
+        RescueStopButtom = true;
+        FirstResFlag = true;
 
 
         #endregion
@@ -137,11 +144,7 @@ public class RescueNPC : MonoBehaviour
         #region 救助範囲に入っている
         if (IsItInZone())
         {
-            if(Radio_ver4.NPCStop)
-            {
-                Invoke("Destroy", 0.1f);
-                Radio_ver4.NPCStop = false;
-            }
+            
             #region 重傷者
             if ( Severe && !IsItInGoal())   //重傷者に近づいたとき
             {
@@ -160,21 +163,21 @@ public class RescueNPC : MonoBehaviour
                         NPCCol.enabled = false;
                         Invoke(nameof(MoveLock), 2f);
                     }
-                    /*
+                    
                     else   //追従時
                     {
                         
-                        DiplicationScript.OffFlag();
-                        SetFollow(false);
-                        PlayerPrefs.SetInt("Lock", 1);
-                        FFanimator.SetBool("Walk", false);
-                        FFanimator.SetBool("Carry", false);
-                        NPCanimator.SetBool("NPCCarry", false);
-                        NPCCol.enabled = true;
-                        PutVectorNPC(TargetPosition.x, TargetPosition.y, TargetPosition.z);
-                        Invoke(nameof(MoveLock), 2f);
+                    //    DiplicationScript.OffFlag();
+                    //    SetFollow(false);
+                    //    PlayerPrefs.SetInt("Lock", 1);
+                    //    FFanimator.SetBool("Walk", false);
+                    //    FFanimator.SetBool("Carry", false);
+                    //    NPCanimator.SetBool("NPCCarry", false);
+                    //    NPCCol.enabled = true;
+                    //    PutVectorNPC(TargetPosition.x, TargetPosition.y, TargetPosition.z);
+                    //    Invoke(nameof(MoveLock), 2f);
                     }
-                    */
+                    
                 }
 
             }
@@ -200,11 +203,12 @@ public class RescueNPC : MonoBehaviour
                     {
                         autoWalkScript.enabled = false;  // AutoWalkスクリプトを無効化
                     }
-                    //// ナビメッシュエージェントを無効化
+                    // ナビメッシュエージェントを無効化
                     if (navAgent != null)
                     {
                         navAgent.enabled = false;  // NavMeshAgentを無効化
                     }
+
 
                     StartCoroutine(StopAutoWalk());
 
@@ -378,8 +382,41 @@ public class RescueNPC : MonoBehaviour
 
     IEnumerator StopAutoWalk()
     {
-        yield return new WaitForSeconds(5f); 
+        // フラグが立つまでループ
+        while (!Radio_ver4.NPCStop)
+        {
+            yield return null; // フレームごとに待機（1フレーム毎に確認）
+        }
+
+        // フラグが立ったらこの処理が実行される
+        
+        if (navAgent != null)
+        {
+            navAgent.enabled = true;  // NavMeshAgentを有効
+        }
+        TalkAI TalkAIScript = GetComponent<TalkAI>();
+        if (TalkAIScript != null)
+        {
+            TalkAIScript.enabled = true;  // talkAIスクリプトを有効
+        }
+        TalkAI.TalkToNPC();
+
+        while (!TalkAI.NPCDestroy)
+        {
+            yield return null; // フレームごとに待機（1フレーム毎に確認）
+            if(FirstResFlag)
+            {
+                FirstResFlag = false;
+                Invoke("Destroy", 0.1f);
+                break;
+            }
+            
+        }
         RescueStopButtom = true;
+        
+        Radio_ver4.NPCStop = false;
+        TalkAI.NPCDestroy = false;
+
     }
 
     void RotateToPlayer()
