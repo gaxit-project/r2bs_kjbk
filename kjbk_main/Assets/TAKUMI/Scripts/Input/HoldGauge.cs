@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-internal class HoldGauge : MonoBehaviour
+public class HoldGauge : MonoBehaviour
 {
     [SerializeField] private InputActionReference _hold;
     [SerializeField] private Image _gaugeImage;
@@ -10,8 +10,8 @@ internal class HoldGauge : MonoBehaviour
     private InputAction _holdAction;
     public static bool gaugeStatus = false;
 
-    float progress;
-    bool gaugeActivated = false;
+    public static float progress;
+    public static bool gaugeActivated = false;
 
     float lockTime = 0;
 
@@ -77,5 +77,14 @@ internal class HoldGauge : MonoBehaviour
             }
         }
 
+    }
+
+    public void HoldInIt()
+    {
+        progress = 0.0f;
+        gaugeStatus = false;
+        gaugeActivated = false;
+
+        lockTime = 0;
     }
 }
