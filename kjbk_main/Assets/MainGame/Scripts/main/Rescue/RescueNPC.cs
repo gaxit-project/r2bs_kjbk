@@ -77,14 +77,17 @@ public class RescueNPC : MonoBehaviour
 
     bool RescueStopButtom = true;
 
-    bool FirstResFlag = true;
+    public static bool FirstResFlag = true;
 
     private NavMeshAgent navAgent;
+
+    public TalkAI TalkAI;
     #endregion
 
     void Start()
     {
         #region 取得・読み込み
+        TalkAI = GetComponent<TalkAI>();
         navAgent = GetComponent<NavMeshAgent>();  // NavMeshAgentのコンポーネントを取得
         mesh = GetComponent<MeshRenderer>();
         Rescue = GameObject.Find("Rescue");
@@ -299,14 +302,16 @@ public class RescueNPC : MonoBehaviour
             POP.HeavyR();
         }
         Invoke("Destroy", 0f);
+        CounterScript.Count();   //救助者カウント
+        r_num = CounterScript.getNum();
     }
 
 
     private void Destroy()
     {
         Destroy(this.gameObject);
-        CounterScript.Count();   //救助者カウント
-        r_num = CounterScript.getNum();
+        //CounterScript.Count();   //救助者カウント
+        //r_num = CounterScript.getNum();
 
     }
     private void Count()
@@ -398,24 +403,28 @@ public class RescueNPC : MonoBehaviour
         if (TalkAIScript != null)
         {
             TalkAIScript.enabled = true;  // talkAIスクリプトを有効
+            TalkAI.TalkToNPC();
         }
-        TalkAI.TalkToNPC();
+        
 
         while (!TalkAI.NPCDestroy)
         {
-            yield return null; // フレームごとに待機（1フレーム毎に確認）
-            if(FirstResFlag)
+            Debug.Log("FirstResFlagその１:" + FirstResFlag);
+            if (FirstResFlag == true)
             {
+                Debug.Log("初めての救助達成！");
                 FirstResFlag = false;
+                Debug.Log("FirstResFlag:" + FirstResFlag);
                 Invoke("Destroy", 0.1f);
                 break;
             }
-            
+            yield return null; // フレームごとに待機（1フレーム毎に確認）
         }
         RescueStopButtom = true;
-        
         Radio_ver4.NPCStop = false;
         TalkAI.NPCDestroy = false;
+        CounterScript.Count();   //救助者カウント
+        r_num = CounterScript.getNum();
 
     }
 
