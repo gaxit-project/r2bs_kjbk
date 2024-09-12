@@ -23,6 +23,9 @@ public class AutoWalk : MonoBehaviour
     private RescueNPC rescueNPC;
     // NPCのアニメーターコンポーネント
     private Animator NPCanimator;
+
+    // 検出可能な距離
+    public float distance = 10f;
     #endregion
 
     #region 設定や状態管理の変数
@@ -115,6 +118,39 @@ public class AutoWalk : MonoBehaviour
         // 待ち時間を数える
         time += Time.deltaTime;
 
+        #region Rayを飛ばしてオブジェクトを取得
+        //transform取得
+        Transform trans = this.transform;
+        Vector3 NPCvec = trans.position;
+        NPCvec.y += 5f;
+
+        // RayはNPCの位置からとばす
+        var rayStartPosition = NPCvec;
+        // RayはNPCが向いてる方向にとばす
+        var rayDirection = trans.forward;
+
+        // Hitしたオブジェクト格納用
+        RaycastHit raycastHit;
+
+        // Rayを飛ばす（out raycastHit でHitしたオブジェクトを取得する
+        var isHit = Physics.Raycast(rayStartPosition, rayDirection, out raycastHit, distance);
+        //Debug.DrawRay(rayStartPosition, rayDirection * distance, Color.red);
+        #endregion
+
+        #region 検出したら
+        // なにかを検出したら
+        if (isHit)
+        {
+            // HitしたオブジェクトのTag何か判定
+            #region Hitしたものが炎の時
+            if (raycastHit.collider.gameObject.CompareTag("Blaze"))
+            {
+                m_Agent.isStopped = true;
+            }
+            #endregion
+        }
+        #endregion
+
         // 待ち時間が設定された数値を超えると発動
         if (time > waitTime && !Encount)
         {
@@ -134,16 +170,6 @@ public class AutoWalk : MonoBehaviour
         #endregion
     }
     #endregion
-
-    void OnTriggerStay(Collider other)
-    {
-        //接触しているオブジェクトのタグが"Collider"のとき
-        if (other.CompareTag("Collider"))
-        {
-            //navmeshAgent停止
-            m_Agent.isStopped = true;
-        }
-    }
 
     #region ナビゲーション制御メソッド
     // WaitSecondで指定している秒数後、同じ座標の場合ナビゲーション停止
