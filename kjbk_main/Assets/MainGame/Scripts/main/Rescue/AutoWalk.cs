@@ -37,6 +37,15 @@ public class AutoWalk : MonoBehaviour
     public bool corFlag = false;
     // 待機時間
     [SerializeField] private float WaitSecond;
+    //エンカウント用
+    private bool Encount = false;
+
+    // 5秒前の位置保存用
+    private float time5;
+    private Vector3 vector5;
+
+    //NPC移動制御用フラグ
+    private bool NPCflag = false;
     #endregion
 
     #region ランダム目標地点設定用の変数
@@ -57,8 +66,6 @@ public class AutoWalk : MonoBehaviour
     float posX;
     // 目標地点のz軸の位置
     float posZ;
-    // エンカウントのフラグ
-    bool Encount = false;
     #endregion
 
 
@@ -95,7 +102,13 @@ public class AutoWalk : MonoBehaviour
         NPCanimator.SetFloat("NPCspeed", speed);
         #endregion
 
-
+        // 5秒前の位置を保持
+        time5 += Time.deltaTime;
+        if (time5 > 5f)
+        {
+            vector5 = transform.position;
+            time5 = 0;
+        }
 
         #region エンカウント判定
         // 初接触判定
@@ -115,7 +128,7 @@ public class AutoWalk : MonoBehaviour
         #endregion
 
         #region 目標地点設定と移動
-        // 待ち時間を数える
+        // 時間を数える
         time += Time.deltaTime;
 
         #region Rayを飛ばしてオブジェクトを取得
@@ -142,10 +155,12 @@ public class AutoWalk : MonoBehaviour
         if (isHit)
         {
             // HitしたオブジェクトのTag何か判定
-            #region Hitしたものが炎の時
-            if (raycastHit.collider.gameObject.CompareTag("Blaze"))
+            #region Hitしたものが炎で、NPCがランダム移動中の時
+            if (raycastHit.collider.gameObject.CompareTag("Blaze") && NPCflag == false)
             {
-                m_Agent.isStopped = true;
+                //NPCフラグオン & 目的地変更
+                NPCflag = true;
+                m_Agent.destination = vector5;
             }
             #endregion
         }
@@ -154,73 +169,19 @@ public class AutoWalk : MonoBehaviour
         // 待ち時間が設定された数値を超えると発動
         if (time > waitTime && !Encount)
         {
-            //navmeshAgentの停止解除
-            if (m_Agent.isStopped)
+            //NPCフラグオフ
+            if (NPCflag)
             {
-                m_Agent.isStopped = false;
+                NPCflag = false;
             }
             // 目標地点を設定し直す
             GotoNextPoint();
             // キャラ移動アニメーション
             time = 0;
         }
-        if (GotoNextPointGoal())
-        {
-        }
         #endregion
     }
     #endregion
-
-    #region ナビゲーション制御メソッド
-    // WaitSecondで指定している秒数後、同じ座標の場合ナビゲーション停止
-    IEnumerator Distance()
-    {
-        Vector3 prePosition = transform.position;
-        while (true)
-        {
-            yield return new WaitForSeconds(WaitSecond);
-            if (Compare(prePosition))
-            {
-                BuildScript.Build();   //新規MeshのBake
-                yield return new WaitForSeconds(WaitSecond);
-                if (Compare(prePosition))
-                {
-                    if (!Severe)
-                    {
-                        Debug.Log("軽症者化");
-                        OffAuto();
-                    }
-                    break;
-                }
-            }
-            prePosition = transform.position;
-        }
-    }
-
-    // 一定時間前の座標と現在座標の比較
-    bool Compare(Vector3 pre)
-    {
-        if (Mathf.Ceil(pre.x) == Mathf.Ceil(transform.position.x) && Mathf.Ceil(pre.z) == Mathf.Ceil(transform.position.z))
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
-    // ナビゲーションON
-    void MoveAgent()
-    {
-        m_Agent.isStopped = false;
-    }
-
-    // ナビゲーションOFF
-    void StopAgent()
-    {
-        m_Agent.isStopped = true;
-    }
 
     // 脱出行動ON
     void OnAuto()
@@ -237,7 +198,6 @@ public class AutoWalk : MonoBehaviour
     {
         Auto = false;
     }
-    #endregion
 
     #region 目標地点設定メソッド
     // 目標地点を設定する
@@ -254,25 +214,6 @@ public class AutoWalk : MonoBehaviour
 
         // NavMeshAgentに目標地点を設定する
         m_Agent.destination = pos;
-    }
-
-    // 目標地点に到達したかの判定
-    bool GotoNextPointGoal()
-    {
-        Vector3 NPCpos = this.transform.position;
-        Vector3 pos = central.position;
-
-        pos.x += posX;
-        pos.z += posZ;
-
-        if (NPCpos.x == pos.x && NPCpos.z == pos.z)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
     }
     #endregion
 }
