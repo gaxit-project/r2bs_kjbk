@@ -115,6 +115,9 @@ public class TalkAI : MonoBehaviour
         FFStop = false;  // プレイヤーキャラを再度動かす
         Debug.Log("NPCが削除されました。プレイヤーが再度動けます。");
 
+        // 対話終了後、他のNPCとも話せるようにする
+        RescueNPC.isTalkingToNPC = false;
+        Debug.Log("NPCに話しかけられるようになりました" + RescueNPC.isTalkingToNPC);
         NPCDestroy = true;
         hasTalked = false;
     }

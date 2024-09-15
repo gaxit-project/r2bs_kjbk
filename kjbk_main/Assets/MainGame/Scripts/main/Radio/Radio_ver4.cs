@@ -156,10 +156,10 @@ public class Radio_ver4 : MonoBehaviour
         stackRadio.Push("何か建物にヒビが入っていないか？");
         stackRadio.Push("現場は学生寮だ！行方不明者の内10人を救うのが君の任務だ");
         stackBring.Push("重傷者はもういなさそうだ！");
-        stackBring.Push("まだ重傷者がいるようだ！引き続き調査を頼む！");
-        stackBring.Push("まだ重傷者がいるようだ！引き続き調査を頼む！");
-        stackBring.Push("まだ重傷者がいるようだ！引き続き調査を頼む！");
-        stackBring.Push("まだ重傷者がいるようだ！引き続き調査を頼む！");
+        stackBring.Push("まだ重傷者がいるようだ！\n\r引き続き調査を頼む！");
+        stackBring.Push("まだ重傷者がいるようだ！\n\r引き続き調査を頼む！");
+        stackBring.Push("まだ重傷者がいるようだ！\n\r引き続き調査を頼む！");
+        stackBring.Push("まだ重傷者がいるようだ！\n\r引き続き調査を頼む！");
         stackBring.Push("この建物の構造を入手した\n\rぜひ活用してみてくれ");
         #endregion
 
@@ -286,15 +286,15 @@ public class Radio_ver4 : MonoBehaviour
             RndDialugue = Random.Range(1, 9);
             if (RndDialugue == 1 || RndDialugue == 2)
             {
-                RadioText.SetText("ほんとうに助かったよ！君は命の恩人だ！");
+                RadioText.SetText("ほんとうに助かったよ！\n\r君は命の恩人だ！");
             }
             else if (RndDialugue == 3 || RndDialugue == 4)
             {
-                RadioText.SetText("ありがとう...生きて帰れる...");
+                RadioText.SetText("ありがとう...\n\r生きて帰れる...");
             }
             else if (RndDialugue == 5 || RndDialugue == 6)
             {
-                RadioText.SetText("なんてすばらしい身のこなしなんだ！ありがとう！");
+                RadioText.SetText("なんてすばらしい身のこなしなんだ！\n\rありがとう！");
             }
             //25%の確率でアイテムを出現させる
             else if (RndDialugue == 7 || RndDialugue == 8)
@@ -309,15 +309,15 @@ public class Radio_ver4 : MonoBehaviour
             RndDialugue = Random.Range(1, 4);
             if (RndDialugue == 1)
             {
-                RadioText.SetText("ほんとうに助かったよ！君は命の恩人だ！");
+                RadioText.SetText("ほんとうに助かったよ！\n\r君は命の恩人だ！");
             }
             else if (RndDialugue == 2)
             {
-                RadioText.SetText("ありがとう...生きて帰れる...");
+                RadioText.SetText("ありがとう...\n\r生きて帰れる...");
             }
             else if (RndDialugue == 3)
             {
-                RadioText.SetText("なんてすばらしい身のこなしなんだ！ありがとう！");
+                RadioText.SetText("なんてすばらしい身のこなしなんだ！\n\rありがとう！");
             }
         }
     }
@@ -659,7 +659,7 @@ public class Radio_ver4 : MonoBehaviour
             }
             //一番最初に重傷者を救ったときのセリフをスタックからポップする
             stackBring.Pop();
-            stackBring.Push("まだ重傷者がいるようだ！引き続き調査を頼む！");
+            stackBring.Push("まだ重傷者がいるようだ！\n\r引き続き調査を頼む！");
             NewText = stackObj.Pop();
             RadioText.SetText(NewText);
             activeCoroutine = StartCoroutine(Simple1());

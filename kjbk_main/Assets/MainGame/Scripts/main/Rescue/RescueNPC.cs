@@ -192,7 +192,7 @@ public class RescueNPC : MonoBehaviour
 
             #region 軽傷者
             //軽傷者消滅用
-            if (Talk && Severe == false && RescueStopButtom)   //軽症者に近づいたとき
+            if (Talk && Severe == false && RescueStopButtom && isTalkingToNPC)   //軽症者に近づいたとき
             {
                 if (!IsItFirstContact())
                 {
@@ -427,6 +427,8 @@ public class RescueNPC : MonoBehaviour
                 Debug.Log("NPCが削除されました。プレイヤーが再度動けます。");
                 Debug.Log("初めての救助達成！");
                 FirstResFlag = false;
+                isTalkingToNPC = false;
+                Debug.Log("他のNPCと話せるようになりました");
                 Debug.Log("FirstResFlag:" + FirstResFlag);
                 Invoke("Destroy", 0.1f);
                 break;
