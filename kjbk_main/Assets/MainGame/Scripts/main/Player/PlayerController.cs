@@ -331,6 +331,23 @@ public class PlayController : MonoBehaviour
                     else//重傷者を背負っていない
                     {
                         animator.SetBool("Walk", true);
+
+                        //平常時のスタミナ回復量
+                        StaminaUpSpeed = 8f;//8秒かけて回復
+                        if (CurrentSpeed == Speed)//歩き
+                        {
+                            #region 背負い歩き時のスタミナ
+                            if (Stamina <= 1)
+                            {
+                                Stamina += Time.deltaTime / StaminaUpSpeed;
+                            }
+                            else//1に揃える
+                            {
+                                Stamina = 1f;
+                            }
+                            PlayerPrefs.SetFloat("Stamina", Stamina);
+                            #endregion
+                        }
                     }
 
                     //進行方向を向く

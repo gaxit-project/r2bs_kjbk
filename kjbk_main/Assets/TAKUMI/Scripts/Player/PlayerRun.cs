@@ -134,6 +134,10 @@ public class PlayerRun : MonoBehaviour
 
         Vector3 posi = this.transform.position;
 
+        float speed = rb.velocity.magnitude;
+        animator.SetFloat("speed", speed);
+
+
         #region Lock‚ª0‚ÌŽž“ü—Í‹–‰Â
         if (0 == PlayerPrefs.GetInt("Lock"))
         {
