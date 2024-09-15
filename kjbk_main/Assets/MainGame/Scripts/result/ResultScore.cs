@@ -82,7 +82,19 @@ public class ResultScore : MonoBehaviour
     bool coutineFlag4 = true;
 
     [SerializeField] private TMP_Text RankText;
+    public AudioClip numSE;
+    public AudioClip SA_RankSE;
+    public AudioClip BC_RankSE;
+    public AudioClip D_RankSE;
 
+    private bool hasPlayedPeopleSE = false;
+    private bool hasPlayedTimeSE = false;
+    private bool hasPlayedHPSE = false;
+    private bool hasPlayedItemSE = false;
+    private bool hasPlayedFailureSE = false;
+    private bool hasPlayedTotalSE = false;
+    private bool hasPlayedRankSE = false;
+    private Audioreslt Audioresult;
     bool RSFlag = false;
     void Start()
     {
@@ -125,6 +137,7 @@ public class ResultScore : MonoBehaviour
         ItemPoint2 = ItemPoint;
 
         Result(PlayerPrefs.GetString("Result"));
+        Audioresult = FindObjectOfType<Audioreslt>();
     }
     private void Update()
     {
@@ -141,73 +154,79 @@ public class ResultScore : MonoBehaviour
         total = (int)(people + timepoint + hppoint + ItemPoint);
         countscore += Time.deltaTime;
         
-        if(countscore >= injureddisplay)
+        if(countscore >= injureddisplay && !hasPlayedPeopleSE)
         {
             //PeopleImage.SetActive(true);
-                textPeople.text = people.ToString();
+            textPeople.text = people.ToString();
+            Audioresult.PlaySE(numSE);
             textPeople2.text = "People\n" + people2.ToString();
-            
+            hasPlayedPeopleSE=true;
         }
         if (countscore >= injureddisplay2)
         {
-            textTotal.text = "0+" + people.ToString();
+            //textTotal.text = "0+" + people.ToString();
         }
-        if (countscore >= timedisplay)
+        if (countscore >= timedisplay && !hasPlayedTimeSE)
         {
             //TimeImage.SetActive(true);
-                textTime.text = timepoint.ToString();
+            textTime.text = timepoint.ToString();
+            Audioresult.PlaySE(numSE);
             textPeople2.text = "";
             textTime2.text = "Time\n" + timepoint2.ToString();
-            
-
+            hasPlayedTimeSE=true;
         }
         if (countscore >= timedisplay2)
         {
-            textTotal.text = people.ToString() + "+" + timepoint.ToString();
+            //textTotal.text = people.ToString() + "+" + timepoint.ToString();
         }
-        if (countscore >= hpdisplay)
+        if (countscore >= hpdisplay && !hasPlayedHPSE)
         {
             //HPImage.SetActive(true);
-                textHP.text = hppoint.ToString();
+            textHP.text = hppoint.ToString();
+            Audioresult.PlaySE(numSE);
             textTime2.text = "";
             textHP2.text = "HP\n" + hppoint2.ToString();
-            
+            hasPlayedHPSE=true;
         }
         if (countscore >= hpdisplay2)
         {
             pt = (int)(people + timepoint);
-            textTotal.text = pt.ToString() + "+" + hppoint.ToString();
+            //textTotal.text = pt.ToString() + "+" + hppoint.ToString();
         }
 
 
-        if (countscore >= ItemDisplay)
+        if (countscore >= ItemDisplay && !hasPlayedItemSE)
         {
             //HPImage.SetActive(true);
             textItem.text = ItemPoint.ToString();
+            Audioresult.PlaySE(numSE);
             textHP2.text = "";
             textItem2.text = "Item\n" + ItemPoint2.ToString();
-
+            hasPlayedItemSE=true;
         }
         if (countscore >= ItemDisplay2)
         {
             pt = (int)(people + timepoint + hppoint);
-            textTotal.text = pt.ToString() + "+" + ItemPoint.ToString();
+            //textTotal.text = pt.ToString() + "+" + ItemPoint.ToString();
         }
 
 
-        if (countscore >= faileddisplay)
+        if (countscore >= faileddisplay && !hasPlayedFailureSE)
         {
             //FailedImage.SetActive(true);
             textItem2.text = "";
             if (clearflag == false)
             {
                 textFailure.text = "-500";
+                Audioresult.PlaySE(numSE);
                 textFailure2.text = "Failed\n-500";
-                
+                hasPlayedFailureSE=true;
             }
             else
             {
                 textFailure.text = "0";
+                Audioresult.PlaySE(numSE);
+                hasPlayedFailureSE=true;
             }
             
         }
@@ -216,11 +235,11 @@ public class ResultScore : MonoBehaviour
             
             if (clearflag == false)
             {
-                textTotal.text = total.ToString() + "-500";
+                //textTotal.text = total.ToString() + "-500";
             }
         }
 
-        if (countscore >= totaldisplay)
+        if (countscore >= totaldisplay && !hasPlayedTotalSE)
         {
             //TotalImage.SetActive(true);
             textFailure2.text = "";
@@ -231,6 +250,8 @@ public class ResultScore : MonoBehaviour
                 if (failedtotal > 0)
                 {
                     textTotal.text = failedtotal.ToString();
+                    Audioresult.PlaySE(numSE);
+                    hasPlayedTotalSE=true;
                 }
                 else
                 {
@@ -241,10 +262,12 @@ public class ResultScore : MonoBehaviour
             {
                 total = (int)(people + timepoint + hppoint + ItemPoint);
                 textTotal.text = total.ToString();
+                Audioresult.PlaySE(numSE);
+                hasPlayedTotalSE=true;
             }
             
         }
-        if (countscore >= rankdisplay)
+        if (countscore >= rankdisplay && !hasPlayedRankSE)
         {
             if (clearflag == true)
             {
@@ -253,24 +276,34 @@ public class ResultScore : MonoBehaviour
                     if (total >= 2500)
                     {
                         RankText.SetText("<sprite=0>");
+                        Audioresult.PlaySE(SA_RankSE);
+                        hasPlayedRankSE=true;
                     }
                     else if (total >= 2000)
                     {
                         RankText.SetText("<sprite=1>");
+                        Audioresult.PlaySE(SA_RankSE);
+                        hasPlayedRankSE=true;
                     }
                     else if (total >= 1500)
                     {
                         RankText.SetText("<sprite=2>");
+                        Audioresult.PlaySE(BC_RankSE);
+                        hasPlayedRankSE=true;
                     }
                     else
                     {
                         RankText.SetText("<sprite=3>");
+                        Audioresult.PlaySE(BC_RankSE);
+                        hasPlayedRankSE=true;
                     }
                 }
             }
             if(clearflag == false)
             {
                 RankText.SetText("<sprite=4>");
+                Audioresult.PlaySE(D_RankSE);
+                hasPlayedRankSE=true;
             }
         }
         
@@ -320,7 +353,7 @@ public class ResultScore : MonoBehaviour
         for(i=0;i<10;i++)
         {
             cnt = Random.Range(0, 100);
-            //cnt‚ðƒeƒLƒXƒg‚É“ü‚ê‚é
+            //cntï¿½ï¿½ï¿½eï¿½Lï¿½Xï¿½gï¿½É“ï¿½ï¿½ï¿½ï¿½
             textTotal.text = cnt.ToString();
             yield return new WaitForSeconds(0.1f);
         }
