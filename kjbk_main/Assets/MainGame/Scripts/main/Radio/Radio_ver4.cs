@@ -34,6 +34,7 @@ public class Radio_ver4 : MonoBehaviour
     //セリフを入れるスタック
     public Stack<string> stackObj = new Stack<string>();
     public Stack<string> stackRadio = new Stack<string>();
+    public Stack<string> stackObjMan = new Stack<string>();
     public Stack<string> stackBring = new Stack<string>();
 
     //セリフをポップしたときに入れる変数
@@ -200,8 +201,11 @@ public class Radio_ver4 : MonoBehaviour
         {
             //軽症者テキストのヒント
             stackObj.Push("<sprite=6>で人が動けないってい叫んでたわ");
-            stackObj.Push("西南方面に人影があったかもしれない一応向かってくれないか");
-            stackObj.Push("西の方に人が逃げていったぞ");
+            stackObj.Push("西南方面に人影があったかもしれない一応向かってほしいの");
+            stackObj.Push("西の方に人が逃げていったよ");
+            stackObjMan.Push("<sprite=6>で人が動けないってい叫んでぞ");
+            stackObjMan.Push("西南方面に人影があったかもしれない一応向かってくれないか");
+            stackObjMan.Push("西の方に人が逃げていったぞ");
             //missionマップのヒント
             stackMM.Push(" <sprite=6>に人がいる？");
             stackMM.Push("西南方面に人影あり");
@@ -213,6 +217,9 @@ public class Radio_ver4 : MonoBehaviour
             stackObj.Push("<sprite=5>で人が倒れていたわ");
             stackObj.Push("さっきから<sprite=5>方面で叫び声が聞こえるの");
             stackObj.Push("北側に人が走っていったよ");
+            stackObjMan.Push("<sprite=5>で人が倒れていたぞ");
+            stackObjMan.Push("さっきから<sprite=5>方面で叫び声が聞こえるんだ");
+            stackObjMan.Push("北側に人が走っていったぞ");
             //missionマップのヒント
             stackMM.Push(" <sprite=5>に人が倒れている？");
             stackMM.Push(" <sprite=5>方面で叫び声？");
@@ -223,7 +230,10 @@ public class Radio_ver4 : MonoBehaviour
             //軽症者テキストのヒント
             stackObj.Push("さっき<sprite=2>に入った人がでてこないの...");
             stackObj.Push("炎で汗が止まらないわ...お風呂に入りたい...");
-            stackObj.Push("さっき北側に人が向かっていったぞ");
+            stackObj.Push("さっき北側に人が向かっていったわ");
+            stackObjMan.Push("さっき<sprite=2>に入った人がでてこないんだ...");
+            stackObjMan.Push("炎で汗が止まらないぜ...お風呂に入りたい...");
+            stackObjMan.Push("さっき北側に人が向かっていったぞ");
             //missionマップのヒント
             stackMM.Push(" <sprite=2>で人がでてこない？");
             stackMM.Push("お風呂に入りたい？\n　家事場でのんきな奴だ");
@@ -232,9 +242,12 @@ public class Radio_ver4 : MonoBehaviour
         else if(RandomText == 4)
         {
             //軽症者テキストのヒント
-            stackObj.Push("<sprite=3>で物が倒れて動けない人がいるの！");
-            stackObj.Push("服が煙まみれ～いち早く着替えたい！");
+            stackObj.Push("<sprite=3>で物が倒れて\n\r動けない人がいるの！");
+            stackObj.Push("服が煙まみれ～\n\rいち早く着替えたい！");
             stackObj.Push("南側に人が向かっていったわ");
+            stackObjMan.Push("<sprite=3>で物が倒れて\n\r動けない人がいるぞ！");
+            stackObjMan.Push("服が煙まみれだ...\n\rいち早く着替えたい！");
+            stackObjMan.Push("南側に人が向かっていったよ");
             //missionマップのヒント
             stackMM.Push(" <sprite=3>に重体者がいる？");
             stackMM.Push("服が煙まみれか...\n　確かに早く着替えたいな");
@@ -243,9 +256,12 @@ public class Radio_ver4 : MonoBehaviour
         else if(RandomText == 5)
         {
             //軽症者テキストのヒント
-            stackObj.Push("<sprite=4>で酔っぱらったやつが寝てて起きないんだ！助けてやってくれ");
-            stackObj.Push("まさかこんな状況で寝てるやつはいないよな...");
-            stackObj.Push("さっき西側に走って逃げる人がいたぞ");
+            stackObj.Push("<sprite=4>で酔っぱらった人が寝てて起きないの！助けてほしい！");
+            stackObj.Push("まさかこんな状況で寝てるやつはいないよね...");
+            stackObj.Push("さっき西側に走って逃げる人がいたわ");
+            stackObjMan.Push("<sprite=4>で酔っぱらったやつが寝てて起きないんだ！助けてやってくれ");
+            stackObjMan.Push("まさかこんな状況で寝てるやつはいないよな...");
+            stackObjMan.Push("さっき西側に走って逃げる人がいたぞ");
             //missionマップのヒント
             stackMM.Push(" <sprite=4>で酔っぱらって\n　倒れた人がいる？");
             stackMM.Push("火事場で寝てるやつは\n　いないだろ...");
@@ -318,6 +334,7 @@ public class Radio_ver4 : MonoBehaviour
         int StackCnt = stackObj.Count;
 
         CharStop = true;
+        number1 = PlayerPrefs.GetInt("R_number");
 
         // 現在のコルーチンが実行中なら停止する
         if (activeCoroutine != null)
@@ -341,7 +358,20 @@ public class Radio_ver4 : MonoBehaviour
         //スタックからポップをしてそのテキストを入れる
         else if (RndHalf == 1 || FirstFlag)
         {
-            NewText = stackObj.Pop();
+            if (number1 == 0 || number1 == 1 || number1 == 3 || number1 == 4)
+            {
+                NewText = stackObjMan.Pop();
+                stackObj.Pop();
+            }
+            else
+            {
+                NewText = stackObj.Pop();
+                if(!FirstFlag)
+                {
+                    stackObjMan.Pop();
+                }
+            }
+            
             RadioText.SetText(NewText);
             //missionマップにヒントを送る
             MMHint = stackMM.Pop();
@@ -362,7 +392,16 @@ public class Radio_ver4 : MonoBehaviour
         //軽症者数とスタックの中身が同数もしくは以下の場合ポップしてテキストに入れる
         else if(stackObj.Count >= RPOP.AllRCnt)
         {
-            NewText = stackObj.Pop();
+            if (number1 == 0 || number1 == 1 || number1 == 3 || number1 == 4)
+            {
+                NewText = stackObjMan.Pop();
+                stackObj.Pop();
+            }
+            else
+            {
+                NewText = stackObj.Pop();
+                stackObjMan.Pop();
+            }
             RadioText.SetText(NewText);
             //missionマップにヒントを送る
             MMHint = stackMM.Pop();
@@ -405,11 +444,19 @@ public class Radio_ver4 : MonoBehaviour
     /// <summary>アイテムを表示</summary>
     void ItemRandom()
     {
+        number1 = PlayerPrefs.GetInt("R_number");
         if (ItemCountArray[ItemCnt] == (int)Item.Kitchen)
         {
             Item1 = true;
             itemTake.ItemSet(0);
-            RadioText.SetText("友人と買ったマグカップを持ってきてほしいの...");
+            if (number1 == 0 || number1 == 1 || number1 == 3 || number1 == 4)
+            {
+                RadioText.SetText("友人と買ったマグカップを\n\r持ってきてほしいんだ...");
+            }
+            else
+            {
+                RadioText.SetText("友人と買ったマグカップを\n\r持ってきてほしいの...");
+            }
             MMUI.MissionUpgread("☐マグカップを探せ！", ItemCnt,1);
 
         }
@@ -417,56 +464,112 @@ public class Radio_ver4 : MonoBehaviour
         {
             Item2 = true;
             itemTake.ItemSet(1);
-            RadioText.SetText("スマホが見つからない...\n\rどこに落としちゃったんだ...");
+            if (number1 == 0 || number1 == 1 || number1 == 3 || number1 == 4)
+            {
+                RadioText.SetText("スマホが見つからない...\n\rどこに落としたんだ...");
+            }
+            else
+            {
+                RadioText.SetText("スマホが見つからない...\n\rどこに落としちゃったんだろ...");
+            }
             MMUI.MissionUpgread("☐スマホを探せ！", ItemCnt, 1);
         }
         else if (ItemCountArray[ItemCnt] == (int)Item.Shower)
         {
             Item3 = true;
             itemTake.ItemSet(2);
-            RadioText.SetText("限定品のシャンプーを\n\r持ってきてほしいの...");
+            if (number1 == 0 || number1 == 1 || number1 == 3 || number1 == 4)
+            {
+                RadioText.SetText("限定品のシャンプーを\n\r持ってきてほしいんだ...");
+            }
+            else
+            {
+                RadioText.SetText("限定品のシャンプーを\n\r持ってきてほしいの...");
+            }
             MMUI.MissionUpgread("☐シャンプーを探せ！", ItemCnt, 1);
         }
         else if (ItemCountArray[ItemCnt] == (int)Item.Datsui)
         {
             Item4 = true;
             itemTake.ItemSet(3);
-            RadioText.SetText("お気に入りのTシャツを\n\r持って帰ってきてほしい...");
+            if (number1 == 0 || number1 == 1 || number1 == 3 || number1 == 4)
+            {
+                RadioText.SetText("お気に入りのTシャツを\n\r持って帰ってきてほしい...");
+            }
+            else
+            {
+                RadioText.SetText("お気に入りのTシャツを\n\r持って帰ってきてほしいの...");
+            }
             MMUI.MissionUpgread("☐Tシャツを探せ！", ItemCnt, 1);
         }
         else if (ItemCountArray[ItemCnt] == (int)Item.Toire)
         {
             Item5 = true;
             itemTake.ItemSet(4);
-            RadioText.SetText("思い出の絵画を取ってくれ...");
+            if (number1 == 0 || number1 == 1 || number1 == 3 || number1 == 4)
+            {
+                RadioText.SetText("思い出の絵画を\n\r取ってくれ...");
+            }
+            else
+            {
+                RadioText.SetText("思い出の絵画を\n\r取ってほしいの...");
+            }
             MMUI.MissionUpgread("☐絵画を探せ！", ItemCnt, 1);
         }
         else if (ItemCountArray[ItemCnt] == (int)Item.PC)
         {
             Item6 = true;
             itemTake.ItemSet(5);
-            RadioText.SetText("私の命より大事な\n\rゲーム機を取ってきてほしいの...");
+            if (number1 == 0 || number1 == 1 || number1 == 3 || number1 == 4)
+            {
+                RadioText.SetText("俺の命より大事な\n\rゲーム機を取ってきてほしい...");
+            }
+            else
+            {
+                RadioText.SetText("私の命より大事な\n\rゲーム機を取ってきてほしいの...");
+            }
             MMUI.MissionUpgread("☐ゲーム機を探せ！", ItemCnt, 1);
         }
         else if (ItemCountArray[ItemCnt] == (int)Item.Bed)
         {
             Item7 = true;
             itemTake.ItemSet(6);
-            RadioText.SetText("家族との写真を持って帰ってきてほしい...");
+            if (number1 == 0 || number1 == 1 || number1 == 3 || number1 == 4)
+            {
+                RadioText.SetText("家族との写真を持って\n\r帰ってきてほしい...");
+            }
+            else
+            {
+                RadioText.SetText("家族との写真を持って\n\r帰ってきてほしいの...");
+            }
             MMUI.MissionUpgread("☐写真を探せ！", ItemCnt, 1);
         }
         else if (ItemCountArray[ItemCnt] == (int)Item.Omotya)
         {
             Item8 = true;
             itemTake.ItemSet(7);
-            RadioText.SetText("子供のころから一緒に過ごしていた\n\rくまのぬいぐるみも助けてほしいの！");
+            if (number1 == 0 || number1 == 1 || number1 == 3 || number1 == 4)
+            {
+                RadioText.SetText("子供のころから一緒に過ごしていた\n\rくまのぬいぐるみも助けてほしい！");
+            }
+            else
+            {
+                RadioText.SetText("子供のころから一緒に過ごしていた\n\rくまのぬいぐるみも助けてほしいの！");
+            }
             MMUI.MissionUpgread("☐くまのぬいぐるみを\n　探せ！", ItemCnt, 1);
         }
         else if (ItemCountArray[ItemCnt] == (int)Item.Soto)
         {
             Item9 = true;
             itemTake.ItemSet(8);
-            RadioText.SetText("大切に育てた花が燃えてしまう...\n\r1輪でもいいから持ってきてほしい...");
+            if (number1 == 0 || number1 == 1 || number1 == 3 || number1 == 4)
+            {
+                RadioText.SetText("大切に育てた花が燃えてしまう...\n\r1輪でもいいから持ってきてほしい...");
+            }
+            else
+            {
+                RadioText.SetText("大切に育てた花が燃えてしまう...\n\r1輪でもいいから持ってきてほしいの...");
+            }
             MMUI.MissionUpgread("☐花を探せ！", ItemCnt, 1);
         }
         ItemCnt--;

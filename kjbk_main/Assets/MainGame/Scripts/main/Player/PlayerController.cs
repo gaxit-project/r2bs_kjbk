@@ -165,7 +165,7 @@ public class PlayController : MonoBehaviour
         }
         #endregion
 
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Carry") || switchCamera.map_status || Radio4.FirstStopPlayer || FadeSceneLoader.getScene()=="main_result")
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Carry") || switchCamera.map_status || Radio4.FirstStopPlayer || FadeSceneLoader.getScene()=="main_result" || TalkAI.FFStop)
         {
             rb.velocity = Vector3.zero;
             PlayerPrefs.SetInt("Map", 1);
@@ -211,7 +211,7 @@ public class PlayController : MonoBehaviour
         if (MoveInput)
         {
             #region MAP使用時等で動けなくする
-            if (DesSystem.DesSystemStatus == true || switchCamera.map_status || Radio4.FirstStopPlayer/*|| switchCamera.NiseMapON*/) // マップ表示時はプレイヤーは動けなくする
+            if (DesSystem.DesSystemStatus == true || switchCamera.map_status || Radio4.FirstStopPlayer || TalkAI.FFStop/*|| switchCamera.NiseMapON*/) // マップ表示時はプレイヤーは動けなくする
             {
                 rb.velocity = Vector3.zero;
                 animator.SetBool("Walk", false);

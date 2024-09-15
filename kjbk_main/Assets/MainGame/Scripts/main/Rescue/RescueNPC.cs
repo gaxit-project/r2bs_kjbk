@@ -82,6 +82,9 @@ public class RescueNPC : MonoBehaviour
     private NavMeshAgent navAgent;
 
     public TalkAI TalkAI;
+
+    public static bool isTalkingToNPC = false; // プレイヤーがNPCと話しているかどうかを追跡するフラグ
+    public float interactionRange = 5f; // 対話可能な距離の設定（適宜調整）
     #endregion
 
     void Start()
@@ -144,6 +147,7 @@ public class RescueNPC : MonoBehaviour
 
         Transform target = Player.transform;   //PlayerのTransform
         Vector3 TargetPosition = target.position;
+
         #region 救助範囲に入っている
         if (IsItInZone())
         {
@@ -192,6 +196,9 @@ public class RescueNPC : MonoBehaviour
             {
                 if (!IsItFirstContact())
                 {
+                    // プレイヤーを停止させる
+                    TalkAI.FFStop = true;  // プレイヤーキャラを停止
+                    Debug.Log("プレイヤーが停止しました。");
                     RescueStopButtom = false;
                     ComentON();// オブジェクト削除
                     SetActiveIcon(true);
@@ -405,13 +412,19 @@ public class RescueNPC : MonoBehaviour
             TalkAIScript.enabled = true;  // talkAIスクリプトを有効
             TalkAI.TalkToNPC();
         }
-        
+
+        CounterScript.Count();   //救助者カウント
+        r_num = CounterScript.getNum();
+        Radio_ver4.NPCStop = false;
 
         while (!TalkAI.NPCDestroy)
         {
             Debug.Log("FirstResFlagその１:" + FirstResFlag);
             if (FirstResFlag == true)
             {
+                // NPCが削除された後にプレイヤーを動けるようにする
+                TalkAI.FFStop = false;  // プレイヤーキャラを再度動かす
+                Debug.Log("NPCが削除されました。プレイヤーが再度動けます。");
                 Debug.Log("初めての救助達成！");
                 FirstResFlag = false;
                 Debug.Log("FirstResFlag:" + FirstResFlag);
@@ -421,11 +434,7 @@ public class RescueNPC : MonoBehaviour
             yield return null; // フレームごとに待機（1フレーム毎に確認）
         }
         RescueStopButtom = true;
-        Radio_ver4.NPCStop = false;
         TalkAI.NPCDestroy = false;
-        CounterScript.Count();   //救助者カウント
-        r_num = CounterScript.getNum();
-
     }
 
     void RotateToPlayer()

@@ -1,68 +1,58 @@
-﻿using UnityEngine.AI;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.AI;
+using System.Collections;
 
 public class TalkAI : MonoBehaviour
 {
     public NavMeshAgent agent;
     public bool hasTalked = false;
     public static bool NPCDestroy = false;
-    public Camera playerCamera;  // インスペクタで設定するカメラ
-    private bool wasOnScreenOnce = false;  // 一度カメラ内に表示されたかどうか
+    public static bool FFStop = false;  // プレイヤー停止フラグ
+    public float fadeDuration = 2.0f;  // 透明化にかかる時間
+    private SkinnedMeshRenderer npcRenderer;  // SkinnedMeshRendererを取得
+    private Material npcMaterial;  // マテリアルの参照を保持
+    private bool isFading = false;  // 透明化が開始されたかどうか
+    private Collider[] npcColliders;  // NPCの全コライダー
 
     void Start()
     {
         NPCDestroy = false;
         hasTalked = false;
+        FFStop = false;  // ゲーム開始時はプレイヤーが動けるように
         agent = GetComponent<NavMeshAgent>();
+
+        // SkinnedMeshRendererを取得
+        npcRenderer = GetComponentInChildren<SkinnedMeshRenderer>();  // 子要素から取得
+        if (npcRenderer != null)
+        {
+            // マテリアルを取得
+            npcMaterial = npcRenderer.material;
+            if (npcMaterial != null)
+            {
+                Debug.Log("NPCのマテリアルが正常に取得されました。");
+            }
+            else
+            {
+                Debug.LogError("NPCにマテリアルが設定されていません。");
+            }
+        }
+        else
+        {
+            Debug.LogError("SkinnedMeshRendererがNPCに設定されていません。");
+        }
+
+        // NPCの全てのコライダーを取得
+        npcColliders = GetComponentsInChildren<Collider>();  // NPCおよび子オブジェクトに含まれる全てのコライダーを取得
     }
 
     void Update()
     {
-        // NPCが移動してカメラ外に出た場合に削除する
-        if (hasTalked && IsOffScreen(playerCamera))
+        // NPCがゴールに向かって歩いている
+        if (hasTalked && agent.remainingDistance <= agent.stoppingDistance && !isFading)
         {
-            // 一度カメラ内に表示されたことがあり、現在はカメラ外にいる場合に消す
-            if (wasOnScreenOnce)
-            {
-                Debug.Log("NPCがカメラ外に出ました。削除します。");
-                Destroy(gameObject);
-                NPCDestroy = true;
-                hasTalked = false;
-            }
+            Debug.Log("NPCがゴールに到着しました。透明化を開始します。");
+            StartCoroutine(FadeOutAndDestroy());
         }
-        else if (hasTalked)
-        {
-            Debug.Log("NPCはまだカメラ内にいます。");
-            // 一度カメラ内に入ったことを記録する
-            if (IsOnScreen(playerCamera))
-            {
-                wasOnScreenOnce = true;
-            }
-        }
-    }
-
-    // カメラ外かどうかを判定する関数
-    private bool IsOffScreen(Camera camera)
-    {
-        Vector3 screenPoint = camera.WorldToViewportPoint(transform.position);
-        bool isInFrontOfCamera = screenPoint.z > 0;
-        bool isInsideHorizontal = screenPoint.x > 0 && screenPoint.x < 1;
-        bool isInsideVertical = screenPoint.y > 0 && screenPoint.y < 1;
-        bool isOffScreen = isInFrontOfCamera && !(isInsideHorizontal && isInsideVertical);
-
-        return isOffScreen;
-    }
-
-    // カメラ内にいるかどうかを判定する関数
-    private bool IsOnScreen(Camera camera)
-    {
-        Vector3 screenPoint = camera.WorldToViewportPoint(transform.position);
-        bool isInFrontOfCamera = screenPoint.z > 0;
-        bool isInsideHorizontal = screenPoint.x > 0 && screenPoint.x < 1;
-        bool isInsideVertical = screenPoint.y > 0 && screenPoint.y < 1;
-        bool isOnScreen = isInFrontOfCamera && isInsideHorizontal && isInsideVertical;
-
-        return isOnScreen;
     }
 
     // NPCに話しかけた時に呼ばれる関数
@@ -70,10 +60,62 @@ public class TalkAI : MonoBehaviour
     {
         if (!hasTalked)
         {
+            // プレイヤーを停止させる
+            FFStop = true;  // プレイヤーキャラを停止
+            Debug.Log("プレイヤーが停止しました。");
+
             // NPCに話しかけた後、ナビメッシュで目的地へ移動開始
             hasTalked = true;
             agent.SetDestination(new Vector3(0, 0, 0)); // 座標(0,0,0)へ移動させる
             Debug.Log("NPCがゴールへ移動開始！");
+            Debug.Log("透明化を開始します！");
+            StartCoroutine(FadeOutAndDestroy());  // 透明化を開始
         }
+    }
+
+    // 透明化してオブジェクトを削除するコルーチン
+    private IEnumerator FadeOutAndDestroy()
+    {
+        isFading = true;
+
+        // 透明化が始まった瞬間にコライダーを無効化
+        foreach (Collider col in npcColliders)
+        {
+            col.enabled = false;
+        }
+        Debug.Log("NPCの当たり判定が無効化されました。");
+
+        // マテリアルを透明化モードに変更
+        npcMaterial.SetFloat("_Mode", 2);  // Fadeモードに設定
+        npcMaterial.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
+        npcMaterial.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+        npcMaterial.SetInt("_ZWrite", 0);
+        npcMaterial.DisableKeyword("_ALPHATEST_ON");
+        npcMaterial.EnableKeyword("_ALPHABLEND_ON");
+        npcMaterial.DisableKeyword("_ALPHAPREMULTIPLY_ON");
+        npcMaterial.renderQueue = 3000;  // 透明レンダリングを許可
+
+        float fadeSpeed = 1.0f / fadeDuration;
+        Color color = npcMaterial.color;
+
+        // 透明化処理
+        for (float t = 0; t < 1.0f; t += Time.deltaTime * fadeSpeed)
+        {
+            color.a = Mathf.Lerp(1, 0, t);  // Alpha値を1から0へ徐々に変化
+            npcMaterial.color = color;  // マテリアルに反映
+            yield return null;
+        }
+
+        // 完全に透明になったら削除
+        color.a = 0;
+        npcMaterial.color = color;
+        Destroy(gameObject);
+
+        // NPCが削除された後にプレイヤーを動けるようにする
+        FFStop = false;  // プレイヤーキャラを再度動かす
+        Debug.Log("NPCが削除されました。プレイヤーが再度動けます。");
+
+        NPCDestroy = true;
+        hasTalked = false;
     }
 }
