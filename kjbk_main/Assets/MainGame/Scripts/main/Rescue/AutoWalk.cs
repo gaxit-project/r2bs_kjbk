@@ -25,7 +25,7 @@ public class AutoWalk : MonoBehaviour
     private Animator NPCanimator;
 
     // ŒŸo‰Â”\‚È‹——£
-    public float distance = 10f;
+    public float distance = 15f;
     #endregion
 
     #region İ’è‚âó‘ÔŠÇ—‚Ì•Ï”
