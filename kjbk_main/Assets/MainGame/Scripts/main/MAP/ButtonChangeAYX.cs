@@ -18,9 +18,11 @@ public class ButtonChangeAYX : MonoBehaviour
 
     private RescueNPC rescueNPC; // RescueNPCのインスタンス
     private RescueDiplication DiplicationScript; // RescueDiplicationのインスタンス
+    public HoldGauge HoldGauge; // HoldGaugeの初期化
     private GameObject Rescue; // Rescueオブジェクト
     private bool Xb = false; // Xボタンの表示状態
     private bool x = false; // 他のボタンの表示状態
+    private bool isOnes = false;
     public static int cnt = 0; // ボタンのカウント
     #endregion
 
@@ -58,17 +60,16 @@ public class ButtonChangeAYX : MonoBehaviour
 
         if (rescueNPC.IsItFollow())
         {
-            var progress = _holdLongAction.GetTimeoutCompletionPercentage();
-
-            if (progress > 0)
+            isOnes = false;
+            // Xボタンを非表示
+            if (Xbutton != null) Xbutton.SetActive(false);
+        }
+        else
+        {
+             if(!isOnes && HoldGauge != null)
             {
-                // Xボタンを表示
-                if (Xbutton != null) Xbutton.SetActive(false);
-            }
-            else
-            {
-                // Xボタンを非表示
-                if (Xbutton != null) Xbutton.SetActive(false);
+                isOnes = true;
+                HoldGauge.HoldInIt();
             }
         }
 
