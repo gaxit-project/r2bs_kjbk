@@ -15,15 +15,13 @@ public class Billboard : MonoBehaviour
 
     void LateUpdate()
     {
-        // テキストの回転をNPCの影響を受けないようにし、カメラに向ける
-        Vector3 cameraPosition = mainCamera.transform.position;
-        Vector3 textPosition = transform.position;
+        // カメラの方向に基づいてキャンバスの回転を設定する（位置は変更しない）
+        Vector3 direction = (transform.position - mainCamera.transform.position).normalized;
 
-        // テキストがカメラの方向を向くようにするが、Y軸の回転だけを有効にする
-        Vector3 direction = (textPosition - cameraPosition).normalized; // カメラからテキストまでの方向ベクトル
-        direction.y = 0;  // Y軸の回転のみ適用し、上下の回転を防ぐ
+        // Y軸の回転のみ適用して、テキストが上下に回転しないようにする
+        direction.y = 0;
 
-        // 回転を計算して、テキストが常にカメラの方向を向くようにする
+        // キャンバスの回転をカメラの方向に向ける
         transform.rotation = Quaternion.LookRotation(direction);
     }
 }

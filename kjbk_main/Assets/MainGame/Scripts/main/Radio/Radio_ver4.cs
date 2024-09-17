@@ -256,10 +256,10 @@ public class Radio_ver4 : MonoBehaviour
         else if(RandomText == 5)
         {
             //軽症者テキストのヒント
-            stackObj.Push("<sprite=4>で酔っぱらった人が寝てて起きないの！\n\r助けてほしい！");
+            stackObj.Push("<sprite=4>で酔っぱらった人が寝てて\n\r起きないの！助けてほしい！");
             stackObj.Push("まさかこんな状況で寝てるやつはいないよね...");
             stackObj.Push("さっき西側に走って逃げる人がいたわ");
-            stackObjMan.Push("<sprite=4>で酔っぱらったやつが寝てて起きないんだ！\n\r助けてやってくれ");
+            stackObjMan.Push("<sprite=4>で酔っぱらったやつが寝てて\n\r起きないんだ！助けてやってくれ");
             stackObjMan.Push("まさかこんな状況で寝てるやつはいないよな...");
             stackObjMan.Push("さっき西側に走って逃げる人がいたぞ");
             //missionマップのヒント

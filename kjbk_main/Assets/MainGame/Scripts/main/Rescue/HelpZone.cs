@@ -20,6 +20,7 @@ public class HelpZone : MonoBehaviour
         #region 初期設定
         // NPCに近づいていない時のテキストを設定
         RescueNPC.SetText("");
+        RescueNPC.isTalkingToNPC = false;
         #endregion
     }
     #endregion

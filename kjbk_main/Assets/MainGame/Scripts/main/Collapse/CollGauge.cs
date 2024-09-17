@@ -27,6 +27,8 @@ public class CollGauge : MonoBehaviour
     public BlockPOP POP;             // 障害物を設置するコードから変数を持ってくる
 
     public Radio_ver4 Radio4;        // 無線スクリプトから変数を持ってくる
+
+    public static bool TimeStop = false;
     #endregion
 
     #region 初期化メソッド
@@ -43,8 +45,12 @@ public class CollGauge : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // 時間のカウント
-        CountTime += Time.deltaTime;
+        if(!TimeStop)
+        {
+            // 時間のカウント
+            CountTime += Time.deltaTime;
+        }
+        
 
         // 倒壊ゲージの更新
         if (CountTime >= Span)

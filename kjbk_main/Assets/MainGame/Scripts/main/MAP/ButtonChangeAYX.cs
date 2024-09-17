@@ -165,6 +165,11 @@ public class ButtonChangeAYX : MonoBehaviour
     }
     #endregion
 
+    public void TalkButtonOFF()
+    {
+        Abutton.SetActive(false);
+    }
+
     #region ボタンの非アクティブ化: DeactivateAllButtonsメソッド
     // 全てのボタンを非アクティブにする
     public void DeactivateAllButtons()

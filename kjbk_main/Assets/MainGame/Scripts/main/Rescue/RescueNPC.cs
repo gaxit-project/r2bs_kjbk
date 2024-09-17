@@ -89,6 +89,8 @@ public class RescueNPC : MonoBehaviour
     // CanvasおよびTextMeshProを参照
     public Canvas textCanvas;  // World SpaceモードのCanvas
     public TextMeshProUGUI textMark;  // テキストマーク
+
+    public ButtonChangeAYX ButtonA;
     #endregion
 
     void Start()
@@ -122,6 +124,7 @@ public class RescueNPC : MonoBehaviour
 
         RescueStopButtom = true;
         FirstResFlag = true;
+        CollGauge.TimeStop = false;
 
 
         #endregion
@@ -213,6 +216,8 @@ public class RescueNPC : MonoBehaviour
                     RadioText.SetActiveText(true);
                     AudioManager.GetComponent<Audio>().PlaySound(2);    //大地変更点
 
+                    ButtonA.TalkButtonOFF();
+
                     // AutoWalkスクリプトを無効化
                     AutoWalk autoWalkScript = GetComponent<AutoWalk>();
                     if (autoWalkScript != null)
@@ -224,6 +229,8 @@ public class RescueNPC : MonoBehaviour
                     {
                         navAgent.enabled = false;  // NavMeshAgentを無効化
                     }
+
+                    CollGauge.TimeStop = true;
 
 
                     StartCoroutine(StopAutoWalk());
@@ -468,6 +475,7 @@ public class RescueNPC : MonoBehaviour
                 FirstResFlag = false;
                 isTalkingToNPC = false;
                 HideTextMark();
+                CollGauge.TimeStop = false;
                 Debug.Log("他のNPCと話せるようになりました");
                 Debug.Log("FirstResFlag:" + FirstResFlag);
                 Invoke("Destroy", 0.1f);

@@ -117,7 +117,7 @@ public class TalkAI : MonoBehaviour
         color.a = 0;
         npcMaterial.color = color;
         Destroy(gameObject);
-
+        CollGauge.TimeStop = false;
         // NPCが削除された後にプレイヤーを動けるようにする
         FFStop = false;  // プレイヤーキャラを再度動かす
         Debug.Log("NPCが削除されました。プレイヤーが再度動けます。");
