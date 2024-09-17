@@ -151,10 +151,10 @@ public class Radio_ver4 : MonoBehaviour
         stackMM.Push(" <sprite=1>の奥の方で\n　人が倒れている？");
         stackRadio.Push("倒壊寸前だぞ\r\n速く逃げろ");
         stackRadio.Push("天井が崩れ始めてるぞ\r\n急いでくれ");
-        stackRadio.Push("防火シャッターをおろして炎の延焼を防いでいくぞ");
+        stackRadio.Push("防火シャッターをおろして\n\r炎の延焼を防いでいくぞ");
         stackRadio.Push("ヒビが拡大しているもしかしたら崩れるぞ");
         stackRadio.Push("何か建物にヒビが入っていないか？");
-        stackRadio.Push("現場は学生寮だ！行方不明者の内10人を救うのが君の任務だ");
+        stackRadio.Push("現場は学生寮だ！行方不明者の内\n\r10人を救うのが君の任務だ");
         stackBring.Push("重傷者はもういなさそうだ！");
         stackBring.Push("まだ重傷者がいるようだ！\n\r引き続き調査を頼む！");
         stackBring.Push("まだ重傷者がいるようだ！\n\r引き続き調査を頼む！");
@@ -201,10 +201,10 @@ public class Radio_ver4 : MonoBehaviour
         {
             //軽症者テキストのヒント
             stackObj.Push("<sprite=6>で人が動けないってい叫んでたわ");
-            stackObj.Push("西南方面に人影があったかもしれない一応向かってほしいの");
+            stackObj.Push("西南方面に人影があったかもしれない\n\r一応向かってほしいの");
             stackObj.Push("西の方に人が逃げていったよ");
             stackObjMan.Push("<sprite=6>で人が動けないってい叫んでぞ");
-            stackObjMan.Push("西南方面に人影があったかもしれない一応向かってくれないか");
+            stackObjMan.Push("西南方面に人影があったかも\n\rしれない一応向かってくれないか");
             stackObjMan.Push("西の方に人が逃げていったぞ");
             //missionマップのヒント
             stackMM.Push(" <sprite=6>に人がいる？");
@@ -228,11 +228,11 @@ public class Radio_ver4 : MonoBehaviour
         else if(RandomText == 3)
         {
             //軽症者テキストのヒント
-            stackObj.Push("さっき<sprite=2>に入った人がでてこないの...");
-            stackObj.Push("炎で汗が止まらないわ...お風呂に入りたい...");
+            stackObj.Push("さっき<sprite=2>に入った人が\n\rでてこないの...");
+            stackObj.Push("炎で汗が止まらないわ...\n\rお風呂に入りたい...");
             stackObj.Push("さっき北側に人が向かっていったわ");
-            stackObjMan.Push("さっき<sprite=2>に入った人がでてこないんだ...");
-            stackObjMan.Push("炎で汗が止まらないぜ...お風呂に入りたい...");
+            stackObjMan.Push("さっき<sprite=2>に入った人が\n\rでてこないんだ...");
+            stackObjMan.Push("炎で汗が止まらないぜ...\n\rお風呂に入りたい...");
             stackObjMan.Push("さっき北側に人が向かっていったぞ");
             //missionマップのヒント
             stackMM.Push(" <sprite=2>で人がでてこない？");
@@ -256,10 +256,10 @@ public class Radio_ver4 : MonoBehaviour
         else if(RandomText == 5)
         {
             //軽症者テキストのヒント
-            stackObj.Push("<sprite=4>で酔っぱらった人が寝てて起きないの！助けてほしい！");
+            stackObj.Push("<sprite=4>で酔っぱらった人が寝てて起きないの！\n\r助けてほしい！");
             stackObj.Push("まさかこんな状況で寝てるやつはいないよね...");
             stackObj.Push("さっき西側に走って逃げる人がいたわ");
-            stackObjMan.Push("<sprite=4>で酔っぱらったやつが寝てて起きないんだ！助けてやってくれ");
+            stackObjMan.Push("<sprite=4>で酔っぱらったやつが寝てて起きないんだ！\n\r助けてやってくれ");
             stackObjMan.Push("まさかこんな状況で寝てるやつはいないよな...");
             stackObjMan.Push("さっき西側に走って逃げる人がいたぞ");
             //missionマップのヒント

@@ -21,7 +21,7 @@ public class RadioText : MonoBehaviour
     private bool ActiveText = false;
 
     // 救助フラグ
-    public bool RescueFlag = false;
+    public static bool RescueFlag = false;
 
     // ランダムな画像選択用変数
     private int Tmp = 0;
@@ -45,7 +45,7 @@ public class RadioText : MonoBehaviour
         {
             // 1秒後にラジオアクティブ化、2秒後に停止する
             Invoke(nameof(ActiveRadio), 1f);
-            Invoke(nameof(StopRadio), 2f);
+            Invoke(nameof(StopRadio), 2.5f);
             // 救助フラグをリセット
             RescueFlag = false;
         }

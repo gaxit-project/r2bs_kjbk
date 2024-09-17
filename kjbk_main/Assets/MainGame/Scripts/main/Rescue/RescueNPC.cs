@@ -85,6 +85,10 @@ public class RescueNPC : MonoBehaviour
 
     public static bool isTalkingToNPC = false; // プレイヤーがNPCと話しているかどうかを追跡するフラグ
     public float interactionRange = 5f; // 対話可能な距離の設定（適宜調整）
+
+    // CanvasおよびTextMeshProを参照
+    public Canvas textCanvas;  // World SpaceモードのCanvas
+    public TextMeshProUGUI textMark;  // テキストマーク
     #endregion
 
     void Start()
@@ -196,6 +200,8 @@ public class RescueNPC : MonoBehaviour
             {
                 if (!IsItFirstContact())
                 {
+                    // NPCの頭上にテキストを表示する処理
+                    ShowTextMark();
                     // プレイヤーを停止させる
                     TalkAI.FFStop = true;  // プレイヤーキャラを停止
                     Debug.Log("プレイヤーが停止しました。");
@@ -274,6 +280,40 @@ public class RescueNPC : MonoBehaviour
 
     #region 関数
     //関数
+    void ShowTextMark()
+    {
+        // NPCの頭上にテキストマークを表示
+        Vector3 npcPosition = transform.position;
+        textCanvas.transform.position = npcPosition + Vector3.up * 10.0f;  // NPCの頭上に表示（適宜調整）
+
+        text = "・・・";
+        // テキスト内容を設定
+        textMark.text = text;
+
+        // テキストマークを有効にする
+        textCanvas.gameObject.SetActive(true);
+
+        // テキストがプレイヤーの方向を向くようにする
+        textCanvas.transform.LookAt(Player.transform);
+    }
+
+    public void HideTextMark()
+    {
+        // テキストマークを非表示にする
+        textCanvas.gameObject.SetActive(false);
+    }
+
+    // プレイヤーがNPCから離れたらUIを非表示にする
+    void OnTriggerExit(Collider collider)
+    {
+        if (collider.gameObject.name == "Player" || collider.gameObject.CompareTag("Player"))
+        {
+            HideTextMark();
+            SetInZone(false);
+            SetText("");
+            isTalkingToNPC = false;
+        }
+    }
     public bool ArrowONOFF()
     {
         return ArrowON;
@@ -292,7 +332,6 @@ public class RescueNPC : MonoBehaviour
         number.RNumber();
         Radio4.Dialogue();
         POP.LightR();
-        RText.RescueFlag = true;
     }
     public void CountDestroy()//オブジェクトの破壊
     {
@@ -428,6 +467,7 @@ public class RescueNPC : MonoBehaviour
                 Debug.Log("初めての救助達成！");
                 FirstResFlag = false;
                 isTalkingToNPC = false;
+                HideTextMark();
                 Debug.Log("他のNPCと話せるようになりました");
                 Debug.Log("FirstResFlag:" + FirstResFlag);
                 Invoke("Destroy", 0.1f);

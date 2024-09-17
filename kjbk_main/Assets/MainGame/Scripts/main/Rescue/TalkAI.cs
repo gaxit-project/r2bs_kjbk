@@ -13,6 +13,7 @@ public class TalkAI : MonoBehaviour
     private Material npcMaterial;  // マテリアルの参照を保持
     private bool isFading = false;  // 透明化が開始されたかどうか
     private Collider[] npcColliders;  // NPCの全コライダー
+    public RescueNPC rescueNPC;  // RescueNPCスクリプトへの参照
 
     void Start()
     {
@@ -63,6 +64,12 @@ public class TalkAI : MonoBehaviour
             // プレイヤーを停止させる
             FFStop = true;  // プレイヤーキャラを停止
             Debug.Log("プレイヤーが停止しました。");
+            RadioText.RescueFlag = true;
+            if (rescueNPC != null)
+            {
+                rescueNPC.HideTextMark();  // テキストマークを非表示にする
+                Debug.Log("NPCのテキストマークを非表示にしました。");
+            }
 
             // NPCに話しかけた後、ナビメッシュで目的地へ移動開始
             hasTalked = true;
