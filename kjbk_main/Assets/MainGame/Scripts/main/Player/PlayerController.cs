@@ -187,7 +187,7 @@ public class PlayController : MonoBehaviour
             RunOut = false;
             if (SE_Stamina_OneShot)
             {
-                Audio.GetInstance().StopRoopSE();
+                Audio.GetInstance().StopRoopSE(2);
             }
         }
         else if (Stamina <= 0f)
@@ -264,7 +264,7 @@ public class PlayController : MonoBehaviour
                     }
 
                     SE_OneShot = false;
-                    Audio.GetInstance().StopRoopSE();
+                    Audio.GetInstance().StopRoopSE(1);
 
                 }
                 #endregion
@@ -331,7 +331,7 @@ public class PlayController : MonoBehaviour
                                 Stamina -= Time.deltaTime / StaminaDownSpeed;
                                 if (!SE_OneShot)
                                 {
-                                    Audio.GetInstance().PlayRoopSE(0);
+                                    Audio.GetInstance().PlayRoopSE(1);
                                 }
                             }
                             else//0に揃える
@@ -339,7 +339,7 @@ public class PlayController : MonoBehaviour
                                 Stamina = 0f;
                                 if (!SE_Stamina_OneShot)
                                 {
-                                    Audio.GetInstance().PlayRoopSE(0);
+                                    Audio.GetInstance().PlayRoopSE(2);
                                 }
                             }
                             PlayerPrefs.SetFloat("Stamina", Stamina);

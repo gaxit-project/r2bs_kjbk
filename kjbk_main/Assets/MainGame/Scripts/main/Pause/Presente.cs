@@ -98,12 +98,14 @@ public class Presente : MonoBehaviour
     #region ボタン操作: UI操作メソッド
     public void Quit()
     {
+        Audio.GetInstance().PlaySound(16);
         // ゲーム終了処理
         Scene.GetInstance().EndGame();
     }
 
     public void Option()
     {
+        Audio.GetInstance().PlaySound(16);
         // サウンド設定UIを表示し、ポーズUIを非表示にする
         SoundOptionUI.SetActive(true);
         PauseUI.SetActive(false);
@@ -113,6 +115,7 @@ public class Presente : MonoBehaviour
 
     public void PauseBack()
     {
+        Audio.GetInstance().PlaySound(16);
         // ポーズ画面に戻る処理
         SoundOptionUI.SetActive(false);
         TitleUI.SetActive(false);
@@ -123,12 +126,14 @@ public class Presente : MonoBehaviour
 
     public void Title()
     {
+        Audio.GetInstance().PlaySound(16);
         // タイトル画面に遷移する処理
         Scene.GetInstance().Title();
     }
 
     public void GoTitleUI()
     {
+        Audio.GetInstance().PlaySound(16);
         // タイトルUIを表示し、ポーズUIを非表示にする
         TitleUI.SetActive(true);
         PauseUI.SetActive(false);
@@ -138,6 +143,7 @@ public class Presente : MonoBehaviour
 
     public void TitleBack()
     {
+        Audio.GetInstance().PlaySound(16);
         // ポーズUIに戻る処理
         TitleUI.SetActive(false);
         PauseUI.SetActive(true);
@@ -147,6 +153,7 @@ public class Presente : MonoBehaviour
 
     public void SoundBack()
     {
+        Audio.GetInstance().PlaySound(16);
         // サウンド設定UIに戻る処理
         SoundOptionUI.SetActive(false);
         PauseUI.SetActive(true);
@@ -156,6 +163,7 @@ public class Presente : MonoBehaviour
 
     public void Escape()
     {
+        Audio.GetInstance().PlaySound(16);
         // 救助人数に応じてゲーム結果を決定する処理
         Rcnt = PlayerPrefs.GetInt("RescueCount");
         Debug.Log("K");

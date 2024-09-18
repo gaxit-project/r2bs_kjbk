@@ -44,8 +44,8 @@ public class RadioText : MonoBehaviour
         if (RescueFlag)
         {
             // 1秒後にラジオアクティブ化、2秒後に停止する
-            Invoke(nameof(ActiveRadio), 1f);
-            Invoke(nameof(StopRadio), 2.5f);
+            Invoke(nameof(ActiveRadio), 0.2f);
+            Invoke(nameof(StopRadio), 2.3f);
             // 救助フラグをリセット
             RescueFlag = false;
         }

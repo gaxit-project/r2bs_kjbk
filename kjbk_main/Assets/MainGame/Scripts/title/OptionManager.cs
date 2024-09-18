@@ -38,6 +38,7 @@ public class OptionManager : MonoBehaviour
 
     public void Back()
     {
+        Audio.GetInstance().PlaySound(0);
         TitleUI.SetActive(true);
         OptionUI.SetActive(false);
         TitleIcon2.Select();

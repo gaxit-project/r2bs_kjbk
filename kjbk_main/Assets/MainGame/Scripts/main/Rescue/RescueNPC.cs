@@ -167,6 +167,7 @@ public class RescueNPC : MonoBehaviour
                     Debug.Log("Follow ; " + IsItFollow() + "\nDiplication ; " + DiplicationScript.getFlag());
                     if (!IsItFollow() && !DiplicationScript.getFlag())   //îÒí«è]éû
                     {
+                        Audio.GetInstance().PlaySound(12);
                         DiplicationScript.OnFlag();
                         StopNPC();
                         SetFollow(true);

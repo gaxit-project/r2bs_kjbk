@@ -30,18 +30,20 @@ public class TitleManager : MonoBehaviour
     }
     public void StartGame()
     {
-        
+        Audio.GetInstance().PlaySound(0);
         PlayerPrefs.SetInt("RescueCount", 0);
         Scene.GetInstance().GamePlay();
     }
 
     public void Quit()
     {
+        Audio.GetInstance().PlaySound(0);
         Scene.GetInstance().EndGame();
     }
 
     public void Option()
     {
+        Audio.GetInstance().PlaySound(0);
         OptionUI.SetActive(true);
         TitleUI.SetActive(false);
         OptionIcon2.Select();
@@ -49,6 +51,7 @@ public class TitleManager : MonoBehaviour
 
     public void Back()
     {
+        Audio.GetInstance().PlaySound(0);
         OptionUI.SetActive(false);
         TitleUI.SetActive(true);
     }

@@ -44,12 +44,14 @@ public class BlockPOP : MonoBehaviour
             // コラプスゲージが40%のときに障害物設置
             if (Generate40)
             {
+                Audio.GetInstance().PlaySound(14);
                 Corridor1.SetActive(true);  // コリドール1を表示
                 Generate40 = false;        // フラグをリセット
             }
             // コラプスゲージが20%のときに障害物設置
             else if (Generate20)
             {
+                Audio.GetInstance().PlaySound(14);
                 Corridor2.SetActive(true);  // コリドール2を表示
                 Corridor3.SetActive(true);  // コリドール3を表示
                 Wall1.SetActive(false);     // ウォール1を非表示
@@ -58,6 +60,7 @@ public class BlockPOP : MonoBehaviour
             // コラプスゲージが10%のときに障害物設置
             else if (Generate10)
             {
+                Audio.GetInstance().PlaySound(14);
                 Corridor4.SetActive(true);  // コリドール4を表示
                 Wall2.SetActive(false);     // ウォール2を非表示
                 Generate10 = false;        // フラグをリセット

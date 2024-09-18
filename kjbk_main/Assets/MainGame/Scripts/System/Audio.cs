@@ -26,6 +26,7 @@ public class Audio : MonoBehaviour
     public Slider seSlider;
     void Start()
     {
+
         // PlayerPrefsから保存された値を取得してスライダーに適用
         float savedBGMVolume = PlayerPrefs.GetFloat("BGMVolume");
         float savedSEVolume = PlayerPrefs.GetFloat("SEVolume");
@@ -186,4 +187,21 @@ public class Audio : MonoBehaviour
     {
         audioSorceRoopSE.Stop();
     }
+
+    public void StopRoopSE(int index) // 指定したループSEを停止
+    {
+        // インデックスの範囲が正しいか確認する
+        if (index < 0 || index >= Roop_SE_List.Length)
+        {
+            Debug.LogError("Index out of range in StopRoopSE: " + index);
+            return; // インデックスが範囲外の場合は処理を中断
+        }
+
+        // 正しいインデックスの場合のみ停止処理を実行
+        if (audioSorceRoopSE.clip == Roop_SE_List[index])
+        {
+            audioSorceRoopSE.Stop();
+        }
+    }
+
 }

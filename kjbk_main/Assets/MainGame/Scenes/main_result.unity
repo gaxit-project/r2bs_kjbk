@@ -851,6 +851,8 @@ MonoBehaviour:
   SA_RankSE: {fileID: 8300000, guid: 103e315d0e4c4e740b7923665dcae829, type: 3}
   BC_RankSE: {fileID: 8300000, guid: 0697c438489b9e44cb41163504f805b2, type: 3}
   D_RankSE: {fileID: 8300000, guid: a10c06a029754b44d9095aa772137bb3, type: 3}
+  ClearBGM: {fileID: 8300000, guid: 73620e876ac9ade4a954922fdf7b2a41, type: 3}
+  OverBGM: {fileID: 8300000, guid: 348eca86807ecbf4295317b2afb19ed3, type: 3}
 --- !u!224 &303777674
 RectTransform:
   m_ObjectHideFlags: 0

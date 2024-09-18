@@ -86,6 +86,8 @@ public class ResultScore : MonoBehaviour
     public AudioClip SA_RankSE;
     public AudioClip BC_RankSE;
     public AudioClip D_RankSE;
+    public AudioClip ClearBGM;
+    public AudioClip OverBGM;
 
     private bool hasPlayedPeopleSE = false;
     private bool hasPlayedTimeSE = false;
@@ -145,11 +147,13 @@ public class ResultScore : MonoBehaviour
         {
             ClearImage.SetActive(true);
             FalseImage.SetActive(false);
+            Audioresult.PlayBGM(ClearBGM);  // BGM_List[0]を再生
         }
         else
         {
             FalseImage.SetActive(true);
             ClearImage.SetActive(false);
+            Audioresult.PlayBGM(OverBGM);  // BGM_List[0]を再生
         }
         total = (int)(people + timepoint + hppoint + ItemPoint);
         countscore += Time.deltaTime;
