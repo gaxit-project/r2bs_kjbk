@@ -8041,6 +8041,7 @@ GameObject:
   - component: {fileID: 1118542870}
   - component: {fileID: 1118542873}
   - component: {fileID: 1118542874}
+  - component: {fileID: 1118542875}
   m_Layer: 5
   m_Name: MainMenuCanvas
   m_TagString: Untagged
@@ -8164,6 +8165,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fadePanel: {fileID: 1992903414}
   fadeDuration: 1
+--- !u!114 &1118542875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1118542867}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5375686f3443404896cb937d2e8a452, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bgmSlider: {fileID: 4444962666459405664}
+  seSlider: {fileID: 3440724866490612736}
+  bgmAudioSource: {fileID: 1455974269}
+  seAudioSource: {fileID: 1455974269}
 --- !u!1 &1134206726
 GameObject:
   m_ObjectHideFlags: 0
@@ -12072,7 +12089,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7478164815284751466}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 2.3}
   m_LocalScale: {x: 0.22692399, y: 0.31830013, z: 0.19271019}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -12085,7 +12102,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.5, y: 13.4}
+  m_AnchoredPosition: {x: 1.5, y: -15.7}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &4244892553179353980
@@ -12209,7 +12226,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3067148531587378056}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0}
+  m_LocalPosition: {x: 0, y: 0, z: -2.1}
   m_LocalScale: {x: 0.22692399, y: 0.31830013, z: 0.19271019}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -12222,7 +12239,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.5, y: -15.4}
+  m_AnchoredPosition: {x: 1.5, y: 11.2}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &4618286753280249593
