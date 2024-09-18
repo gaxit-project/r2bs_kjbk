@@ -65,6 +65,7 @@ public class LIFE : MonoBehaviour
             }
             else
             {
+                Audio.GetInstance().PlaySound(8);  // ダメージを受けた声を再生
                 // HP を減らす
                 HitPoint--;
                 // スターを取ったときの処理
@@ -77,6 +78,7 @@ public class LIFE : MonoBehaviour
 
                 if (HitPoint <= 0)
                 {
+                    Audio.GetInstance().PlaySound(9);  // ダメージで死んだときの声を再生
                     // HP が尽きた場合の処理
                     Anim.SetBool("CarryWalk", false);
                     Anim.SetBool("Carry", false);

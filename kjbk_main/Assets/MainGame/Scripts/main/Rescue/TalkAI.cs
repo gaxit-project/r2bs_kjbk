@@ -14,6 +14,7 @@ public class TalkAI : MonoBehaviour
     private bool isFading = false;  // 透明化が開始されたかどうか
     private Collider[] npcColliders;  // NPCの全コライダー
     public RescueNPC rescueNPC;  // RescueNPCスクリプトへの参照
+    public Canvas textCanvas;  // World SpaceモードのCanvas
 
     void Start()
     {
@@ -65,17 +66,31 @@ public class TalkAI : MonoBehaviour
             FFStop = true;  // プレイヤーキャラを停止
             Debug.Log("プレイヤーが停止しました。");
             RadioText.RescueFlag = true;
-            if (rescueNPC != null)
-            {
-                rescueNPC.HideTextMark();  // テキストマークを非表示にする
-                Debug.Log("NPCのテキストマークを非表示にしました。");
-            }
+
+            HideTextMark();  // テキストマークを非表示にする
+            Debug.Log("NPCのテキストマークを非表示にしました。");
 
             // NPCに話しかけた後、ナビメッシュで目的地へ移動開始
             hasTalked = true;
             agent.SetDestination(new Vector3(0, 0, 0)); // 座標(0,0,0)へ移動させる
             Debug.Log("NPCがゴールへ移動開始！");
             Debug.Log("透明化を開始します！");
+
+            //オーディオの処理
+            int number1 = PlayerPrefs.GetInt("R_number");
+            if(number1 == 4)
+            {
+                Audio.GetInstance().PlaySound(5);  // SE_List[0]の効果音を再生
+            }
+            else if(number1 == 3 || number1 ==1)
+            {
+                Audio.GetInstance().PlaySound(4);  // SE_List[0]の効果音を再生
+            }
+            else if(number1 == 2)
+            {
+                Audio.GetInstance().PlaySound(3);  // SE_List[0]の効果音を再生
+            }
+            
             StartCoroutine(FadeOutAndDestroy());  // 透明化を開始
         }
     }
@@ -128,4 +143,11 @@ public class TalkAI : MonoBehaviour
         NPCDestroy = true;
         hasTalked = false;
     }
+    #region テキスト非表示
+    public void HideTextMark()
+    {
+        // テキストマークを非表示にする
+        textCanvas.gameObject.SetActive(false);
+    }
+    #endregion
 }
