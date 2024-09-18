@@ -66,6 +66,10 @@ public class PlayController : MonoBehaviour
 
     // Radio_ver4の参照
     public Radio_ver4 Radio4;
+
+    // Audio ワンショット
+    bool SE_OneShot = false;
+    bool SE_Stamina_OneShot = false;
     #endregion
 
     #region PlayerInputコールバック
@@ -181,6 +185,10 @@ public class PlayController : MonoBehaviour
         if (Stamina >= 1f)
         {
             RunOut = false;
+            if (SE_Stamina_OneShot)
+            {
+                Audio.GetInstance().StopRoopSE();
+            }
         }
         else if (Stamina <= 0f)
         {
@@ -255,6 +263,9 @@ public class PlayController : MonoBehaviour
                         animator.SetBool("Walk", false);
                     }
 
+                    SE_OneShot = false;
+                    Audio.GetInstance().StopRoopSE();
+
                 }
                 #endregion
                 else
@@ -318,10 +329,18 @@ public class PlayController : MonoBehaviour
                             if (Stamina >= 0)
                             {
                                 Stamina -= Time.deltaTime / StaminaDownSpeed;
+                                if (!SE_OneShot)
+                                {
+                                    Audio.GetInstance().PlayRoopSE(0);
+                                }
                             }
                             else//0に揃える
                             {
                                 Stamina = 0f;
+                                if (!SE_Stamina_OneShot)
+                                {
+                                    Audio.GetInstance().PlayRoopSE(0);
+                                }
                             }
                             PlayerPrefs.SetFloat("Stamina", Stamina);
                             #endregion

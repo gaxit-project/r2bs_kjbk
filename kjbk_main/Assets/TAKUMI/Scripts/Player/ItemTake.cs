@@ -59,6 +59,7 @@ public class ItemTake : MonoBehaviour
                 SMI.ItemActive(0);
                 MMUI.MissionUpgread("Å°É}ÉOÉJÉbÉvÇíTÇ∑", ItemID(0), 0);
                 FlagReset(0);
+                Audio.GetInstance().PlaySound(1);
             }
             else if (ItemFlag[1] && Take && GetItem[1])
             {
@@ -66,6 +67,7 @@ public class ItemTake : MonoBehaviour
                 SMI.ItemActive(1);
                 MMUI.MissionUpgread("Å°ÉXÉ}ÉzÇíTÇ∑", ItemID(1), 0);
                 FlagReset(1);
+                Audio.GetInstance().PlaySound(1);
             }
             else if (ItemFlag[2] && Take && GetItem[2])
             {
@@ -73,6 +75,7 @@ public class ItemTake : MonoBehaviour
                 SMI.ItemActive(2);
                 MMUI.MissionUpgread("Å°ÉVÉÉÉìÉvÅ[ÇíTÇ∑", ItemID(2), 0);
                 FlagReset(2);
+                Audio.GetInstance().PlaySound(1);
             }
             else if (ItemFlag[3] && Take && GetItem[3])
             {
@@ -80,6 +83,7 @@ public class ItemTake : MonoBehaviour
                 SMI.ItemActive(3);
                 MMUI.MissionUpgread("Å°TÉVÉÉÉcÇíTÇ∑", ItemID(3), 0);
                 FlagReset(3);
+                Audio.GetInstance().PlaySound(1);
             }
             else if (ItemFlag[4] && Take && GetItem[4])
             {
@@ -87,6 +91,7 @@ public class ItemTake : MonoBehaviour
                 SMI.ItemActive(4);
                 MMUI.MissionUpgread("Å°äGâÊÇíTÇ∑", ItemID(4), 0);
                 FlagReset(4);
+                Audio.GetInstance().PlaySound(1);
             }
             else if (ItemFlag[5] && Take && GetItem[5])
             {
@@ -94,6 +99,7 @@ public class ItemTake : MonoBehaviour
                 SMI.ItemActive(5);
                 MMUI.MissionUpgread("Å°ÉQÅ[ÉÄã@ÇíTÇ∑", ItemID(5), 0);
                 FlagReset(5);
+                Audio.GetInstance().PlaySound(1);
             }
             else if (ItemFlag[6] && Take && GetItem[6])
             {
@@ -101,6 +107,7 @@ public class ItemTake : MonoBehaviour
                 SMI.ItemActive(6);
                 MMUI.MissionUpgread("Å°é ê^ÇíTÇ∑", ItemID(6), 0);
                 FlagReset(6);
+                Audio.GetInstance().PlaySound(1);
             }
             else if (ItemFlag[7] && Take && GetItem[7])
             {
@@ -108,6 +115,7 @@ public class ItemTake : MonoBehaviour
                 SMI.ItemActive(7);
                 MMUI.MissionUpgread("Å°Ç≠Ç‹ÇÃÇ Ç¢ÇÆÇÈÇ›ÇíTÇ∑", ItemID(7), 0);
                 FlagReset(7);
+                Audio.GetInstance().PlaySound(1);
             }
             else if (ItemFlag[8] && Take && GetItem[8])
             {
@@ -115,6 +123,7 @@ public class ItemTake : MonoBehaviour
                 SMI.ItemActive(8);
                 MMUI.MissionUpgread("Å°â‘ÇíTÇ∑", ItemID(8), 0);
                 FlagReset(8);
+                Audio.GetInstance().PlaySound(1);
             }
 
         }

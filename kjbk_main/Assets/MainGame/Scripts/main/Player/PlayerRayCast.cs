@@ -95,7 +95,7 @@ public class PlayerRayCast : MonoBehaviour
                 //消火器用スクリプト
                 if (Take )
                 {
-
+                    Audio.GetInstance().PlaySound(1);
                     if (HosuStatus == false)
                     {
                         #region 初回取得時
