@@ -272,14 +272,14 @@ public class RescueNPC : MonoBehaviour
             #endregion
 
             #region 軽傷者が救助地点にふれた時
-            if (IsItInGoal() && !IsItRescued() && Severe == false)   //救出地点に接触かつ未救出かつ軽症者
-            {
-                RescuedVectorNPC(TargetPosition.x, TargetPosition.y, TargetPosition.z);   //NPCを救出したときのVector
-                SetRescued(true);
-                NPCanimator.SetBool("Walk", false);
-                CountDestroy();   //一定時間後にオブジェクト削除
-                CounterScript.Count();
-            }
+            //if (IsItInGoal() && !IsItRescued() && Severe == false)   //救出地点に接触かつ未救出かつ軽症者
+            //{
+            //    RescuedVectorNPC(TargetPosition.x, TargetPosition.y, TargetPosition.z);   //NPCを救出したときのVector
+            //    SetRescued(true);
+            //    NPCanimator.SetBool("Walk", false);
+            //    CountDestroy();   //一定時間後にオブジェクト削除
+            //    CounterScript.Count();
+            //}
             #endregion
         }
         #endregion
@@ -450,6 +450,7 @@ public class RescueNPC : MonoBehaviour
         
         if (navAgent != null)
         {
+            Debug.Log("ナビメッシュ再起動！");
             navAgent.enabled = true;  // NavMeshAgentを有効
         }
         TalkAI TalkAIScript = GetComponent<TalkAI>();

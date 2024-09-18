@@ -60,11 +60,11 @@ public class TalkAI : MonoBehaviour
     // NPCに話しかけた時に呼ばれる関数
     public void TalkToNPC()
     {
+        Debug.Log("話しかける関数は呼び出されたよーーん");
         if (!hasTalked)
         {
+            Debug.Log("話しかける関数は呼び出されたよーーんその後処理もするよーーん");
             // プレイヤーを停止させる
-            FFStop = true;  // プレイヤーキャラを停止
-            Debug.Log("プレイヤーが停止しました。");
             RadioText.RescueFlag = true;
 
             HideTextMark();  // テキストマークを非表示にする

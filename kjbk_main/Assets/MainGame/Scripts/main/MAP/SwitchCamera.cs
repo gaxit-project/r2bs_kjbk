@@ -84,6 +84,7 @@ public class SwitchCamera : MonoBehaviour
             #region マップ切り替え処理
             if (Map)
             {
+                Audio.GetInstance().PlaySound(10);  //マップを開いたときの音
                 if (MapON)
                 {
                     map_status = !map_status;
