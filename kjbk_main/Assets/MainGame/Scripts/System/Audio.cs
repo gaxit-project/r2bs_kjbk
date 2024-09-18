@@ -1,15 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class Audio : MonoBehaviour
 {
-    //‰¹ƒtƒ@ƒCƒ‹
+    //ï¿½ï¿½ï¿½tï¿½@ï¿½Cï¿½ï¿½
     [SerializeField] AudioClip[] SE_List;
     [SerializeField] AudioClip[] BGM_List;
     [SerializeField] AudioClip[] Roop_SE_List;
 
-    //‰¹‚Ì–Â‚ç‚µ•ûw’è
+    //ï¿½ï¿½ï¿½Ì–Â‚ç‚µï¿½ï¿½ï¿½wï¿½ï¿½
     [SerializeField] AudioSource audioSorceBGM;
     [SerializeField] AudioSource audioSorceSE;
     [SerializeField] AudioSource audioSorceRoopSE;
@@ -22,26 +22,62 @@ public class Audio : MonoBehaviour
     [SerializeField] AudioSource audioSourceFire6;
     [SerializeField] AudioSource audioSourceFire7;
     [SerializeField] AudioSource audioSourceFireEx;
+    public Slider bgmSlider;
+    public Slider seSlider;
+    void Start()
+    {
+        // PlayerPrefsã‹ã‚‰ä¿å­˜ã•ã‚ŒãŸå€¤ã‚’å–å¾—ã—ã¦ã‚¹ãƒ©ã‚¤ãƒ€ãƒ¼ã«é©ç”¨
+        float savedBGMVolume = PlayerPrefs.GetFloat("BGMVolume");
+        float savedSEVolume = PlayerPrefs.GetFloat("SEVolume");
+        
+        bgmSlider.value = savedBGMVolume;
+        seSlider.value = savedSEVolume;
+        
+        // ã‚¹ãƒ©ã‚¤ãƒ€ãƒ¼ã®å€¤ã‚’AudioSourceã«é©ç”¨
+        audioSorceBGM.volume = savedBGMVolume;
+        audioSorceSE.volume = savedSEVolume;
 
-    public float BGMVolume //BGMƒ{ƒŠƒ…[ƒ€
+        // ã‚¹ãƒ©ã‚¤ãƒ€ãƒ¼ã®å€¤ãŒå¤‰æ›´ã•ã‚ŒãŸã¨ãã®ãƒªã‚¹ãƒŠãƒ¼ã‚’è¿½åŠ 
+        bgmSlider.onValueChanged.AddListener(delegate { OnBGMVolumeChange(); });
+        seSlider.onValueChanged.AddListener(delegate { OnSEVolumeChange(); });
+    }
+    // BGMã®å€¤ãŒå¤‰æ›´ã•ã‚ŒãŸã¨ãã®å‡¦ç†
+    public void OnBGMVolumeChange()
+    {
+        float newBGMVolume = bgmSlider.value;
+        audioSorceBGM.volume = newBGMVolume; // AudioSourceã«é©ç”¨
+        PlayerPrefs.SetFloat("BGMVolume", newBGMVolume); // ä¿å­˜
+        PlayerPrefs.Save();
+    }
+
+    // SEã®å€¤ãŒå¤‰æ›´ã•ã‚ŒãŸã¨ãã®å‡¦ç†
+    public void OnSEVolumeChange()
+    {
+        float newSEVolume = seSlider.value;
+        audioSorceSE.volume = newSEVolume; // AudioSourceã«é©ç”¨
+        PlayerPrefs.SetFloat("SEVolume", newSEVolume); // ä¿å­˜
+        PlayerPrefs.Save();
+    }
+    
+    public float BGMVolume //BGMï¿½{ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½ï¿½
     {
         get { return audioSorceBGM.volume; }
         set { audioSorceBGM.volume = value; }
     }
 
-    public float SEVolume //SEƒ{ƒŠƒ…[ƒ€
+    public float SEVolume //SEï¿½{ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½ï¿½
     {
         get { return audioSorceSE.volume; }
         set { audioSorceSE.volume = value; }
     }
 
-    public float RoopSEVolume //RoopSEƒ{ƒŠƒ…[ƒ€
+    public float RoopSEVolume //RoopSEï¿½{ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½ï¿½
     {
         get { return audioSorceRoopSE.volume; }
         set { audioSorceRoopSE.volume = value; }
     }
 
-    public float WALKVolume //WALKSEƒ{ƒŠƒ…[ƒ€
+    public float WALKVolume //WALKSEï¿½{ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½ï¿½
     {
         get { return audioSourceWALK.volume; }
         set { audioSourceWALK.volume = value; }
@@ -49,48 +85,48 @@ public class Audio : MonoBehaviour
 
     
 
-    public float FireVolume1 //FireSEƒ{ƒŠƒ…[ƒ€
+    public float FireVolume1 //FireSEï¿½{ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½ï¿½
     {
         get { return audioSourceFire1.volume; }
         set { audioSourceFire1.volume = value; }
 
     }
-    public float FireVolume2 //FireSEƒ{ƒŠƒ…[ƒ€
+    public float FireVolume2 //FireSEï¿½{ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½ï¿½
     {
         get { return audioSourceFire2.volume; }
         set { audioSourceFire2.volume = value; }
 
     }
 
-    public float FireVolume3 //FireSEƒ{ƒŠƒ…[ƒ€
+    public float FireVolume3 //FireSEï¿½{ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½ï¿½
     {
         get { return audioSourceFire3.volume; }
         set { audioSourceFire3.volume = value; }
 
     }
 
-    public float FireVolume4 //FireSEƒ{ƒŠƒ…[ƒ€
+    public float FireVolume4 //FireSEï¿½{ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½ï¿½
     {
         get { return audioSourceFire4.volume; }
         set { audioSourceFire4.volume = value; }
 
     }
 
-    public float FireVolume5 //FireSEƒ{ƒŠƒ…[ƒ€
+    public float FireVolume5 //FireSEï¿½{ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½ï¿½
     {
         get { return audioSourceFire5.volume; }
         set { audioSourceFire5.volume = value; }
 
     }
 
-    public float FireVolume6 //FireSEƒ{ƒŠƒ…[ƒ€
+    public float FireVolume6 //FireSEï¿½{ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½ï¿½
     {
         get { return audioSourceFire6.volume; }
         set { audioSourceFire6.volume = value; }
 
     }
 
-    public float FireVolume7 //FireSEƒ{ƒŠƒ…[ƒ€
+    public float FireVolume7 //FireSEï¿½{ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½ï¿½
     {
         get { return audioSourceFire7.volume; }
         set { audioSourceFire7.volume = value; }
@@ -114,7 +150,7 @@ public class Audio : MonoBehaviour
         return Instance;
     }
 
-    private void Awake() //ƒVƒ“ƒOƒ‹ƒgƒ“
+    private void Awake() //ï¿½Vï¿½ï¿½ï¿½Oï¿½ï¿½ï¿½gï¿½ï¿½
     {
         if (this != GetInstance())
         {
@@ -124,29 +160,29 @@ public class Audio : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
     }
 
-    public void PlaySound(int index) //SEÄ¶
+    public void PlaySound(int index) //SEï¿½Äï¿½
     {
         audioSorceSE.PlayOneShot(SE_List[index]);
     }
 
-    public void PlayBGM(int index) //BGMÄ¶
+    public void PlayBGM(int index) //BGMï¿½Äï¿½
     {
         audioSorceBGM.clip = BGM_List[index];
         audioSorceBGM.Play();
     }
 
-    public void StopBGM() //BGM’â~
+    public void StopBGM() //BGMï¿½ï¿½~
     {
         audioSorceBGM.Stop();
     }
 
-    public void PlayRoopSE(int index) //DANCE_BGMÄ¶
+    public void PlayRoopSE(int index) //DANCE_BGMï¿½Äï¿½
     {
         audioSorceRoopSE.clip = Roop_SE_List[index];
         audioSorceRoopSE.Play();
     }
 
-    public void StopRoopSE() //Roop_SE’â~
+    public void StopRoopSE() //Roop_SEï¿½ï¿½~
     {
         audioSorceRoopSE.Stop();
     }
