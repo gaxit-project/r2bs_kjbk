@@ -131,14 +131,15 @@ public class TalkAI : MonoBehaviour
         // 完全に透明になったら削除
         color.a = 0;
         npcMaterial.color = color;
-        
+       
+
         CollGauge.TimeStop = false;
         // NPCが削除された後にプレイヤーを動けるようにする
         FFStop = false;  // プレイヤーキャラを再度動かす
         Debug.Log("NPCが削除されました。プレイヤーが再度動けます。");
 
         // 対話終了後、他のNPCとも話せるようにする
-        RescueNPC.isTalkingToNPC = true;
+        RescueNPC.isTalkingToNPC = false;
         //RescueNPC.RescueStopButtom = true;
         Debug.Log("NPCに話しかけられるようになりました" + RescueNPC.isTalkingToNPC);
         NPCDestroy = true;
