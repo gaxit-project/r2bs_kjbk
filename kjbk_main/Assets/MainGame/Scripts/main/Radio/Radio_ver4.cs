@@ -299,7 +299,6 @@ public class Radio_ver4 : MonoBehaviour
             //25%の確率でアイテムを出現させる
             else if (RndDialugue == 7 || RndDialugue == 8)
             {
-                HMIUI(2);
                 ItemRandom();
             }
         }
@@ -345,7 +344,6 @@ public class Radio_ver4 : MonoBehaviour
         //もしアイテムの数と残り軽傷者数+ヒントの数が同じならアイテム出現をする
         if(30-ResCnt-StackCnt == ItemCnt)
         {
-            HMIUI(2);
             ItemRandom();
         }
 
@@ -445,6 +443,7 @@ public class Radio_ver4 : MonoBehaviour
     void ItemRandom()
     {
         number1 = PlayerPrefs.GetInt("R_number");
+        HMIUI(2);
         if (ItemCountArray[ItemCnt] == (int)Item.Kitchen)
         {
             Item1 = true;

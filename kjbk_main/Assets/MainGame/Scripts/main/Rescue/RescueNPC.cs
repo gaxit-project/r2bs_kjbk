@@ -75,7 +75,7 @@ public class RescueNPC : MonoBehaviour
 
     public static bool FirstFlag = false;
 
-    bool RescueStopButtom = true;
+    public static bool RescueStopButtom = true;
 
     public static bool FirstResFlag = true;
 

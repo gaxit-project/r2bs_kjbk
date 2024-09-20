@@ -19,6 +19,8 @@ public class ItemTake : MonoBehaviour
 
 
     private InputAction TakeAction;
+
+    public static int ResultItemCount = 0;
     void Start()
     {
         var pInput = GetComponent<PlayerInput>();
@@ -32,7 +34,7 @@ public class ItemTake : MonoBehaviour
         FlagReset();
 
         ItemCount = 3;
-        
+        ResultItemCount = 0;
     }
 
 
@@ -125,7 +127,6 @@ public class ItemTake : MonoBehaviour
                 FlagReset(8);
                 Audio.GetInstance().PlaySound(10);
             }
-
         }
     }
 
@@ -145,6 +146,7 @@ public class ItemTake : MonoBehaviour
             ItemFlag[num] = false;
             GetItem[num] = false;
         }
+        ResultItemCount++;
     }
     public void ItemSet(int num)
     {

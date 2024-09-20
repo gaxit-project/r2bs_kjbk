@@ -135,7 +135,7 @@ public class ResultScore : MonoBehaviour
         hppoint = hp * 100;
         hppoint2 = hppoint;
 
-        ItemPoint = (3-ItemTake.ItemCount) * 500;
+        ItemPoint = ItemTake.ResultItemCount * 500;
         ItemPoint2 = ItemPoint;
 
         Result(PlayerPrefs.GetString("Result"));
