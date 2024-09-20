@@ -188,11 +188,17 @@ public class PlayController : MonoBehaviour
             if (SE_Stamina_OneShot)
             {
                 Audio.GetInstance().StopRoopSE(2);
+                SE_Stamina_OneShot = false;
             }
         }
         else if (Stamina <= 0f)
         {
             RunOut = true;
+            if (!SE_OneShot)
+            {
+                Audio.GetInstance().PlayRoopSE(1);
+                SE_Stamina_OneShot = true;
+            }
         }
         #endregion
 
@@ -262,9 +268,12 @@ public class PlayController : MonoBehaviour
                     {
                         animator.SetBool("Walk", false);
                     }
+                    if (SE_OneShot)
+                    {
+                        Audio.GetInstance().StopRoopSE(1);
+                        SE_OneShot = false;
+                    }
 
-                    SE_OneShot = false;
-                    Audio.GetInstance().StopRoopSE(1);
 
                 }
                 #endregion
@@ -332,15 +341,12 @@ public class PlayController : MonoBehaviour
                                 if (!SE_OneShot)
                                 {
                                     Audio.GetInstance().PlayRoopSE(1);
+                                    SE_OneShot = true;
                                 }
                             }
                             else//0に揃える
                             {
                                 Stamina = 0f;
-                                if (!SE_Stamina_OneShot)
-                                {
-                                    Audio.GetInstance().PlayRoopSE(2);
-                                }
                             }
                             PlayerPrefs.SetFloat("Stamina", Stamina);
                             #endregion
