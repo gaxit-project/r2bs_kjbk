@@ -364,6 +364,7 @@ public class RescueNPC : MonoBehaviour
     private void Destroy()
     {
         Destroy(this.gameObject);
+        Debug.Log("オブジェクトを削除する: " + gameObject.name);
         //CounterScript.Count();   //救助者カウント
         //r_num = CounterScript.getNum();
 
@@ -468,7 +469,7 @@ public class RescueNPC : MonoBehaviour
         while (!TalkAI.NPCDestroy)
         {
             Debug.Log("FirstResFlagその１:" + FirstResFlag);
-            if (FirstResFlag == true)
+            if (CounterScript.getNum() == 1)
             {
                 // NPCが削除された後にプレイヤーを動けるようにする
                 TalkAI.FFStop = false;  // プレイヤーキャラを再度動かす

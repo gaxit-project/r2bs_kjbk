@@ -78,19 +78,19 @@ public class TalkAI : MonoBehaviour
 
             //オーディオの処理
             int number1 = PlayerPrefs.GetInt("R_number");
-            if(number1 == 4)
+            if (number1 == 4)
             {
                 Audio.GetInstance().PlaySound(5);  // SE_List[0]の効果音を再生
             }
-            else if(number1 == 3 || number1 ==1)
+            else if (number1 == 3 || number1 == 1)
             {
                 Audio.GetInstance().PlaySound(4);  // SE_List[0]の効果音を再生
             }
-            else if(number1 == 2)
+            else if (number1 == 2)
             {
                 Audio.GetInstance().PlaySound(3);  // SE_List[0]の効果音を再生
             }
-            
+
             StartCoroutine(FadeOutAndDestroy());  // 透明化を開始
         }
     }
@@ -99,7 +99,6 @@ public class TalkAI : MonoBehaviour
     private IEnumerator FadeOutAndDestroy()
     {
         isFading = true;
-
         // 透明化が始まった瞬間にコライダーを無効化
         foreach (Collider col in npcColliders)
         {
@@ -126,12 +125,13 @@ public class TalkAI : MonoBehaviour
             color.a = Mathf.Lerp(1, 0, t);  // Alpha値を1から0へ徐々に変化
             npcMaterial.color = color;  // マテリアルに反映
             yield return null;
+            Debug.Log("透明化おん！！！");
         }
 
         // 完全に透明になったら削除
         color.a = 0;
         npcMaterial.color = color;
-       
+
 
         CollGauge.TimeStop = false;
         // NPCが削除された後にプレイヤーを動けるようにする
