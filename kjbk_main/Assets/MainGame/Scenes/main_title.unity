@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -9370,7 +9370,7 @@ MonoBehaviour:
   SE_List:
   - {fileID: 8300000, guid: f04e9abb74e00764dadd442f756dbf28, type: 3}
   BGM_List:
-  - {fileID: 8300000, guid: 28963a005445d304db211d0a774c8492, type: 3}
+  - {fileID: 8300000, guid: 8baff4ac11db27945be9cd3c6f2ac3fc, type: 3}
   Roop_SE_List: []
   audioSorceBGM: {fileID: 1455974269}
   audioSorceSE: {fileID: 1455974268}
@@ -9383,7 +9383,7 @@ MonoBehaviour:
   audioSourceFire5: {fileID: 0}
   audioSourceFire6: {fileID: 0}
   audioSourceFire7: {fileID: 0}
-  audioSourceFireEx: {fileID: 0}
+  audioSourceFire8: {fileID: 0}
   bgmSlider: {fileID: 4444962666459405664}
   seSlider: {fileID: 3440724866490612736}
 --- !u!82 &1455974268

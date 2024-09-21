@@ -95,7 +95,6 @@ public class PlayerRayCast : MonoBehaviour
                 //消火器用スクリプト
                 if (Take )
                 {
-                    Audio.GetInstance().PlaySound(13);
                     if (HosuStatus == false)
                     {
                         #region 初回取得時
@@ -107,6 +106,7 @@ public class PlayerRayCast : MonoBehaviour
                         Invoke(nameof(DelayMethod), 1.0f);
                         //消火栓をアクティブ
                         PlayerPrefs.SetFloat("capacity",MaxWater);
+                        Audio.GetInstance().PlaySound(13);
                         //消火栓使用中
                         HosuStatus = true;
                         Hosu.SetActive(HosuStatus);
@@ -115,12 +115,17 @@ public class PlayerRayCast : MonoBehaviour
                     else
                     {
                         #region 2回目以降(消火器補給)
-                        if (isCalledOnce)
+                        if(PlayerPrefs.GetFloat("capacity") != MaxWater)
                         {
-                            isCalledOnce = false;
-                            animator.SetBool("take", isCalledOnce);
+                            if (!isCalledOnce)
+                            {
+                                isCalledOnce = true;
+                                animator.SetBool("take", isCalledOnce);
+                            }
+                            Invoke(nameof(DelayMethod), 1.0f);
+                            PlayerPrefs.SetFloat("capacity", MaxWater);
+                            Audio.GetInstance().PlaySound(13);
                         }
-                        PlayerPrefs.SetFloat("capacity", MaxWater);
                         #endregion
 
                     }

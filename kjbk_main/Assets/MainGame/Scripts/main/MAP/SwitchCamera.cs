@@ -54,6 +54,7 @@ public class SwitchCamera : MonoBehaviour
         bool Map = MapAction.triggered;
         if (CounterScript.getNum() == 1 && initialMapStatusActivated)
         {
+            Audio.GetInstance().PlaySound(15);  //マップを開いたときの音
             StartCoroutine(ActivateInitialMapStatusWithDelay(0.1f));
         }
         #endregion
