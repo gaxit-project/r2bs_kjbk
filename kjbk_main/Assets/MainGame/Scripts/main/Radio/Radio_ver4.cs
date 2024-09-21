@@ -292,12 +292,8 @@ public class Radio_ver4 : MonoBehaviour
             {
                 RadioText.SetText("ありがとう...\n\r生きて帰れる...");
             }
-            else if (RndDialugue == 5 || RndDialugue == 6)
-            {
-                RadioText.SetText("なんてすばらしい身のこなしなんだ！\n\rありがとう！");
-            }
-            //25%の確率でアイテムを出現させる
-            else if (RndDialugue == 7 || RndDialugue == 8)
+            //50%の確率でアイテムを出現させる
+            else if (RndDialugue == 7 || RndDialugue == 8 || RndDialugue == 5 || RndDialugue == 6)
             {
                 ItemRandom();
             }
