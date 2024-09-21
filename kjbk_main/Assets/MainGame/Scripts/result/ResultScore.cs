@@ -126,16 +126,16 @@ public class ResultScore : MonoBehaviour
         score = 0;
         RescueCnt = PlayerPrefs.GetInt("RescueCount");
         ScoreCount();
-        score2 = RescueCnt * 100;
+        score2 = RescueCnt * 60;
         people = score + score2;
         people2 = people;
         
-        timepoint = (int)a * 3;
+        timepoint = (int)a * 1;
         timepoint2 = timepoint;
-        hppoint = hp * 100;
+        hppoint = hp * 10;
         hppoint2 = hppoint;
 
-        ItemPoint = ItemTake.ResultItemCount * 500;
+        ItemPoint = ItemTake.ResultItemCount * 150;
         ItemPoint2 = ItemPoint;
 
         Result(PlayerPrefs.GetString("Result"));
@@ -333,7 +333,7 @@ public class ResultScore : MonoBehaviour
         Normal = PlayerPrefs.GetInt("ResCntNormal");
         Bad = PlayerPrefs.GetInt("ResCntBad");
 
-        score = Best * 200 + Normal * 100 + Bad * 50;
+        score = Best * 220 + Normal * 220 + Bad * 220;
 
     }
 
