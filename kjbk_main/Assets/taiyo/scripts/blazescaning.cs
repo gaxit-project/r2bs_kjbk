@@ -4,30 +4,25 @@ using UnityEngine;
 
 public class blazescaning : MonoBehaviour
 {
-    private AudioSource audiosource;
+    public AudioSource audiosource;
+
     void Start()
     {
-        
+        //audiosource.Play();
     }
 
-    private void Awake()
-    {
-        audiosource = GetComponent<AudioSource>();
-    }
-
-    void Update()
-    {
-        
-    }
 
     void OnTriggerStay(Collider t)
     {
-        if(t.gameObject.tag == "Blaze")
+        if (t.CompareTag("Blaze"))
         {
             if (!audiosource.isPlaying)
             {
+                Debug.Log("はいているよーーーーーーーーーーーーーーーーーー");
                 audiosource.Play();
             }
         }
     }
+
+
 }

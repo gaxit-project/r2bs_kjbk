@@ -21,7 +21,7 @@ public class Audio : MonoBehaviour
     [SerializeField] AudioSource audioSourceFire5;
     [SerializeField] AudioSource audioSourceFire6;
     [SerializeField] AudioSource audioSourceFire7;
-    [SerializeField] AudioSource audioSourceFireEx;
+    [SerializeField] AudioSource audioSourceFire8;
     public Slider bgmSlider;
     public Slider seSlider;
     void Start()
@@ -136,8 +136,8 @@ public class Audio : MonoBehaviour
 
     public float FireExVolume
     {
-        get { return audioSourceFireEx.volume; }
-        set { audioSourceFireEx.volume = value; }
+        get { return audioSourceFire8.volume; }
+        set { audioSourceFire8.volume = value; }
     }
 
     public static Audio Instance = null;

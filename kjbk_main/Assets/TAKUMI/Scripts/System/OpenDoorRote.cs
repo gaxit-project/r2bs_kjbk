@@ -57,16 +57,17 @@ public class OpenDoorRote : MonoBehaviour
             isOpen = true;
 
             float con = conect ? -1 : 1;
-
             if (Front)
             {
                 // プレイヤーがドアの右側にいる場合
                 targetRotation = doorTransform.rotation * Quaternion.Euler(0, -90f * con, 0);
+                Audio.GetInstance().PlaySound(1);
             }
             else if (Back)
             {
                 // プレイヤーがドアの左側にいる場合
                 targetRotation = doorTransform.rotation * Quaternion.Euler(0, 90f * con, 0);
+                Audio.GetInstance().PlaySound(1);
             }
         }
     }
