@@ -93,6 +93,7 @@ public class Inferno : MonoBehaviour
         if (AratalCap <= 0f)
         {
             // 消火が完了した場合の処理
+            Audio.GetInstance().PlaySound(17);
             audiosource.Play(); // 消火完了音を再生
             DesBlaze = true;    // 消火完了フラグを立てる
         }
