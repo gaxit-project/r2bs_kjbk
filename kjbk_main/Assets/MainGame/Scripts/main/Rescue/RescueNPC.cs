@@ -269,6 +269,9 @@ public class RescueNPC : MonoBehaviour
                 r_num = CounterScript.getNum();
                 POP.PopR();
                 ArrowON = false;
+                //Thank You•\¦
+                Audio.GetInstance().PlaySound(5);  // SE_List[0]‚ÌŒø‰Ê‰¹‚ğÄ¶
+                RadioText.RescueFlag = true;
             }
             #endregion
 

@@ -150,7 +150,7 @@ public class Radio_ver4 : MonoBehaviour
         stackObj.Push("助かったよ！<sprite=1>の\r\n奥の方で人が倒れてたの!");
         stackMM.Push(" <sprite=1>の奥の方で\n　人が倒れている？");
         stackRadio.Push("倒壊寸前だぞ\r\n速く逃げろ");
-        stackRadio.Push("天井が崩れ始めてるぞ\r\n急いでくれ");
+        stackRadio.Push("延焼が全然止まらない...\r\n他の防火シャッターも閉めるぞ");
         stackRadio.Push("防火シャッターをおろして\n\r炎の延焼を防いでいくぞ");
         stackRadio.Push("ヒビが拡大しているもしかしたら崩れるぞ");
         stackRadio.Push("何か建物にヒビが入っていないか？");
