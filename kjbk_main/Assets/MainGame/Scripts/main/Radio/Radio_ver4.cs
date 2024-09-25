@@ -257,10 +257,10 @@ public class Radio_ver4 : MonoBehaviour
         {
             //軽症者テキストのヒント
             stackObj.Push("<sprite=4>で酔っぱらった人が寝てて\n\r起きないの！助けてほしい！");
-            stackObj.Push("まさかこんな状況で寝てるやつはいないよね...");
+            stackObj.Push("まさか...こんな状況で\n\r寝てるやつはいないよね...");
             stackObj.Push("さっき西側に走って逃げる人がいたわ");
             stackObjMan.Push("<sprite=4>で酔っぱらったやつが寝てて\n\r起きないんだ！助けてやってくれ");
-            stackObjMan.Push("まさかこんな状況で寝てるやつはいないよな...");
+            stackObjMan.Push("まさか...こんな状況で\n\r寝てるやつはいないよな...");
             stackObjMan.Push("さっき西側に走って逃げる人がいたぞ");
             //missionマップのヒント
             stackMM.Push(" <sprite=4>で酔っぱらって\n　倒れた人がいる？");
