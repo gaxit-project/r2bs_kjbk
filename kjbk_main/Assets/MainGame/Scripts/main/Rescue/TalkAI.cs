@@ -99,14 +99,6 @@ public class TalkAI : MonoBehaviour
     private IEnumerator FadeOutAndDestroy()
     {
 
-        // NPCが削除された後にプレイヤーを動けるようにする
-        FFStop = false;  // プレイヤーキャラを再度動かす
-        Debug.Log("NPCが削除されました。プレイヤーが再度動けます。");
-        //RescueNPC.RescueStopButtom = true;
-        Debug.Log("NPCに話しかけられるようになりました" + RescueNPC.isTalkingToNPC);
-        CollGauge.TimeStop = false;
-
-
         // 対話終了後、他のNPCとも話せるようにする
         RescueNPC.isTalkingToNPC = false;
         isFading = true;
@@ -142,7 +134,15 @@ public class TalkAI : MonoBehaviour
         // 完全に透明になったら削除
         color.a = 0;
         npcMaterial.color = color;
-       
+
+        // NPCが削除された後にプレイヤーを動けるようにする
+        FFStop = false;  // プレイヤーキャラを再度動かす
+        Debug.Log("NPCが削除されました。プレイヤーが再度動けます。");
+        //RescueNPC.RescueStopButtom = true;
+        Debug.Log("NPCに話しかけられるようになりました" + RescueNPC.isTalkingToNPC);
+        CollGauge.TimeStop = false;
+
+
         NPCDestroy = true;
         hasTalked = false;
 
