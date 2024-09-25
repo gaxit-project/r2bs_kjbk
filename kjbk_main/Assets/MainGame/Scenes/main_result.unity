@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657892, g: 0.4964133, b: 0.57481736, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657815, g: 0.49641263, b: 0.5748163, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -848,9 +848,9 @@ MonoBehaviour:
   FalseImage: {fileID: 405754408}
   RankText: {fileID: 1381450913}
   numSE: {fileID: 8300000, guid: f04e9abb74e00764dadd442f756dbf28, type: 3}
-  SA_RankSE: {fileID: 8300000, guid: f1085b143284bf448bc6b179be415b1a, type: 3}
-  BC_RankSE: {fileID: 8300000, guid: 72e075f392c74714b8bc16941bec85aa, type: 3}
-  D_RankSE: {fileID: 8300000, guid: a2599e7d3c8e4c64fa3623a79fc34cd4, type: 3}
+  SA_RankSE: {fileID: 8300000, guid: ad31ead7cf8f1b6449305769f906c066, type: 3}
+  BC_RankSE: {fileID: 8300000, guid: 73df186f092f02949bfe5aedcf01e258, type: 3}
+  D_RankSE: {fileID: 8300000, guid: 1f4bd010840f7d4409e477c38b28b96c, type: 3}
   ClearBGM: {fileID: 8300000, guid: 73620e876ac9ade4a954922fdf7b2a41, type: 3}
   OverBGM: {fileID: 8300000, guid: 348eca86807ecbf4295317b2afb19ed3, type: 3}
 --- !u!224 &303777674
