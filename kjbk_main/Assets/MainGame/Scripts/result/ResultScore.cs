@@ -147,13 +147,13 @@ public class ResultScore : MonoBehaviour
         {
             ClearImage.SetActive(true);
             FalseImage.SetActive(false);
-            Audioresult.PlayBGM(ClearBGM);  // BGM_List[0]を再生
+           // Audioresult.PlayBGM(ClearBGM);  // BGM_List[0]を再生
         }
         else
         {
             FalseImage.SetActive(true);
             ClearImage.SetActive(false);
-            Audioresult.PlayBGM(OverBGM);  // BGM_List[0]を再生
+            //Audioresult.PlayBGM(OverBGM);  // BGM_List[0]を再生
         }
         total = (int)(people + timepoint + hppoint + ItemPoint);
         countscore += Time.deltaTime;
