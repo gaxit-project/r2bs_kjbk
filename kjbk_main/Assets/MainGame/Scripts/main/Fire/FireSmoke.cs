@@ -25,7 +25,19 @@ public class FireSmoke : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log("SmokeConc * " + SmokeConc);
+        PlayerPrefs.SetFloat("SmokeConc", SmokeConc);
     }
+
+    void OnTriggerEnter(Collider obj)
+    {
+        if (obj.CompareTag("Player"))
+        {
+            InRoom = 1;
+            PlayerPrefs.SetInt("InRoom", InRoom);
+        }
+    }
+
 
     void OnTriggerStay(Collider obj)
     {
@@ -33,8 +45,6 @@ public class FireSmoke : MonoBehaviour
 
         if (obj.CompareTag("Player") && obj.CompareTag("Blaze"))
         {
-            InRoom = 1;
-            PlayerPrefs.SetInt("InRoom", InRoom);
             // ÉvÉåÉCÉÑÅ[ÇÃ BoxCollider ÇéÊìæ
             if (boxCollider != null)
             {
@@ -98,8 +108,7 @@ public class FireSmoke : MonoBehaviour
 
 
         }
-        Debug.Log("SmokeConc * " + SmokeConc);
-        PlayerPrefs.SetFloat("SmokeConc", SmokeConc);
+        
         Debug.Log("Blaze count: " + count);
         Debug.Log(roomLevel + ":::::room");
 
