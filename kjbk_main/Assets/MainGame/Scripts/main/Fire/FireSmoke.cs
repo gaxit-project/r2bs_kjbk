@@ -25,15 +25,13 @@ public class FireSmoke : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("SmokeConc * " + SmokeConc);
-        PlayerPrefs.SetFloat("SmokeConc", SmokeConc);
     }
 
     void OnTriggerStay(Collider obj)
     {
         int count = 0; // countを毎フレームリセット
 
-        if (obj.CompareTag("Player"))
+        if (obj.CompareTag("Player") && obj.CompareTag("Blaze"))
         {
             InRoom = 1;
             PlayerPrefs.SetInt("InRoom", InRoom);
@@ -100,7 +98,8 @@ public class FireSmoke : MonoBehaviour
 
 
         }
-
+        Debug.Log("SmokeConc * " + SmokeConc);
+        PlayerPrefs.SetFloat("SmokeConc", SmokeConc);
         Debug.Log("Blaze count: " + count);
         Debug.Log(roomLevel + ":::::room");
 
