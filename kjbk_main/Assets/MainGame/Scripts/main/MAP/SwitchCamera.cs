@@ -29,6 +29,8 @@ public class SwitchCamera : MonoBehaviour
     //public GameObject MissionMap; // ミッションマップ
     private bool wasPaused; // ポーズ状態フラグ
     public Radio_ver4 Radio4; // ラジオスクリプト
+    public static bool SMMFlag = false; //サブミッションを受け取ったときに立つフラグ
+    public MissionMapUI MMUI;
     #endregion
 
     #region 初期化
@@ -52,10 +54,10 @@ public class SwitchCamera : MonoBehaviour
     {
         #region マップ初期ステータス処理
         bool Map = MapAction.triggered;
-        if (CounterScript.getNum() == 1 && initialMapStatusActivated)
+        if (CounterScript.getNum() == 1 && initialMapStatusActivated || SMMFlag)
         {
             Audio.GetInstance().PlaySound(15);  //マップを開いたときの音
-            StartCoroutine(ActivateInitialMapStatusWithDelay(0.1f));
+            StartCoroutine(ActivateInitialMapStatusWithDelay(0f));
         }
         #endregion
 
@@ -130,6 +132,7 @@ public class SwitchCamera : MonoBehaviour
                 miniMap.SetActive(true);
                 Ui.SetActive(false);
                 Mkey.SetActive(false);
+                MMUI.EnableScroll();
                 if (MapON)
                 {
                     //MissionMap.SetActive(false);

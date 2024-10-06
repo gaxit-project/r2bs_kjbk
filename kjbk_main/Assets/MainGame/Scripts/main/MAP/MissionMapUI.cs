@@ -74,13 +74,35 @@ public class MissionMapUI : MonoBehaviour
         #endregion
     }
 
+    // スクロールバーの入力を無効化
+    public void DisableScroll()
+    {
+        Scroll.interactable = false;
+    }
+
+    // スクロールバーの入力を有効化
+    public void EnableScroll()
+    {
+        Scroll.interactable = true;
+    }
+
 
     private void OnEnable()
     {
-        ScrollValue = 1;
-        Scroll.value = ScrollValue;
+        if(SwitchCamera.SMMFlag)
+        {
+            ScrollValue = 0;
+            Scroll.value = ScrollValue;
+            DisableScroll();
+            SwitchCamera.SMMFlag = false;
+        }
+        else
+        {
+            ScrollValue = 1;
+            Scroll.value = ScrollValue;
+        }
+        
     }
-
 
 
     #region ミッションの更新
@@ -136,7 +158,7 @@ public class MissionMapUI : MonoBehaviour
     #region サブミッションの更新
     public void MissionUpgread(string Text, int SMTCnt,int a)
     {
-        if(SMTCnt == 3)
+        if (SMTCnt == 3)
         {
             SubMission1 = Text;
         }

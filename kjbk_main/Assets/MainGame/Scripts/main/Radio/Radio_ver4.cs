@@ -114,6 +114,9 @@ public class Radio_ver4 : MonoBehaviour
     public static bool NPCStop = false;
     public static bool CharStop = false;
 
+    //サブmission開始時のフラグ
+    public static bool SMFlag = false;
+
     #endregion
 
     void Start()
@@ -142,6 +145,7 @@ public class Radio_ver4 : MonoBehaviour
 
         CharStop = false;
         NPCStop = false;
+        SMFlag = false;
         #endregion
 
         #region スタックに無線テキストをpush
@@ -337,11 +341,11 @@ public class Radio_ver4 : MonoBehaviour
             StopCoroutine(activeCoroutine);
         }
 
-        //もしアイテムの数と残り軽傷者数+ヒントの数が同じならアイテム出現をする
-        if(30-ResCnt-StackCnt == ItemCnt)
-        {
-            ItemRandom();
-        }
+        ////もしアイテムの数と残り軽傷者数+ヒントの数が同じならアイテム出現をする
+        //if(30-ResCnt-StackCnt == ItemCnt)
+        //{
+        //    ItemRandom();
+        //}
 
         int RndHalf = Random.Range(1, 3);
         //スタックの中身がカラだったらランダムにテキストを入れる
@@ -440,6 +444,7 @@ public class Radio_ver4 : MonoBehaviour
     {
         number1 = PlayerPrefs.GetInt("R_number");
         HMIUI(2);
+        SMFlag = true;
         if (ItemCountArray[ItemCnt] == (int)Item.Kitchen)
         {
             Item1 = true;

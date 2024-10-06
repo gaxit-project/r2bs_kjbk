@@ -142,6 +142,12 @@ public class TalkAI : MonoBehaviour
         Debug.Log("NPCに話しかけられるようになりました" + RescueNPC.isTalkingToNPC);
         CollGauge.TimeStop = false;
 
+        //サブミッション開始時にマップをオンにする
+        if(Radio_ver4.SMFlag)
+        {
+            Radio_ver4.SMFlag = false;
+            SwitchCamera.SMMFlag = true;
+        }
 
         NPCDestroy = true;
         hasTalked = false;
