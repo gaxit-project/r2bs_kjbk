@@ -28,6 +28,7 @@ public class Presente : MonoBehaviour
     // ステータスフラグ
     public bool ConfigSta; // 設定中フラグ
     public bool TitleSta; // タイトル中フラグ
+    bool getwhite = false;
 
     // ゲームロジックの参照
     public GoalJudgement Goal; // ゴール判定スクリプト
@@ -126,9 +127,15 @@ public class Presente : MonoBehaviour
 
     public void Title()
     {
+        getwhite = true;
         Audio.GetInstance().PlaySound(16);
         // タイトル画面に遷移する処理
         Scene.GetInstance().Title();
+    }
+
+    public bool Getwhite()
+    {
+        return getwhite;
     }
 
     public void GoTitleUI()

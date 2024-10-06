@@ -9,10 +9,14 @@ public class FadeSceneLoader : MonoBehaviour
     public float fadeDuration = 1.0f;
     private EventSystem eventSystem;
     private string Scene;
+    private LIFE LIFE;
+    private Presente presente;
     private void Start()
     {
         // イベントシステムの取得
         eventSystem = EventSystem.current;
+        LIFE= FindObjectOfType<LIFE>();
+        presente= FindObjectOfType<Presente>();
     }
     public void CallCoroutine(string scenename)
     {
@@ -26,6 +30,14 @@ public class FadeSceneLoader : MonoBehaviour
         float elapsedTime = 0.0f;                 // 経過時間を初期化
         Color startColor = fadePanel.color;       // フェードパネルの開始色を取得
         Color endColor = new Color(startColor.r, startColor.g, startColor.b, 1.0f); // フェードパネルの最終色を設定
+        if (LIFE != null && LIFE.getred()==true)
+        {
+            endColor= Color.red;
+        }else if (presente != null && presente.Getwhite() == false)
+        {
+            endColor = Color.white;
+        }
+ 
 
         if (eventSystem != null)
         {

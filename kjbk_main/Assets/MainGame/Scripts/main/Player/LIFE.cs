@@ -24,6 +24,7 @@ public class LIFE : MonoBehaviour
     [SerializeField] private Renderer renderComponent1;
     [SerializeField] private Renderer renderComponent2;
     [SerializeField] private Renderer renderComponent3;
+    bool Fadered = false;
     #endregion
 
     #region 初期化
@@ -78,6 +79,7 @@ public class LIFE : MonoBehaviour
 
                 if (HitPoint <= 0)
                 {
+                    Fadered = true;
                     Audio.GetInstance().PlaySound(9);  // ダメージで死んだときの声を再生
                     // HP が尽きた場合の処理
                     Anim.SetBool("CarryWalk", false);
@@ -95,6 +97,13 @@ public class LIFE : MonoBehaviour
     {
         // スターを取ったときに無敵状態フラグを True にする
         isInvincible = true;
+    }
+    #endregion
+
+    #region 死んだらフェードアウトを赤
+    public bool getred()
+    {
+        return Fadered;
     }
     #endregion
 
