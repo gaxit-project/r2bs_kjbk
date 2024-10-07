@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Xml;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -22,6 +23,18 @@ public class MissionMapUI : MonoBehaviour
     string SubMission2; //サブミッション2の内容
     string SubMission3; //サブミッション3の内容
     string Situation; // 現在の状況
+
+    public float delay = 0.9f;      // 1文字あたりの表示間隔
+
+    // 前後の固定テキスト
+    private string beforeText = "これは[";
+    private string afterText = "]文章です。";
+
+    // タイピングエフェクトを適用するテキスト
+    private string typingText = "部分的に表示される";
+
+    // 現在表示中のテキスト
+    private string currentText = "";
     #endregion
 
     void Start()
@@ -48,6 +61,7 @@ public class MissionMapUI : MonoBehaviour
                                "<size=40>" + SubMission3 + "</size>\n\n\r" +
                                "<size=55>SITUATION</size>\n" +
                                "<size=40>" + Situation + "</size>");
+
         #endregion
 
 
@@ -161,14 +175,50 @@ public class MissionMapUI : MonoBehaviour
         if (SMTCnt == 3)
         {
             SubMission1 = Text;
+            typingText = Text;
+            beforeText = "<size=55>MISSION</size>\n" +
+                               "<size=40>" + MainMission + "</size>" + "\n\n\r" +
+                               "<size=55>HINT</size>\n" +
+                               "<size=40>" + Hint1 + "</size>\n" +
+                               "<size=40>" + Hint2 + "</size>\n" +
+                               "<size=40>" + Hint3 + "</size>\n\n\r" +
+                               "<size=55>SUBMISSION</size>\n";
+            afterText = "<size=40>" + SubMission2 + "</size>\n" +
+                               "<size=40>" + SubMission3 + "</size>\n\n\r" +
+                               "<size=55>SITUATION</size>\n" +
+                               "<size=40>" + Situation + "</size>";
         }
         else if (SMTCnt == 2)
         {
             SubMission2 = Text;
+            typingText = Text;
+            beforeText = "<size=55>MISSION</size>\n" +
+                               "<size=40>" + MainMission + "</size>" + "\n\n\r" +
+                               "<size=55>HINT</size>\n" +
+                               "<size=40>" + Hint1 + "</size>\n" +
+                               "<size=40>" + Hint2 + "</size>\n" +
+                               "<size=40>" + Hint3 + "</size>\n\n\r" +
+                               "<size=55>SUBMISSION</size>\n" +
+                               "<size=40>" + SubMission1 + "</size>\n";
+            afterText = "<size=40>" + SubMission3 + "</size>\n\n\r" +
+                               "<size=55>SITUATION</size>\n" +
+                               "<size=40>" + Situation + "</size>";
         }
         else if (SMTCnt == 1)
         {
             SubMission3 = Text;
+            typingText = Text;
+            beforeText = "<size=55>MISSION</size>\n" +
+                               "<size=40>" + MainMission + "</size>" + "\n\n\r" +
+                               "<size=55>HINT</size>\n" +
+                               "<size=40>" + Hint1 + "</size>\n" +
+                               "<size=40>" + Hint2 + "</size>\n" +
+                               "<size=40>" + Hint3 + "</size>\n\n\r" +
+                               "<size=55>SUBMISSION</size>\n" +
+                               "<size=40>" + SubMission1 + "</size>\n" +
+                               "<size=40>" + SubMission2 + "</size>\n";
+            afterText = "<size=55>SITUATION</size>\n" +
+                               "<size=40>" + Situation + "</size>";
         }
         #region UIテキストの更新
         MissionMAPText.SetText("<size=55>MISSION</size>\n" +
@@ -186,5 +236,37 @@ public class MissionMapUI : MonoBehaviour
         #endregion
     }
     #endregion
+
+    public void TextUpDate()
+    {
+        MissionMAPText.SetText("<size=55>MISSION</size>\n" +
+                              "<size=40>" + MainMission + "</size>" + "\n\n\r" +
+                              "<size=55>HINT</size>\n" +
+                              "<size=40>" + Hint1 + "</size>\n" +
+                              "<size=40>" + Hint2 + "</size>\n" +
+                              "<size=40>" + Hint3 + "</size>\n\n\r" +
+                              "<size=55>SUBMISSION</size>\n" +
+                              "<size=40>" + SubMission1 + "</size>\n" +
+                              "<size=40>" + SubMission2 + "</size>\n" +
+                              "<size=40>" + SubMission3 + "</size>\n\n\r" +
+                              "<size=55>SITUATION</size>\n" +
+                              "<size=40>" + Situation + "</size>");
+    }
+
+    public IEnumerator ShowText()
+    {
+        // 最初に前の固定テキストを表示
+        currentText = beforeText;
+        MissionMAPText.text = currentText;
+        Audio.GetInstance().PlaySound(18);  //マップを開いたときの音
+
+        // タイピングエフェクトを適用する部分を一文字ずつ表示
+        for (int i = 0; i <= typingText.Length; i++)
+        {
+            currentText = beforeText + "<size=45><color=red>" + typingText.Substring(0, i) + "</color></size>\n" + afterText;
+            MissionMAPText.text = currentText;
+            yield return new WaitForSeconds(delay); // 文字の表示間隔
+        }
+    }
     #endregion
 }

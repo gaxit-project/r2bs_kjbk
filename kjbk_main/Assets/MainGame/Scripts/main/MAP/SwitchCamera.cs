@@ -58,6 +58,10 @@ public class SwitchCamera : MonoBehaviour
         {
             Audio.GetInstance().PlaySound(15);  //マップを開いたときの音
             StartCoroutine(ActivateInitialMapStatusWithDelay(0f));
+            if(SMMFlag)
+            {
+                StartCoroutine(MMUI.ShowText());
+            }
         }
         #endregion
 
@@ -133,6 +137,7 @@ public class SwitchCamera : MonoBehaviour
                 Ui.SetActive(false);
                 Mkey.SetActive(false);
                 MMUI.EnableScroll();
+                MMUI.TextUpDate();
                 if (MapON)
                 {
                     //MissionMap.SetActive(false);
