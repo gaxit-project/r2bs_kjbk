@@ -54,11 +54,21 @@ public class SwitchCamera : MonoBehaviour
     {
         #region マップ初期ステータス処理
         bool Map = MapAction.triggered;
-        if (CounterScript.getNum() == 1 && initialMapStatusActivated || SMMFlag)
+        if (CounterScript.getNum() == 1 && initialMapStatusActivated /*|| SMMFlag*/)
         {
+            Debug.Log("カメラつけようかなー");
             Audio.GetInstance().PlaySound(15);  //マップを開いたときの音
             StartCoroutine(ActivateInitialMapStatusWithDelay(0f));
-            if(SMMFlag)
+            if (SMMFlag)
+            {
+                StartCoroutine(MMUI.ShowText());
+            }
+        }
+        if(SMMFlag)
+        {
+            Audio.GetInstance().PlaySound(15);  //マップを開いたときの音
+            StartCoroutine(ActivateInitialMapStatusWithDelay2(0f));
+            if (SMMFlag)
             {
                 StartCoroutine(MMUI.ShowText());
             }
@@ -181,6 +191,19 @@ public class SwitchCamera : MonoBehaviour
             map_status = true;
         }
         Radio4.FirstStopPlayer = false;
+    }
+
+    private IEnumerator ActivateInitialMapStatusWithDelay2(float delay)
+    {
+        MapON = true;
+        MiniMAPOFF.SetActive(false);
+        MiniMAP.SetActive(true);
+        MAPOFF.SetActive(false);
+        MiniMAPOFF2.SetActive(true);
+        //MissionMap.SetActive(true);
+        initialMapStatusActivated = false;
+        map_status = true;
+        yield return new WaitForSeconds(delay);
     }
     #endregion
 }

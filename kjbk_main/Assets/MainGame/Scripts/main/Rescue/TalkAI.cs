@@ -147,6 +147,7 @@ public class TalkAI : MonoBehaviour
         {
             Radio_ver4.SMFlag = false;
             SwitchCamera.SMMFlag = true;
+            Debug.Log("ヒントマップフラグオン！"+SwitchCamera.SMMFlag);
         }
 
         NPCDestroy = true;

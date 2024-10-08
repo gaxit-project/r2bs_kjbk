@@ -258,7 +258,7 @@ public class MissionMapUI : MonoBehaviour
         // 最初に前の固定テキストを表示
         currentText = beforeText;
         MissionMAPText.text = currentText;
-        Audio.GetInstance().PlaySound(18);  //マップを開いたときの音
+        //Audio.GetInstance().PlaySound(18);  //マップを開いたときの音
 
         // タイピングエフェクトを適用する部分を一文字ずつ表示
         for (int i = 0; i <= typingText.Length; i++)
@@ -266,6 +266,31 @@ public class MissionMapUI : MonoBehaviour
             currentText = beforeText + "<size=45><color=red>" + typingText.Substring(0, i) + "</color></size>\n" + afterText;
             MissionMAPText.text = currentText;
             yield return new WaitForSeconds(delay); // 文字の表示間隔
+        }
+        // サブミッションがでた後に点滅を開始する
+        StartCoroutine(BlinkText());
+    }
+
+    private IEnumerator BlinkText()
+    {
+        bool isVisible = true;
+        while (true)
+        {
+            if (isVisible)
+            {
+                // typingTextを表示
+                currentText = beforeText + "<size=45><color=red>" + typingText + "</color></size>\n" + afterText;
+            }
+            else
+            {
+                // typingTextを非表示
+                currentText = beforeText + "<size=45><color=red>" + " " + "</color></size>\n" + afterText;
+            }
+
+            MissionMAPText.text = currentText;
+            isVisible = !isVisible; // 表示・非表示を切り替え
+
+            yield return new WaitForSeconds(0.25f); // 点滅の間隔
         }
     }
     #endregion

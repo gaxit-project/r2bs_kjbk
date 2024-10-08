@@ -445,6 +445,7 @@ public class Radio_ver4 : MonoBehaviour
         number1 = PlayerPrefs.GetInt("R_number");
         HMIUI(2);
         SMFlag = true;
+        Debug.Log("ヒントオン！" + SMFlag);
         if (ItemCountArray[ItemCnt] == (int)Item.Kitchen)
         {
             Item1 = true;
