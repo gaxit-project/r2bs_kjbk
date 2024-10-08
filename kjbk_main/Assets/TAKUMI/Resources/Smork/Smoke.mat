@@ -67,7 +67,7 @@ Material:
     m_Floats:
     - _Alphe: 1
     - _BumpScale: 1
-    - _CenterRadius: 0.47548184
+    - _CenterRadius: 0
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
