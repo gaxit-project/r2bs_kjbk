@@ -64,6 +64,7 @@ public class SwitchCamera : MonoBehaviour
                 StartCoroutine(MMUI.ShowText());
             }
         }
+        //サブミッションの時にマップを開く
         if(SMMFlag)
         {
             Audio.GetInstance().PlaySound(15);  //マップを開いたときの音

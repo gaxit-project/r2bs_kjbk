@@ -271,6 +271,7 @@ public class MissionMapUI : MonoBehaviour
         StartCoroutine(BlinkText());
     }
 
+    //サブミッションのテキスト点滅
     private IEnumerator BlinkText()
     {
         bool isVisible = true;

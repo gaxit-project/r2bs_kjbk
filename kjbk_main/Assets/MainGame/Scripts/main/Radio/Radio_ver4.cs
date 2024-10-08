@@ -117,6 +117,8 @@ public class Radio_ver4 : MonoBehaviour
     //サブmission開始時のフラグ
     public static bool SMFlag = false;
 
+    bool ClearFlag = false;
+
     #endregion
 
     void Start()
@@ -146,6 +148,7 @@ public class Radio_ver4 : MonoBehaviour
         CharStop = false;
         NPCStop = false;
         SMFlag = false;
+        ClearFlag = false;
         #endregion
 
         #region スタックに無線テキストをpush
@@ -319,6 +322,24 @@ public class Radio_ver4 : MonoBehaviour
                 RadioText.SetText("なんてすばらしい身のこなしなんだ！\n\rありがとう！");
             }
         }
+    }
+    #endregion
+
+    #region 救助人数が変わったときのテキスト
+    public void ChangeCnt()
+    {
+        if (activeCoroutine != null)
+        {
+            StopCoroutine(activeCoroutine);
+        }
+        Debug.Log("クリア条件達成テキスト！");
+        ClearFlag = true;
+        RadioText.SetText("無事任務達成だ！おめでとう！");
+        ChatPanel.SetActive(true);
+        ChatR.SetActive(true);
+        HMIUI(4);
+        // 新しいコルーチンを開始し、その参照を保存する
+        activeCoroutine = StartCoroutine(Simple1());
     }
     #endregion
 
@@ -557,7 +578,7 @@ public class Radio_ver4 : MonoBehaviour
             {
                 RadioText.SetText("子供のころから一緒に過ごしていた\n\rくまのぬいぐるみも助けてほしいの！");
             }
-            MMUI.MissionUpgread("☐くまのぬいぐるみを\n　探せ！", ItemCnt, 1);
+            MMUI.MissionUpgread("☐くまのぬいぐるみ\n　を探せ！", ItemCnt, 1);
         }
         else if (ItemCountArray[ItemCnt] == (int)Item.Soto)
         {
@@ -604,6 +625,10 @@ public class Radio_ver4 : MonoBehaviour
         {
             ItemText = "アイテムを取得";
         }
+        else if (HMICnt == 4)
+        {
+            ItemText = "メインミッション達成";
+        }
         ItemTextMeshPro.SetText(ItemText);
         ItemTextObject.SetActive(true);
         ActiveCoroutine2 = StartCoroutine(TextStop());
@@ -640,6 +665,7 @@ public class Radio_ver4 : MonoBehaviour
     //テキストを一文字ずつ表示するコード
     private IEnumerator Simple1()
     {
+        RMaxText.NoText = false;
         TextONFlag = true;
         RadioText2.maxVisibleCharacters = 0;
 
@@ -665,6 +691,18 @@ public class Radio_ver4 : MonoBehaviour
             RadioText.SetText(NewText);
             activeCoroutine = StartCoroutine(Simple1());
             FirstTextFlag = false;
+        }
+        //クリア条件達成時
+        if(ClearFlag)
+        {
+            yield return new WaitForSeconds(0.5f);
+            if (activeCoroutine != null)
+            {
+                StopCoroutine(activeCoroutine);
+            }
+            RadioText.SetText("まだ建物に行方不明者がいるみたいだ\n\r時間の許す限り多くの人を救ってくれ");
+            activeCoroutine = StartCoroutine(Simple1());
+            ClearFlag = false;
         }
 
         //テキストを数秒後にオフにする
@@ -711,7 +749,9 @@ public class Radio_ver4 : MonoBehaviour
         ChatPanel3.SetActive(false);
         ChatPanel4.SetActive(false);
         ChatR.SetActive(false);
-        
+        RMaxText.NoText = false;
+
+
     }
 
 

@@ -15,6 +15,7 @@ public class TalkAI : MonoBehaviour
     private Collider[] npcColliders;  // NPCの全コライダー
     public RescueNPC rescueNPC;  // RescueNPCスクリプトへの参照
     public Canvas textCanvas;  // World SpaceモードのCanvas
+    public SwitchCamera SCame;
 
     void Start()
     {
@@ -121,7 +122,7 @@ public class TalkAI : MonoBehaviour
 
         float fadeSpeed = 1.0f / fadeDuration;
         Color color = npcMaterial.color;
-
+        SCame.map_status = false;
         // 透明化処理
         for (float t = 0; t < 1.0f; t += Time.deltaTime * fadeSpeed)
         {
@@ -145,6 +146,7 @@ public class TalkAI : MonoBehaviour
         //サブミッション開始時にマップをオンにする
         if(Radio_ver4.SMFlag)
         {
+            
             Radio_ver4.SMFlag = false;
             SwitchCamera.SMMFlag = true;
             Debug.Log("ヒントマップフラグオン！"+SwitchCamera.SMMFlag);

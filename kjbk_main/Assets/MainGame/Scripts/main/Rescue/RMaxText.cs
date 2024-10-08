@@ -10,6 +10,10 @@ public class RMaxText : MonoBehaviour
 
     int Cnt;
     bool hasPlayedAnimation = false; // アニメーションが再生されたかのフラグ
+    public static bool NoText = false;
+    bool ChangeTextFlag = true;
+
+    public Radio_ver4 Radio4;
 
     private void Awake()
     {
@@ -21,14 +25,17 @@ public class RMaxText : MonoBehaviour
     {
         // 救助可能最大人数の表示
         RMax.SetText("<sprite=1><sprite=0>");
+        ChangeTextFlag = true;
     }
 
     void Update()
     {
         Cnt = PlayerPrefs.GetInt("RescueCount");
-
-        if (Cnt >= 10 && !hasPlayedAnimation)
+        if (Cnt >= 10 && !hasPlayedAnimation && !NoText && ChangeTextFlag)
         {
+            Debug.Log("クリア条件達成！");
+            Radio4.ChangeCnt();
+            ChangeTextFlag = false;
             RMax.SetText("<sprite=3><sprite=0>");
             RMaxAnimator.SetTrigger("ScaleUpTrigger"); // アニメーションのトリガーをセット
             hasPlayedAnimation = true; // アニメーションが再生されたことを記録
