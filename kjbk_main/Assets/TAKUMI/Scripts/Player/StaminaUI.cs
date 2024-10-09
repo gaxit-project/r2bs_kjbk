@@ -12,6 +12,9 @@ public class StaminaUI : MonoBehaviour
     // ゲージを表示するImageコンポーネント
     [SerializeField] private Image _gaugeImage;
 
+    // ゲージを表示するImageコンポーネント
+    [SerializeField] private Image _ButtonImage;
+
     float Stamina;
 
     public Color color_1, color_2, color_3, color_4;
@@ -66,11 +69,13 @@ public class StaminaUI : MonoBehaviour
             {
                 _gaugeImage.color = Color.Lerp(color_4, color_3, Stamina * 4f);
             }
+            _ButtonImage.color = new Color(1f, 1f, 1f);
         }
         else
         {
             //息切れ時は赤で満タンまで回復
             _gaugeImage.color = new Color(255, 0, 0);
+            _ButtonImage.color = new Color(0.39f, 0.39f, 0.39f);
         }
 
 
