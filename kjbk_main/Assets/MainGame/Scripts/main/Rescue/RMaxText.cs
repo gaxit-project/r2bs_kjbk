@@ -12,7 +12,6 @@ public class RMaxText : MonoBehaviour
     bool hasPlayedAnimation = false; // アニメーションが再生されたかのフラグ
     public static bool NoText = false;
     bool ChangeTextFlag = true;
-
     public Radio_ver4 Radio4;
 
     private void Awake()
@@ -33,6 +32,7 @@ public class RMaxText : MonoBehaviour
         Cnt = PlayerPrefs.GetInt("RescueCount");
         if (Cnt >= 10 && !hasPlayedAnimation && !NoText && ChangeTextFlag)
         {
+            Audio.GetInstance().PlaySound(21);
             Debug.Log("クリア条件達成！");
             Radio4.ChangeCnt();
             ChangeTextFlag = false;

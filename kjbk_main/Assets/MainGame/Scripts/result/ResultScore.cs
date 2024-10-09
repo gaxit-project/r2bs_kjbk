@@ -88,6 +88,8 @@ public class ResultScore : MonoBehaviour
     public AudioClip D_RankSE;
     public AudioClip ClearBGM;
     public AudioClip OverBGM;
+    public AudioClip Piramidroool;
+    public AudioClip kira;
 
     private bool hasPlayedPeopleSE = false;
     private bool hasPlayedTimeSE = false;
@@ -98,6 +100,16 @@ public class ResultScore : MonoBehaviour
     private bool hasPlayedRankSE = false;
     private Audioreslt Audioresult;
     bool RSFlag = false;
+    public float moveSpeed = 0.1f; 
+    private Vector3 targetPosition;
+
+    public Image cooldown;
+
+    public RectTransform piramidbow;
+    public float fillSpeed = 0.1f; // fillAmount の変更速度
+    private float targetFillAmount = 0f; // 目標の fillAmount
+    bool doraroll=true;
+
     void Start()
     {
         
@@ -140,6 +152,8 @@ public class ResultScore : MonoBehaviour
 
         Result(PlayerPrefs.GetString("Result"));
         Audioresult = FindObjectOfType<Audioreslt>();
+        targetPosition = piramidbow.position;
+        cooldown.fillAmount=0;
     }
     private void Update()
     {
@@ -247,6 +261,7 @@ public class ResultScore : MonoBehaviour
         {
             //TotalImage.SetActive(true);
             textFailure2.text = "";
+            Pramidroll();
             if (clearflag == false)
             {
                 failedtotal = (int)(people + timepoint + hppoint + ItemPoint) - 500;
@@ -269,13 +284,14 @@ public class ResultScore : MonoBehaviour
                 Audioresult.PlaySE(numSE);
                 hasPlayedTotalSE=true;
             }
-            
         }
+        if(cooldown.fillAmount == targetFillAmount){
         if (countscore >= rankdisplay && !hasPlayedRankSE)
         {
+            
             if (clearflag == true)
             {
-
+                Audioresult.PlaySE(kira);
                 {
                     if (total >= 2500)
                     {
@@ -310,7 +326,13 @@ public class ResultScore : MonoBehaviour
                 hasPlayedRankSE=true;
             }
         }
-        
+        }else{
+        cooldown.fillAmount = Mathf.MoveTowards(cooldown.fillAmount, targetFillAmount, fillSpeed * Time.deltaTime);
+        if(doraroll){
+        Audioresult.PlaySE(Piramidroool);
+        doraroll=false;
+        }
+        }
     }
     public void Result(string str)
     {
@@ -350,6 +372,62 @@ public class ResultScore : MonoBehaviour
     {
         textTotal.text = i.ToString();
     }
+
+    public void Pramidroll(){
+
+        /*if(!clearflag){
+            StartCoroutine(MoveToPosition(new Vector3(piramidbow.position.x, piramidbow.position.y+280, piramidbow.position.z)));
+        }else*/ if(total>=3000){
+            //StartCoroutine(MoveToPosition(new Vector3(piramidbow.position.x, piramidbow.position.y+280, piramidbow.position.z)));
+            //cooldown.fillAmount=1f;
+            targetFillAmount = 1f;
+        }else if(total>=2750){
+            //StartCoroutine(MoveToPosition(new Vector3(piramidbow.position.x, piramidbow.position.y+250, piramidbow.position.z)));
+            //cooldown.fillAmount=0.93f;
+            targetFillAmount = 0.93f;
+        }else if(total>=2500){
+            //StartCoroutine(MoveToPosition(new Vector3(piramidbow.position.x, piramidbow.position.y+230, piramidbow.position.z)));
+            //cooldown.fillAmount=0.8f;
+            targetFillAmount = 0.8f;
+        }else if(total>=2250){
+            //StartCoroutine(MoveToPosition(new Vector3(piramidbow.position.x, piramidbow.position.y+200, piramidbow.position.z)));
+            //cooldown.fillAmount=0.7f;
+            targetFillAmount = 0.7f;
+        }else if(total>=2000){
+           //StartCoroutine(MoveToPosition(new Vector3(piramidbow.position.x, piramidbow.position.y+165, piramidbow.position.z)));
+           //cooldown.fillAmount=0.6f;
+           targetFillAmount = 0.6f;
+        }else if(total>=1750){
+            //StartCoroutine(MoveToPosition(new Vector3(piramidbow.position.x, piramidbow.position.y+135, piramidbow.position.z)));
+            //cooldown.fillAmount=0.5f;
+            targetFillAmount = 0.5f;
+        }else if(total>=1500){
+            //StartCoroutine(MoveToPosition(new Vector3(piramidbow.position.x, piramidbow.position.y+100, piramidbow.position.z)));
+            //cooldown.fillAmount=0.4f;
+            targetFillAmount = 0.4f;
+        }else if(total>=1000){
+            //StartCoroutine(MoveToPosition(new Vector3(piramidbow.position.x, piramidbow.position.y+75, piramidbow.position.z)));
+            //cooldown.fillAmount=0.3f;
+            targetFillAmount = 0.3f;
+        }else if(total>=0){
+            //StartCoroutine(MoveToPosition(new Vector3(piramidbow.position.x, piramidbow.position.y+50, piramidbow.position.z)));
+            //cooldown.fillAmount=0.2f;
+            targetFillAmount = 0.2f;
+        }
+        /*piramidbow.position = Vector3.Lerp(piramidbow.position, targetPosition, Time.deltaTime * moveSpeed);*/
+    }
+    IEnumerator MoveToPosition(Vector3 targetPosition)
+{
+    while (Vector3.Distance(piramidbow.position, targetPosition) > 0.01f)
+    {
+        // 目標位置に向かって徐々に移動
+        piramidbow.position = Vector3.Lerp(piramidbow.position, targetPosition, Time.deltaTime * moveSpeed * 0.5f);
+        yield return null; // 次のフレームまで待つ
+    }
+
+    // 最後に目標位置に正確に設定
+    piramidbow.position = targetPosition;
+}
 
     IEnumerator RandomScore()
     {
