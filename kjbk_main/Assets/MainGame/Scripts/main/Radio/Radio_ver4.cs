@@ -154,8 +154,8 @@ public class Radio_ver4 : MonoBehaviour
         #region スタックに無線テキストをpush
         //スタックの中身を入れる
         stackObj.Push("え、間取りがわからない?\r\nマップをあげるから確認してみて");
-        stackObj.Push("助かったよ！<sprite=1>の\r\n奥の方で人が倒れてたの!");
-        stackMM.Push(" <sprite=1>の奥の方で\n　人が倒れている？");
+        stackObj.Push("助かったよ！<sprite=7>の\r\n奥の方で人が倒れてたの!");
+        stackMM.Push(" <sprite=7>の奥の方で\n　人が倒れている？");
         stackRadio.Push("倒壊寸前だぞ\r\n速く逃げろ");
         stackRadio.Push("延焼が全然止まらない...\r\n他の防火シャッターも閉めるぞ");
         stackRadio.Push("防火シャッターをおろして\n\r炎の延焼を防いでいくぞ");

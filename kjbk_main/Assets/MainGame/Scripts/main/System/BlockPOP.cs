@@ -11,6 +11,7 @@ public class BlockPOP : MonoBehaviour
     [SerializeField] private GameObject Corridor4;   // 障害物コリドール4
     [SerializeField] private GameObject Wall1;       // 障害物ウォール1
     [SerializeField] private GameObject Wall2;       // 障害物ウォール2
+    [SerializeField] private GameObject Wall3;       // 障害物ウォール3
     #endregion
 
     #region 倒壊ゲージのフラグ
@@ -30,6 +31,7 @@ public class BlockPOP : MonoBehaviour
         Corridor4.SetActive(false); // コリドール4を非表示
         Wall1.SetActive(true);      // ウォール1を表示
         Wall2.SetActive(true);      // ウォール2を表示
+        Wall3.SetActive(false);      // ウォール3を非表示
         #endregion
     }
     #endregion
@@ -63,6 +65,8 @@ public class BlockPOP : MonoBehaviour
                 Audio.GetInstance().PlaySound(14);
                 Corridor4.SetActive(true);  // コリドール4を表示
                 Wall2.SetActive(false);     // ウォール2を非表示
+                Wall3.SetActive(true);      // ウォール3を表示
+                Audio.GetInstance().PlaySound(22);
                 Generate10 = false;        // フラグをリセット
             }
         }

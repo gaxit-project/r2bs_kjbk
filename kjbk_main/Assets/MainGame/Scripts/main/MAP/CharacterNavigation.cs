@@ -219,7 +219,7 @@ public class CharacterNavigation : MonoBehaviour
     private bool IsTargetText(string text)
     {
         return !string.IsNullOrEmpty(text) &&
-        (text.Contains("助かったよ！<sprite=1>の\r\n奥の方で人が倒れてたの!") ||
+        (text.Contains("助かったよ！<sprite=7>の\r\n奥の方で人が倒れてたの!") ||
         text.Contains("<sprite=6>で人が動けないってい叫んでたわ") ||
         text.Contains("<sprite=5>で人が倒れていたわ") ||
         text.Contains("さっき<sprite=2>に入った人がでてこないの...") ||

@@ -151,7 +151,6 @@ public class PlayController : MonoBehaviour
 
         PlayerPrefs.SetInt("Map", 0);
 
-        UnityEngine.Debug.Log("RunOut : " + RunOut);
 
 
         Rigidbody rb = this.transform.GetComponent<Rigidbody>();
@@ -337,6 +336,7 @@ public class PlayController : MonoBehaviour
                             #region 背負いダッシュ時のスタミナ
                             if (Stamina >= 0)
                             {
+                                UnityEngine.Assertions.Assert.IsTrue(StaminaDownSpeed > 0, "条件違反！");
                                 Stamina -= Time.deltaTime / StaminaDownSpeed;
                                 if (!SE_OneShot)
                                 {

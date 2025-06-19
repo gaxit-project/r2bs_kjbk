@@ -249,6 +249,28 @@
                 },
                 {
                     "name": "",
+                    "id": "d29ec89c-79bf-4bf8-8016-90b64a39ecde",
+                    "path": "<SwitchProControllerHID>/leftStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Joystick",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "63412c57-18d7-478f-ad7d-1cb77406608b",
+                    "path": "<XInputController>/leftStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Joystick",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "143bb1cd-cc10-4eca-a2f0-a3664166fe91",
                     "path": "<XInputController>/rightTrigger",
                     "interactions": "",
